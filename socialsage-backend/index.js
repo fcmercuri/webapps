@@ -1,4 +1,5 @@
 require('dotenv').config({ path: 'mongo.env' });
+console.log('STRIPE_SECRET_KEY present?', !!process.env.STRIPE_SECRET_KEY);
 
 const Persona = require('./models/Persona');
 const Prompt = require('./models/Prompt');
@@ -85,43 +86,52 @@ app.post('/api/create-checkout-session', async (req, res) => {
 });
 
 // --- STRIPE VERIFY SESSION ROUTE ---
+
 app.post('/api/stripe/verify-session', async (req, res) => {
   const { sessionId } = req.body;
-  console.log('Received session ID:', sessionId);
-
   if (!sessionId) {
-    console.log('No session ID provided in request body.');
     return res.status(400).json({ error: 'Session ID is required' });
   }
 
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    console.log('Stripe session:', session);
 
-    if (session.payment_status === 'paid') {
-      const email = session.customer_email;
-      console.log('Payment is paid. Looking up user by email:', email);
-
-      const user = await User.findOne({ email });
-      if (!user) {
-        console.log('User not found in database for email:', email);
-        return res.status(404).json({ error: 'User not found' });
-      }
-
-      user.isPremium = true;
-      await user.save();
-
-      console.log('User upgraded to premium:', user.email);
-      return res.json({ message: 'Payment verified and user upgraded' });
-    } else {
+    if (session.payment_status !== 'paid') {
       console.log('Payment not completed or subscription missing.');
       return res.status(400).json({ error: 'Payment not completed' });
     }
+
+    // 1) find user by email from session
+    const email = session.customer_email;
+    console.log('Payment is paid. Looking up user by email:', email);
+    const user = await User.findOne({ email });
+    if (!user) {
+      console.log('User not found in database for email:', email);
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // 2) NEW: get priceId and map to plan
+    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 1 });
+    const priceId = lineItems.data[0]?.price?.id;
+
+    if (priceId === process.env.STRIPE_PRICE_STARTER) {
+      user.plan = 'starter';
+      user.isPremium = true;
+    } else if (priceId === process.env.STRIPE_PRICE_PRO) {
+      user.plan = 'pro';
+      user.isPremium = true;
+    }
+
+    await user.save();
+
+    console.log('User upgraded, plan:', user.plan);
+    return res.json({ message: 'Payment verified', plan: user.plan });
   } catch (err) {
     console.error('Verification error:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // --- AUTH MIDDLEWARE ---
 function authenticateToken(req, res, next) {
@@ -207,6 +217,7 @@ app.post('/api/auth/login', async (req, res) => {
         email: user.email,
         industry: user.industry,
         isPremium: user.isPremium,
+        plan: user.plan,
       },
     });
   } catch (err) {
@@ -247,6 +258,15 @@ app.post('/api/personas/generate', authenticateToken, async (req, res) => {
 
     if (!industry) {
       return res.status(400).json({ error: 'Industry is required' });
+    }
+
+    // NEW: Starter limit – max 5 personas total
+    const user = await User.findById(req.userId);
+    const personaCount = await Persona.countDocuments({ userId: req.userId });
+    if (user.plan === 'starter' && personaCount >= 5) {
+      return res
+        .status(403)
+        .json({ error: 'Starter plan allows up to 5 personas. Upgrade to Pro for unlimited personas.' });
     }
 
     const systemPrompt =
@@ -470,6 +490,15 @@ app.post('/api/content/generate', authenticateToken, async (req, res) => {
     const prompt = await Prompt.findById(promptId).populate('personaId');
     if (!prompt) {
       return res.status(404).json({ error: 'Prompt not found' });
+    }
+
+    // NEW: Starter limit – max 50 content items total
+    const user = await User.findById(req.userId);
+    const contentCount = await Content.countDocuments({ userId: req.userId });
+    if (user.plan === 'starter' && contentCount >= 50) {
+      return res
+        .status(403)
+        .json({ error: 'Starter plan allows up to 50 content items. Upgrade to Pro for unlimited content.' });
     }
 
     const persona = prompt.personaId;

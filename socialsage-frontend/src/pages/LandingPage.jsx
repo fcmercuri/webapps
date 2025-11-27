@@ -10,9 +10,9 @@ export default function LandingPage() {
 
   // Move handleUpgrade inside the component
   async function handleUpgrade(priceId) {
-    if (!user.email) {
-      localStorage.setItem("upgradePriceId", priceId);
-      navigate("/register");
+    if (!user?.email) {
+      localStorage.setItem('upgradePriceId', priceId);
+      navigate('/register');
       return;
     }
     const res = await fetch('/api/create-checkout-session', {

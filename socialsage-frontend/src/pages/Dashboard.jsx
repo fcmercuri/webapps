@@ -8,10 +8,7 @@ import PromptCard from '../components/PromptCard';
 import ContentEditor from '../components/ContentEditor';
 import { motion } from 'framer-motion';
 
-
 export default function Dashboard() {
-  
-  
   const { user, setUser } = useAuth();
   const [personas, setPersonas] = useState([]);
   const [prompts, setPrompts] = useState([]);
@@ -19,6 +16,8 @@ export default function Dashboard() {
   const [generatedContent, setGeneratedContent] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  console.log('Dashboard user:', user);
 
   useEffect(() => {
     loadUserProfile();
@@ -47,10 +46,15 @@ export default function Dashboard() {
     try {
       setLoading(true);
       setError('');
+
+      if (user?.plan === 'starter' && personas.length >= 5) {
+        setError('Starter plan allows up to 5 personas. Upgrade to Pro for unlimited.');
+        return;
+      }
+
       await api.put('/user/industry', { industry });
       const res = await api.post('/personas/generate', { industry });
       setPersonas(res.data);
-
       setUser({ ...user, industry });
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate personas');
@@ -60,13 +64,12 @@ export default function Dashboard() {
   }
 
   async function handlePersonaClick(persona) {
-    if (persona.isPremium && !user?.isPremium) {
-      handleUpgrade();
+    if (persona.isPremium && user?.plan !== 'pro') {
+      await handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA');
       return;
     }
     setSelectedPersona(persona);
     setGeneratedContent(null);
-  
     try {
       setLoading(true);
       const res = await api.post('/prompts/generate', { personaId: persona._id });
@@ -83,25 +86,13 @@ export default function Dashboard() {
       setLoading(true);
       setError('');
       setGeneratedContent(null);
-
-      console.log('🔄 Requesting content for prompt:', promptId);
-
-      const res = await api.post('/content/generate', { 
-        promptId, 
-        type: 'website' 
-      });
-
-      console.log('✅ Content received from API:', res.data);
+      const res = await api.post('/content/generate', { promptId, type: 'website' });
       setGeneratedContent(res.data);
-
       setTimeout(() => {
         const editor = document.getElementById('content-editor');
-        if (editor) {
-          editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (editor) editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
     } catch (err) {
-      console.error('❌ Content generation error:', err);
       setError(err.response?.data?.error || 'Failed to generate content');
     } finally {
       setLoading(false);
@@ -110,15 +101,13 @@ export default function Dashboard() {
 
   async function handleSaveContent(content) {
     try {
-      // Save logic here
       alert('Content saved successfully!');
     } catch (err) {
       setError('Failed to save content');
     }
   }
 
-  // --- UPDATED: Stripe upgrade integration ---
-  async function handleUpgrade() {
+  async function handleUpgrade(priceId) {
     if (!user || !user.email) {
       alert('Please log in to upgrade.');
       return;
@@ -127,51 +116,68 @@ export default function Dashboard() {
       const res = await fetch('http://localhost:5000/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId: 'price_1SXpzjPwyyuQCEbaNxjlPgtA',
-          customerEmail: user.email,
-        }),
+        body: JSON.stringify({ priceId, customerEmail: user.email }),
       });
       const { url } = await res.json();
-      if (url) {
-        window.location = url;
-      } else {
-        alert('Failed to start payment. Please try again later.');
-      }
+      if (url) window.location = url;
+      else alert('Failed to start payment. Please try again later.');
     } catch (err) {
       alert('Failed to start payment: ' + (err.message || 'Unknown error'));
     }
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
-      color: '#fff'
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
+        color: '#fff',
+      }}
+    >
       <Sidebar />
 
       <div style={{ marginLeft: '240px', flex: 1, padding: '40px', maxWidth: '1400px' }}>
-        {/* --- Visible Premium Upgrade Button --- */}
-        {!user?.isPremium && (
+        {/* Upgrade buttons */}
+        {user && (
           <div style={{ marginBottom: 32 }}>
-            <button
-              onClick={handleUpgrade}
-              style={{
-                background: "#ffd945",
-                color: "#1a1a28",
-                fontWeight: 700,
-                border: "none",
-                padding: "0.8rem 2rem",
-                borderRadius: 8,
-                fontSize: "1.12rem",
-                cursor: "pointer",
-                boxShadow: "0 2px 12px #ffd94555"
-              }}
-            >
-              Upgrade to Premium
-            </button>
+            {user.plan === 'free' && (
+              <button
+                onClick={() => handleUpgrade('price_1SXqa1PwyyuQCEbaBU1sIZvY')}
+                style={{
+                  background: '#ffd945',
+                  color: '#1a1a28',
+                  fontWeight: 700,
+                  border: 'none',
+                  padding: '0.8rem 2rem',
+                  borderRadius: 8,
+                  fontSize: '1.12rem',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 12px #ffd94555',
+                }}
+              >
+                Upgrade to Starter
+              </button>
+            )}
+
+            {user.plan === 'starter' && (
+              <button
+                onClick={() => handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA')}
+                style={{
+                  background: '#ffd945',
+                  color: '#1a1a28',
+                  fontWeight: 700,
+                  border: 'none',
+                  padding: '0.8rem 2rem',
+                  borderRadius: 8,
+                  fontSize: '1.12rem',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 12px #ffd94555',
+                }}
+              >
+                Upgrade to Pro
+              </button>
+            )}
           </div>
         )}
 
@@ -222,8 +228,8 @@ export default function Dashboard() {
                 key={persona._id}
                 persona={persona}
                 onClick={() => handlePersonaClick(persona)}
-                isLocked={persona.isPremium && !user?.isPremium}
-                onUnlock={handleUpgrade}
+                isLocked={persona.isPremium && user?.plan !== 'pro'}
+                onUnlock={() => handleUpgrade('price_PRO_REAL_ID')}
               />
               ))}
             </div>
