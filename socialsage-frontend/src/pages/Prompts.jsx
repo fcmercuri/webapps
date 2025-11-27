@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function Personas() {
+export default function Prompts() {
   return (
     <div style={{ padding: "2rem", color: "#fff" }}>
-      <h1 style={{ fontSize: "1.8rem", fontWeight: 800 }}>Personas</h1>
+      <h1 style={{ fontSize: "1.8rem", fontWeight: 800 }}>Prompts</h1>
       <p style={{ color: "#bbb", marginTop: "0.5rem" }}>
-        View and manage your AI-generated personas here.
+        Browse and generate prompts for your personas.
       </p>
     </div>
   );
