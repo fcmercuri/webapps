@@ -1,18 +1,16 @@
-import api from './axios';
+import axios from 'axios';
 
-export async function register(email, password) {
-  const res = await api.post('/auth/register', { email, password });
-  return res.data;
-}
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL,
+  withCredentials: false,
+});
 
-export async function login(email, password) {
-  const res = await api.post('/auth/login', { email, password });
-  if (res.data.token) {
-    localStorage.setItem('token', res.data.token);
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-  return res.data;
-}
+  return config;
+});
 
-export function logout() {
-  localStorage.removeItem('token');
-}
+export default api;
