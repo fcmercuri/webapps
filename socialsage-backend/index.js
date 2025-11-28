@@ -65,7 +65,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     // Use environment to switch URLs
     const baseUrl =
       process.env.NODE_ENV === 'production'
-        ? 'https://socialsage.ai'
+        ? 'https://socialsage-frontend.onrender.com'
         : 'http://localhost:3000';
 
     const session = await stripe.checkout.sessions.create({
