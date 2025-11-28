@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://webapps2-1is4.onrender.com/', // your Render static site URL
+      'https://webapps2-1is4.onrender.com', 
     ],
     credentials: true,
   })
