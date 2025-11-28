@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://webapps-8cre.onrender.com',
+      'https://socialsage-frontend.onrender.com',
     ],
     credentials: true,
   })
