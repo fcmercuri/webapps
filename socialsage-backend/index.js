@@ -20,7 +20,10 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://webapps-8cre.onrender.com',
+    ],
     credentials: true,
   })
 );
