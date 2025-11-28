@@ -1,83 +1,276 @@
-// src/pages/Personas.jsx
-
-import React from "react";
-import { motion } from "framer-motion";
-
-const personas = [
-  {
-    id: 1,
-    name: "SaaS Start-up Marketer",
-    industry: "Tech",
-    bio: "Focuses on growth hacking and viral strategies for B2B apps.",
-    avatar: "/avatars/saas.png",
-    score: 86,
-    trend: +8,
-    scoreLabel: "Visibility Score",
-    scoreDesc: "How often this persona appears in your analysis.",
-  },
-  // ...add more as needed
-];
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Personas() {
+  const navigate = useNavigate();
+  const [personas, setPersonas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadPersonas() {
+      try {
+        setLoading(true);
+        setError("");
+        const token = localStorage.getItem("token");
+        const res = await fetch("http://localhost:5000/api/personas", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!res.ok) throw new Error("Failed to load personas");
+        const data = await res.json();
+        setPersonas(data || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPersonas();
+  }, []);
+
+  const total = personas.length;
+  const premiumCount = personas.filter(p => p.isPremium).length;
+  const latest = personas[0]; // you sort by createdAt desc in backend
+
   return (
-    <section>
-      <h1 style={{ textAlign: "center", marginBottom: 30 }}>Your Personas</h1>
-      <div style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "2rem",
-        justifyContent: "center",
-      }}>
-        {personas.map((persona, idx) => (
-          <motion.div
-            key={persona.id}
-            className="card"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.04, boxShadow: "0 8px 32px #ffd94544" }}
-            transition={{ duration: 0.6 + idx * 0.06 }}
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)",
+        color: "#fff",
+      }}
+    >
+      {/* Top bar */}
+      <header
+        style={{
+          maxWidth: 1120,
+          margin: "0 auto",
+          padding: "20px 20px 10px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <img
+            src="/logo.jpg"
+            alt="SocialSage Logo"
             style={{
-              maxWidth: 330,
-              minWidth: 260,
-              flex: "1 1 260px",
-              textAlign: "center"
+              width: 32,
+              height: 32,
+              borderRadius: 10,
+              objectFit: "cover",
+              boxShadow: "0 4px 12px rgba(255, 217, 69, 0.2)",
+            }}
+          />
+          <span
+            style={{
+              fontWeight: 800,
+              fontSize: "1.3rem",
+              letterSpacing: "-0.04em",
             }}
           >
-            <img
-              src={persona.avatar}
-              alt={persona.name}
+            SocialSage
+          </span>
+        </div>
+
+        <button
+          onClick={() => navigate("/dashboard")}
+          style={{
+            background: "transparent",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: 999,
+            padding: "7px 16px",
+            color: "#eee",
+            fontSize: "0.9rem",
+            cursor: "pointer",
+          }}
+        >
+          Back to app
+        </button>
+      </header>
+
+      {/* Main */}
+      <main
+        style={{
+          maxWidth: 1120,
+          margin: "40px auto 80px",
+          padding: "0 20px",
+        }}
+      >
+        <h1 style={{ fontSize: "2rem", fontWeight: 900, marginBottom: 16 }}>
+          Personas
+        </h1>
+
+        {loading && <p style={{ color: "#bbb" }}>Loading personas…</p>}
+
+        {error && (
+          <div
+            style={{
+              background: "rgba(239,68,68,0.08)",
+              border: "1px solid rgba(239,68,68,0.45)",
+              color: "#fecaca",
+              padding: "10px 14px",
+              borderRadius: 10,
+              marginBottom: 20,
+            }}
+          >
+            {error}
+          </div>
+        )}
+
+        {!loading && !error && (
+          <>
+            {/* Stats row */}
+            <div
               style={{
-                width: 54,
-                height: 54,
-                borderRadius: "50%",
-                marginBottom: "1rem",
-                border: "2px solid #222"
+                display: "flex",
+                gap: 16,
+                flexWrap: "wrap",
+                marginBottom: 24,
               }}
-            />
-            <h3 style={{ marginBottom: 4 }}>{persona.name}</h3>
-            <span style={{
-              color: "#ffd945", fontWeight: 600, fontSize: "0.98rem"
-            }}>{persona.industry}</span>
-            <p style={{ color: "#bdbdbd", margin: "14px 0", fontSize: "1rem" }}>{persona.bio}</p>
-            <div style={{
-              margin: "15px 0 7px 0",
-              background: "#19191b",
-              borderRadius: 7,
-              padding: 10
-            }}>
-              <strong>{persona.scoreLabel}: </strong>
-              <span style={{ color: "#bbb" }}>{persona.scoreDesc}</span>
-              <div style={{ marginTop: 6 }}>
-                <span style={{ fontWeight: 800, fontSize: "1.1rem", marginRight: 7 }}>{persona.score}%</span>
-                <span style={{ color: persona.trend >= 0 ? "#2cf78e" : "#ef476f", fontWeight: 700 }}>
-                  {persona.trend >= 0 ? "↑" : "↓"} {Math.abs(persona.trend)}%
-                </span>
+            >
+              <div
+                style={{
+                  flex: "0 0 200px",
+                  background: "#15151f",
+                  borderRadius: 16,
+                  padding: "16px 18px",
+                  border: "1px solid rgba(255,255,255,0.04)",
+                }}
+              >
+                <div style={{ fontSize: 13, color: "#aaa" }}>
+                  Total personas
+                </div>
+                <div
+                  style={{
+                    fontSize: 28,
+                    fontWeight: 800,
+                    marginTop: 4,
+                  }}
+                >
+                  {total}
+                </div>
+              </div>
+
+              <div
+                style={{
+                  flex: "0 0 200px",
+                  background: "#15151f",
+                  borderRadius: 16,
+                  padding: "16px 18px",
+                  border: "1px solid rgba(255,217,69,0.15)",
+                }}
+              >
+                <div style={{ fontSize: 13, color: "#aaa" }}>
+                  Premium personas
+                </div>
+                <div
+                  style={{
+                    fontSize: 28,
+                    fontWeight: 800,
+                    color: "#ffd945",
+                    marginTop: 4,
+                  }}
+                >
+                  {premiumCount}
+                </div>
               </div>
             </div>
-            <button className="cta" style={{ width: "100%", marginTop: 12 }}>View / Edit</button>
-          </motion.div>
-        ))}
-      </div>
-    </section>
+
+            {total === 0 && (
+              <div
+                style={{
+                  background: "rgba(255,255,255,0.02)",
+                  borderRadius: 18,
+                  padding: "20px 22px",
+                  border: "1px dashed rgba(255,255,255,0.15)",
+                  color: "#ddd",
+                  maxWidth: 520,
+                }}
+              >
+                You don’t have any personas yet. Go back to the dashboard and
+                select an industry to generate your first 4 personas.
+              </div>
+            )}
+
+            {latest && (
+              <div
+                style={{
+                  marginTop: 8,
+                  background: "linear-gradient(135deg,#171727,#111119)",
+                  borderRadius: 20,
+                  padding: "20px 22px",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  maxWidth: 640,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 12,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "#ffd945",
+                    marginBottom: 4,
+                  }}
+                >
+                  Latest persona
+                </div>
+                <h2
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 800,
+                    margin: "0 0 6px",
+                  }}
+                >
+                  {latest.name} · {latest.age} · {latest.industry}
+                </h2>
+                <p
+                  style={{
+                    color: "#ccc",
+                    fontSize: 14,
+                    margin: "0 0 10px",
+                  }}
+                >
+                  {latest.bio}
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 16,
+                    flexWrap: "wrap",
+                    fontSize: 13,
+                    color: "#aaa",
+                  }}
+                >
+                  <div>
+                    <strong style={{ color: "#fff", fontSize: 12 }}>
+                      Goals
+                    </strong>
+                    <ul style={{ margin: "6px 0 0 16px" }}>
+                      {latest.goals.slice(0, 3).map((g, i) => (
+                        <li key={i}>{g}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <strong style={{ color: "#fff", fontSize: 12 }}>
+                      Pain points
+                    </strong>
+                    <ul style={{ margin: "6px 0 0 16px" }}>
+                      {latest.painPoints.slice(0, 3).map((p, i) => (
+                        <li key={i}>{p}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </main>
+    </div>
   );
 }
