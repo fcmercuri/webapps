@@ -20,10 +20,14 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://your-frontend.vercel.app'],
+    origin: [
+      'http://localhost:3000',
+      'https://webapps2-1is4.onrender.com/', // your Render static site URL
+    ],
     credentials: true,
   })
 );
+
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
@@ -260,14 +264,24 @@ app.post('/api/personas/generate', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Industry is required' });
     }
 
-    // NEW: Starter limit – max 5 personas total
-    const user = await User.findById(req.userId);
-    const personaCount = await Persona.countDocuments({ userId: req.userId });
-    if (user.plan === 'starter' && personaCount >= 5) {
-      return res
-        .status(403)
-        .json({ error: 'Starter plan allows up to 5 personas. Upgrade to Pro for unlimited personas.' });
-    }
+// NEW: Free & Starter limits
+const user = await User.findById(req.userId);
+const personaCount = await Persona.countDocuments({ userId: req.userId });
+
+// Free: max 1 persona
+if (user.plan === 'free' && personaCount >= 1) {
+  return res
+    .status(403)
+    .json({ error: 'Free plan allows only 1 persona. Upgrade to Starter for more.' });
+}
+
+// Starter: max 5 personas
+if (user.plan === 'starter' && personaCount >= 5) {
+  return res
+    .status(403)
+    .json({ error: 'Starter plan allows up to 5 personas. Upgrade to Pro for unlimited personas.' });
+}
+
 
     const systemPrompt =
       'You are a marketing strategist expert. You MUST respond with ONLY valid JSON - no markdown, no explanations, no code blocks. Just pure JSON array.';
