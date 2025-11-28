@@ -50,8 +50,7 @@ export default function Register() {
 
         const res = await fetch(
           `${process.env.REACT_APP_API_BASE_URL}/api/create-checkout-session`,
-          {
-        
+          {        
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ priceId: upgradePriceId, customerEmail: email }),
