@@ -5,95 +5,264 @@ import { useAuth } from '../auth/AuthContext';
 export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useAuth(); // user.plan: 'free' | 'starter' | 'pro'
+  const { user } = useAuth();
   const plan = user?.plan || 'free';
-
-  const items = [
-    { label: 'Dashboard', icon: '🏠', path: '/dashboard', minPlan: 'free' },
-    { label: 'Personas', icon: '🧑‍💼', path: '/personas', minPlan: 'starter' },
-    { label: 'Prompts', icon: '💡', path: '/prompts', minPlan: 'starter' },
-    { label: 'Content', icon: '🔥', path: '/content', minPlan: 'starter' },
-    { label: 'Insights', icon: '📊', path: '/persona-insights', minPlan: 'pro' },
-    { label: 'Visuals', icon: '📈 ', path: '/upgrade', minPlan: 'free' },
-  ];
 
   function hasAccess(minPlan) {
     if (minPlan === 'free') return true;
     if (minPlan === 'starter') return plan === 'starter' || plan === 'pro';
     if (minPlan === 'pro') return plan === 'pro';
-    return false;
+    return true;
   }
 
-  function handleClick(item) {
-    if (!hasAccess(item.minPlan)) {
+  function handleNav(path, minPlan) {
+    if (!hasAccess(minPlan)) {
       navigate('/upgrade');
       return;
     }
-    navigate(item.path);
+    navigate(path);
   }
+
+  const isActive = (path) => location.pathname.startsWith(path);
+
+  const baseItemStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 12,
+    width: '100%',
+    padding: '10px 18px',
+    borderRadius: 16,
+    border: 'none',
+    background: 'transparent',
+    color: '#e5e7eb',
+    fontSize: '1rem',
+    textAlign: 'left',
+    cursor: 'pointer',
+    outline: 'none',
+  };
+
+  const lockedStyle = {
+    opacity: 0.4,
+  };
+
+  const labelStyle = {
+    fontWeight: 500,
+  };
 
   return (
     <aside
       style={{
-        width: 240,
-        background: '#050509',
+        width: 260,
+        background: '#050508',
+        color: '#fff',
+        padding: '24px 24px 32px',
         borderRight: '1px solid rgba(148,163,184,0.25)',
-        padding: '24px 18px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         position: 'fixed',
         inset: 0,
         maxHeight: '100vh',
       }}
     >
-      {/* Logo etc... */}
+      {/* Top: logo + nav */}
+      <div>
+        {/* Logo block */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
+          <div
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 12,
+              background: '#ffd945',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 6px 18px rgba(250,204,21,0.4)',
+            }}
+          >
+            <span style={{ fontSize: 20 }}>🟡</span>
+          </div>
+          <div
+            style={{
+              fontWeight: 800,
+              fontSize: '1.35rem',
+              letterSpacing: '-0.04em',
+            }}
+          >
+            SocialSage
+          </div>
+        </div>
 
-      <nav style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {items.map((item) => {
-          const active = location.pathname.startsWith(item.path);
-          const locked = !hasAccess(item.minPlan) && item.label !== 'Upgrade';
+        {/* Navigation items */}
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Dashboard – always unlocked */}
+          <button
+            onClick={() => handleNav('/dashboard', 'free')}
+            style={{
+              ...baseItemStyle,
+              background: isActive('/dashboard')
+                ? 'linear-gradient(135deg,#ffd945,#fbbf24)'
+                : 'rgba(15,23,42,0.8)',
+              color: isActive('/dashboard') ? '#111827' : '#f9fafb',
+              fontWeight: isActive('/dashboard') ? 700 : 500,
+              boxShadow: isActive('/dashboard')
+                ? '0 10px 30px rgba(250,204,21,0.45)'
+                : 'none',
+            }}
+          >
+            <span style={{ fontSize: '1.2rem' }}>🏠</span>
+            <span style={labelStyle}>Dashboard</span>
+          </button>
 
-          return (
-            <button
-              key={item.label}
-              onClick={() => handleClick(item)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-                padding: '10px 12px',
-                borderRadius: 10,
-                border: 'none',
-                textAlign: 'left',
-                cursor: 'pointer',
-                background: active
-                  ? 'linear-gradient(135deg,#ffd945,#fbbf24)'
-                  : 'transparent',
-                color: locked ? '#6b7280' : active ? '#111827' : '#e5e7eb',
-                opacity: locked && !active ? 0.5 : 1,
-              }}
-            >
-              <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
+          {/* Personas – starter+ */}
+          <button
+            onClick={() => handleNav('/personas', 'starter')}
+            style={{
+              ...baseItemStyle,
+              ...(plan === 'free' ? lockedStyle : {}),
+              fontWeight: isActive('/personas') ? 600 : 500,
+            }}
+          >
+            <span style={{ fontSize: '1.2rem' }}>🧑‍💼</span>
+            <span style={labelStyle}>Personas</span>
+            {plan === 'free' && (
+              <span
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: '0.75rem',
+                  padding: '2px 8px',
+                  borderRadius: 999,
+                  background: 'rgba(148,163,184,0.25)',
+                  color: '#9ca3af',
+                  fontWeight: 600,
+                }}
+              >
+                PRO
               </span>
+            )}
+          </button>
 
-              {locked && (
-                <span
-                  style={{
-                    fontSize: '0.75rem',
-                    padding: '2px 8px',
-                    borderRadius: 999,
-                    background: 'rgba(148,163,184,0.25)',
-                    color: '#9ca3af',
-                  }}
-                >
-                  PRO
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </nav>
+          {/* Prompts – starter+ */}
+          <button
+            onClick={() => handleNav('/prompts', 'starter')}
+            style={{
+              ...baseItemStyle,
+              ...(plan === 'free' ? lockedStyle : {}),
+              fontWeight: isActive('/prompts') ? 600 : 500,
+            }}
+          >
+            <span style={{ fontSize: '1.2rem' }}>💡</span>
+            <span style={labelStyle}>Prompts</span>
+            {plan === 'free' && (
+              <span
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: '0.75rem',
+                  padding: '2px 8px',
+                  borderRadius: 999,
+                  background: 'rgba(148,163,184,0.25)',
+                  color: '#9ca3af',
+                  fontWeight: 600,
+                }}
+              >
+                PRO
+              </span>
+            )}
+          </button>
+
+          {/* Content – starter+ */}
+          <button
+            onClick={() => handleNav('/content', 'starter')}
+            style={{
+              ...baseItemStyle,
+              ...(plan === 'free' ? lockedStyle : {}),
+              fontWeight: isActive('/content') ? 600 : 500,
+            }}
+          >
+            <span style={{ fontSize: '1.2rem' }}>✍️</span>
+            <span style={labelStyle}>Content</span>
+            {plan === 'free' && (
+              <span
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: '0.75rem',
+                  padding: '2px 8px',
+                  borderRadius: 999,
+                  background: 'rgba(148,163,184,0.25)',
+                  color: '#9ca3af',
+                  fontWeight: 600,
+                }}
+              >
+                PRO
+              </span>
+            )}
+          </button>
+
+          {/* Saved – starter+ (optional) */}
+          <button
+            onClick={() => handleNav('/saved', 'starter')}
+            style={{
+              ...baseItemStyle,
+              ...(plan === 'free' ? lockedStyle : {}),
+              fontWeight: isActive('/saved') ? 600 : 500,
+            }}
+          >
+            <span style={{ fontSize: '1.2rem' }}>⭐</span>
+            <span style={labelStyle}>Saved</span>
+            {plan === 'free' && (
+              <span
+                style={{
+                  marginLeft: 'auto',
+                  fontSize: '0.75rem',
+                  padding: '2px 8px',
+                  borderRadius: 999,
+                  background: 'rgba(148,163,184,0.25)',
+                  color: '#9ca3af',
+                  fontWeight: 600,
+                }}
+              >
+                PRO
+              </span>
+            )}
+          </button>
+
+          {/* Upgrade – always unlocked */}
+          <button
+            onClick={() => handleNav('/upgrade', 'free')}
+            style={{
+              ...baseItemStyle,
+              marginTop: 8,
+              fontWeight: isActive('/upgrade') ? 600 : 500,
+            }}
+          >
+            <span style={{ fontSize: '1.2rem' }}>🔒</span>
+            <span style={labelStyle}>Upgrade</span>
+          </button>
+        </nav>
+      </div>
+
+      {/* Bottom: Logout (keep your existing styles here) */}
+      <button
+        onClick={() => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          navigate('/login');
+        }}
+        style={{
+          width: '100%',
+          marginTop: 24,
+          padding: '12px 18px',
+          borderRadius: 999,
+          border: '1px solid rgba(248,113,113,0.5)',
+          background: 'rgba(127,29,29,0.9)',
+          color: '#fecaca',
+          fontWeight: 700,
+          cursor: 'pointer',
+        }}
+      >
+        Logout
+      </button>
     </aside>
   );
 }
