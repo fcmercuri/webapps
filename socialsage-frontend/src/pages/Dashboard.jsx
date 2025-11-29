@@ -26,7 +26,7 @@ export default function Dashboard() {
 
   async function loadUserProfile() {
     try {
-      const res = await api.get('/user/profile');
+      const res = await api.get('/api/user/profile');
       setUser(res.data);
     } catch (err) {
       console.error('Failed to load profile');
@@ -35,7 +35,7 @@ export default function Dashboard() {
 
   async function loadPersonas() {
     try {
-      const res = await api.get('/personas');
+      const res = await api.get('/api/personas');
       setPersonas(res.data);
     } catch (err) {
       setError('Failed to load personas');
@@ -53,7 +53,7 @@ export default function Dashboard() {
       }
 
       await api.put('/user/industry', { industry });
-      const res = await api.post('/personas/generate', { industry });
+      const res = await api.post('/api/personas/generate', { industry });
       setPersonas(res.data);
       setUser({ ...user, industry });
     } catch (err) {

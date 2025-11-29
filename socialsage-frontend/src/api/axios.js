@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,  // no localhost here
+  baseURL: process.env.REACT_APP_API_BASE_URL, // e.g. https://socialsageback.onrender.com
 });
 
 api.interceptors.request.use((config) => {

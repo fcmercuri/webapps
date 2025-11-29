@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [personas, setPersonas] = useState([]);
   const [prompts, setPrompts] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -20,8 +20,20 @@ export default function Dashboard() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    loadUserProfile();
     loadPersonas();
   }, []);
+
+  async function loadUserProfile() {
+    try {
+      setError('');
+      const res = await api.get('/api/user/profile');
+      setUser(res.data);
+    } catch (err) {
+      console.error('Failed to load profile', err);
+      setError('Failed to load profile');
+    }
+  }
 
   async function loadPersonas() {
     try {
@@ -34,9 +46,27 @@ export default function Dashboard() {
     }
   }
 
-  async function handleIndustrySelect() {
-    // No industry-based API yet; just refresh personas.
-    await loadPersonas();
+  async function handleIndustrySelect(industry) {
+    try {
+      setLoading(true);
+      setError('');
+
+      // Update user industry
+      await api.put('/api/user/industry', { industry });
+
+      // Generate personas
+      const res = await api.post('/api/personas/generate', { industry });
+      setPersonas(res.data);
+
+      if (user) {
+        setUser({ ...user, industry });
+      }
+    } catch (err) {
+      console.error('Failed to generate personas', err);
+      setError(err.response?.data?.error || 'Failed to generate personas');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handlePersonaClick(persona) {
@@ -47,11 +77,37 @@ export default function Dashboard() {
 
     setSelectedPersona(persona);
     setGeneratedContent(null);
-    setPrompts([]); // no prompts API yet
+
+    try {
+      setLoading(true);
+      setError('');
+      const res = await api.post('/api/prompts/generate', {
+        personaId: persona._id,
+      });
+      setPrompts(res.data);
+    } catch (err) {
+      console.error('Failed to generate prompts', err);
+      setError('Failed to generate prompts');
+    } finally {
+      setLoading(false);
+    }
   }
 
-  async function handleGenerateContent() {
-    alert('Content generation API is not implemented yet on the server.');
+  async function handleGenerateContent(promptId) {
+    try {
+      setLoading(true);
+      setError('');
+      const res = await api.post('/api/content/generate', {
+        promptId,
+        type: 'website',
+      });
+      setGeneratedContent(res.data);
+    } catch (err) {
+      console.error('Failed to generate content', err);
+      setError(err.response?.data?.error || 'Failed to generate content');
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleSaveContent(content) {
@@ -132,8 +188,11 @@ export default function Dashboard() {
           </motion.div>
         )}
 
-        {/* Industry Selector (stubbed) */}
-        <IndustrySelector onSelect={handleIndustrySelect} currentIndustry={user?.industry} />
+        {/* Industry Selector */}
+        <IndustrySelector
+          onSelect={handleIndustrySelect}
+          currentIndustry={user?.industry}
+        />
 
         {/* Personas Section */}
         {personas.length > 0 && (
@@ -179,7 +238,7 @@ export default function Dashboard() {
               marginTop: '40px',
             }}
           >
-            {/* Left: Prompts (empty until backend exists) */}
+            {/* Left: Prompts */}
             <div>
               <h2
                 style={{
