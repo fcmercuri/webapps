@@ -8,8 +8,10 @@ import PromptCard from '../components/PromptCard';
 import ContentEditor from '../components/ContentEditor';
 import { motion } from 'framer-motion';
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export default function Dashboard() {
-  const { user, setUser } = useAuth();
+  const { user } = useAuth();
   const [personas, setPersonas] = useState([]);
   const [prompts, setPrompts] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -18,46 +20,22 @@ export default function Dashboard() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    loadUserProfile();
     loadPersonas();
   }, []);
 
-  async function loadUserProfile() {
-    try {
-      const res = await api.get('/user/profile');
-      setUser(res.data);
-    } catch (err) {
-      console.error('Failed to load profile');
-    }
-  }
-
   async function loadPersonas() {
     try {
-      const res = await api.get('/personas');
+      const res = await api.get('/api/personas');
       setPersonas(res.data);
     } catch (err) {
       setError('Failed to load personas');
     }
   }
 
-  async function handleIndustrySelect(industry) {
-    try {
-      setLoading(true);
-      setError('');
-      
-      // Update user industry
-      await api.put('/user/industry', { industry });
-      
-      // Generate personas
-      const res = await api.post('/personas/generate', { industry });
-      setPersonas(res.data);
-      
-      setUser({ ...user, industry });
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate personas');
-    } finally {
-      setLoading(false);
-    }
+  async function handleIndustrySelect() {
+    // Backend does not yet support /user/industry or /personas/generate,
+    // so just reload personas if needed.
+    await loadPersonas();
   }
 
   async function handlePersonaClick(persona) {
@@ -68,52 +46,61 @@ export default function Dashboard() {
 
     setSelectedPersona(persona);
     setGeneratedContent(null);
-    
-    // Load prompts for this persona
-    try {
-      setLoading(true);
-      const res = await api.post('/prompts/generate', { personaId: persona._id });
-      setPrompts(res.data);
-    } catch (err) {
-      setError('Failed to generate prompts');
-    } finally {
-      setLoading(false);
-    }
+    setPrompts([]); // no /prompts/generate route yet
   }
 
-  async function handleGenerateContent(promptId) {
-    try {
-      setLoading(true);
-      setError('');
-      const res = await api.post('/content/generate', { promptId, type: 'website' });
-      setGeneratedContent(res.data);
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate content');
-    } finally {
-      setLoading(false);
-    }
+  async function handleGenerateContent() {
+    // No /content/generate route in backend yet; stub for now.
+    alert('Content generation API is not implemented yet on the server.');
   }
 
   async function handleSaveContent(content) {
     try {
-      // Save logic here (update content in DB)
-      alert('Content saved successfully!');
+      // Stub: no save route yet
+      console.log('Saving content:', content);
+      alert('Content saved successfully (stub).');
     } catch (err) {
       setError('Failed to save content');
     }
   }
 
-  function handleUpgrade() {
-    alert('Upgrade feature coming soon! Contact support for early access.');
+  async function handleUpgrade() {
+    try {
+      const token = localStorage.getItem('token');
+
+      const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token ? `Bearer ${token}` : undefined,
+        },
+        body: JSON.stringify({
+          customerEmail: user?.email,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (data.error) {
+        setError(data.error);
+      }
+    } catch (err) {
+      console.error('Upgrade failed', err);
+      setError('Failed to start checkout session');
+    }
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
-      color: '#fff'
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
+        color: '#fff',
+      }}
+    >
       <Sidebar />
 
       {/* Main Content */}
@@ -130,37 +117,38 @@ export default function Dashboard() {
               padding: '16px 20px',
               borderRadius: '12px',
               marginBottom: '30px',
-              fontWeight: 500
+              fontWeight: 500,
             }}
           >
             {error}
           </motion.div>
         )}
 
-        {/* Industry Selector */}
-        <IndustrySelector
-          onSelect={handleIndustrySelect}
-          currentIndustry={user?.industry}
-        />
+        {/* Industry Selector (stubbed) */}
+        <IndustrySelector onSelect={handleIndustrySelect} currentIndustry={user?.industry} />
 
         {/* Personas Section */}
         {personas.length > 0 && (
           <div style={{ marginBottom: '40px' }}>
-            <h2 style={{
-              fontSize: '1.8rem',
-              fontWeight: 800,
-              color: '#ffd945',
-              margin: '0 0 20px 0',
-              letterSpacing: '-0.5px'
-            }}>
+            <h2
+              style={{
+                fontSize: '1.8rem',
+                fontWeight: 800,
+                color: '#ffd945',
+                margin: '0 0 20px 0',
+                letterSpacing: '-0.5px',
+              }}
+            >
               Your Customer Personas
             </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-              gap: '20px'
-            }}>
-              {personas.map((persona, i) => (
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                gap: '20px',
+              }}
+            >
+              {personas.map((persona) => (
                 <PersonaCard
                   key={persona._id}
                   persona={persona}
@@ -175,21 +163,25 @@ export default function Dashboard() {
 
         {/* Prompts & Content Section */}
         {selectedPersona && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1.2fr',
-            gap: '30px',
-            marginTop: '40px'
-          }}>
-            {/* Left: Prompts */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1.2fr',
+              gap: '30px',
+              marginTop: '40px',
+            }}
+          >
+            {/* Left: Prompts (empty until you add backend) */}
             <div>
-              <h2 style={{
-                fontSize: '1.5rem',
-                fontWeight: 800,
-                color: '#ffd945',
-                margin: '0 0 20px 0',
-                letterSpacing: '-0.5px'
-              }}>
+              <h2
+                style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 800,
+                  color: '#ffd945',
+                  margin: '0 0 20px 0',
+                  letterSpacing: '-0.5px',
+                }}
+              >
                 Content Ideas for {selectedPersona.name}
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
@@ -206,10 +198,7 @@ export default function Dashboard() {
 
             {/* Right: Content Editor */}
             <div>
-              <ContentEditor
-                content={generatedContent}
-                onSave={handleSaveContent}
-              />
+              <ContentEditor content={generatedContent} onSave={handleSaveContent} />
             </div>
           </div>
         )}
@@ -222,7 +211,7 @@ export default function Dashboard() {
             style={{
               textAlign: 'center',
               padding: '60px 20px',
-              color: '#bbb'
+              color: '#bbb',
             }}
           >
             <div style={{ fontSize: '4rem', marginBottom: '20px' }}>🚀</div>
