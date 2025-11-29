@@ -1,128 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../auth/AuthContext';
-import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
-import IndustrySelector from '../components/IndustrySelector';
 import PersonaCard from '../components/PersonaCard';
-import PromptCard from '../components/PromptCard';
-import ContentEditor from '../components/ContentEditor';
 import { motion } from 'framer-motion';
+import api from '../api/axios';
 
 export default function Dashboard() {
-  const { user, setUser } = useAuth();
   const [personas, setPersonas] = useState([]);
-  const [prompts, setPrompts] = useState([]);
-  const [selectedPersona, setSelectedPersona] = useState(null);
-  const [generatedContent, setGeneratedContent] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  console.log('Dashboard user:', user);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    loadUserProfile();
     loadPersonas();
   }, []);
 
-  async function loadUserProfile() {
-    try {
-      const res = await api.get('/api/user/profile');
-      setUser(res.data);
-    } catch (err) {
-      console.error('Failed to load profile');
-    }
-  }
-
   async function loadPersonas() {
     try {
-      const res = await api.get('/api/personas');
+      setLoading(true);
+      setError('');
+      const res = await api.get('/api/personas'); // this route exists
       setPersonas(res.data);
     } catch (err) {
+      console.error('Failed to load personas', err);
       setError('Failed to load personas');
-    }
-  }
-
-  async function handleIndustrySelect(industry) {
-    try {
-      setLoading(true);
-      setError('');
-
-      if (user?.plan === 'starter' && personas.length >= 5) {
-        setError('Starter plan allows up to 5 personas. Upgrade to Pro for unlimited.');
-        return;
-      }
-
-      await api.put('/user/industry', { industry });
-      const res = await api.post('/api/personas/generate', { industry });
-      setPersonas(res.data);
-      setUser({ ...user, industry });
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate personas');
     } finally {
       setLoading(false);
-    }
-  }
-
-  async function handlePersonaClick(persona) {
-    if (persona.isPremium && user?.plan !== 'pro') {
-      await handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA');
-      return;
-    }
-    setSelectedPersona(persona);
-    setGeneratedContent(null);
-    try {
-      setLoading(true);
-      const res = await api.post('/prompts/generate', { personaId: persona._id });
-      setPrompts(res.data);
-    } catch (err) {
-      setError('Failed to generate prompts');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleGenerateContent(promptId) {
-    try {
-      setLoading(true);
-      setError('');
-      setGeneratedContent(null);
-      const res = await api.post('/content/generate', { promptId, type: 'website' });
-      setGeneratedContent(res.data);
-      setTimeout(() => {
-        const editor = document.getElementById('content-editor');
-        if (editor) editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate content');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleSaveContent(content) {
-    try {
-      alert('Content saved successfully!');
-    } catch (err) {
-      setError('Failed to save content');
-    }
-  }
-
-  async function handleUpgrade(priceId) {
-    if (!user || !user.email) {
-      alert('Please log in to upgrade.');
-      return;
-    }
-    try {
-      const res = await fetch('${BASE_URL}/api/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId, customerEmail: user.email }),
-      });
-      const { url } = await res.json();
-      if (url) window.location = url;
-      else alert('Failed to start payment. Please try again later.');
-    } catch (err) {
-      alert('Failed to start payment: ' + (err.message || 'Unknown error'));
     }
   }
 
@@ -138,50 +39,6 @@ export default function Dashboard() {
       <Sidebar />
 
       <div style={{ marginLeft: '240px', flex: 1, padding: '40px', maxWidth: '1400px' }}>
-        {/* Upgrade buttons */}
-        {user && (
-          <div style={{ marginBottom: 32 }}>
-            {user.plan === 'free' && (
-              <button
-                onClick={() => handleUpgrade('price_1SXqa1PwyyuQCEbaBU1sIZvY')}
-                style={{
-                  background: '#ffd945',
-                  color: '#1a1a28',
-                  fontWeight: 700,
-                  border: 'none',
-                  padding: '0.8rem 2rem',
-                  borderRadius: 8,
-                  fontSize: '1.12rem',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 12px #ffd94555',
-                }}
-              >
-                Upgrade to Starter
-              </button>
-            )}
-
-            {user.plan === 'starter' && (
-              <button
-                onClick={() => handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA')}
-                style={{
-                  background: '#ffd945',
-                  color: '#1a1a28',
-                  fontWeight: 700,
-                  border: 'none',
-                  padding: '0.8rem 2rem',
-                  borderRadius: 8,
-                  fontSize: '1.12rem',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 12px #ffd94555',
-                }}
-              >
-                Upgrade to Pro
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Error Message */}
         {error && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -193,97 +50,51 @@ export default function Dashboard() {
               padding: '16px 20px',
               borderRadius: '12px',
               marginBottom: '30px',
-              fontWeight: 500
+              fontWeight: 500,
             }}
           >
             {error}
           </motion.div>
         )}
 
-        {/* Industry Selector */}
-        <IndustrySelector
-          onSelect={handleIndustrySelect}
-          currentIndustry={user?.industry}
-        />
+        <h2
+          style={{
+            fontSize: '1.8rem',
+            fontWeight: 800,
+            color: '#ffd945',
+            margin: '0 0 20px 0',
+            letterSpacing: '-0.5px',
+          }}
+        >
+          Your Customer Personas
+        </h2>
 
-        {/* Personas Section */}
-        {personas.length > 0 && (
-          <div style={{ marginBottom: '40px' }}>
-            <h2 style={{
-              fontSize: '1.8rem',
-              fontWeight: 800,
-              color: '#ffd945',
-              margin: '0 0 20px 0',
-              letterSpacing: '-0.5px'
-            }}>
-              Your Customer Personas
-            </h2>
-            <div style={{
+        {personas.length > 0 ? (
+          <div
+            style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-              gap: '20px'
-            }}>
-              {personas.map((persona) => (
-                <PersonaCard
+              gap: '20px',
+            }}
+          >
+            {personas.map((persona) => (
+              <PersonaCard
                 key={persona._id}
                 persona={persona}
-                onClick={() => handlePersonaClick(persona)}
-                isLocked={persona.isPremium && user?.plan !== 'pro'}
-                onUnlock={() => handleUpgrade('price_PRO_REAL_ID')}
+                onClick={() => {}}
+                isLocked={false}
+                onUnlock={() => {}}
               />
-              ))}
-            </div>
+            ))}
           </div>
-        )}
-
-        {selectedPersona && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1.2fr',
-            gap: '30px',
-            marginTop: '40px'
-          }}>
-            {/* Left: Prompts */}
-            <div>
-              <h2 style={{
-                fontSize: '1.5rem',
-                fontWeight: 800,
-                color: '#ffd945',
-                margin: '0 0 20px 0',
-                letterSpacing: '-0.5px'
-              }}>
-                Content Ideas for {selectedPersona.name}
-              </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                {prompts.map((prompt) => (
-                  <PromptCard
-                    key={prompt._id}
-                    prompt={prompt}
-                    onGenerate={handleGenerateContent}
-                    loading={loading}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Content Editor */}
-            <div id="content-editor">
-              <ContentEditor
-                content={generatedContent}
-                onSave={handleSaveContent}
-              />
-            </div>
-          </div>
-        )}
-
-        {personas.length === 0 && !loading && (
+        ) : !loading ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             style={{
               textAlign: 'center',
               padding: '60px 20px',
-              color: '#bbb'
+              color: '#bbb',
             }}
           >
             <div style={{ fontSize: '4rem', marginBottom: '20px' }}>🚀</div>
@@ -291,10 +102,10 @@ export default function Dashboard() {
               Ready to Get Started?
             </h3>
             <p style={{ margin: 0, fontSize: '1.05rem' }}>
-              Select your industry above to generate AI-powered customer personas
+              Create personas from the Personas page in the sidebar.
             </p>
           </motion.div>
-        )}
+        ) : null}
       </div>
     </div>
   );
