@@ -29,7 +29,7 @@ function PersonaCreator({ token }) {
     setCreatedPersona(null);
 
     try {
-      const res = await apiPost('http://localhost:5000/api/personas', form, token);
+      const res = await apiPost(`${BASE_URL}/api/personas`, form, token);
       if (res.error) {
         setError(res.error);
       } else {
