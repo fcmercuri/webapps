@@ -81,7 +81,7 @@ export default function Dashboard() {
     try {
       setLoading(true);
       setError('');
-      const res = await api.post('/api/prompts/generate', {
+      const res = await api.post('/api/topics', {
         personaId: persona._id,
       });
       setPrompts(res.data);
