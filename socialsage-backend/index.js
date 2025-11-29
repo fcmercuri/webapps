@@ -28,7 +28,6 @@ app.use(
   })
 );
 
-
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 const PERPLEXITY_API_KEY = process.env.PERPLEXITY_API_KEY;
@@ -62,7 +61,6 @@ app.post('/api/create-checkout-session', async (req, res) => {
   try {
     const { priceId, customerEmail } = req.body;
 
-    // Use environment to switch URLs
     const baseUrl =
       process.env.NODE_ENV === 'production'
         ? 'https://socialsage-frontend.onrender.com'
@@ -70,7 +68,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      mode: 'subscription', // change to 'payment' if one-time
+      mode: 'subscription',
       line_items: [
         {
           price: priceId,
@@ -90,7 +88,6 @@ app.post('/api/create-checkout-session', async (req, res) => {
 });
 
 // --- STRIPE VERIFY SESSION ROUTE ---
-
 app.post('/api/stripe/verify-session', async (req, res) => {
   const { sessionId } = req.body;
   if (!sessionId) {
@@ -105,7 +102,6 @@ app.post('/api/stripe/verify-session', async (req, res) => {
       return res.status(400).json({ error: 'Payment not completed' });
     }
 
-    // 1) find user by email from session
     const email = session.customer_email;
     console.log('Payment is paid. Looking up user by email:', email);
     const user = await User.findOne({ email });
@@ -114,8 +110,9 @@ app.post('/api/stripe/verify-session', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // 2) NEW: get priceId and map to plan
-    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 1 });
+    const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+      limit: 1,
+    });
     const priceId = lineItems.data[0]?.price?.id;
 
     if (priceId === process.env.STRIPE_PRICE_STARTER) {
@@ -135,7 +132,6 @@ app.post('/api/stripe/verify-session', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 // --- AUTH MIDDLEWARE ---
 function authenticateToken(req, res, next) {
@@ -166,7 +162,6 @@ mongoose
   });
 
 // --- ROUTES ---
-
 app.get('/', (req, res) => {
   res.send('SocialSage API is running with Perplexity AI');
 });
@@ -230,33 +225,6 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
-// Update user industry
-app.put('/user/industry', authenticate, async (req, res) => {
-  const { industry } = req.body;
-
-  if (!industry) {
-    return res.status(400).json({ error: 'Industry is required' });
-  }
-
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.userId,
-      { industry },
-      { new: true }
-    ).select('-password'); // do not send password back
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.json(user);
-  } catch (err) {
-    console.error('Error updating industry:', err);
-    res.status(500).json({ error: 'Failed to update industry' });
-  }
-});
-
-
 // --- USER PROFILE ---
 app.get('/api/user/profile', authenticateToken, async (req, res) => {
   try {
@@ -291,24 +259,26 @@ app.post('/api/personas/generate', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'Industry is required' });
     }
 
-// NEW: Free & Starter limits
-const user = await User.findById(req.userId);
-const personaCount = await Persona.countDocuments({ userId: req.userId });
+    const user = await User.findById(req.userId);
+    const personaCount = await Persona.countDocuments({ userId: req.userId });
 
-// Free: max 1 persona
-if (user.plan === 'free' && personaCount >= 1) {
-  return res
-    .status(403)
-    .json({ error: 'Free plan allows only 1 persona. Upgrade to Starter for more.' });
-}
+    if (user.plan === 'free' && personaCount >= 1) {
+      return res
+        .status(403)
+        .json({
+          error:
+            'Free plan allows only 1 persona. Upgrade to Starter for more.',
+        });
+    }
 
-// Starter: max 5 personas
-if (user.plan === 'starter' && personaCount >= 5) {
-  return res
-    .status(403)
-    .json({ error: 'Starter plan allows up to 5 personas. Upgrade to Pro for unlimited personas.' });
-}
-
+    if (user.plan === 'starter' && personaCount >= 5) {
+      return res
+        .status(403)
+        .json({
+          error:
+            'Starter plan allows up to 5 personas. Upgrade to Pro for unlimited personas.',
+        });
+    }
 
     const systemPrompt =
       'You are a marketing strategist expert. You MUST respond with ONLY valid JSON - no markdown, no explanations, no code blocks. Just pure JSON array.';
@@ -340,16 +310,11 @@ Make personas diverse, realistic, and specific to ${industry}.`;
       personas = JSON.parse(content);
     } catch (e1) {
       try {
-        const jsonMatch = content.match(/``````/);
-        if (jsonMatch) {
-          personas = JSON.parse(jsonMatch[1]);
+        const arrayMatch = content.match(/\[\s*\{[\s\S]*\}\s*\]/);
+        if (arrayMatch) {
+          personas = JSON.parse(arrayMatch[0]);
         } else {
-          const arrayMatch = content.match(/\[\s*\{[\s\S]*\}\s*\]/);
-          if (arrayMatch) {
-            personas = JSON.parse(arrayMatch[0]);
-          } else {
-            throw new Error('Could not find valid JSON in response');
-          }
+          throw new Error('Could not find valid JSON in response');
         }
       } catch (e2) {
         console.error('❌ Failed to parse personas:', content);
@@ -460,16 +425,11 @@ Category must be one of: SEO, Social, Blog, Website, Email`;
       prompts = JSON.parse(content);
     } catch (e1) {
       try {
-        const jsonMatch = content.match(/``````/);
-        if (jsonMatch) {
-          prompts = JSON.parse(jsonMatch[1]);
+        const arrayMatch = content.match(/\[\s*\{[\s\S]*\}\s*\]/);
+        if (arrayMatch) {
+          prompts = JSON.parse(arrayMatch[0]);
         } else {
-          const arrayMatch = content.match(/\[\s*\{[\s\S]*\}\s*\]/);
-          if (arrayMatch) {
-            prompts = JSON.parse(arrayMatch[0]);
-          } else {
-            throw new Error('Could not find valid JSON');
-          }
+          throw new Error('Could not find valid JSON');
         }
       } catch (e2) {
         console.error('❌ Failed to parse prompts:', content);
@@ -533,13 +493,15 @@ app.post('/api/content/generate', authenticateToken, async (req, res) => {
       return res.status(404).json({ error: 'Prompt not found' });
     }
 
-    // NEW: Starter limit – max 50 content items total
     const user = await User.findById(req.userId);
     const contentCount = await Content.countDocuments({ userId: req.userId });
     if (user.plan === 'starter' && contentCount >= 50) {
       return res
         .status(403)
-        .json({ error: 'Starter plan allows up to 50 content items. Upgrade to Pro for unlimited content.' });
+        .json({
+          error:
+            'Starter plan allows up to 50 content items. Upgrade to Pro for unlimited content.',
+        });
     }
 
     const persona = prompt.personaId;
@@ -570,7 +532,6 @@ Return ONLY the content text (no JSON, no markdown formatting).`;
 
     const body = await callPerplexity(systemPrompt, userPrompt);
 
-    // Save content to DB
     const content = new Content({
       title: prompt.title,
       body,
@@ -598,7 +559,7 @@ app.get('/api/content', authenticateToken, async (req, res) => {
       .populate('promptId')
       .populate('personaId')
       .sort({ createdAt: -1 });
-  res.json(content);
+    res.json(content);
   } catch (err) {
     console.error('❌ Error fetching content:', err);
     res.status(500).json({ error: 'Failed to fetch content' });
