@@ -230,6 +230,33 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// Update user industry
+app.put('/user/industry', authenticate, async (req, res) => {
+  const { industry } = req.body;
+
+  if (!industry) {
+    return res.status(400).json({ error: 'Industry is required' });
+  }
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      { industry },
+      { new: true }
+    ).select('-password'); // do not send password back
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (err) {
+    console.error('Error updating industry:', err);
+    res.status(500).json({ error: 'Failed to update industry' });
+  }
+});
+
+
 // --- USER PROFILE ---
 app.get('/api/user/profile', authenticateToken, async (req, res) => {
   try {
