@@ -1,357 +1,179 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import api from '../api/axios';
+import Sidebar from '../components/Sidebar';
 
-export default function Upgrade() {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const currentPlan = user.plan || "free"; // "free" | "starter" | "pro"
+export default function PersonaInsights() {
+  const [personas, setPersonas] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  // default selection: Starter if free, Pro otherwise
-  const [selectedPlan, setSelectedPlan] = useState(
-    currentPlan === "free" ? 1 : 2
-  );
-
-  async function handleUpgrade(priceId) {
-    if (!user.email) {
-      localStorage.setItem("upgradePriceId", priceId);
-      navigate("/register");
-      return;
+  useEffect(() => {
+    async function load() {
+      try {
+        setLoading(true);
+        setError('');
+        const res = await api.get('/api/personas');
+        setPersonas(res.data);
+      } catch (err) {
+        console.error('Failed to load personas', err);
+        setError('Failed to load personas');
+      } finally {
+        setLoading(false);
+      }
     }
+    load();
+  }, []);
 
-    const res = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ priceId, customerEmail: user.email }),
-    });
+  // aggregate demographics
+  const total = personas.length;
 
-    const { url } = await res.json();
-    if (url) {
-      window.location = url;
-    }
-  }
+  const industries = personas.reduce((acc, p) => {
+    const key = p.industry || 'Unknown';
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
 
-  const showStarter = currentPlan === "free";
-  const showPro = currentPlan === "free" || currentPlan === "starter";
+  const ages = personas.map(p => p.age).filter(a => typeof a === 'number');
+  const avgAge =
+    ages.length > 0 ? Math.round(ages.reduce((s, a) => s + a, 0) / ages.length) : null;
+  const minAge = ages.length > 0 ? Math.min(...ages) : null;
+  const maxAge = ages.length > 0 ? Math.max(...ages) : null;
+
+  const premiumCount = personas.filter(p => p.isPremium).length;
 
   return (
     <div
       style={{
-        minHeight: "100vh",
-        background:
-          "linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)",
-        color: "#fff",
+        display: 'flex',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
+        color: '#fff',
       }}
     >
-      {/* Top nav */}
-      <header
-        style={{
-          maxWidth: 1120,
-          margin: "0 auto",
-          padding: "20px 20px 10px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img
-            src="/logo.jpg"
-            alt="SocialSage Logo"
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 10,
-              objectFit: "cover",
-              boxShadow: "0 4px 12px rgba(255, 217, 69, 0.2)",
-            }}
-          />
-          <span
-            style={{
-              fontWeight: 800,
-              fontSize: "1.3rem",
-              letterSpacing: "-0.04em",
-            }}
-          >
-            SocialSage
-          </span>
-        </div>
+      <Sidebar />
 
-        <button
-          onClick={() => navigate("/dashboard")}
-          style={{
-            background: "transparent",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            borderRadius: 999,
-            padding: "7px 16px",
-            color: "#eee",
-            fontSize: "0.9rem",
-            cursor: "pointer",
-          }}
-        >
-          Back to app
-        </button>
-      </header>
+      <div style={{ marginLeft: 240, flex: 1, padding: 40, maxWidth: 1200 }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: 24 }}>
+          Persona Demographics
+        </h1>
 
-      {/* Main content */}
-      <main
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "40px 20px 80px",
-        }}
-      >
-        <div style={{ maxWidth: 1120, width: "100%" }}>
-          <h1
-            style={{
-              fontSize: "2.6rem",
-              fontWeight: 900,
-              marginBottom: 32,
-            }}
-          >
-            {currentPlan === "pro"
-              ? "You’re already on Pro"
-              : "Upgrade your plan"}
-          </h1>
-
+        {error && (
           <div
             style={{
-              background: "#111119",
-              borderRadius: 24,
-              padding: "32px 32px 40px",
-              boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
-              maxWidth: 760,
+              background: 'rgba(239,68,68,0.1)',
+              border: '1px solid rgba(239,68,68,0.4)',
+              padding: '12px 16px',
+              borderRadius: 10,
+              marginBottom: 20,
+              color: '#ff6b6b',
             }}
           >
+            {error}
+          </div>
+        )}
+
+        {loading && <div>Loading...</div>}
+
+        {!loading && !error && (
+          <>
+            {/* Top summary cards */}
             <div
               style={{
-                display: "flex",
-                gap: 24,
-                justifyContent: "space-between",
-                flexWrap: "wrap",
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gap: 16,
+                marginBottom: 32,
               }}
             >
-              {/* Starter plan – only if user is on free */}
-              {showStarter && (
-                <div
-                  onClick={() => setSelectedPlan(1)}
-                  style={{
-                    minWidth: 260,
-                    maxWidth: 320,
-                    padding: "2rem 1.3rem",
-                    borderRadius: "1.1rem",
-                    background:
-                      selectedPlan === 1
-                        ? "linear-gradient(120deg, #1a1a28 85%, #2a2a45 100%)"
-                        : "linear-gradient(120deg, #191924b7 85%, #232845c7 100%)",
-                    border:
-                      selectedPlan === 1
-                        ? "2px solid #ffd945"
-                        : "2px solid transparent",
-                    boxShadow:
-                      selectedPlan === 1
-                        ? "0 8px 40px #ffd94555"
-                        : "0 3px 28px #0009",
-                    cursor: "pointer",
-                    position: "relative",
-                    transition: "all 0.25s",
-                  }}
-                >
-                  <h3
-                    style={{
-                      color: "#ffd945",
-                      fontWeight: 800,
-                      fontSize: "1.3rem",
-                    }}
-                  >
-                    Starter
-                  </h3>
-                  <div
-                    style={{
-                      fontSize: 32,
-                      fontWeight: 800,
-                      margin: "18px 0 8px",
-                      color: "#ffd945",
-                    }}
-                  >
-                    $19
-                    <span style={{ fontSize: 18, color: "#fff" }}>/mo</span>
-                  </div>
-                  <ul
-                    style={{
-                      color: "#bbb",
-                      textAlign: "left",
-                      margin: "0 auto 18px auto",
-                      maxWidth: 240,
-                      paddingLeft: 20,
-                      listStyle: "none",
-                    }}
-                  >
-                    <li style={{ marginBottom: 10 }}>✓ Up to 5 Personas</li>
-                    <li style={{ marginBottom: 10 }}>
-                      ✓ 50 Content Pieces / Month
-                    </li>
-                    <li style={{ marginBottom: 10 }}>✓ Advance Analytics</li>
-                    <li style={{ marginBottom: 10 }}>✓ Email Support</li>
-                  </ul>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleUpgrade("PRICE_STARTER_ID"); // replace with real Stripe price ID
-                    }}
-                    style={{
-                      width: "100%",
-                      background:
-                        selectedPlan === 1
-                          ? "#ffd945"
-                          : "rgba(255, 217, 69, 0.2)",
-                      color: selectedPlan === 1 ? "#000" : "#ffd945",
-                      fontWeight: 700,
-                      padding: "0.9rem 1.5rem",
-                      borderRadius: 8,
-                      border:
-                        selectedPlan === 1 ? "none" : "1px solid #ffd945",
-                      cursor: "pointer",
-                      fontSize: "1.02rem",
-                    }}
-                  >
-                    Get Starter
-                  </button>
-                </div>
-              )}
-
-              {/* Pro plan – only if user is on free or starter */}
-              {showPro && (
-                <div
-                  onClick={() => setSelectedPlan(2)}
-                  style={{
-                    minWidth: 260,
-                    maxWidth: 320,
-                    padding: "2.3rem 1.3rem",
-                    borderRadius: "1.1rem",
-                    background:
-                      selectedPlan === 2
-                        ? "linear-gradient(120deg, #1a1a28 85%, #2a2a45 100%)"
-                        : "linear-gradient(120deg, #191924b7 85%, #232845c7 100%)",
-                    border:
-                      selectedPlan === 2
-                        ? "2px solid #ffd945"
-                        : "2px solid transparent",
-                    boxShadow:
-                      selectedPlan === 2
-                        ? "0 8px 40px #ffd94555"
-                        : "0 3px 28px #0009",
-                    cursor: "pointer",
-                    position: "relative",
-                    transition: "all 0.25s",
-                  }}
-                >
-                  {selectedPlan === 2 && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "-12px",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        background: "#ffd945",
-                        color: "#000",
-                        padding: "4px 16px",
-                        borderRadius: "12px",
-                        fontSize: "0.75rem",
-                        fontWeight: 700,
-                      }}
-                    >
-                      SELECTED
-                    </div>
-                  )}
-
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "16px",
-                      right: "16px",
-                      background: "#ffd945",
-                      color: "#000",
-                      padding: "4px 12px",
-                      borderRadius: "6px",
-                      fontSize: "0.7rem",
-                      fontWeight: 700,
-                    }}
-                  >
-                    POPULAR
-                  </div>
-
-                  <h3
-                    style={{
-                      color: "#ffd945",
-                      fontWeight: 800,
-                      fontSize: "1.4rem",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    Pro
-                  </h3>
-                  <div
-                    style={{
-                      fontSize: 32,
-                      fontWeight: 800,
-                      margin: "18px 0",
-                      color: "#ffd945",
-                    }}
-                  >
-                    $49
-                    <span style={{ fontSize: 18, color: "#fff" }}>/mo</span>
-                  </div>
-                  <ul
-                    style={{
-                      color: "#bbb",
-                      textAlign: "left",
-                      margin: "0 auto 18px auto",
-                      maxWidth: 240,
-                      paddingLeft: 20,
-                      listStyle: "none",
-                    }}
-                  >
-                    <li style={{ marginBottom: 10 }}>✓ Unlimited Personas</li>
-                    <li style={{ marginBottom: 10 }}>✓ Unlimited Content</li>
-                    <li style={{ marginBottom: 10 }}>✓ Priority Support</li>
-                    <li style={{ marginBottom: 10 }}>✓ API access</li>
-                  </ul>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleUpgrade("PRICE_PRO_ID"); // replace with real Stripe price ID
-                    }}
-                    style={{
-                      width: "100%",
-                      background:
-                        selectedPlan === 2
-                          ? "#ffd945"
-                          : "rgba(255, 217, 69, 0.2)",
-                      color: selectedPlan === 2 ? "#000" : "#ffd945",
-                      fontWeight: 700,
-                      padding: "0.9rem 1.5rem",
-                      borderRadius: 8,
-                      border:
-                        selectedPlan === 2 ? "none" : "1px solid #ffd945",
-                      cursor: "pointer",
-                      fontSize: "1.02rem",
-                    }}
-                  >
-                    Get Pro
-                  </button>
-                </div>
-              )}
-
-              {/* If already Pro, nothing to upgrade */}
-              {!showStarter && !showPro && (
-                <p style={{ color: "#bbb", marginTop: 16 }}>
-                  You are already on the highest plan (Pro).
-                </p>
-              )}
+              <StatCard label="Total personas" value={total} />
+              <StatCard
+                label="Premium personas"
+                value={`${premiumCount} (${total ? Math.round((premiumCount / total) * 100) : 0}%)`}
+              />
+              <StatCard
+                label="Average age"
+                value={avgAge ? `${avgAge} yrs` : 'N/A'}
+                sub={`${minAge ?? '-'} – ${maxAge ?? '-'}`}
+              />
             </div>
-          </div>
+
+            {/* Industry breakdown */}
+            <section style={{ marginBottom: 32 }}>
+              <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>By industry</h2>
+              {Object.keys(industries).length === 0 ? (
+                <p style={{ color: '#bbb' }}>No personas yet.</p>
+              ) : (
+                <table
+                  style={{
+                    width: '100%',
+                    borderCollapse: 'collapse',
+                    background: 'rgba(15,23,42,0.8)',
+                    borderRadius: 12,
+                    overflow: 'hidden',
+                  }}
+                >
+                  <thead>
+                    <tr style={{ background: 'rgba(15,23,42,0.9)' }}>
+                      <th style={thStyle}>Industry</th>
+                      <th style={thStyle}>Personas</th>
+                      <th style={thStyle}>Share</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(industries).map(([industry, count]) => (
+                      <tr key={industry}>
+                        <td style={tdStyle}>{industry}</td>
+                        <td style={tdStyle}>{count}</td>
+                        <td style={tdStyle}>
+                          {total ? `${Math.round((count / total) * 100)}%` : '0%'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </section>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const thStyle = {
+  textAlign: 'left',
+  padding: '10px 14px',
+  fontSize: '0.85rem',
+  textTransform: 'uppercase',
+  letterSpacing: '0.06em',
+  borderBottom: '1px solid rgba(148,163,184,0.3)',
+};
+
+const tdStyle = {
+  padding: '10px 14px',
+  borderBottom: '1px solid rgba(30,41,59,0.7)',
+  fontSize: '0.95rem',
+};
+
+function StatCard({ label, value, sub }) {
+  return (
+    <div
+      style={{
+        background: 'rgba(15,23,42,0.9)',
+        borderRadius: 12,
+        padding: '18px 20px',
+        border: '1px solid rgba(148,163,184,0.4)',
+      }}
+    >
+      <div style={{ fontSize: '0.85rem', color: '#9ca3af', marginBottom: 6 }}>
+        {label}
+      </div>
+      <div style={{ fontSize: '1.6rem', fontWeight: 800 }}>{value}</div>
+      {sub && (
+        <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginTop: 2 }}>
+          {sub}
         </div>
-      </main>
+      )}
     </div>
   );
 }
