@@ -7,6 +7,8 @@ import PersonaCard from '../components/PersonaCard';
 import PromptCard from '../components/PromptCard';
 import ContentEditor from '../components/ContentEditor';
 import { motion } from 'framer-motion';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
 export default function Dashboard() {
   const { user, setUser } = useAuth();
@@ -53,7 +55,7 @@ export default function Dashboard() {
       }
 
       await api.put('/api/user/industry', { industry });
-      const res = await api.post('api/personas/generate', { industry });
+      const res = await api.post('/api/personas/generate', { industry });
       setPersonas(res.data);
       setUser({ ...user, industry });
     } catch (err) {
