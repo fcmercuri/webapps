@@ -25,16 +25,17 @@ export default function Dashboard() {
 
   async function loadPersonas() {
     try {
+      setError('');
       const res = await api.get('/api/personas');
       setPersonas(res.data);
     } catch (err) {
+      console.error('Failed to load personas', err);
       setError('Failed to load personas');
     }
   }
 
   async function handleIndustrySelect() {
-    // Backend does not yet support /user/industry or /personas/generate,
-    // so just reload personas if needed.
+    // No industry-based API yet; just refresh personas.
     await loadPersonas();
   }
 
@@ -46,36 +47,41 @@ export default function Dashboard() {
 
     setSelectedPersona(persona);
     setGeneratedContent(null);
-    setPrompts([]); // no /prompts/generate route yet
+    setPrompts([]); // no prompts API yet
   }
 
   async function handleGenerateContent() {
-    // No /content/generate route in backend yet; stub for now.
     alert('Content generation API is not implemented yet on the server.');
   }
 
   async function handleSaveContent(content) {
     try {
-      // Stub: no save route yet
-      console.log('Saving content:', content);
+      console.log('Saving content (stub):', content);
       alert('Content saved successfully (stub).');
     } catch (err) {
+      console.error('Save failed', err);
       setError('Failed to save content');
     }
   }
 
   async function handleUpgrade() {
+    if (!BASE_URL) {
+      setError('API base URL is not configured.');
+      return;
+    }
+
     try {
+      setError('');
       const token = localStorage.getItem('token');
 
       const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: token ? `Bearer ${token}` : undefined,
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         body: JSON.stringify({
-          customerEmail: user?.email,
+          customerEmail: user?.email || '',
         }),
       });
 
@@ -85,6 +91,8 @@ export default function Dashboard() {
         window.location.href = data.url;
       } else if (data.error) {
         setError(data.error);
+      } else {
+        setError('Unexpected response from checkout session.');
       }
     } catch (err) {
       console.error('Upgrade failed', err);
@@ -171,7 +179,7 @@ export default function Dashboard() {
               marginTop: '40px',
             }}
           >
-            {/* Left: Prompts (empty until you add backend) */}
+            {/* Left: Prompts (empty until backend exists) */}
             <div>
               <h2
                 style={{
