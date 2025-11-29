@@ -9,6 +9,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   async function handleSubmit(e) {
     e.preventDefault();
