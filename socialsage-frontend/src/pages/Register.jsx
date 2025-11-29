@@ -29,7 +29,7 @@ export default function Register() {
 
     try {
       setLoading(true);
-      const registerRes = await fetch("http://localhost:5000/api/auth/register", {
+      const registerRes = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -45,7 +45,7 @@ export default function Register() {
       if (upgradePriceId) {
         localStorage.removeItem("upgradePriceId");
 
-        const res = await fetch("http://localhost:5000/api/create-checkout-session", {
+        const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ priceId: upgradePriceId, customerEmail: email }),

@@ -22,7 +22,7 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const loginRes = await fetch("http://localhost:5000/api/auth/login", {
+      const loginRes = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
