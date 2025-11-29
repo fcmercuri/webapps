@@ -52,7 +52,7 @@ export default function Dashboard() {
         return;
       }
 
-      await api.put('/user/industry', { industry });
+      await api.put('/api/user/industry', { industry });
       const res = await api.post('api/personas/generate', { industry });
       setPersonas(res.data);
       setUser({ ...user, industry });
@@ -72,7 +72,7 @@ export default function Dashboard() {
     setGeneratedContent(null);
     try {
       setLoading(true);
-      const res = await api.post('/prompts/generate', { personaId: persona._id });
+      const res = await api.post('/api/prompts/generate', { personaId: persona._id });
       setPrompts(res.data);
     } catch (err) {
       setError('Failed to generate prompts');
@@ -86,7 +86,7 @@ export default function Dashboard() {
       setLoading(true);
       setError('');
       setGeneratedContent(null);
-      const res = await api.post('/content/generate', { promptId, type: 'website' });
+      const res = await api.post('/api/content/generate', { promptId, type: 'website' });
       setGeneratedContent(res.data);
       setTimeout(() => {
         const editor = document.getElementById('content-editor');
@@ -113,7 +113,7 @@ export default function Dashboard() {
       return;
     }
     try {
-      const res = await fetch('${BASE_URL}/api/create-checkout-session', {
+      const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ priceId, customerEmail: user.email }),
