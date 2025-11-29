@@ -18,7 +18,7 @@ export default function Success() {
       }
 
       try {
-        await api.post('/stripe/verify-session', { sessionId });
+        await api.post('/api/stripe/verify-session', { sessionId });
 
         setStatus('Payment successful! Please log in again.');
         setTimeout(() => navigate('/login'), 2000);
