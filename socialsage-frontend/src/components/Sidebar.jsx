@@ -13,7 +13,7 @@ export default function Sidebar() {
     { icon: '💡', label: 'Prompts', path: '/prompts' },
     { icon: '✍️', label: 'Content', path: '/content' },
     { icon: '⭐', label: 'Saved', path: '/saved' },
-    { icon: '🔓', label: 'Upgrade', path: '/upgrade' },
+    { icon: '📈 ', label: 'Analytics', path: '/upgrade' },
   ];
 
   const handleLogout = () => {

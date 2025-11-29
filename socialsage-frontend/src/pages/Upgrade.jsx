@@ -24,7 +24,6 @@ export default function PersonaInsights() {
     load();
   }, []);
 
-  // aggregate demographics
   const total = personas.length;
 
   const industries = personas.reduce((acc, p) => {
@@ -40,6 +39,11 @@ export default function PersonaInsights() {
   const maxAge = ages.length > 0 ? Math.max(...ages) : null;
 
   const premiumCount = personas.filter(p => p.isPremium).length;
+
+  const maxIndustryCount = Object.values(industries).reduce(
+    (m, v) => (v > m ? v : m),
+    0
+  );
 
   return (
     <div
@@ -76,7 +80,7 @@ export default function PersonaInsights() {
 
         {!loading && !error && (
           <>
-            {/* Top summary cards */}
+            {/* Summary cards */}
             <div
               style={{
                 display: 'grid',
@@ -88,7 +92,9 @@ export default function PersonaInsights() {
               <StatCard label="Total personas" value={total} />
               <StatCard
                 label="Premium personas"
-                value={`${premiumCount} (${total ? Math.round((premiumCount / total) * 100) : 0}%)`}
+                value={`${premiumCount} (${
+                  total ? Math.round((premiumCount / total) * 100) : 0
+                }%)`}
               />
               <StatCard
                 label="Average age"
@@ -97,9 +103,89 @@ export default function PersonaInsights() {
               />
             </div>
 
-            {/* Industry breakdown */}
+            {/* Industry bar chart */}
             <section style={{ marginBottom: 32 }}>
-              <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>By industry</h2>
+              <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>
+                Personas by industry
+              </h2>
+              {Object.keys(industries).length === 0 ? (
+                <p style={{ color: '#bbb' }}>No personas yet.</p>
+              ) : (
+                <div
+                  style={{
+                    background: 'rgba(15,23,42,0.9)',
+                    borderRadius: 12,
+                    padding: '16px 20px 20px',
+                    border: '1px solid rgba(148,163,184,0.4)',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-end',
+                      gap: 12,
+                      height: 200,
+                      paddingBottom: 16,
+                    }}
+                  >
+                    {Object.entries(industries).map(([industry, count]) => {
+                      const heightPct =
+                        maxIndustryCount > 0
+                          ? Math.round((count / maxIndustryCount) * 100)
+                          : 0;
+                      return (
+                        <div
+                          key={industry}
+                          style={{
+                            flex: 1,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            fontSize: '0.8rem',
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: '60%',
+                              minWidth: 24,
+                              height: `${heightPct}%`,
+                              background:
+                                'linear-gradient(180deg,#ffd945,#fbbf24)',
+                              borderRadius: 8,
+                              boxShadow: '0 6px 18px rgba(250,204,21,0.35)',
+                              display: 'flex',
+                              alignItems: 'flex-end',
+                              justifyContent: 'center',
+                              color: '#111827',
+                              fontWeight: 700,
+                              paddingBottom: 4,
+                            }}
+                          >
+                            {count}
+                          </div>
+                          <div
+                            style={{
+                              marginTop: 6,
+                              color: '#e5e7eb',
+                              textAlign: 'center',
+                              maxWidth: 80,
+                              wordBreak: 'break-word',
+                            }}
+                          >
+                            {industry}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* Industry table */}
+            <section style={{ marginBottom: 32 }}>
+              <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>Details</h2>
               {Object.keys(industries).length === 0 ? (
                 <p style={{ color: '#bbb' }}>No personas yet.</p>
               ) : (
