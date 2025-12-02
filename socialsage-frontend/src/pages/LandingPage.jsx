@@ -86,7 +86,7 @@ const cards = [
     title: "AI Persona Builder",
     desc: "Create customer avatars, generate AI bios, and unlock segments with a click",
     expandedContent: [
-      "✓ Generate 5 (Starter Plan) detailed customer personas per industry instantly",
+      "✓ Generate 5 detailed customer personas per industry instantly",
       "✓ AI-powered demographics, psychographics, goals, and pain points",
       "✓ Premium personas with advanced behavioral insights",
       "✓ Export personas to CSV or integrate with your CRM",
@@ -716,13 +716,13 @@ const cards = [
           margin: 0,
         }}
       >
-        SocialSage AI instantly generates 4 detailed customer personas with goals, pain points, and
+        SocialSage AI instantly generates 1 (Free Plan) detailed customer persona with goals, pain points, and
         behaviors: like having a marketing team in your pocket
       </p>
     </motion.div>
   </div>
 
-  {/* STEP 3 */}
+  
   {/* STEP 3 */}
 <div
   ref={step3Ref}
@@ -977,7 +977,7 @@ const cards = [
         }}
       >
         <li style={{ marginBottom: "10px" }}>✓ 1 Persona</li>
-        <li style={{ marginBottom: "10px" }}>✓ 1 Content Ideas</li>
+        <li style={{ marginBottom: "10px" }}>✓ 1 Content Idea</li>
         <li style={{ marginBottom: "10px" }}>✓ Basic Analytics</li>
         <li style={{ marginBottom: "10px" }}>✓ Community Support</li>
       </ul>
