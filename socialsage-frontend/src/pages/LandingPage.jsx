@@ -1362,7 +1362,7 @@ const cards = [
                 fontSize: "1.12rem",
                 fontStyle: "italic"
               }}>
-                "Finally, a tool that actually reveals what my buyer persona is curious about. I wrote content that users needed—engagement soared."
+                "Finally, a tool that actually reveals what my buyer persona is curious about. I wrote content that users needed and engagement soared."
               </div>
             </div>
 
