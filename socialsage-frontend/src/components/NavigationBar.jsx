@@ -34,7 +34,7 @@ export default function NavigationBar() {
         </div>
         <div className="nav-spacer"></div>
         <div className="nav-right desktop-nav">
-          <a href="#guide">Guide</a>
+          <a href="#how-it-works">How It Works</a>
           <a href="#pricing">Pricing</a>
           <a href="/login">Sign In</a>
           <a href="/register" className="cta">Get Started</a>
@@ -50,7 +50,7 @@ export default function NavigationBar() {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.33 }}
             >
-              <a href="#guide" onClick={() => setMobileOpen(false)}>Guide</a>
+              <a href="#how-it-works" onClick={() => setMobileOpen(false)}>How It Works</a>
               <a href="#pricing" onClick={() => setMobileOpen(false)}>Pricing</a>
               <a href="/login" onClick={() => setMobileOpen(false)}>Sign In</a>
               <a href="/register" className="cta" onClick={() => setMobileOpen(false)}>Get Started</a>

@@ -302,18 +302,28 @@ button:hover, .button:hover { background: #171717; }
 }
 
 /* Responsive Hero Container */
-#hero {
-  text-align: center;
-  margin: 0 auto;
-  padding-top: 78px;
-  width: 100%;
-  max-width: 700px;
-  position: relative;
-  z-index: 3;
-  box-sizing: border-box;
-  padding-left: 16px;
-  padding-right: 16px;
+/* Desktop: two-column hero */
+.hero-grid {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: center;
 }
+
+/* Mobile: stack persona under text */
+@media (max-width: 768px) {
+  .hero-grid {
+    display: block;
+    max-width: 100%;
+    padding: 60px 16px 28px 16px;
+  }
+
+  .hero-grid > div:first-child {
+    margin-bottom: 24px; /* space between CTA block and persona card */
+  }
+}
+
 
 /* Responsive Heading Styles */
 #hero h1 {
@@ -428,3 +438,38 @@ button:hover, .button:hover { background: #171717; }
     display: block;
   }
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 217, 69, 0.16), transparent 60%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  left: var(--mouse-x, 50%);
+  top: var(--mouse-y, 50%);
+  z-index: 0;
+}
+
+/* Mobile hero: stack persona under text */
+@media (max-width: 768px) {
+  #hero.hero-grid {
+    display: block;          /* stop using grid on small screens */
+    padding: 60px 16px 28px 16px;
+    max-width: 100%;
+  }
+
+  #hero.hero-grid > div:first-child {
+    margin-bottom: 24px;     /* space between CTA block and persona card */
+  }
+
+  #hero.hero-grid > div,
+  #hero.hero-grid > .motion-div,
+  #hero.hero-grid > .hero-right {
+    width: 100%;
+  }
+}
+
+

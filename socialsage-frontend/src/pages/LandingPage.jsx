@@ -26,9 +26,6 @@ export default function LandingPage() {
     const { url } = await res.json();
     window.location = url;
   }
-  
-
-
 
 // --- Cookie Consent Banner ---
 function USCookieConsent() {
@@ -54,99 +51,68 @@ function USCookieConsent() {
 
   return (
     <div style={bannerStyle}>
-      <span>
-        We use cookies to enhance your experience. By continuing to visit this site you agree to our{" "}
-        <a href="/privacy" style={{ color: "#4af" }}>Privacy Policy</a>.
-      </span>
-      <button onClick={dismiss} style={buttonStyle}>Got it</button>
+      <div
+        style={{
+          maxWidth: 600,
+          margin: "0 auto",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+          fontSize: "0.62rem",      // smaller text
+          lineHeight: 1.5,
+        }}
+      >
+        <span>
+          We use cookies to improve your experience. By using this site you consent to our use of cookies.
+        </span>
+        <div>
+          <button onClick={dismiss} style={buttonStyle}>
+            Got it
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
-const bannerStyle = { /* styling omitted for brevity, see previous code */ };
-const buttonStyle = { /* styling omitted for brevity, see previous code */ };
+const bannerStyle = { /* existing styles */ };
+const buttonStyle = { /* existing styles */ };
 
-const avatars = [
-  <svg width="76" height="76" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-    <circle cx="50" cy="50" r="46" fill="#262943" />
-    <ellipse cx="50" cy="40" rx="22" ry="20" fill="#ffd945" />
-    <ellipse cx="50" cy="80" rx="29" ry="12" fill="#bbb" opacity=".23" />
-    <ellipse cx="43" cy="39" rx="2.8" ry="3.7" fill="#262943" />
-    <ellipse cx="57" cy="39" rx="2.8" ry="3.7" fill="#262943" />
-    <path d="M40 43 Q50 53 60 43" stroke="#fff" strokeWidth="2" fill="none" />
-    <path d="M57 24 Q59 20 63 25" stroke="#a7ffeb" strokeWidth="2" fill="none" />
-    <path d="M44 24 Q41 19 36 25" stroke="#94d0fe" strokeWidth="2" fill="none" />
-  </svg>,
-  <svg width="76" height="76" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-    <circle cx="50" cy="50" r="46" fill="#1ac9c1" fillOpacity="0.12" />
-    <path d="M28 74 Q32 64 46 62 Q54 62 72 40" stroke="#ffd945" strokeWidth="5" fill="none" />
-    <circle cx="72" cy="40" r="6" fill="#ffd945" />
-    <circle cx="46" cy="62" r="5" fill="#fff" opacity="0.44"/>
-    <circle cx="32" cy="64" r="4" fill="#fff" opacity="0.19"/>
-  </svg>,
-  <svg width="76" height="76" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-    <rect x="7" y="7" rx="14" width="86" height="86" fill="#232845" />
-    <rect x="27" y="27" width="46" height="8" rx="3" fill="#ffd945"/>
-    <rect x="21" y="47" width="58" height="7" rx="2.4" fill="#fff" opacity="0.45"/>
-    <rect x="21" y="61" width="32" height="7" rx="3" fill="#bbb"/>
-    <circle cx="68" cy="56" r="7" fill="#ffd945"/>
-  </svg>,
-  <svg width="76" height="76" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-    <circle cx="50" cy="50" r="46" fill="#17b8eb" fillOpacity=".13"/>
-    <path d="M40 64 l12 -18 l15 21 l16 -37" stroke="#ffd945" strokeWidth="5.2" fill="none" />
-    <circle cx="28" cy="74" r="7" fill="#ffd945"/>
-    <circle cx="67" cy="67" r="6" fill="#ffa728"/>
-    <circle cx="83" cy="27" r="5" fill="#fff" opacity=".12"/>
-  </svg>
-];
+
 
 const cards = [
   {
     title: "AI Persona Builder",
     desc: "Create customer avatars, generate AI bios, and unlock segments with a click",
-    avatar: avatars[0],
     expandedContent: [
-      "🎯 Generate 4 detailed customer personas per industry instantly",
-      "🧠 AI-powered demographics, psychographics, goals, and pain points",
-      "🔓 Premium personas with advanced behavioral insights",
-      "💡 Export personas to CSV or integrate with your CRM",
-      "🎨 Customizable persona templates for any niche"
+      "✓ Generate 4 detailed customer personas per industry instantly",
+      "✓ AI-powered demographics, psychographics, goals, and pain points",
+      "✓ Premium personas with advanced behavioral insights",
+      "✓ Export personas to CSV or integrate with your CRM",
+      "✓ Customizable persona templates for any niche"
     ]
   },
   {
     title: "Topic Trends Generator",
     desc: "Get trending content ideas based on synthetic queries and prompts",
-    avatar: avatars[1],
     expandedContent: [
-      "📈 Real-time trending topics from AI search queries",
-      "🔍 Discover what your customers are asking ChatGPT & Perplexity",
-      "💬 Synthetic persona queries reveal hidden demand",
-      "🚀 Turn insights into viral content angles",
-      "📊 Track topic performance and engagement metrics"
+      "✓ Real-time trending topics from AI search queries",
+      "✓ Discover what your customers are asking ChatGPT & Perplexity",
+      "✓ Synthetic persona queries reveal hidden demand",
+      "✓ Turn insights into viral content angles",
+      "✓ Track topic performance and engagement metrics"
     ]
   },
   {
     title: "Instant Content Briefs",
     desc: "AI-powered copy and post outlines tailored to your niche and always fresh",
-    avatar: avatars[2],
     expandedContent: [
-      "✍️ Generate 1.000-1500 word conversion-ready copy in seconds",
-      "📝 SEO-optimized blog posts, social captions, and email sequences",
-      "🎯 Content personalized to each persona's needs",
-      "🔄 One-click regeneration with different angles",
-      "💾 Save, edit, and export to your favorite tools"
-    ]
-  },
-  {
-    title: "Competitor Insights",
-    desc: "See what's working for top brands and adapt it, instantly",
-    avatar: avatars[3],
-    expandedContent: [
-      "🕵️ Analyze top-performing content in your niche",
-      "📊 Track competitor keyword strategies and rankings",
-      "💡 Get AI recommendations on content gaps to exploit",
-      "🎯 Reverse-engineer successful campaigns",
-      "⚡ Adapt winning strategies for your brand in minutes"
+      "✓ Generate 1.000-1500 word conversion-ready copy in seconds",
+      "✓ SEO-optimized blog posts, social captions, and email sequences",
+      "✓ Content personalized to each persona's needs",
+      "✓ One-click regeneration with different angles",
+      "✓ Save, edit, and export to your favorite tools"
     ]
   }
 ];
@@ -176,16 +142,14 @@ const cards = [
 
   const [hovered, setHovered] = useState(null);
   const [expanded, setExpanded] = useState(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [selectedPlan, setSelectedPlan] = useState(1); // Track selected plan (0=Free, 1=Starter, 2=Pro)
-  const handleMouseMove = (e) => {
-    setMousePos({ x: e.clientX, y: e.clientY });
-  };
+  
   // Refs for "How It Works" section
   const step1Ref = useRef(null);
   const step2Ref = useRef(null);
   const step3Ref = useRef(null);
   const step4Ref = useRef(null);
+  
 
   const step1InView = useInView(step1Ref, { once: false, margin: "-100px" });
   const step2InView = useInView(step2Ref, { once: false, margin: "-100px" });
@@ -206,15 +170,19 @@ const cards = [
       >
       <NavigationBar />
       
-    <div
-        style={{
-           flex: 1,
-           background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)",
-           overflow: "hidden"
+      <div
+  style={{
+    flex: 1,
+    background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)",
+    overflow: "hidden"
   }}
-  onMouseMove={handleMouseMove}
+  onMouseMove={(e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    document.documentElement.style.setProperty("--mouse-x", `${x}px`);
+    document.documentElement.style.setProperty("--mouse-y", `${y}px`);
+  }}
 >
-
 
 
         {/* BG Effects */}
@@ -222,72 +190,214 @@ const cards = [
         <div style={{position:"fixed", bottom:-180, right:-130, width:530, height:350, background:"radial-gradient(circle at 60% 18%, #7b7bad33 0%, transparent 77%)", zIndex:0, filter:"blur(99px)"}}/>
 
         {/* HERO + UVP */}        
-<header 
+        <header
   id="hero"
+  className="hero-grid"
   style={{
-    textAlign: "center",
+    width: "100%",
     margin: "0 auto",
-    paddingTop: 78,
-    width: 700,
+    padding: "78px 20px 32px 20px",
     position: "relative",
-    zIndex: 3
+    zIndex: 3,
+    boxSizing: "border-box",
   }}
 >
+  {/* Left: main copy */}
+  <div style={{ textAlign: "center" }}>
   <motion.h1
     initial={{ opacity: 0, y: 35 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.85, delay: 0.15 }}
     style={{
-      fontSize: "2.6rem",
+      fontSize: "clamp(2.2rem, 5vw, 3.4rem)",
       fontWeight: 900,
       letterSpacing: "-1.2px",
       lineHeight: 1.12,
       background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
-      marginBottom: ".6rem"
+      margin: "0 0 0.6rem 0",
     }}
   >
-    Skyrocket Your Growth Across Every Channel
+    Skyrocket Your Growth with AI Personas
   </motion.h1>
+
   <motion.h2
     initial={{ opacity: 0, y: 35 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 1, delay: 0.33 }}
     style={{
       fontWeight: 700,
-      fontSize: "1.32rem",
+      fontSize: "clamp(1rem, 2.6vw, 1.5rem)",
       color: "#bbb",
-      marginBottom: 32,
-      marginTop: 0
+      margin: "0 0 24px 0",
     }}
   >
-    Find out what your target customer is asking LLMs today and turns it into content that drives demand
+    See exactly who you are talking to, what they care about, and turn insights into high‑converting content
   </motion.h2>
-  <motion.a
-    href="/register"
-    className="cta"
-    whileHover={{ scale: 1.07, backgroundColor: "#ffe267" }}
+
+  <div
     style={{
-      background: "#ffd945",
-      color: "#19191a",
-      fontWeight: 800,
-      fontSize: "1.17rem",
-      padding: "1.19rem 2.7rem",
-      marginTop: 15,
-      borderRadius: 13,
-      boxShadow: "0 6px 28px #ffd94540",
-      display: "inline-block",
-      transition: "box-shadow .2s, background .2s",
-      textDecoration: "none"
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 6,
     }}
   >
-    Try SocialSage Free
-  </motion.a>
-  
-  {/* UVP Block */}
-  
+    <motion.a
+      href="/register"
+      className="cta"
+      whileHover={{ scale: 1.07, backgroundColor: "#ffe267" }}
+      style={{
+        background: "#ffd945",
+        color: "#19191a",
+        fontWeight: 800,
+        fontSize: "1.06rem",
+        padding: "1rem 2.4rem",
+        borderRadius: 13,
+        boxShadow: "0 6px 28px #ffd94540",
+        display: "inline-block",
+        transition: "box-shadow .2s, background .2s",
+        textDecoration: "none",
+      }}
+    >
+      Try SocialSage Free
+    </motion.a>
+
+    <p
+      style={{
+        margin: 0,
+        fontSize: "0.9rem",
+        color: "#888",
+        fontWeight: 500,
+        textAlign: "center",
+      }}
+    >
+      No credit card required
+    </p>
+  </div>
+</div>
+
+
+  {/* Right: AI persona banner */}
+  <section
+  style={{
+    width: "100%",
+    maxWidth: 700,
+    margin: "0 auto",
+    padding: "0 16px 24px 16px",
+    boxSizing: "border-box",
+  }}
+>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.25 }}
+    style={{
+      background:
+        "radial-gradient(circle at 0% 0%, #ffd94522, transparent 60%), #14141f",
+      borderRadius: 20,
+      padding: "1.6rem 1.4rem",
+      boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
+      border: "1px solid rgba(255, 217, 69, 0.3)",
+      position: "relative",
+      overflow: "hidden",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        marginBottom: 4,
+      }}
+    >
+      <div
+        style={{
+          width: 52,
+          height: 52,
+          borderRadius: "999px",
+          background:
+            "radial-gradient(circle at 30% 20%, #ffd945, #ffb347 45%, #23243a 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          boxShadow: "0 0 0 3px rgba(255, 217, 69, 0.25)",
+        }}
+      >
+        <span style={{ fontSize: 26 }}>🧠</span>
+      </div>
+      <div>
+        <div
+          style={{
+            fontWeight: 800,
+            fontSize: "0.98rem",
+            color: "#fff",
+          }}
+        >
+          Sofia, SaaS Marketing Lead
+        </div>
+        <div
+          style={{
+            fontSize: "0.86rem",
+            color: "#ffd945",
+            fontWeight: 600,
+          }}
+        >
+          AI‑generated ideal customer persona
+        </div>
+      </div>
+    </div>
+
+    <div
+      style={{
+        fontSize: "0.9rem",
+        color: "#ccc",
+        lineHeight: 1.55,
+        marginBottom: 6,
+      }}
+    >
+      <strong style={{ color: "#fff" }}>Goals:</strong> Launch a content engine
+      that drives trial sign‑ups and upgrades without increasing ad spend
+    </div>
+
+    <div
+      style={{
+        fontSize: "0.9rem",
+        color: "#ccc",
+        lineHeight: 1.55,
+      }}
+    >
+      <strong style={{ color: "#fff" }}>Pain points:</strong> Unclear
+      messaging, low engagement on social posts, and guesswork about what
+      prospects ask LLMs
+    </div>
+
+    <div
+      style={{
+        marginTop: 10,
+        padding: "0.65rem 0.9rem",
+        borderRadius: 12,
+        background: "rgba(12, 180, 120, 0.14)",
+        border: "1px solid rgba(12, 180, 120, 0.4)",
+        fontSize: "0.86rem",
+        color: "#a5ffcf",
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+      }}
+    >
+      <span>✨</span>
+      <span>
+        “Show me 5 content ideas that answer Sofia&apos;s top questions this
+        week”
+      </span>
+    </div>
+  </motion.div>
+</section>
+
 </header>
+
 
 
         {/* INTERACTIVE CARDS */}
@@ -330,7 +440,7 @@ const cards = [
                   maxWidth: isExpanded ? 700 : 340,
                   flex: isExpanded ? "1 1 700px" : "1 1 260px",
                   borderRadius: "1.3rem",
-                  padding: "2.6rem 1.6rem 1.35rem 1.6rem",
+                  padding: "2.4rem 1.6rem 1.8rem 1.6rem",
                   color: "#fff",
                   position: "relative",
                   boxShadow: isExpanded 
@@ -341,6 +451,8 @@ const cards = [
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
+                  justifyContent: "center",   // <<< add this
+                  textAlign: "center",        // <<< add this
                   border: isExpanded ? "2px solid #ffd94544" : "none",
                   zIndex: isExpanded ? 10 : 2
                 }}
@@ -348,21 +460,7 @@ const cards = [
                 whileTap={{ scale: 0.98 }}
                 layout
               >
-                {/* Avatar */}
-                <motion.div 
-                  style={{ 
-                    width: 80, 
-                    height: 80, 
-                    marginBottom: 17, 
-                    display: "flex", 
-                    alignItems: "center", 
-                    justifyContent: "center" 
-                  }}
-                  animate={{ rotate: isExpanded ? 360 : 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  {card.avatar}
-                </motion.div>
+              
 
                 {/* Title */}
                 <h3 style={{ 
@@ -448,6 +546,7 @@ const cards = [
 {/* ============================================ */}
 
 <section
+  id="how-it-works"
   style={{
     margin: "7rem auto 0 auto",
     maxWidth: 1200,
@@ -543,8 +642,8 @@ const cards = [
         margin: 0,
       }}
     >
-      Select from 5+ industries – from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors
-      everything to your specific market.
+      Select from 5+ industries: from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors
+      everything to your specific market
     </p>
   </motion.div>
 </div>
@@ -614,7 +713,7 @@ const cards = [
         }}
       >
         SocialSage AI instantly generates 4 detailed customer personas with goals, pain points, and
-        behaviors – like having a marketing team in your pocket.
+        behaviors: like having a marketing team in your pocket
       </p>
     </motion.div>
   </div>
@@ -686,8 +785,8 @@ const cards = [
         margin: 0,
       }}
     >
-      Get 5 targeted content prompts for each persona – SEO articles, social posts, email
-      campaigns, and more. No more writer&apos;s block.
+      Get 5 targeted content prompts for each persona: SEO articles, social posts, email
+      campaigns, and more. No more writer&apos;s block
     </p>
   </motion.div>
 </div>
@@ -756,8 +855,8 @@ const cards = [
           margin: 0,
         }}
       >
-        One click generates 1,000–1,500 words of conversion-ready copy that speaks directly to your
-        customers&apos; needs. Edit, save, and ship.
+        One click generates 1.000–1.500 words of conversion-ready copy that speaks directly to your
+        customers&apos; needs. Edit, save, and ship
       </p>
     </motion.div>
   </div>
@@ -1264,50 +1363,7 @@ const cards = [
             </div>
 
             {/* Review 3 */}
-            <div style={{
-              flex: "1 1 250px",
-              maxWidth: 300,
-              minWidth: 240,
-              background: "rgba(23,22,29,0.97)",
-              borderRadius: "1.1rem",
-              boxShadow: "0 2px 10px #0002",
-              padding: "1.7rem 1.2rem 1.3rem 1.2rem",
-              textAlign: "left",
-              position: "relative"
-            }}>
-              <div style={{ display: "flex", alignItems: "center", marginBottom: 15 }}>
-                <div style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "50%",
-                  marginRight: 14,
-                  background: "#ffd94533",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.5rem"
-                }}>
-                  👩
-                </div>
-                <div>
-                  <div style={{ color: "#ffd945", fontWeight: 700, fontSize: ".98rem" }}>
-                    Priya D.
-                  </div>
-                  <div style={{ color: "#bbb", fontSize: ".97rem", fontWeight: 600 }}>
-                    Growth Lead
-                  </div>
-                </div>
-              </div>
-              <div style={{ fontSize: "1.3rem", color: "#ffd945", marginBottom: 3 }}>★ ★ ★ ★ ★</div>
-              <div style={{
-                fontWeight: 600,
-                color: "#fff",
-                fontSize: "1.12rem",
-                fontStyle: "italic"
-              }}>
-                "I used SocialSage's questions as inspiration and our posts started attracting real conversations. It's like taping into the user's mind."
-              </div>
-            </div>
+            
           </div>
         </section>
 
