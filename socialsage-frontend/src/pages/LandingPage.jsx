@@ -248,7 +248,7 @@ const cards = [
       marginBottom: ".6rem"
     }}
   >
-    Skyrocket Your Growth across Every Digital Channel
+    Skyrocket Your Growth across Every Channel
   </motion.h1>
   <motion.h2
     initial={{ opacity: 0, y: 35 }}
