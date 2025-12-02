@@ -411,8 +411,8 @@ const cards = [
           display: "flex",
           justifyContent: "center",
           flexWrap: "wrap",
-          gap: "2.6rem",
-          margin: "3.1rem auto 0 auto",
+          gap: "0.6rem",
+          margin: "3.1rem auto 0 auto ",
           maxWidth: 1200,
           zIndex: 2,
           position: "relative"
@@ -574,7 +574,7 @@ const cards = [
   <p
     style={{
       color: "#bbb",
-      marginBottom: "2.2rem",
+      marginBottom: "5.2rem",
       fontSize: "1.15rem",
     }}
   >
@@ -894,7 +894,7 @@ const cards = [
   >
     Simple, Fair Pricing
   </h2>
-  <p style={{ color: "#bbb", marginBottom: "2.2rem", fontSize: "1.15rem" }}>
+  <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>
     Start for free. Every plan has access to the AI Persona Builder, Synthetic Prompts, Topic Generation
   </p>
 
