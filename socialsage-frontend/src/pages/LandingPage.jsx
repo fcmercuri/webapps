@@ -248,7 +248,7 @@ const cards = [
       marginBottom: ".6rem"
     }}
   >
-    Skyrocket Your Growth across Every Digital Channel
+    Skyrocket Your Growth Across Every Channel
   </motion.h1>
   <motion.h2
     initial={{ opacity: 0, y: 35 }}
@@ -443,279 +443,326 @@ const cards = [
         {/* ============================================ */}
         {/* HOW IT WORKS SECTION - ANIMATED WITH SCREENSHOTS */}
         {/* ============================================ */}
-        <section style={{
-          margin: "7rem auto 0 auto",
-          maxWidth: 1200,
-          textAlign: "center",
-          padding: "0 20px",
-          position: "relative",
-          zIndex: 2
-        }}>
-          <h2 style={{
-            color: "#ffd945",
-            fontWeight: 900,
-            fontSize: "2.1rem",
-            marginBottom: "0.9rem",
-            letterSpacing: "-1px"
-          }}>
-            AI-Powered Content That Converts
-          </h2>
-          <p style={{ color: "#bbb", marginBottom: "2.2rem", fontSize: "1.15rem" }}>
-          Generate customer personas, content ideas, and conversion-ready copy in minutes - not hours
-          </p>
+        {/* ============================================ */}
+{/* HOW IT WORKS SECTION - ANIMATED WITH SCREENSHOTS */}
+{/* ============================================ */}
 
-          {/* Step 1: Select Industry */}
-          <div ref={step1Ref} style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-            marginBottom: "8rem"
-          }}>
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={step1InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-            >
-              <div style={{
-                background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
-                color: "#000",
-                padding: "8px 20px",
-                borderRadius: "20px",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                display: "inline-block",
-                marginBottom: "20px"
-              }}>
-                STEP 1
-              </div>
-              <h3 style={{
-                fontSize: "2.2rem",
-                fontWeight: 800,
-                margin: "0 0 20px 0",
-                letterSpacing: "-1px",
-                color: "#fff"
-              }}>
-                Choose Your Industry
-              </h3>
-              <p style={{
-                fontSize: "1.15rem",
-                color: "#bbb",
-                lineHeight: 1.7,
-                margin: 0
-              }}>
-                Select from 5+ industries - from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors everything to your specific market
-              </p>
-            </motion.div>
+<section
+  style={{
+    margin: "7rem auto 0 auto",
+    maxWidth: 1200,
+    textAlign: "center",
+    padding: "0 20px",
+    position: "relative",
+    zIndex: 2,
+  }}
+>
+  <h2
+    style={{
+      color: "#ffd945",
+      fontWeight: 900,
+      fontSize: "2.1rem",
+      marginBottom: "0.9rem",
+      letterSpacing: "-1px",
+    }}
+  >
+    AI-Powered Content That Converts
+  </h2>
+  <p
+    style={{
+      color: "#bbb",
+      marginBottom: "2.2rem",
+      fontSize: "1.15rem",
+    }}
+  >
+    Generate customer personas, content ideas, and conversion-ready copy in minutes – not hours
+  </p>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={step1InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              style={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
-                border: "2px solid rgba(255, 217, 69, 0.3)"
-              }}
-            >
-              <img 
-                src="/step-1-industry.jpg" alt="Select Industry" 
-                style={{ width: "100%", display: "block" }}
-              />
-            </motion.div>
-          </div>
+  <div
+  ref={step1Ref}
+  data-step="1"
+  className="how-step-wrapper"
+>
+  {/* Image first (left on desktop, below text on mobile via CSS order) */}
+  <motion.div
+    className="step-image"
+    initial={{ opacity: 0, x: -50 }}
+    animate={step1InView ? { opacity: 1, x: 0 } : {}}
+    transition={{ duration: 0.8 }}
+    style={{
+      borderRadius: 16,
+      overflow: "hidden",
+      boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
+      border: "2px solid rgba(255, 217, 69, 0.3)",
+    }}
+  >
+    <img
+      src="step-1-industry.jpg"
+      alt="Select Industry"
+      style={{ width: "100%", display: "block" }}
+    />
+  </motion.div>
 
-          {/* Step 2: AI Generates Personas */}
-          <div ref={step2Ref} style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-            marginBottom: "8rem"
-          }}>
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={step2InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              style={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
-                border: "2px solid rgba(255, 217, 69, 0.3)",
-                order: 2
-              }}
-            >
-              <img 
-                src="/step-2-personas.jpg" alt="AI Persona"
-                style={{ width: "100%", display: "block" }}
-              />
-            </motion.div>
+  {/* Text second (right on desktop, above image on mobile via order) */}
+  <motion.div
+    className="step-text"
+    initial={{ opacity: 0, x: 50 }}
+    animate={step1InView ? { opacity: 1, x: 0 } : {}}
+    transition={{ duration: 0.8, delay: 0.2 }}
+  >
+    <div
+      style={{
+        background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
+        color: "#000",
+        padding: "8px 20px",
+        borderRadius: 20,
+        fontSize: "0.875rem",
+        fontWeight: 700,
+        display: "inline-block",
+        marginBottom: 20,
+      }}
+    >
+      STEP 1
+    </div>
+    <h3
+      style={{
+        fontSize: "2.2rem",
+        fontWeight: 800,
+        margin: "0 0 20px 0",
+        letterSpacing: "-1px",
+        color: "#fff",
+      }}
+    >
+      Choose Your Industry
+    </h3>
+    <p
+      style={{
+        fontSize: "1.15rem",
+        color: "#bbb",
+        lineHeight: 1.7,
+        margin: 0,
+      }}
+    >
+      Select from 5+ industries – from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors
+      everything to your specific market.
+    </p>
+  </motion.div>
+</div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={step2InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              style={{ order: 1 }}
-            >
-              <div style={{
-                background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
-                color: "#000",
-                padding: "8px 20px",
-                borderRadius: "20px",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                display: "inline-block",
-                marginBottom: "20px"
-              }}>
-                STEP 2
-              </div>
-              <h3 style={{
-                fontSize: "2.2rem",
-                fontWeight: 800,
-                margin: "0 0 20px 0",
-                letterSpacing: "-1px",
-                color: "#fff"
-              }}>
-                Meet Your Customers
-              </h3>
-              <p style={{
-                fontSize: "1.15rem",
-                color: "#bbb",
-                lineHeight: 1.7,
-                margin: 0
-              }}>
-                SocialSage AI instantly generates 4 detailed customer personas with goals, pain points, and behaviors - like having a marketing team in your pocket
-              </p>
-            </motion.div>
-          </div>
+  {/* STEP 2 */}
+  <div
+  ref={step2Ref}
+  data-step="2"
+  className="how-step-wrapper"
+>
+    <motion.div
+      className="step-image"
+      initial={{ opacity: 0, x: -50 }}
+      animate={step2InView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8 }}
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+        boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
+        border: "2px solid rgba(255, 217, 69, 0.3)",
+      }}
+    >
+      <img
+        src="step-2-personas.jpg"
+        alt="AI Persona"
+        style={{ width: "100%", display: "block" }}
+      />
+    </motion.div>
 
-          {/* Step 3: Get Content Ideas */}
-          <div ref={step3Ref} style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-            marginBottom: "8rem"
-          }}>
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={step3InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-            >
-              <div style={{
-                background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
-                color: "#000",
-                padding: "8px 20px",
-                borderRadius: "20px",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                display: "inline-block",
-                marginBottom: "20px"
-              }}>
-                STEP 3
-              </div>
-              <h3 style={{
-                fontSize: "2.2rem",
-                fontWeight: 800,
-                margin: "0 0 20px 0",
-                letterSpacing: "-1px",
-                color: "#fff"
-              }}>
-                Content Ideas That Convert
-              </h3>
-              <p style={{
-                fontSize: "1.15rem",
-                color: "#bbb",
-                lineHeight: 1.7,
-                margin: 0
-              }}>
-                Get 5 targeted content prompts for each persona - SEO articles, social posts, email campaigns, and more. No more writer's block
-              </p>
-            </motion.div>
+    <motion.div
+      className="step-text"
+      initial={{ opacity: 0, x: 50 }}
+      animate={step2InView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
+      <div
+        style={{
+          background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
+          color: "#000",
+          padding: "8px 20px",
+          borderRadius: 20,
+          fontSize: "0.875rem",
+          fontWeight: 700,
+          display: "inline-block",
+          marginBottom: 20,
+        }}
+      >
+        STEP 2
+      </div>
+      <h3
+        style={{
+          fontSize: "2.2rem",
+          fontWeight: 800,
+          margin: "0 0 20px 0",
+          letterSpacing: "-1px",
+          color: "#fff",
+        }}
+      >
+        Meet Your Customers
+      </h3>
+      <p
+        style={{
+          fontSize: "1.15rem",
+          color: "#bbb",
+          lineHeight: 1.7,
+          margin: 0,
+        }}
+      >
+        SocialSage AI instantly generates 4 detailed customer personas with goals, pain points, and
+        behaviors – like having a marketing team in your pocket.
+      </p>
+    </motion.div>
+  </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={step3InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              style={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
-                border: "2px solid rgba(255, 217, 69, 0.3)"
-              }}
-            >
-              <img 
-                src="/step-3-prompts.jpg" alt="Content Idea"
-                style={{ width: "100%", display: "block" }}
-              />
-            </motion.div>
-          </div>
+  {/* STEP 3 */}
+  {/* STEP 3 */}
+<div
+  ref={step3Ref}
+  data-step="3"
+  className="how-step-wrapper"
+>
+  {/* Image first */}
+  <motion.div
+    className="step-image"
+    initial={{ opacity: 0, x: -50 }}
+    animate={step3InView ? { opacity: 1, x: 0 } : {}}
+    transition={{ duration: 0.8 }}
+    style={{
+      borderRadius: 16,
+      overflow: "hidden",
+      boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
+      border: "2px solid rgba(255, 217, 69, 0.3)",
+    }}
+  >
+    <img
+      src="step-3-prompts.jpg"
+      alt="Content Ideas"
+      style={{ width: "100%", display: "block" }}
+    />
+  </motion.div>
 
-          {/* Step 4: Generate Pro Copy */}
-          <div ref={step4Ref} style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "center",
-            marginBottom: "5rem"
-          }}>
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={step4InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              style={{
-                borderRadius: "16px",
-                overflow: "hidden",
-                boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
-                border: "2px solid rgba(255, 217, 69, 0.3)",
-                order: 2
-              }}
-            >
-              <img 
-                src="/step-4-content.jpg" alt="Generated Content"
-                style={{ width: "100%", display: "block" }}
-              />
-            </motion.div>
+  {/* Text second */}
+  <motion.div
+    className="step-text"
+    initial={{ opacity: 0, x: 50 }}
+    animate={step3InView ? { opacity: 1, x: 0 } : {}}
+    transition={{ duration: 0.8, delay: 0.2 }}
+  >
+    <div
+      style={{
+        background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
+        color: "#000",
+        padding: "8px 20px",
+        borderRadius: 20,
+        fontSize: "0.875rem",
+        fontWeight: 700,
+        display: "inline-block",
+        marginBottom: 20,
+      }}
+    >
+      STEP 3
+    </div>
+    <h3
+      style={{
+        fontSize: "2.2rem",
+        fontWeight: 800,
+        margin: "0 0 20px 0",
+        letterSpacing: "-1px",
+        color: "#fff",
+      }}
+    >
+      Content Ideas That Convert
+    </h3>
+    <p
+      style={{
+        fontSize: "1.15rem",
+        color: "#bbb",
+        lineHeight: 1.7,
+        margin: 0,
+      }}
+    >
+      Get 5 targeted content prompts for each persona – SEO articles, social posts, email
+      campaigns, and more. No more writer&apos;s block.
+    </p>
+  </motion.div>
+</div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={step4InView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              style={{ order: 1 }}
-            >
-              <div style={{
-                background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
-                color: "#000",
-                padding: "8px 20px",
-                borderRadius: "20px",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                display: "inline-block",
-                marginBottom: "20px"
-              }}>
-                STEP 4
-              </div>
-              <h3 style={{
-                fontSize: "2.2rem",
-                fontWeight: 800,
-                margin: "0 0 20px 0",
-                letterSpacing: "-1px",
-                color: "#fff"
-              }}>
-                Professional Copy, Instantly
-              </h3>
-              <p style={{
-                fontSize: "1.15rem",
-                color: "#bbb",
-                lineHeight: 1.7,
-                margin: 0
-              }}>
-                One click generates 1.000-1.500 words of conversion-ready copy that speaks directly to your customers' needs. Edit, save, and ship
-              </p>
-            </motion.div>
-          </div>
-        </section>
+  {/* STEP 4 */}
+  <div
+  ref={step4Ref}
+  data-step="4"
+  className="how-step-wrapper"
+>
+    <motion.div
+      className="step-image"
+      initial={{ opacity: 0, x: -50 }}
+      animate={step4InView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8 }}
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+        boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
+        border: "2px solid rgba(255, 217, 69, 0.3)",
+      }}
+    >
+      <img
+        src="step-4-content.jpg"
+        alt="Generated Content"
+        style={{ width: "100%", display: "block" }}
+      />
+    </motion.div>
+
+    <motion.div
+      className="step-text"
+      initial={{ opacity: 0, x: 50 }}
+      animate={step4InView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
+      <div
+        style={{
+          background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
+          color: "#000",
+          padding: "8px 20px",
+          borderRadius: 20,
+          fontSize: "0.875rem",
+          fontWeight: 700,
+          display: "inline-block",
+          marginBottom: 20,
+        }}
+      >
+        STEP 4
+      </div>
+      <h3
+        style={{
+          fontSize: "2.2rem",
+          fontWeight: 800,
+          margin: "0 0 20px 0",
+          letterSpacing: "-1px",
+          color: "#fff",
+        }}
+      >
+        Professional Copy, Instantly
+      </h3>
+      <p
+        style={{
+          fontSize: "1.15rem",
+          color: "#bbb",
+          lineHeight: 1.7,
+          margin: 0,
+        }}
+      >
+        One click generates 1,000–1,500 words of conversion-ready copy that speaks directly to your
+        customers&apos; needs. Edit, save, and ship.
+      </p>
+    </motion.div>
+  </div>
+</section>
+
         {/* ============================================ */}
         {/* END HOW IT WORKS SECTION */}
         {/* ============================================ */}

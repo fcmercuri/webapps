@@ -143,8 +143,6 @@ section, main {
   padding: 1.8rem 0;
 }
 
-
-
 input, select, textarea {
   background: #141416;
   border: 1px solid #232323;
@@ -213,6 +211,7 @@ button:hover, .button:hover { background: #171717; }
 }
 ::-webkit-scrollbar { width: 8px; background: #111; }
 ::-webkit-scrollbar-thumb { background: #232323; border-radius: 7px; }
+
 @media (max-width: 600px) {
   nav { flex-direction: column; padding: 14px 1rem; }
   nav .logo { margin-bottom: 1rem; }
@@ -268,8 +267,9 @@ button:hover, .button:hover { background: #171717; }
 .nav-right a:hover::after {
   transform: scaleX(1);
 }
+
 .hero-title {
-  font-size: clamp(2rem, 6vw, 4.5rem);   /* Scales with viewport */
+  font-size: clamp(2rem, 6vw, 4.5rem);
   font-weight: 800;
   line-height: 1.11;
   margin: 0 0 0.6rem 0;
@@ -391,3 +391,40 @@ button:hover, .button:hover { background: #171717; }
   }
 }
 
+/* Mobile: stack Step section + make image tall */
+/* Desktop layout for steps */
+.how-step-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 8rem;
+}
+
+/* Mobile: stack with text above image */
+@media (max-width: 768px) {
+  .how-step-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .how-step-wrapper .step-text {
+    order: 1;
+    text-align: left;
+  }
+
+  .how-step-wrapper .step-image {
+    order: 2;
+    width: 100%;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .how-step-wrapper .step-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+}
