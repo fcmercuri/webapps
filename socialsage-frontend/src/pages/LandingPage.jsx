@@ -189,8 +189,11 @@ const cards = [
         <div style={{position:"fixed", top:-145, left:-100, width:520, height:320, background:"radial-gradient(ellipse at 40% 60%, #ffd94533 0%, transparent 73%)", zIndex:0, filter:"blur(76px)"}}/>
         <div style={{position:"fixed", bottom:-180, right:-130, width:530, height:350, background:"radial-gradient(circle at 60% 18%, #7b7bad33 0%, transparent 77%)", zIndex:0, filter:"blur(99px)"}}/>
 
-        {/* HERO + UVP */}        
+        {/* HERO + UVP */}  
+
+
         <header
+        
   id="hero"
   className="hero-grid"
   style={{
@@ -277,6 +280,7 @@ const cards = [
     </p>
   </div>
 </div>
+
 
 
   {/* Right: AI persona banner */}
@@ -389,7 +393,7 @@ const cards = [
     >
       <span>✨</span>
       <span>
-        “Show me 5 content ideas that answer Sofia&apos;s top questions this
+        “Show me 5 content ideas that answer Sofia&apos;s top synthetic questions this
         week”
       </span>
     </div>
