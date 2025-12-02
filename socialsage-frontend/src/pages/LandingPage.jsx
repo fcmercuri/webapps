@@ -86,7 +86,7 @@ const cards = [
     title: "AI Persona Builder",
     desc: "Create customer avatars, generate AI bios, and unlock segments with a click",
     expandedContent: [
-      "✓ Generate 4 detailed customer personas per industry instantly",
+      "✓ Generate 5 (Starter Plan) detailed customer personas per industry instantly",
       "✓ AI-powered demographics, psychographics, goals, and pain points",
       "✓ Premium personas with advanced behavioral insights",
       "✓ Export personas to CSV or integrate with your CRM",
