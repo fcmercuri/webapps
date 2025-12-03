@@ -1287,19 +1287,25 @@ const cards = [
               position: "relative"
             }}>
               <div style={{ display: "flex", alignItems: "center", marginBottom: 15 }}>
-                <div style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "50%",
-                  marginRight: 14,
-                  background: "#ffd94533",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.5rem"
-                }}>
-                  👩
-                </div>
+              <div
+  style={{
+    width: 48,
+    height: 48,
+    borderRadius: "50%",
+    marginRight: 14,
+    background: "#ffd94533",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden"
+  }}
+>
+  <img
+    src="/review1.png"   // put your real image path here
+    alt="Customer avatar"
+    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+  />
+</div>
                 <div>
                   <div style={{ color: "#ffd945", fontWeight: 700, fontSize: ".98rem" }}>
                     Elena S.
@@ -1333,19 +1339,25 @@ const cards = [
               position: "relative"
             }}>
               <div style={{ display: "flex", alignItems: "center", marginBottom: 15 }}>
-                <div style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: "50%",
-                  marginRight: 14,
-                  background: "#ffd94533",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.5rem"
-                }}>
-                  👨
-                </div>
+              <div
+  style={{
+    width: 48,
+    height: 48,
+    borderRadius: "50%",
+    marginRight: 14,
+    background: "#ffd94533",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden"
+  }}
+>
+  <img
+    src="/review2.png"   // put your real image path here
+    alt="Customer avatar"
+    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+  />
+</div>
                 <div>
                   <div style={{ color: "#ffd945", fontWeight: 700, fontSize: ".98rem" }}>
                     Mason L.
