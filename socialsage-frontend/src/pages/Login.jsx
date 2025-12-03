@@ -3,7 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../auth/AuthContext";
 import { useGoogleLogin } from "@react-oauth/google";
-import api from "../auth"; // adjust path if your axios file is elsewhere
+import api from "../api/axios";   // <- single, correct import
+
 
 export default function Login() {
   const navigate = useNavigate();
