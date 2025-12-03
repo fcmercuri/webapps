@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../auth/AuthContext";
 import { useGoogleLogin } from "@react-oauth/google";
+import api from "../auth"; // adjust path if your axios file is elsewhere
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,30 +12,24 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
         setError("");
 
-        // Call your backend endpoint for Google login
-        const res = await fetch(`${BASE_URL}/api/auth/google-login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ access_token: tokenResponse.access_token }),
+        const res = await api.post("/api/auth/google-login", {
+          access_token: tokenResponse.access_token,
         });
 
-        if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || "Google login failed");
-        }
-
-        const { token, user } = await res.json();
+        const { token, user } = res.data;
+        localStorage.setItem("token", token);
         loginSuccess(token, user);
         navigate("/dashboard");
       } catch (err) {
-        setError(err.message);
+        const message =
+          err.response?.data?.error || err.message || "Google login failed";
+        setError(message);
       }
     },
     onError: () => setError("Google login failed"),
@@ -51,22 +46,20 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const loginRes = await fetch(`${BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+
+      const loginRes = await api.post("/api/auth/login", {
+        email,
+        password,
       });
 
-      if (!loginRes.ok) {
-        const data = await loginRes.json();
-        throw new Error(data.error || "Login failed");
-      }
-
-      const { token, user } = await loginRes.json();
+      const { token, user } = loginRes.data;
+      localStorage.setItem("token", token);
       loginSuccess(token, user);
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message);
+      const message =
+        err.response?.data?.error || err.message || "Login failed";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -282,32 +275,31 @@ export default function Login() {
 
         {/* Google button */}
         <button
-  type="button"
-  onClick={() => loginWithGoogle()}
-  style={{
-    width: "100%",
-    background: "#0B0B0B",
-    color: "#fff",
-    border: "1.5px solid #232323",
-    borderRadius: "10px",
-    padding: "12px 16px",
-    fontWeight: 600,
-    fontSize: "0.95rem",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "10px",
-  }}
->
-  <img
-    src="/google-icon.svg"   // file in /public
-    alt="Google logo"
-    style={{ width: 18, height: 18 }}
-  />
-  <span>Continue with Google</span>
-</button>
-
+          type="button"
+          onClick={() => loginWithGoogle()}
+          style={{
+            width: "100%",
+            background: "#0B0B0B",
+            color: "#fff",
+            border: "1.5px solid #232323",
+            borderRadius: "10px",
+            padding: "12px 16px",
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <img
+            src="/google-logo.svg"
+            alt="Google logo"
+            style={{ width: 18, height: 18 }}
+          />
+          <span>Continue with Google</span>
+        </button>
 
         <p
           style={{
