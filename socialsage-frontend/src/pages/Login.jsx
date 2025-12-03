@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../auth/AuthContext";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,6 +12,33 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  const loginWithGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        setError("");
+
+        // Call your backend endpoint for Google login
+        const res = await fetch(`${BASE_URL}/api/auth/google-login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ access_token: tokenResponse.access_token }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || "Google login failed");
+        }
+
+        const { token, user } = await res.json();
+        loginSuccess(token, user);
+        navigate("/dashboard");
+      } catch (err) {
+        setError(err.message);
+      }
+    },
+    onError: () => setError("Google login failed"),
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -26,7 +54,7 @@ export default function Login() {
       const loginRes = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       });
 
       if (!loginRes.ok) {
@@ -45,26 +73,31 @@ export default function Login() {
   }
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-      overflow: "hidden"
-    }}>
-      <div style={{
-        position: "fixed",
-        top: -200,
-        right: -200,
-        width: 600,
-        height: 600,
-        background: "radial-gradient(circle, #ffd94533 0%, transparent 70%)",
-        borderRadius: "50%",
-        filter: "blur(80px)",
-        zIndex: 0
-      }} />
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Glow background */}
+      <div
+        style={{
+          position: "fixed",
+          top: -200,
+          right: -200,
+          width: 600,
+          height: 600,
+          background: "radial-gradient(circle, #ffd94533 0%, transparent 70%)",
+          borderRadius: "50%",
+          filter: "blur(80px)",
+          zIndex: 0,
+        }}
+      />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -80,35 +113,36 @@ export default function Login() {
           width: "90%",
           position: "relative",
           zIndex: 10,
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)"
+          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
         }}
       >
         {/* Header with Logo */}
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          {/* Logo */}
-          <img 
-            src="/logo.jpg" 
-            alt="SocialSage Logo" 
+          <img
+            src="/logo.jpg"
+            alt="SocialSage Logo"
             style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '12px',
-              objectFit: 'cover',
-              marginBottom: '15px',
-              boxShadow: '0 4px 12px rgba(255, 217, 69, 0.2)'
+              width: "40px",
+              height: "40px",
+              borderRadius: "12px",
+              objectFit: "cover",
+              marginBottom: "15px",
+              boxShadow: "0 4px 12px rgba(255, 217, 69, 0.2)",
             }}
           />
-          
-          <h1 style={{
-            fontSize: "2rem",
-            fontWeight: 900,
-            color: "#fff",
-            margin: "0 0 10px 0",
-            background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            letterSpacing: "-1px"
-          }}>
+
+          <h1
+            style={{
+              fontSize: "2rem",
+              fontWeight: 900,
+              color: "#fff",
+              margin: "0 0 10px 0",
+              background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              letterSpacing: "-1px",
+            }}
+          >
             Welcome Back
           </h1>
           <p style={{ color: "#bbb", fontSize: "1rem", margin: 0 }}>
@@ -116,15 +150,27 @@ export default function Login() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        {/* Email / password form */}
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+        >
           <div>
-            <label style={{ display: "block", color: "#ffd945", fontSize: "0.9rem", fontWeight: 600, marginBottom: "8px" }}>
+            <label
+              style={{
+                display: "block",
+                color: "#ffd945",
+                fontSize: "0.9rem",
+                fontWeight: 600,
+                marginBottom: "8px",
+              }}
+            >
               Email Address
             </label>
             <input
               type="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               style={{
                 width: "100%",
@@ -135,19 +181,27 @@ export default function Login() {
                 color: "#fff",
                 fontSize: "1rem",
                 fontFamily: "inherit",
-                boxSizing: "border-box"
+                boxSizing: "border-box",
               }}
             />
           </div>
 
           <div>
-            <label style={{ display: "block", color: "#ffd945", fontSize: "0.9rem", fontWeight: 600, marginBottom: "8px" }}>
+            <label
+              style={{
+                display: "block",
+                color: "#ffd945",
+                fontSize: "0.9rem",
+                fontWeight: 600,
+                marginBottom: "8px",
+              }}
+            >
               Password
             </label>
             <input
               type="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               style={{
                 width: "100%",
@@ -158,20 +212,22 @@ export default function Login() {
                 color: "#fff",
                 fontSize: "1rem",
                 fontFamily: "inherit",
-                boxSizing: "border-box"
+                boxSizing: "border-box",
               }}
             />
           </div>
 
           {error && (
-            <div style={{
-              background: "rgba(239, 68, 68, 0.1)",
-              border: "1px solid rgba(239, 68, 68, 0.3)",
-              color: "#ff6b6b",
-              padding: "12px 14px",
-              borderRadius: "8px",
-              fontSize: "0.9rem"
-            }}>
+            <div
+              style={{
+                background: "rgba(239, 68, 68, 0.1)",
+                border: "1px solid rgba(239, 68, 68, 0.3)",
+                color: "#ff6b6b",
+                padding: "12px 14px",
+                borderRadius: "8px",
+                fontSize: "0.9rem",
+              }}
+            >
               {error}
             </div>
           )}
@@ -190,16 +246,82 @@ export default function Login() {
               cursor: "pointer",
               opacity: loading ? 0.6 : 1,
               marginTop: "10px",
-              boxShadow: "0 8px 20px rgba(255, 217, 69, 0.2)"
+              boxShadow: "0 8px 20px rgba(255, 217, 69, 0.2)",
             }}
           >
             {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
 
-        <p style={{ textAlign: "center", color: "#bbb", fontSize: "0.9rem", marginTop: "25px" }}>
+        {/* Separator */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            marginTop: "22px",
+            marginBottom: "10px",
+          }}
+        >
+          <div
+            style={{
+              flex: 1,
+              height: 1,
+              background: "rgba(255,255,255,0.08)",
+            }}
+          />
+          <span style={{ color: "#777", fontSize: "0.85rem" }}>or</span>
+          <div
+            style={{
+              flex: 1,
+              height: 1,
+              background: "rgba(255,255,255,0.08)",
+            }}
+          />
+        </div>
+
+        {/* Google button */}
+        <button
+  type="button"
+  onClick={() => loginWithGoogle()}
+  style={{
+    width: "100%",
+    background: "#0B0B0B",
+    color: "#fff",
+    border: "1.5px solid #232323",
+    borderRadius: "10px",
+    padding: "12px 16px",
+    fontWeight: 600,
+    fontSize: "0.95rem",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+  }}
+>
+  <img
+    src="/google-icon.svg"   // file in /public
+    alt="Google logo"
+    style={{ width: 18, height: 18 }}
+  />
+  <span>Continue with Google</span>
+</button>
+
+
+        <p
+          style={{
+            textAlign: "center",
+            color: "#bbb",
+            fontSize: "0.9rem",
+            marginTop: "25px",
+          }}
+        >
           Don't have an account?{" "}
-          <Link to="/register" style={{ color: "#ffd945", textDecoration: "none", fontWeight: 600 }}>
+          <Link
+            to="/register"
+            style={{ color: "#ffd945", textDecoration: "none", fontWeight: 600 }}
+          >
             Sign Up
           </Link>
         </p>

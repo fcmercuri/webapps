@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './App.css';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // Simple Error Boundary to catch runtime errors
 class ErrorBoundary extends React.Component {
@@ -31,7 +32,9 @@ const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <ErrorBoundary>
-    <App />
-  </ErrorBoundary>
+  <GoogleOAuthProvider clientId="865439905014-ne9g11a5cil273h0cgoq1c1nfvahuolk.apps.googleusercontent.com">
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  </GoogleOAuthProvider>
 );

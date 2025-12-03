@@ -199,7 +199,7 @@ const cards = [
   style={{
     width: "100%",
     margin: "0 auto",
-    padding: "78px 20px 32px 20px",
+    padding: "68px 20px 32px 20px",
     position: "relative",
     zIndex: 3,
     boxSizing: "border-box",
@@ -412,7 +412,7 @@ const cards = [
           justifyContent: "center",
           flexWrap: "wrap",
           gap: "0.6rem",
-          margin: "3.1rem auto 0 auto ",
+          margin: "1.1rem auto 0 auto ",
           maxWidth: 1200,
           zIndex: 2,
           position: "relative"
@@ -1246,7 +1246,7 @@ const cards = [
 
 
 
-        {/* CUSTOMER REVIEWS */}
+                {/* CUSTOMER REVIEWS */}
         <section
           style={{
             maxWidth: 900,
@@ -1387,7 +1387,7 @@ const cards = [
         {/* FINAL CTA - TRY FREE TRIAL */}
         {/* ============================================ */}
         <section style={{
-          padding: "6rem 20px",
+          padding: "3rem 20px",
           textAlign: "center",
           position: "relative",
           zIndex: 2
@@ -1446,7 +1446,7 @@ const cards = [
   color: "#bbb",
   textAlign: "center",
   fontWeight: 500,
-  padding: "2rem 0",
+  padding: "1.1rem 0",
   borderTop: "1px solid #232323",
   marginTop: "3rem"
 }}>
