@@ -35,7 +35,7 @@ export default function Register() {
 
         const { token, user } = data;
         loginSuccess(token, user);
-        navigate("/dashboard");
+        navigate("/Welcome");
       } catch (err) {
         setError(err.message || "Google login failed");
       }

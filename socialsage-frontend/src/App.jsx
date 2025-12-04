@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Success from './pages/Success';
+import Welcome from './pages/Welcome';      // NEW
 
 import Personas from './pages/Personas';
 import Prompts from './pages/Prompts';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/welcome" element={<Welcome />} />   {/* NEW */}
 
           <Route
             path="/dashboard"
