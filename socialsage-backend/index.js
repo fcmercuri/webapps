@@ -87,6 +87,69 @@ app.post('/api/create-checkout-session', async (req, res) => {
   }
 });
 
+
+// >>> NEW: GOOGLE LOGIN ROUTE <<<
+app.post('/api/auth/google-login', async (req, res) => {
+  try {
+    const { access_token } = req.body;
+    if (!access_token) {
+      return res.status(400).json({ error: 'Missing access_token' });
+    }
+
+    // fetch Google userinfo
+    const googleRes = await axios.get(
+      'https://www.googleapis.com/oauth2/v3/userinfo',
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+
+    const profile = googleRes.data; // { sub, email, name, picture, ... }
+
+    if (!profile.email) {
+      return res.status(400).json({ error: 'Google account has no email' });
+    }
+
+    let user = await User.findOne({ email: profile.email });
+
+    if (!user) {
+      user = await User.create({
+        email: profile.email,
+        name: profile.name || 'Google User',
+        avatar: profile.picture,
+        authProvider: 'google',
+        googleId: profile.sub,
+        plan: 'free',
+        isPremium: false,
+      });
+    }
+
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET || 'SECRET_KEY',
+      { expiresIn: '7d' }
+    );
+
+    return res.json({
+      token,
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+        industry: user.industry,
+        isPremium: user.isPremium,
+        plan: user.plan,
+      },
+    });
+  } catch (err) {
+    console.error('❌ Google login error:', err.response?.data || err.message);
+    return res.status(500).json({ error: 'Google login failed' });
+  }
+});
+
 // --- STRIPE VERIFY SESSION ROUTE ---
 app.post('/api/stripe/verify-session', async (req, res) => {
   const { sessionId } = req.body;
