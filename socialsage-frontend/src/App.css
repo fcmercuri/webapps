@@ -472,4 +472,52 @@ body::before {
   }
 }
 
+/* Desktop: sidebar fixed and always visible */
+.sidebar-wrapper {
+  width: 240px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  transform: translateX(0);
+}
 
+.dashboard-main {
+  flex: 1;
+  padding: 40px;
+  max-width: 1400px;
+  margin-left: 240px;
+}
+
+.dashboard-mobile-header {
+  display: none;
+}
+
+/* Mobile: hide sidebar until open, show header */
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    transform: translateX(-100%);
+    transition: transform 0.25s ease-out;
+  }
+
+  .sidebar-wrapper.open {
+    transform: translateX(0);
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .dashboard-mobile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .dashboard-content {
+    padding: 0;
+  }
+}
