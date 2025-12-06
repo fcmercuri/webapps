@@ -222,24 +222,46 @@ function calculateConversionScore(persona, industry) {
     'finance',
     'healthcare',
   ];
-  const hotRoles = ['founder', 'owner', 'ceo', 'director', 'vp', 'head', 'manager'];
+  const hotRolesHigh = ['founder', 'owner', 'ceo', 'cmo', 'cto'];
+  const hotRolesMid = ['director', 'vp', 'head', 'manager', 'lead'];
 
   const role = (persona.role || '').toLowerCase();
   const ind = (industry || persona.industry || '').toLowerCase();
 
-  if (hotRoles.some((r) => role.includes(r))) score += 25;
+  // Industry fit
   if (hotIndustries.some((i) => ind.includes(i))) score += 20;
 
+  // Role seniority
+  if (hotRolesHigh.some((r) => role.includes(r))) score += 25;
+  else if (hotRolesMid.some((r) => role.includes(r))) score += 15;
+  else if (role) score += 5; // any defined role gets a bit
+
+  // Goals & pains depth
   const goalsCount = (persona.goals || []).length;
   const painsCount = (persona.painPoints || []).length;
 
-  if (goalsCount >= 3) score += 15;
-  else if (goalsCount >= 1) score += 5;
+  if (goalsCount >= 4) score += 18;
+  else if (goalsCount >= 2) score += 10;
+  else if (goalsCount >= 1) score += 4;
 
-  if (painsCount >= 3) score += 15;
-  else if (painsCount >= 1) score += 5;
+  if (painsCount >= 4) score += 18;
+  else if (painsCount >= 2) score += 10;
+  else if (painsCount >= 1) score += 4;
 
-  score += 5; // base
+  // Age band (core buyer 28–50 a bit higher)
+  if (typeof persona.age === 'number') {
+    if (persona.age >= 28 && persona.age <= 50) score += 6;
+    else if (persona.age >= 22 && persona.age < 28) score += 3;
+  }
+
+  // Small random jitter so scores are not identical
+  const jitter = Math.floor(Math.random() * 7) - 3; // -3..+3
+  score += jitter;
+
+  // Base fit if anything is defined
+  if ((persona.goals && goalsCount) || (persona.painPoints && painsCount)) {
+    score += 5;
+  }
 
   const finalScore = Math.max(0, Math.min(score, 100));
   return Number.isFinite(finalScore) ? finalScore : 0;
