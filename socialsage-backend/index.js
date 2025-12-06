@@ -87,8 +87,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
   }
 });
 
-
-// >>> NEW: GOOGLE LOGIN ROUTE <<<
+// >>> GOOGLE LOGIN ROUTE <<<
 app.post('/api/auth/google-login', async (req, res) => {
   try {
     const { access_token } = req.body;
@@ -96,7 +95,6 @@ app.post('/api/auth/google-login', async (req, res) => {
       return res.status(400).json({ error: 'Missing access_token' });
     }
 
-    // fetch Google userinfo
     const googleRes = await axios.get(
       'https://www.googleapis.com/oauth2/v3/userinfo',
       {
@@ -106,7 +104,7 @@ app.post('/api/auth/google-login', async (req, res) => {
       }
     );
 
-    const profile = googleRes.data; // { sub, email, name, picture, ... }
+    const profile = googleRes.data;
 
     if (!profile.email) {
       return res.status(400).json({ error: 'Google account has no email' });
@@ -208,6 +206,43 @@ function authenticateToken(req, res, next) {
   } catch (err) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
+}
+
+// --- SIMPLE LEAD SCORING HELPER ---
+function calculateConversionScore(persona, industry) {
+  let score = 0;
+
+  const hotIndustries = [
+    'saas',
+    'software',
+    'tech',
+    'marketing',
+    'ecommerce',
+    'fitness',
+    'finance',
+    'healthcare',
+  ];
+  const hotRoles = ['founder', 'owner', 'ceo', 'director', 'vp', 'head', 'manager'];
+
+  const role = (persona.role || '').toLowerCase();
+  const ind = (industry || persona.industry || '').toLowerCase();
+
+  if (hotRoles.some((r) => role.includes(r))) score += 25;
+  if (hotIndustries.some((i) => ind.includes(i))) score += 20;
+
+  const goalsCount = (persona.goals || []).length;
+  const painsCount = (persona.painPoints || []).length;
+
+  if (goalsCount >= 3) score += 15;
+  else if (goalsCount >= 1) score += 5;
+
+  if (painsCount >= 3) score += 15;
+  else if (painsCount >= 1) score += 5;
+
+  score += 5; // base
+
+  const finalScore = Math.max(0, Math.min(score, 100));
+  return Number.isFinite(finalScore) ? finalScore : 0;
 }
 
 // --- DATABASE CONNECTION ---
@@ -402,9 +437,14 @@ Make personas diverse, realistic, and specific to ${industry}.`;
     });
 
     const savedPersonas = [];
+
     for (let i = 0; i < Math.min(personas.length, 4); i++) {
       const personaData = personas[i];
-      const persona = new Persona({
+
+      const conversionScore = calculateConversionScore(personaData, industry);
+      console.log('DEBUG persona score:', personaData.name, conversionScore);
+
+      const persona = await Persona.create({
         name: personaData.name,
         age: personaData.age,
         bio: personaData.bio,
@@ -414,13 +454,14 @@ Make personas diverse, realistic, and specific to ${industry}.`;
         userId: req.userId,
         isPremium: i > 0,
         avatar: '👤',
+        conversionScore,
       });
-      await persona.save();
+
       savedPersonas.push(persona);
     }
 
     console.log(`✅ Generated ${savedPersonas.length} personas for ${industry}`);
-    res.json(savedPersonas);
+    return res.json(savedPersonas);
   } catch (err) {
     console.error('❌ Persona generation error:', err.message);
     res.status(500).json({

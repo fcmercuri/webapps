@@ -20,6 +20,7 @@ export default function PersonaCard({ persona, onClick, isLocked, onUnlock }) {
         }}
         onClick={onUnlock}
       >
+        {/* locked content unchanged */}
         <div style={{
           position: 'absolute',
           top: '50%',
@@ -50,6 +51,13 @@ export default function PersonaCard({ persona, onClick, isLocked, onUnlock }) {
     );
   }
 
+  const score = persona.conversionScore ?? 0;
+  const roundedScore = Math.round(score);
+  const level =
+    score >= 70 ? 'Hot lead' : score >= 40 ? 'Warm lead' : 'Cold lead';
+  const levelColor =
+    score >= 70 ? '#22c55e' : score >= 40 ? '#eab308' : '#38bdf8';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -66,20 +74,58 @@ export default function PersonaCard({ persona, onClick, isLocked, onUnlock }) {
         backdropFilter: 'blur(10px)'
       }}
     >
-      {/* Avatar */}
-      <div style={{
-        width: '80px',
-        height: '80px',
-        borderRadius: '50%',
-        background: 'rgba(255, 217, 69, 0.1)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '2.5rem',
-        marginBottom: '20px',
-        border: '2px solid rgba(255, 217, 69, 0.3)'
-      }}>
-        {persona.avatar || '👤'}
+      {/* top row: avatar + score badge */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 20
+        }}
+      >
+        {/* Avatar */}
+        <div style={{
+          width: '80px',
+          height: '80px',
+          borderRadius: '50%',
+          background: 'rgba(255, 217, 69, 0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '2.5rem',
+          border: '2px solid rgba(255, 217, 69, 0.3)'
+        }}>
+          {persona.avatar || '👤'}
+        </div>
+
+        {/* Score + level */}
+        <div style={{ textAlign: 'right' }}>
+          <div
+            style={{
+              padding: '6px 12px',
+              borderRadius: 999,
+              background: 'rgba(15, 23, 42, 0.8)',
+              border: '1px solid rgba(248, 250, 252, 0.15)',
+              fontSize: '0.8rem',
+              fontWeight: 700,
+              color: '#e5e7eb',
+              marginBottom: 6
+            }}
+          >
+            Score: <span style={{ color: '#ffd945' }}>{roundedScore}</span>/100
+          </div>
+          <div
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              color: levelColor,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em'
+            }}
+          >
+            {level}
+          </div>
+        </div>
       </div>
 
       {/* Name & Age */}

@@ -274,44 +274,60 @@ export default function Dashboard() {
 
           {/* Prompts & Content Section */}
           {selectedPersona && (
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1.2fr',
-                gap: '30px',
-                marginTop: '40px',
-              }}
-            >
-              {/* Left: Prompts */}
-              <div>
-                <h2
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 800,
-                    color: '#ffd945',
-                    margin: '0 0 20px 0',
-                    letterSpacing: '-0.5px',
-                  }}
-                >
-                  Content Ideas for {selectedPersona.name}
-                </h2>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px',
-                  }}
-                >
-                  {prompts.map(prompt => (
-                    <PromptCard
-                      key={prompt._id}
-                      prompt={prompt}
-                      onGenerate={handleGenerateContent}
-                      loading={loading}
-                    />
-                  ))}
-                </div>
-              </div>
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: '1fr 1.2fr',
+      gap: '30px',
+      marginTop: '40px',
+    }}
+  >
+    <div>
+      <h2
+        style={{
+          fontSize: '1.5rem',
+          fontWeight: 800,
+          color: '#ffd945',
+          margin: '0 0 8px 0',
+          letterSpacing: '-0.5px',
+        }}
+      >
+        Content Ideas for {selectedPersona.name}
+      </h2>
+
+      {typeof selectedPersona.conversionScore === "number" && (
+        <div style={{ marginBottom: 16, fontSize: 13, color: "#9ca3af" }}>
+          Lead score:{" "}
+          <span style={{ fontWeight: 700, color: "#facc15" }}>
+            {Math.round(selectedPersona.conversionScore)}/100
+          </span>{" "}
+          {selectedPersona.conversionScore >= 70
+            ? "(Hot lead)"
+            : selectedPersona.conversionScore >= 40
+            ? "(Warm lead)"
+            : "(Cold lead)"}
+        </div>
+      )}
+
+      {/* prompts list */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px',
+        }}
+      >
+        {prompts.map(prompt => (
+          <PromptCard
+            key={prompt._id}
+            prompt={prompt}
+            onGenerate={handleGenerateContent}
+            loading={loading}
+          />
+        ))}
+      </div>
+    </div>
+   
 
               {/* Right: Content Editor */}
               <div id="content-editor">

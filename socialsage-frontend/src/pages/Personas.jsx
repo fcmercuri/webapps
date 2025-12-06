@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Personas() {
@@ -23,23 +23,32 @@ export default function Personas() {
         const data = await res.json();
         setPersonas(data || []);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Failed to load personas");
       } finally {
         setLoading(false);
       }
     }
     loadPersonas();
-  }, []);
+  }, [BASE_URL]);
 
   const total = personas.length;
-  const premiumCount = personas.filter(p => p.isPremium).length;
-  const latest = personas[0]; // you sort by createdAt desc in backend
+  const premiumCount = personas.filter((p) => p.isPremium).length;
+
+  // Most converting persona (highest conversionScore)
+  const topConverting = useMemo(() => {
+    if (!personas.length) return null;
+    // change "conversionScore" to your actual field if different
+    return [...personas].sort(
+      (a, b) => (b.conversionScore || 0) - (a.conversionScore || 0)
+    )[0];
+  }, [personas]);
 
   return (
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)",
+        background:
+          "linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)",
         color: "#fff",
       }}
     >
@@ -197,7 +206,7 @@ export default function Personas() {
               </div>
             )}
 
-            {latest && (
+            {topConverting && (
               <div
                 style={{
                   marginTop: 8,
@@ -217,7 +226,12 @@ export default function Personas() {
                     marginBottom: 4,
                   }}
                 >
-                  Latest persona
+                  Most converting persona
+                  {typeof topConverting.conversionScore === "number" && (
+                    <span style={{ color: "#aaa", marginLeft: 8 }}>
+                      · Score: {topConverting.conversionScore.toFixed(2)}
+                    </span>
+                  )}
                 </div>
                 <h2
                   style={{
@@ -226,7 +240,8 @@ export default function Personas() {
                     margin: "0 0 6px",
                   }}
                 >
-                  {latest.name} · {latest.age} · {latest.industry}
+                  {topConverting.name} · {topConverting.age} ·{" "}
+                  {topConverting.industry}
                 </h2>
                 <p
                   style={{
@@ -235,7 +250,7 @@ export default function Personas() {
                     margin: "0 0 10px",
                   }}
                 >
-                  {latest.bio}
+                  {topConverting.bio}
                 </p>
                 <div
                   style={{
@@ -251,7 +266,7 @@ export default function Personas() {
                       Goals
                     </strong>
                     <ul style={{ margin: "6px 0 0 16px" }}>
-                      {latest.goals.slice(0, 3).map((g, i) => (
+                      {topConverting.goals.slice(0, 3).map((g, i) => (
                         <li key={i}>{g}</li>
                       ))}
                     </ul>
@@ -261,7 +276,7 @@ export default function Personas() {
                       Pain points
                     </strong>
                     <ul style={{ margin: "6px 0 0 16px" }}>
-                      {latest.painPoints.slice(0, 3).map((p, i) => (
+                      {topConverting.painPoints.slice(0, 3).map((p, i) => (
                         <li key={i}>{p}</li>
                       ))}
                     </ul>
