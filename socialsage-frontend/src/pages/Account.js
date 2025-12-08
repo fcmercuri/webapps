@@ -5,8 +5,6 @@ import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
 import { motion } from 'framer-motion';
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
 export default function Account() {
   const { user, setUser } = useAuth();
   const [billing, setBilling] = useState(null);
@@ -23,7 +21,7 @@ export default function Account() {
         // refresh profile
         const profileRes = await api.get('/api/user/profile');
         setUser(profileRes.data);
-        // load billing info (you will implement this API)
+        // load billing info
         const billingRes = await api.get('/api/billing');
         setBilling(billingRes.data);
       } catch (err) {
@@ -41,7 +39,6 @@ export default function Account() {
       setSaving(true);
       setError('');
       await api.post('/api/billing/cancel');
-      // reload billing state
       const billingRes = await api.get('/api/billing');
       setBilling(billingRes.data);
     } catch (err) {
@@ -51,7 +48,8 @@ export default function Account() {
     }
   }
 
-  const planLabel = user?.plan || 'free';
+  const plan = user?.plan || 'free';
+  const planLabel = plan.toUpperCase();
 
   return (
     <div
@@ -164,21 +162,21 @@ export default function Account() {
                       padding: '4px 10px',
                       borderRadius: 999,
                       background:
-                        planLabel === 'pro'
+                        plan === 'pro'
                           ? 'rgba(22,163,74,0.15)'
-                          : planLabel === 'starter'
+                          : plan === 'starter'
                           ? 'rgba(234,179,8,0.15)'
                           : 'rgba(148,163,184,0.2)',
                       color:
-                        planLabel === 'pro'
+                        plan === 'pro'
                           ? '#22c55e'
-                          : planLabel === 'starter'
+                          : plan === 'starter'
                           ? '#eab308'
                           : '#e5e7eb',
                       border:
-                        planLabel === 'pro'
+                        plan === 'pro'
                           ? '1px solid rgba(22,163,74,0.5)'
-                          : planLabel === 'starter'
+                          : plan === 'starter'
                           ? '1px solid rgba(234,179,8,0.5)'
                           : '1px solid rgba(148,163,184,0.5)',
                       fontWeight: 700,
@@ -227,7 +225,7 @@ export default function Account() {
                       Subscription
                     </div>
                     <div style={{ fontSize: '1rem', fontWeight: 700 }}>
-                      {billing?.planLabel || planLabel.toUpperCase()}
+                      {billing?.planLabel || planLabel}
                     </div>
                   </div>
                   {billing?.status && (

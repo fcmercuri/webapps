@@ -25,6 +25,7 @@ export default function Dashboard() {
   useEffect(() => {
     loadUserProfile();
     loadPersonas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function loadUserProfile() {
@@ -51,7 +52,9 @@ export default function Dashboard() {
       setError('');
 
       if (user?.plan === 'starter' && personas.length >= 5) {
-        setError('Starter plan allows up to 5 personas. Upgrade to Pro for unlimited.');
+        setError(
+          'Starter plan allows up to 5 personas. Upgrade to Pro for unlimited.'
+        );
         return;
       }
 
@@ -75,7 +78,9 @@ export default function Dashboard() {
     setGeneratedContent(null);
     try {
       setLoading(true);
-      const res = await api.post('/api/prompts/generate', { personaId: persona._id });
+      const res = await api.post('/api/prompts/generate', {
+        personaId: persona._id,
+      });
       setPrompts(res.data);
     } catch (err) {
       setError('Failed to generate prompts');
@@ -89,11 +94,15 @@ export default function Dashboard() {
       setLoading(true);
       setError('');
       setGeneratedContent(null);
-      const res = await api.post('/api/content/generate', { promptId, type: 'website' });
+      const res = await api.post('/api/content/generate', {
+        promptId,
+        type: 'website',
+      });
       setGeneratedContent(res.data);
       setTimeout(() => {
         const editor = document.getElementById('content-editor');
-        if (editor) editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (editor)
+          editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate content');
@@ -140,91 +149,105 @@ export default function Dashboard() {
     >
       {/* Sidebar: always visible on desktop, toggled on mobile via isSidebarOpen */}
       <Sidebar
-  isOpen={isSidebarOpen}
-  onItemClick={() => setIsSidebarOpen(false)}
-/>
+        isOpen={isSidebarOpen}
+        onItemClick={() => setIsSidebarOpen(false)}
+      />
 
       {/* Main area */}
       <div className="dashboard-main">
-        {/* Mobile header – visible only on mobile via CSS */}
-        <div className="dashboard-mobile-header">
-          <button
-            type="button"
-            onClick={() => setIsSidebarOpen(v => !v)}
+        <div className="dashboard-content">
+          {/* Top bar: Menu on left, account info on right */}
+          <div
             style={{
-              background: 'transparent',
-              border: 'none',
               display: 'flex',
               alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
+              justifyContent: 'space-between',
+              marginBottom: 24,
             }}
           >
-            <img
-              src="/logo.jpg"
-              alt="SocialSage"
-              style={{ width: 32, height: 32, borderRadius: 10 }}
-            />
-            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
-          </button>
-        </div>
+            {/* Left: Menu button (mobile) */}
+            <div className="dashboard-mobile-header">
+              <button
+                type="button"
+                onClick={() => setIsSidebarOpen((v) => !v)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  cursor: 'pointer',
+                }}
+              >
+                <img
+                  src="/logo.jpg"
+                  alt="SocialSage"
+                  style={{ width: 32, height: 32, borderRadius: 10 }}
+                />
+                <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+              </button>
+            </div>
 
-        <div className="dashboard-content">
-        {user && (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        marginBottom: 16,
-      }}
-    >
-      <div style={{ textAlign: 'right', marginRight: 12 }}>
-        <div style={{ color: '#e5e7eb', fontWeight: 600, fontSize: '0.9rem' }}>
-          {user.email}
-        </div>
-        <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
-          Account type
-        </div>
-      </div>
-      <span
-        style={{
-          padding: '4px 10px',
-          borderRadius: 999,
-          background:
-            user.plan === 'pro'
-              ? 'rgba(22,163,74,0.15)'
-              : user.plan === 'starter'
-              ? 'rgba(234,179,8,0.15)'
-              : 'rgba(148,163,184,0.2)',
-          color:
-            user.plan === 'pro'
-              ? '#22c55e'
-              : user.plan === 'starter'
-              ? '#eab308'
-              : '#e5e7eb',
-          border:
-            user.plan === 'pro'
-              ? '1px solid rgba(22,163,74,0.5)'
-              : user.plan === 'starter'
-              ? '1px solid rgba(234,179,8,0.5)'
-              : '1px solid rgba(148,163,184,0.5)',
-          fontWeight: 700,
-          textTransform: 'uppercase',
-          letterSpacing: '0.08em',
-          fontSize: '0.7rem',
-        }}
-      >
-        {user.plan || 'free'}
-      </span>
-    </div>
-  )}
+            {/* Right: email + plan badge */}
+            {user && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  fontSize: '0.85rem',
+                }}
+              >
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ color: '#e5e7eb', fontWeight: 600 }}>
+                    {user.email}
+                  </div>
+                  <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
+                    Account type
+                  </div>
+                </div>
+                <span
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 999,
+                    background:
+                      user.plan === 'pro'
+                        ? 'rgba(22,163,74,0.15)'
+                        : user.plan === 'starter'
+                        ? 'rgba(234,179,8,0.15)'
+                        : 'rgba(148,163,184,0.2)',
+                    color:
+                      user.plan === 'pro'
+                        ? '#22c55e'
+                        : user.plan === 'starter'
+                        ? '#eab308'
+                        : '#e5e7eb',
+                    border:
+                      user.plan === 'pro'
+                        ? '1px solid rgba(22,163,74,0.5)'
+                        : user.plan === 'starter'
+                        ? '1px solid rgba(234,179,8,0.5)'
+                        : '1px solid rgba(148,163,184,0.5)',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    fontSize: '0.7rem',
+                  }}
+                >
+                  {user.plan || 'free'}
+                </span>
+              </div>
+            )}
+          </div>
+
           {/* Upgrade buttons */}
           {user && (
             <div style={{ marginBottom: 32 }}>
               {user.plan === 'free' && (
                 <button
-                  onClick={() => handleUpgrade('price_1SXqa1PwyyuQCEbaBU1sIZvY')}
+                  onClick={() =>
+                    handleUpgrade('price_1SXqa1PwyyuQCEbaBU1sIZvY')
+                  }
                   style={{
                     background: '#ffd945',
                     color: '#1a1a28',
@@ -243,7 +266,9 @@ export default function Dashboard() {
 
               {user.plan === 'starter' && (
                 <button
-                  onClick={() => handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA')}
+                  onClick={() =>
+                    handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA')
+                  }
                   style={{
                     background: '#ffd945',
                     color: '#1a1a28',
@@ -308,7 +333,7 @@ export default function Dashboard() {
                   gap: '20px',
                 }}
               >
-                {personas.map(persona => (
+                {personas.map((persona) => (
                   <PersonaCard
                     key={persona._id}
                     persona={persona}
@@ -323,60 +348,65 @@ export default function Dashboard() {
 
           {/* Prompts & Content Section */}
           {selectedPersona && (
-  <div
-    style={{
-      display: 'grid',
-      gridTemplateColumns: '1fr 1.2fr',
-      gap: '30px',
-      marginTop: '40px',
-    }}
-  >
-    <div>
-      <h2
-        style={{
-          fontSize: '1.5rem',
-          fontWeight: 800,
-          color: '#ffd945',
-          margin: '0 0 8px 0',
-          letterSpacing: '-0.5px',
-        }}
-      >
-        Content Ideas for {selectedPersona.name}
-      </h2>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1.2fr',
+                gap: '30px',
+                marginTop: '40px',
+              }}
+            >
+              <div>
+                <h2
+                  style={{
+                    fontSize: '1.5rem',
+                    fontWeight: 800,
+                    color: '#ffd945',
+                    margin: '0 0 8px 0',
+                    letterSpacing: '-0.5px',
+                  }}
+                >
+                  Content Ideas for {selectedPersona.name}
+                </h2>
 
-      {typeof selectedPersona.conversionScore === "number" && (
-        <div style={{ marginBottom: 16, fontSize: 13, color: "#9ca3af" }}>
-          Lead score:{" "}
-          <span style={{ fontWeight: 700, color: "#facc15" }}>
-            {Math.round(selectedPersona.conversionScore)}/100
-          </span>{" "}
-          {selectedPersona.conversionScore >= 70
-            ? "(Hot lead)"
-            : selectedPersona.conversionScore >= 40
-            ? "(Warm lead)"
-            : "(Cold lead)"}
-        </div>
-      )}
+                {typeof selectedPersona.conversionScore === 'number' && (
+                  <div
+                    style={{
+                      marginBottom: 16,
+                      fontSize: 13,
+                      color: '#9ca3af',
+                    }}
+                  >
+                    Lead score:{' '}
+                    <span style={{ fontWeight: 700, color: '#facc15' }}>
+                      {Math.round(selectedPersona.conversionScore)}/100
+                    </span>{' '}
+                    {selectedPersona.conversionScore >= 70
+                      ? '(Hot lead)'
+                      : selectedPersona.conversionScore >= 40
+                      ? '(Warm lead)'
+                      : '(Cold lead)'}
+                  </div>
+                )}
 
-      {/* prompts list */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '15px',
-        }}
-      >
-        {prompts.map(prompt => (
-          <PromptCard
-            key={prompt._id}
-            prompt={prompt}
-            onGenerate={handleGenerateContent}
-            loading={loading}
-          />
-        ))}
-      </div>
-    </div>
-   
+                {/* prompts list */}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '15px',
+                  }}
+                >
+                  {prompts.map((prompt) => (
+                    <PromptCard
+                      key={prompt._id}
+                      prompt={prompt}
+                      onGenerate={handleGenerateContent}
+                      loading={loading}
+                    />
+                  ))}
+                </div>
+              </div>
 
               {/* Right: Content Editor */}
               <div id="content-editor">
@@ -410,7 +440,8 @@ export default function Dashboard() {
                 Ready to Get Started?
               </h3>
               <p style={{ margin: 0, fontSize: '1.05rem' }}>
-                Select your industry above to generate AI-powered customer personas
+                Select your industry above to generate AI-powered customer
+                personas
               </p>
             </motion.div>
           )}
