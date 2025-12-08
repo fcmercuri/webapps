@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function Dashboard() {
-  const { user, setUser, token } = useAuth();
+  const { user, setUser } = useAuth();
   const [personas, setPersonas] = useState([]);
   const [prompts, setPrompts] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -20,48 +20,30 @@ export default function Dashboard() {
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Hooks must come before any conditional return
+  console.log('Dashboard user:', user);
+
   useEffect(() => {
-    async function loadUserProfile() {
-      try {
-        const res = await api.get('/api/user/profile');
-        setUser(res.data);
-      } catch (err) {
-        console.error('Failed to load profile', err);
-        setError('Failed to load profile');
-      }
-    }
-
-    async function loadPersonas() {
-      try {
-        const res = await api.get('/api/personas');
-        setPersonas(res.data || []);
-      } catch (err) {
-        console.error('Failed to load personas', err);
-        setError('Failed to load personas');
-      }
-    }
-
     loadUserProfile();
     loadPersonas();
-  }, [setUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // Safe early return AFTER hooks
-  if (!token) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          minHeight: '100vh',
-          background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
-          color: '#fff',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        Redirecting to login…
-      </div>
-    );
+  async function loadUserProfile() {
+    try {
+      const res = await api.get('/api/user/profile');
+      setUser(res.data);
+    } catch (err) {
+      console.error('Failed to load profile');
+    }
+  }
+
+  async function loadPersonas() {
+    try {
+      const res = await api.get('/api/personas');
+      setPersonas(res.data);
+    } catch (err) {
+      setError('Failed to load personas');
+    }
   }
 
   async function handleIndustrySelect(industry) {
@@ -78,8 +60,8 @@ export default function Dashboard() {
 
       await api.put('/api/user/industry', { industry });
       const res = await api.post('/api/personas/generate', { industry });
-      setPersonas(res.data || []);
-      setUser(prev => ({ ...(prev || {}), industry }));
+      setPersonas(res.data);
+      setUser({ ...user, industry });
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate personas');
     } finally {
@@ -99,7 +81,7 @@ export default function Dashboard() {
       const res = await api.post('/api/prompts/generate', {
         personaId: persona._id,
       });
-      setPrompts(res.data || []);
+      setPrompts(res.data);
     } catch (err) {
       setError('Failed to generate prompts');
     } finally {
@@ -156,23 +138,6 @@ export default function Dashboard() {
     }
   }
 
-  if (!user) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          minHeight: '100vh',
-          background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
-          color: '#fff',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        Loading dashboard…
-      </div>
-    );
-  }
-
   return (
     <div
       style={{
@@ -182,40 +147,99 @@ export default function Dashboard() {
         color: '#fff',
       }}
     >
+      {/* Sidebar: always visible on desktop, toggled on mobile via isSidebarOpen */}
       <Sidebar
         isOpen={isSidebarOpen}
         onItemClick={() => setIsSidebarOpen(false)}
       />
 
+      {/* Main area */}
       <div className="dashboard-main">
-        {/* Mobile header */}
-        <div
-          className="dashboard-mobile-header"
-          style={{ padding: '10px 10px 0' }}
-        >
-          <button
-            type="button"
-            onClick={() => setIsSidebarOpen(v => !v)}
+        <div className="dashboard-content">
+          {/* Top bar: Menu on left, account info on right */}
+          <div
             style={{
-              background: 'transparent',
-              border: 'none',
               display: 'flex',
               alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-              padding: 0,
+              justifyContent: 'space-between',
+              marginBottom: 24,
             }}
           >
-            <img
-              src="/logo.jpg"
-              alt="SocialSage"
-              style={{ width: 32, height: 32, borderRadius: 10 }}
-            />
-            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
-          </button>
-        </div>
+            {/* Left: Menu button (mobile) */}
+            <div className="dashboard-mobile-header">
+              <button
+                type="button"
+                onClick={() => setIsSidebarOpen(v => !v)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  cursor: 'pointer',
+                }}
+              >
+                <img
+                  src="/logo.jpg"
+                  alt="SocialSage"
+                  style={{ width: 32, height: 32, borderRadius: 10 }}
+                />
+                <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+              </button>
+            </div>
 
-        <div className="dashboard-content">
+            {/* Right: email + plan badge */}
+            {user && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  fontSize: '0.85rem',
+                }}
+              >
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ color: '#e5e7eb', fontWeight: 600 }}>
+                    {user.email}
+                  </div>
+                  <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
+                    Account type
+                  </div>
+                </div>
+                <span
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 999,
+                    background:
+                      user.plan === 'pro'
+                        ? 'rgba(22,163,74,0.15)'
+                        : user.plan === 'starter'
+                        ? 'rgba(234,179,8,0.15)'
+                        : 'rgba(148,163,184,0.2)',
+                    color:
+                      user.plan === 'pro'
+                        ? '#22c55e'
+                        : user.plan === 'starter'
+                        ? '#eab308'
+                        : '#e5e7eb',
+                    border:
+                      user.plan === 'pro'
+                        ? '1px solid rgba(22,163,74,0.5)'
+                        : user.plan === 'starter'
+                        ? '1px solid rgba(234,179,8,0.5)'
+                        : '1px solid rgba(148,163,184,0.5)',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    fontSize: '0.7rem',
+                  }}
+                >
+                  {user.plan || 'free'}
+                </span>
+              </div>
+            )}
+          </div>
+
           {/* Upgrade buttons */}
           {user && (
             <div style={{ marginBottom: 32 }}>
@@ -309,7 +333,7 @@ export default function Dashboard() {
                   gap: '20px',
                 }}
               >
-                {(personas || []).map(persona => (
+                {personas.map(persona => (
                   <PersonaCard
                     key={persona._id}
                     persona={persona}
@@ -354,9 +378,7 @@ export default function Dashboard() {
                     }}
                   >
                     Lead score:{' '}
-                    <span
-                      style={{ fontWeight: 700, color: '#facc15' }}
-                    >
+                    <span style={{ fontWeight: 700, color: '#facc15' }}>
                       {Math.round(selectedPersona.conversionScore)}/100
                     </span>{' '}
                     {selectedPersona.conversionScore >= 70
@@ -367,6 +389,7 @@ export default function Dashboard() {
                   </div>
                 )}
 
+                {/* prompts list */}
                 <div
                   style={{
                     display: 'flex',
@@ -374,7 +397,7 @@ export default function Dashboard() {
                     gap: '15px',
                   }}
                 >
-                  {(prompts || []).map(prompt => (
+                  {prompts.map(prompt => (
                     <PromptCard
                       key={prompt._id}
                       prompt={prompt}
@@ -417,7 +440,7 @@ export default function Dashboard() {
                 Ready to Get Started?
               </h3>
               <p style={{ margin: 0, fontSize: '1.05rem' }}>
-                Select your industry above to generate AI‑powered customer
+                Select your industry above to generate AI-powered customer
                 personas
               </p>
             </motion.div>
