@@ -184,6 +184,9 @@ app.post('/api/stripe/verify-session', async (req, res) => {
       user.isPremium = true;
     }
 
+    // Store Stripe subscription id
+    user.stripeSubscriptionId = session.subscription;
+
     await user.save();
 
     console.log('User upgraded, plan:', user.plan);
@@ -193,6 +196,9 @@ app.post('/api/stripe/verify-session', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
 
 // --- AUTH MIDDLEWARE ---
 function authenticateToken(req, res, next) {
@@ -678,6 +684,69 @@ Return ONLY the content text (no JSON, no markdown formatting).`;
     });
   }
 });
+
+// GET billing summary – REAL
+app.get('/api/billing', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (!user.stripeSubscriptionId) {
+      // No Stripe subscription stored – treat as free/plan-only
+      return res.json({
+        plan: user.plan || 'free',
+        planLabel: (user.plan || 'free').toUpperCase(),
+        status: user.plan === 'free' ? 'inactive' : 'active',
+        renewsAt: null,
+        cancelledAt: null,
+      });
+    }
+
+    const sub = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);
+
+    res.json({
+      plan: user.plan || 'free',
+      planLabel: (user.plan || 'free').toUpperCase(),
+      status: sub.cancel_at_period_end ? 'cancelled' : 'active',
+      renewsAt: sub.current_period_end * 1000,
+      cancelledAt: sub.cancel_at ? sub.cancel_at * 1000 : null,
+    });
+  } catch (err) {
+    console.error('❌ Billing load error:', err);
+    res.status(500).json({ error: 'Failed to load billing info' });
+  }
+});
+
+// POST cancel auto‑renew
+app.post('/api/billing/cancel', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (!user.stripeSubscriptionId) {
+      return res.status(400).json({ error: 'No active subscription' });
+    }
+
+    const sub = await stripe.subscriptions.update(
+      user.stripeSubscriptionId,
+      { cancel_at_period_end: true }
+    );
+
+    res.json({ status: 'ok', subscription: sub.id });
+  } catch (err) {
+    console.error('❌ Cancel billing error:', err);
+    res.status(500).json({ error: 'Failed to cancel renewal' });
+  }
+});
+
+
+
 
 app.get('/api/content', authenticateToken, async (req, res) => {
   try {
