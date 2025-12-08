@@ -1,4 +1,3 @@
-// src/pages/Account.js
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
 import api from '../api/axios';
