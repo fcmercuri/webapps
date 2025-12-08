@@ -6,6 +6,7 @@ export default function PersonaInsights() {
   const [personas, setPersonas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -54,173 +55,227 @@ export default function PersonaInsights() {
         color: '#fff',
       }}
     >
-      <Sidebar />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onItemClick={() => setIsSidebarOpen(false)}
+      />
 
-      <div style={{ marginLeft: 240, flex: 1, padding: 40, maxWidth: 1200 }}>
-        <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: 24 }}>
-          Persona Demographics
-        </h1>
-
-        {error && (
-          <div
+      <div className="dashboard-main">
+        {/* Mobile header */}
+        <div
+          className="dashboard-mobile-header"
+          style={{ padding: '10px 10px 0' }}
+        >
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(v => !v)}
             style={{
-              background: 'rgba(239,68,68,0.1)',
-              border: '1px solid rgba(239,68,68,0.4)',
-              padding: '12px 16px',
-              borderRadius: 10,
-              marginBottom: 20,
-              color: '#ff6b6b',
+              background: 'transparent',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              cursor: 'pointer',
+              padding: 0,
             }}
           >
-            {error}
-          </div>
-        )}
+            <img
+              src="/logo.jpg"
+              alt="SocialSage"
+              style={{ width: 32, height: 32, borderRadius: 10 }}
+            />
+            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+          </button>
+        </div>
 
-        {loading && <div>Loading...</div>}
+        <div
+          className="dashboard-content"
+          style={{
+            padding: '20px 16px 40px',
+            maxWidth: 1200,
+            margin: '0 auto',
+          }}
+        >
+          <h1
+            style={{
+              fontSize: '2rem',
+              fontWeight: 800,
+              marginBottom: 24,
+            }}
+          >
+            Persona Demographics
+          </h1>
 
-        {!loading && !error && (
-          <>
-            {/* Summary cards */}
+          {error && (
             <div
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: 16,
-                marginBottom: 32,
+                background: 'rgba(239,68,68,0.1)',
+                border: '1px solid rgba(239,68,68,0.4)',
+                padding: '12px 16px',
+                borderRadius: 10,
+                marginBottom: 20,
+                color: '#ff6b6b',
               }}
             >
-              <StatCard label="Total personas" value={total} />
-              <StatCard
-                label="Premium personas"
-                value={`${premiumCount} (${
-                  total ? Math.round((premiumCount / total) * 100) : 0
-                }%)`}
-              />
-              <StatCard
-                label="Average age"
-                value={avgAge ? `${avgAge} yrs` : 'N/A'}
-                sub={`${minAge ?? '-'} – ${maxAge ?? '-'}`}
-              />
+              {error}
             </div>
+          )}
 
-            {/* Industry bar chart */}
-            <section style={{ marginBottom: 32 }}>
-              <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>
-                Personas by industry
-              </h2>
-              {Object.keys(industries).length === 0 ? (
-                <p style={{ color: '#bbb' }}>No personas yet.</p>
-              ) : (
-                <div
-                  style={{
-                    background: 'rgba(15,23,42,0.9)',
-                    borderRadius: 12,
-                    padding: '16px 20px 20px',
-                    border: '1px solid rgba(148,163,184,0.4)',
-                  }}
-                >
+          {loading && <div style={{ color: '#bbb' }}>Loading...</div>}
+
+          {!loading && !error && (
+            <>
+              {/* Summary cards */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: 16,
+                  marginBottom: 32,
+                }}
+              >
+                <StatCard label="Total personas" value={total} />
+                <StatCard
+                  label="Premium personas"
+                  value={`${premiumCount} (${
+                    total ? Math.round((premiumCount / total) * 100) : 0
+                  }%)`}
+                />
+                <StatCard
+                  label="Average age"
+                  value={avgAge ? `${avgAge} yrs` : 'N/A'}
+                  sub={`${minAge ?? '-'} – ${maxAge ?? '-'}`}
+                />
+              </div>
+
+              {/* Industry bar chart */}
+              <section style={{ marginBottom: 32 }}>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>
+                  Personas by industry
+                </h2>
+                {Object.keys(industries).length === 0 ? (
+                  <p style={{ color: '#bbb' }}>No personas yet.</p>
+                ) : (
                   <div
                     style={{
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      gap: 12,
-                      height: 200,
-                      paddingBottom: 16,
+                      background: 'rgba(15,23,42,0.9)',
+                      borderRadius: 12,
+                      padding: '16px 12px 20px',
+                      border: '1px solid rgba(148,163,184,0.4)',
                     }}
                   >
-                    {Object.entries(industries).map(([industry, count]) => {
-                      const heightPct =
-                        maxIndustryCount > 0
-                          ? Math.round((count / maxIndustryCount) * 100)
-                          : 0;
-                      return (
-                        <div
-                          key={industry}
-                          style={{
-                            flex: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                            fontSize: '0.8rem',
-                          }}
-                        >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        gap: 8,
+                        height: 200,
+                        paddingBottom: 16,
+                        overflowX: 'auto',
+                      }}
+                    >
+                      {Object.entries(industries).map(([industry, count]) => {
+                        const heightPct =
+                          maxIndustryCount > 0
+                            ? Math.round((count / maxIndustryCount) * 100)
+                            : 0;
+                        return (
                           <div
+                            key={industry}
                             style={{
-                              width: '60%',
-                              minWidth: 24,
-                              height: `${heightPct}%`,
-                              background:
-                                'linear-gradient(180deg,#ffd945,#fbbf24)',
-                              borderRadius: 8,
-                              boxShadow: '0 6px 18px rgba(250,204,21,0.35)',
+                              flex: '0 0 60px',
                               display: 'flex',
-                              alignItems: 'flex-end',
-                              justifyContent: 'center',
-                              color: '#111827',
-                              fontWeight: 700,
-                              paddingBottom: 4,
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'flex-end',
+                              fontSize: '0.75rem',
                             }}
                           >
-                            {count}
+                            <div
+                              style={{
+                                width: '70%',
+                                minWidth: 24,
+                                height: `${heightPct}%`,
+                                background:
+                                  'linear-gradient(180deg,#ffd945,#fbbf24)',
+                                borderRadius: 8,
+                                boxShadow: '0 6px 18px rgba(250,204,21,0.35)',
+                                display: 'flex',
+                                alignItems: 'flex-end',
+                                justifyContent: 'center',
+                                color: '#111827',
+                                fontWeight: 700,
+                                paddingBottom: 4,
+                              }}
+                            >
+                              {count}
+                            </div>
+                            <div
+                              style={{
+                                marginTop: 6,
+                                color: '#e5e7eb',
+                                textAlign: 'center',
+                                maxWidth: 72,
+                                wordBreak: 'break-word',
+                              }}
+                            >
+                              {industry}
+                            </div>
                           </div>
-                          <div
-                            style={{
-                              marginTop: 6,
-                              color: '#e5e7eb',
-                              textAlign: 'center',
-                              maxWidth: 80,
-                              wordBreak: 'break-word',
-                            }}
-                          >
-                            {industry}
-                          </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
-            </section>
+                )}
+              </section>
 
-            {/* Industry table */}
-            <section style={{ marginBottom: 32 }}>
-              <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>Details</h2>
-              {Object.keys(industries).length === 0 ? (
-                <p style={{ color: '#bbb' }}>No personas yet.</p>
-              ) : (
-                <table
-                  style={{
-                    width: '100%',
-                    borderCollapse: 'collapse',
-                    background: 'rgba(15,23,42,0.8)',
-                    borderRadius: 12,
-                    overflow: 'hidden',
-                  }}
-                >
-                  <thead>
-                    <tr style={{ background: 'rgba(15,23,42,0.9)' }}>
-                      <th style={thStyle}>Industry</th>
-                      <th style={thStyle}>Personas</th>
-                      <th style={thStyle}>Share</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.entries(industries).map(([industry, count]) => (
-                      <tr key={industry}>
-                        <td style={tdStyle}>{industry}</td>
-                        <td style={tdStyle}>{count}</td>
-                        <td style={tdStyle}>
-                          {total ? `${Math.round((count / total) * 100)}%` : '0%'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </section>
-          </>
-        )}
+              {/* Industry table */}
+              <section style={{ marginBottom: 32 }}>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>Details</h2>
+                {Object.keys(industries).length === 0 ? (
+                  <p style={{ color: '#bbb' }}>No personas yet.</p>
+                ) : (
+                  <div
+                    style={{
+                      overflowX: 'auto',
+                      borderRadius: 12,
+                      border: '1px solid rgba(148,163,184,0.4)',
+                    }}
+                  >
+                    <table
+                      style={{
+                        width: '100%',
+                        borderCollapse: 'collapse',
+                        background: 'rgba(15,23,42,0.8)',
+                      }}
+                    >
+                      <thead>
+                        <tr style={{ background: 'rgba(15,23,42,0.9)' }}>
+                          <th style={thStyle}>Industry</th>
+                          <th style={thStyle}>Personas</th>
+                          <th style={thStyle}>Share</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(industries).map(([industry, count]) => (
+                          <tr key={industry}>
+                            <td style={tdStyle}>{industry}</td>
+                            <td style={tdStyle}>{count}</td>
+                            <td style={tdStyle}>
+                              {total
+                                ? `${Math.round((count / total) * 100)}%`
+                                : '0%'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </section>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -229,7 +284,7 @@ export default function PersonaInsights() {
 const thStyle = {
   textAlign: 'left',
   padding: '10px 14px',
-  fontSize: '0.85rem',
+  fontSize: '0.8rem',
   textTransform: 'uppercase',
   letterSpacing: '0.06em',
   borderBottom: '1px solid rgba(148,163,184,0.3)',
@@ -238,7 +293,7 @@ const thStyle = {
 const tdStyle = {
   padding: '10px 14px',
   borderBottom: '1px solid rgba(30,41,59,0.7)',
-  fontSize: '0.95rem',
+  fontSize: '0.9rem',
 };
 
 function StatCard({ label, value, sub }) {
