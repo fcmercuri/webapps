@@ -20,8 +20,6 @@ export default function Dashboard() {
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  console.log('Dashboard user:', user);
-
   useEffect(() => {
     loadUserProfile();
     loadPersonas();
@@ -147,98 +145,96 @@ export default function Dashboard() {
         color: '#fff',
       }}
     >
-      {/* Sidebar: always visible on desktop, toggled on mobile via isSidebarOpen */}
       <Sidebar
         isOpen={isSidebarOpen}
         onItemClick={() => setIsSidebarOpen(false)}
       />
 
-      {/* Main area */}
       <div className="dashboard-main">
-        <div className="dashboard-content">
-          {/* Top bar: Menu on left, account info on right */}
-          <div
+        {/* Mobile header */}
+        <div
+          className="dashboard-mobile-header"
+          style={{ padding: '10px 10px 0' }}
+        >
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(v => !v)}
             style={{
+              background: 'transparent',
+              border: 'none',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: 24,
+              gap: 8,
+              cursor: 'pointer',
+              padding: 0,
             }}
           >
-            {/* Left: Menu button (mobile) */}
-            <div className="dashboard-mobile-header">
-              <button
-                type="button"
-                onClick={() => setIsSidebarOpen(v => !v)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  cursor: 'pointer',
-                }}
-              >
-                <img
-                  src="/logo.jpg"
-                  alt="SocialSage"
-                  style={{ width: 32, height: 32, borderRadius: 10 }}
-                />
-                <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
-              </button>
-            </div>
+            <img
+              src="/logo.jpg"
+              alt="SocialSage"
+              style={{ width: 32, height: 32, borderRadius: 10 }}
+            />
+            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+          </button>
+        </div>
 
-            {/* Right: email + plan badge */}
-            {user && (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  fontSize: '0.85rem',
-                }}
-              >
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ color: '#e5e7eb', fontWeight: 600 }}>
-                    {user.email}
-                  </div>
-                  <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
-                    Account type
-                  </div>
-                </div>
-                <span
+        <div className="dashboard-content">
+          {/* Email + plan */}
+          {user && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                marginBottom: 16,
+              }}
+            >
+              <div style={{ textAlign: 'right', marginRight: 12 }}>
+                <div
                   style={{
-                    padding: '4px 10px',
-                    borderRadius: 999,
-                    background:
-                      user.plan === 'pro'
-                        ? 'rgba(22,163,74,0.15)'
-                        : user.plan === 'starter'
-                        ? 'rgba(234,179,8,0.15)'
-                        : 'rgba(148,163,184,0.2)',
-                    color:
-                      user.plan === 'pro'
-                        ? '#22c55e'
-                        : user.plan === 'starter'
-                        ? '#eab308'
-                        : '#e5e7eb',
-                    border:
-                      user.plan === 'pro'
-                        ? '1px solid rgba(22,163,74,0.5)'
-                        : user.plan === 'starter'
-                        ? '1px solid rgba(234,179,8,0.5)'
-                        : '1px solid rgba(148,163,184,0.5)',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    fontSize: '0.7rem',
+                    color: '#e5e7eb',
+                    fontWeight: 600,
+                    fontSize: '0.9rem',
                   }}
                 >
-                  {user.plan || 'free'}
-                </span>
+                  {user.email}
+                </div>
+                <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
+                  Account type
+                </div>
               </div>
-            )}
-          </div>
+              <span
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: 999,
+                  background:
+                    user.plan === 'pro'
+                      ? 'rgba(22,163,74,0.15)'
+                      : user.plan === 'starter'
+                      ? 'rgba(234,179,8,0.15)'
+                      : 'rgba(148,163,184,0.2)',
+                  color:
+                    user.plan === 'pro'
+                      ? '#22c55e'
+                      : user.plan === 'starter'
+                      ? '#eab308'
+                      : '#e5e7eb',
+                  border:
+                    user.plan === 'pro'
+                      ? '1px solid rgba(22,163,74,0.5)'
+                      : user.plan === 'starter'
+                      ? '1px solid rgba(234,179,8,0.5)'
+                      : '1px solid rgba(148,163,184,0.5)',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  fontSize: '0.7rem',
+                }}
+              >
+                {user.plan || 'free'}
+              </span>
+            </div>
+          )}
 
           {/* Upgrade buttons */}
           {user && (
@@ -287,7 +283,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Error Message */}
+          {/* Error */}
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -312,7 +308,7 @@ export default function Dashboard() {
             currentIndustry={user?.industry}
           />
 
-          {/* Personas Section */}
+          {/* Personas */}
           {personas.length > 0 && (
             <div style={{ marginBottom: '40px' }}>
               <h2
@@ -346,7 +342,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Prompts & Content Section */}
+          {/* Prompts + content */}
           {selectedPersona && (
             <div
               style={{
@@ -378,7 +374,9 @@ export default function Dashboard() {
                     }}
                   >
                     Lead score:{' '}
-                    <span style={{ fontWeight: 700, color: '#facc15' }}>
+                    <span
+                      style={{ fontWeight: 700, color: '#facc15' }}
+                    >
                       {Math.round(selectedPersona.conversionScore)}/100
                     </span>{' '}
                     {selectedPersona.conversionScore >= 70
@@ -389,7 +387,6 @@ export default function Dashboard() {
                   </div>
                 )}
 
-                {/* prompts list */}
                 <div
                   style={{
                     display: 'flex',
@@ -408,7 +405,6 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Right: Content Editor */}
               <div id="content-editor">
                 <ContentEditor
                   content={generatedContent}
@@ -418,7 +414,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Empty State */}
+          {/* Empty state */}
           {personas.length === 0 && !loading && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -440,7 +436,7 @@ export default function Dashboard() {
                 Ready to Get Started?
               </h3>
               <p style={{ margin: 0, fontSize: '1.05rem' }}>
-                Select your industry above to generate AI-powered customer
+                Select your industry above to generate AI‑powered customer
                 personas
               </p>
             </motion.div>
