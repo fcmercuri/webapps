@@ -170,6 +170,55 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-content">
+        {user && (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginBottom: 16,
+      }}
+    >
+      <div style={{ textAlign: 'right', marginRight: 12 }}>
+        <div style={{ color: '#e5e7eb', fontWeight: 600, fontSize: '0.9rem' }}>
+          {user.email}
+        </div>
+        <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
+          Account type
+        </div>
+      </div>
+      <span
+        style={{
+          padding: '4px 10px',
+          borderRadius: 999,
+          background:
+            user.plan === 'pro'
+              ? 'rgba(22,163,74,0.15)'
+              : user.plan === 'starter'
+              ? 'rgba(234,179,8,0.15)'
+              : 'rgba(148,163,184,0.2)',
+          color:
+            user.plan === 'pro'
+              ? '#22c55e'
+              : user.plan === 'starter'
+              ? '#eab308'
+              : '#e5e7eb',
+          border:
+            user.plan === 'pro'
+              ? '1px solid rgba(22,163,74,0.5)'
+              : user.plan === 'starter'
+              ? '1px solid rgba(234,179,8,0.5)'
+              : '1px solid rgba(148,163,184,0.5)',
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          fontSize: '0.7rem',
+        }}
+      >
+        {user.plan || 'free'}
+      </span>
+    </div>
+  )}
           {/* Upgrade buttons */}
           {user && (
             <div style={{ marginBottom: 32 }}>

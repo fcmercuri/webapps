@@ -14,6 +14,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
     { icon: '', label: 'Content', path: '/content' },
     { icon: '', label: 'Saved', path: '/saved' },
     { icon: '', label: 'Analytics', path: '/upgrade' },
+    { icon: '', label: 'Account & Billing', path: '/account' },
   ];
 
   const handleLogout = () => {

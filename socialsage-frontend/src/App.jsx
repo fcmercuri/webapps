@@ -7,8 +7,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Success from './pages/Success';
-import Welcome from './pages/Welcome';      // NEW
-
+import Welcome from './pages/Welcome';
+import Account from './pages/Account';
 import Personas from './pages/Personas';
 import Prompts from './pages/Prompts';
 import Content from './pages/Content';
@@ -29,7 +29,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/success" element={<Success />} />
-          <Route path="/welcome" element={<Welcome />} />   {/* NEW */}
+          <Route path="/welcome" element={<Welcome />} />
 
           <Route
             path="/dashboard"
@@ -76,6 +76,15 @@ function App() {
             element={
               <PrivateRoute>
                 <Upgrade />
+              </PrivateRoute>
+            }
+          />
+          {/* NEW: Account & Billing page */}
+          <Route
+            path="/account"
+            element={
+              <PrivateRoute>
+                <Account />
               </PrivateRoute>
             }
           />
