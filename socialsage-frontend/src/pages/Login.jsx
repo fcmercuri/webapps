@@ -14,8 +14,8 @@ export default function Login() {
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-  // Optional: check that BASE_URL is set correctly
-  console.log("REACT_APP_API_BASE_URL =", BASE_URL);
+  // Detect Safari to avoid heavy blur
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -28,29 +28,10 @@ export default function Login() {
           body: JSON.stringify({ access_token: tokenResponse.access_token }),
         });
 
-        console.log("Google login URL:", res.url, "status:", res.status);
-
-        const contentType = res.headers.get("content-type") || "";
-
-        // If backend did not send JSON (e.g. HTML 404 page), show that instead of crashing
-        if (!contentType.includes("application/json")) {
-          const text = await res.text();
-          throw new Error(
-            `Unexpected response from server (status ${res.status}). ${text.slice(
-              0,
-              150
-            )}`
-          );
-        }
-
         const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Google login failed");
 
-        if (!res.ok) {
-          throw new Error(data?.error || "Google login failed");
-        }
-
-        const { token, user } = data;
-        loginSuccess(token, user);
+        loginSuccess(data.token, data.user);
         navigate("/dashboard");
       } catch (err) {
         setError(err.message || "Google login failed");
@@ -59,7 +40,7 @@ export default function Login() {
     onError: () => setError("Google login failed"),
   });
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setError("");
 
@@ -70,32 +51,16 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const loginRes = await fetch(`${BASE_URL}/api/auth/login`, {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("Login URL:", loginRes.url, "status:", loginRes.status);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Login failed");
 
-      const contentType = loginRes.headers.get("content-type") || "";
-      if (!contentType.includes("application/json")) {
-        const text = await loginRes.text();
-        throw new Error(
-          `Unexpected response from server (status ${
-            loginRes.status
-          }). ${text.slice(0, 150)}`
-        );
-      }
-
-      const data = await loginRes.json();
-
-      if (!loginRes.ok) {
-        throw new Error(data?.error || "Login failed");
-      }
-
-      const { token, user } = data;
-      loginSuccess(token, user);
+      loginSuccess(data.token, data.user);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
@@ -116,18 +81,20 @@ export default function Login() {
         overflow: "hidden",
       }}
     >
-      {/* Glow background */}
+
+      {/* SAFARI-SAFE GLOW */}
       <div
         style={{
-          position: "fixed",
-          top: -200,
-          right: -200,
-          width: 600,
-          height: 600,
-          background: "radial-gradient(circle, #ffd94533 0%, transparent 70%)",
+          position: "absolute",
+          top: "10%",
+          right: "10%",
+          width: 350,
+          height: 350,
+          background: "radial-gradient(circle, rgba(255,217,69,0.25), transparent 70%)",
           borderRadius: "50%",
-          filter: "blur(80px)",
-          zIndex: 0,
+          filter: "blur(20px)",      // safe max for iOS
+          pointerEvents: "none",
+          zIndex: 1,
         }}
       />
 
@@ -136,8 +103,9 @@ export default function Login() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         style={{
-          background: "rgba(20, 20, 22, 0.8)",
-          backdropFilter: "blur(20px)",
+          background: "rgba(20, 20, 22, 0.75)",
+          backdropFilter: isSafari ? "blur(4px)" : "blur(12px)", // reduced for Safari
+          WebkitBackdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
           border: "1px solid rgba(255, 217, 69, 0.1)",
           borderRadius: "20px",
           padding: "50px 40px",
@@ -145,21 +113,20 @@ export default function Login() {
           width: "90%",
           position: "relative",
           zIndex: 10,
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
         }}
       >
-        {/* Header with Logo */}
+
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <img
             src="/logo.jpg"
             alt="SocialSage Logo"
             style={{
-              width: "40px",
-              height: "40px",
+              width: 40,
+              height: 40,
               borderRadius: "12px",
               objectFit: "cover",
               marginBottom: "15px",
-              boxShadow: "0 4px 12px rgba(255, 217, 69, 0.2)",
             }}
           />
 
@@ -167,36 +134,23 @@ export default function Login() {
             style={{
               fontSize: "2rem",
               fontWeight: 900,
-              color: "#fff",
-              margin: "0 0 10px 0",
               background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              letterSpacing: "-1px",
+              margin: 0,
             }}
           >
             Welcome Back
           </h1>
-          <p style={{ color: "#bbb", fontSize: "1rem", margin: 0 }}>
+
+          <p style={{ color: "#bbb", margin: 0 }}>
             Sign in to your SocialSage account
           </p>
         </div>
 
-        {/* Email / password form */}
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-        >
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div>
-            <label
-              style={{
-                display: "block",
-                color: "#ffd945",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                marginBottom: "8px",
-              }}
-            >
+            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
               Email Address
             </label>
             <input
@@ -211,23 +165,12 @@ export default function Login() {
                 border: "1.5px solid #232323",
                 borderRadius: "10px",
                 color: "#fff",
-                fontSize: "1rem",
-                fontFamily: "inherit",
-                boxSizing: "border-box",
               }}
             />
           </div>
 
           <div>
-            <label
-              style={{
-                display: "block",
-                color: "#ffd945",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                marginBottom: "8px",
-              }}
-            >
+            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
               Password
             </label>
             <input
@@ -242,9 +185,6 @@ export default function Login() {
                 border: "1.5px solid #232323",
                 borderRadius: "10px",
                 color: "#fff",
-                fontSize: "1rem",
-                fontFamily: "inherit",
-                boxSizing: "border-box",
               }}
             />
           </div>
@@ -252,8 +192,8 @@ export default function Login() {
           {error && (
             <div
               style={{
-                background: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
+                background: "rgba(239,68,68,0.1)",
+                border: "1px solid rgba(239,68,68,0.3)",
                 color: "#ff6b6b",
                 padding: "12px 14px",
                 borderRadius: "8px",
@@ -277,43 +217,25 @@ export default function Login() {
               fontSize: "1rem",
               cursor: "pointer",
               opacity: loading ? 0.6 : 1,
-              marginTop: "10px",
-              boxShadow: "0 8px 20px rgba(255, 217, 69, 0.2)",
             }}
           >
             {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
 
-        {/* Separator */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             gap: "10px",
-            marginTop: "22px",
-            marginBottom: "10px",
+            marginTop: 22,
           }}
         >
-         
-         <div
-            style={{
-              flex: 1,
-              height: 1,
-              background: "rgba(255,255,255,0.08)",
-            }}
-          />
-          <span style={{ color: "#777", fontSize: "0.85rem" }}>or</span>
-          <div
-            style={{
-              flex: 1,
-              height: 1,
-              background: "rgba(255,255,255,0.08)",
-            }}
-          />
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
+          <span style={{ color: "#777" }}>or</span>
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
         </div>
 
-        {/* Google button */}
         <button
           type="button"
           onClick={() => loginWithGoogle()}
@@ -325,39 +247,22 @@ export default function Login() {
             borderRadius: "10px",
             padding: "12px 16px",
             fontWeight: 600,
-            fontSize: "0.95rem",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
+            marginTop: 10,
           }}
         >
-          <img
-            src="/google-icon.svg"
-            alt="Google logo"
-            style={{ width: 18, height: 18 }}
-          />
-          <span>Continue with Google</span>
+          <img src="/google-icon.svg" alt="" style={{ width: 18, marginRight: 8 }} />
+          Continue with Google
         </button>
 
         <p
           style={{
             textAlign: "center",
             color: "#bbb",
-            fontSize: "0.9rem",
-            marginTop: "25px",
+            marginTop: 25,
           }}
         >
-          Don't have an account?{" "}
-          <Link
-            to="/register"
-            style={{
-              color: "#ffd945",
-              textDecoration: "none",
-              fontWeight: 600,
-            }}
-          >
+          Don’t have an account?{" "}
+          <Link to="/register" style={{ color: "#ffd945", fontWeight: 600 }}>
             Sign Up
           </Link>
         </p>
