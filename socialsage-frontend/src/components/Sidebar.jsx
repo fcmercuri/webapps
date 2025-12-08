@@ -1,132 +1,158 @@
-import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext';
+import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Sidebar";
+import api from "../api/axios";
 
-export default function Sidebar({ isOpen, onItemClick }) {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+export default function Saved() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const menuItems = [
-    { icon: '', label: 'Dashboard', path: '/dashboard' },
-    { icon: '', label: 'Personas', path: '/personas' },
-    { icon: '', label: 'Prompts', path: '/prompts' },
-    { icon: '', label: 'Content', path: '/content' },
-    { icon: '', label: 'Saved', path: '/saved' },
-    { icon: '', label: 'Analytics', path: '/upgrade' },
-    { icon: '', label: 'Account & Billing', path: '/account' },
-  ];
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+  useEffect(() => {
+    async function loadSaved() {
+      try {
+        setLoading(true);
+        setError("");
+        const res = await api.get("/api/content"); // adjust if your endpoint differs
+        setItems(res.data || []);
+      } catch (err) {
+        setError(err.response?.data?.error || "Failed to load saved content");
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadSaved();
+  }, []);
 
   return (
     <div
-      className={`sidebar-wrapper ${isOpen ? 'open' : ''}`}
       style={{
-        width: '240px',
-        height: '100vh',
-        background: 'linear-gradient(180deg, #0b0b0b 0%, #1a1a2e 100%)',
-        borderRight: '1px solid rgba(255, 217, 69, 0.1)',
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        minHeight: "100vh",
+        background:
+          "linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)",
+        color: "#fff",
       }}
     >
-      {/* Logo Section */}
-      <div
-        style={{
-          padding: '30px 20px',
-          borderBottom: '1px solid rgba(255, 217, 69, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}
-      >
-        <img
-          src="/logo.jpg"
-          alt="SocialSage Logo"
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '8px',
-            objectFit: 'cover',
-          }}
-        />
-        <h1
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 900,
-            margin: 0,
-            background: 'linear-gradient(96deg, #fff 60%, #ffd945 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            letterSpacing: '-0.5px',
-          }}
-        >
-          SocialSage
-        </h1>
-      </div>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onItemClick={() => setIsSidebarOpen(false)}
+      />
 
-      {/* Menu Items */}
-      <nav
-        style={{
-          padding: '20px 10px',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {menuItems.map((item, i) => (
-          <Link
-            key={i}
-            to={item.path}
-            onClick={onItemClick}  // close sidebar on mobile after click
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '10px 16px',
-              margin: '4px 0',
-              borderRadius: '10px',
-              textDecoration: 'none',
-              color: location.pathname === item.path ? '#ffd945' : '#bbb',
-              background:
-                location.pathname === item.path
-                  ? 'rgba(255, 217, 69, 0.12)'
-                  : 'transparent',
-              fontWeight: location.pathname === item.path ? 700 : 500,
-              fontSize: '0.95rem',
-              lineHeight: 1.2,
-              transition: 'background 0.18s, color 0.18s',
-            }}
+<div className="dashboard-main">
+  {/* Mobile header */}
+  <div
+    className="dashboard-mobile-header"
+    style={{ padding: "10px 10px 0" }}
+  >
+    <button
+      type="button"
+      onClick={() => setIsSidebarOpen(v => !v)}
+      style={{
+        background: "transparent",
+        border: "none",
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        cursor: "pointer",
+        padding: 0,
+      }}
+    >
+      <img
+        src="/logo.jpg"
+        alt="SocialSage"
+        style={{ width: 32, height: 32, borderRadius: 10 }}
+        onClick={() => setIsSidebarOpen(false)}   // closes menu when logo tapped
+      />
+      <span style={{ color: "#fff", fontWeight: 700 }}>Menu</span>
+    </button>
+  </div>
+
+
+        <div className="dashboard-content">
+          <h1
+            style={{ fontSize: "2rem", fontWeight: 900, marginBottom: 16 }}
           >
-            <span style={{ fontSize: '1.1rem', lineHeight: 1 }}>
-              {item.icon}
-            </span>
-            <span style={{ lineHeight: 1.2 }}>{item.label}</span>
-          </Link>
-        ))}
-      </nav>
+            Saved content
+          </h1>
 
-      {/* Logout Button */}
-      <div style={{ padding: '20px' }}>
-        <button
-          onClick={handleLogout}
-          style={{
-            width: '100%',
-            background: 'rgba(255, 107, 107, 0.1)',
-            border: '1px solid rgba(255, 107, 107, 0.3)',
-            color: '#ff6b6b',
-            padding: '12px',
-            borderRadius: '10px',
-            fontWeight: 700,
-            cursor: 'pointer',
-            fontSize: '0.95rem',
-          }}
-        >
-          Logout
-        </button>
+          {loading && <p style={{ color: "#bbb" }}>Loading saved content…</p>}
+
+          {error && (
+            <div
+              style={{
+                background: "rgba(239,68,68,0.08)",
+                border: "1px solid rgba(239,68,68,0.45)",
+                color: "#fecaca",
+                padding: "10px 14px",
+                borderRadius: 10,
+                marginBottom: 20,
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          {!loading && !error && items.length === 0 && (
+            <p style={{ color: "#bbb" }}>
+              You do not have any saved content yet.
+            </p>
+          )}
+
+          {!loading && !error && items.length > 0 && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: 18,
+              }}
+            >
+              {items.map((item) => (
+                <div
+                  key={item._id}
+                  style={{
+                    background: "#15151f",
+                    borderRadius: 16,
+                    padding: "16px 18px",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "#9ca3af",
+                      marginBottom: 4,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    {item.type || "Content"}
+                  </div>
+                  <h2
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 700,
+                      margin: "0 0 8px",
+                    }}
+                  >
+                    {item.title}
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: 13,
+                      color: "#d1d5db",
+                      margin: 0,
+                      maxHeight: 120,
+                      overflow: "hidden",
+                    }}
+                  >
+                    {item.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const personaPrompts = [
   {
@@ -55,137 +55,117 @@ const personaPrompts = [
 ];
 
 export default function Prompts() {
-  const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
   return (
     <div
       style={{
+        display: "flex",
         minHeight: "100vh",
         background:
           "linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)",
         color: "#fff",
       }}
     >
-      {/* Top bar */}
-      <header
-        style={{
-          maxWidth: 1120,
-          margin: "0 auto",
-          padding: "20px 20px 10px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img
-            src="/logo.jpg"
-            alt="SocialSage Logo"
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onItemClick={() => setIsSidebarOpen(false)}
+      />
+
+      <div className="dashboard-main">
+        {/* Mobile header */}
+        <div
+          className="dashboard-mobile-header"
+          style={{ padding: "10px 10px 0" }}
+        >
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(v => !v)}
             style={{
-              width: 32,
-              height: 32,
-              borderRadius: 10,
-              objectFit: "cover",
-              boxShadow: "0 4px 12px rgba(255, 217, 69, 0.2)",
-            }}
-          />
-          <span
-            style={{
-              fontWeight: 800,
-              fontSize: "1.3rem",
-              letterSpacing: "-0.04em",
+              background: "transparent",
+              border: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              cursor: "pointer",
+              padding: 0,
             }}
           >
-            SocialSage
-          </span>
+            <img
+              src="/logo.jpg"
+              alt="SocialSage"
+              style={{ width: 32, height: 32, borderRadius: 10 }}
+            />
+            <span style={{ color: "#fff", fontWeight: 700 }}>Menu</span>
+          </button>
         </div>
 
-        <button
-          onClick={() => navigate("/dashboard")}
-          style={{
-            background: "transparent",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            borderRadius: 999,
-            padding: "7px 16px",
-            color: "#eee",
-            fontSize: "0.9rem",
-            cursor: "pointer",
-          }}
-        >
-          Back to app
-        </button>
-      </header>
+        <div className="dashboard-content">
+          <h1
+            style={{ fontSize: "2rem", fontWeight: 900, marginBottom: 8 }}
+          >
+            Persona prompts for LLMs
+          </h1>
+          <p style={{ color: "#bbb", maxWidth: 640, marginBottom: 24 }}>
+            Copy any of these into your LLM and replace{" "}
+            <span style={{ color: "#ffd945" }}>[Persona Name]</span> and{" "}
+            <span style={{ color: "#ffd945" }}>[main goal]</span> /
+            <span style={{ color: "#ffd945" }}>[pain point]</span> with one of
+            your personas.
+          </p>
 
-      {/* Main */}
-      <main
-        style={{
-          maxWidth: 1120,
-          margin: "40px auto 80px",
-          padding: "0 20px",
-        }}
-      >
-        <h1 style={{ fontSize: "2rem", fontWeight: 900, marginBottom: 8 }}>
-          Persona prompts for LLMs
-        </h1>
-        <p style={{ color: "#bbb", maxWidth: 640, marginBottom: 24 }}>
-          Copy any of these into your LLM and replace{" "}
-          <span style={{ color: "#ffd945" }}>[Persona Name]</span> and{" "}
-          <span style={{ color: "#ffd945" }}>[main goal]</span> /
-          <span style={{ color: "#ffd945" }}>[pain point]</span> with one of
-          your personas.
-        </p>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: 18,
-          }}
-        >
-          {personaPrompts.map((p, idx) => (
-            <div
-              key={idx}
-              style={{
-                background: "#15151f",
-                borderRadius: 18,
-                padding: "16px 18px 18px",
-                border: "1px solid rgba(255,255,255,0.06)",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-              }}
-            >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 18,
+            }}
+          >
+            {personaPrompts.map((p, idx) => (
               <div
+                key={idx}
                 style={{
-                  fontSize: 12,
-                  color: "#888",
-                  marginBottom: 6,
+                  background: "#15151f",
+                  borderRadius: 18,
+                  padding: "16px 18px 18px",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
                 }}
               >
-                Prompt #{idx + 1}
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: "#888",
+                    marginBottom: 6,
+                  }}
+                >
+                  Prompt #{idx + 1}
+                </div>
+                <h2
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 700,
+                    margin: "0 0 6px",
+                    color: "#ffd945",
+                  }}
+                >
+                  {p.title}
+                </h2>
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#ddd",
+                    margin: 0,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {p.text}
+                </p>
               </div>
-              <h2
-                style={{
-                  fontSize: 15,
-                  fontWeight: 700,
-                  margin: "0 0 6px",
-                  color: "#ffd945",
-                }}
-              >
-                {p.title}
-              </h2>
-              <p
-                style={{
-                  fontSize: 13,
-                  color: "#ddd",
-                  margin: 0,
-                  lineHeight: 1.5,
-                }}
-              >
-                {p.text}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

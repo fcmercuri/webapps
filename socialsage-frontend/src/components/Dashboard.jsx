@@ -166,27 +166,33 @@ export default function Dashboard() {
             }}
           >
             {/* Left: Menu button (mobile) */}
-            <div className="dashboard-mobile-header">
-              <button
-                type="button"
-                onClick={() => setIsSidebarOpen(v => !v)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  cursor: 'pointer',
-                }}
-              >
-                <img
-                  src="/logo.jpg"
-                  alt="SocialSage"
-                  style={{ width: 32, height: 32, borderRadius: 10 }}
-                />
-                <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
-              </button>
-            </div>
+            <div
+  className="dashboard-mobile-header"
+  style={{
+    padding: '10px 10px 0',   // bring logo/menu closer to left/top edge
+  }}
+>
+  <button
+    type="button"
+    onClick={() => setIsSidebarOpen(v => !v)}
+    style={{
+      background: 'transparent',
+      border: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      cursor: 'pointer',
+      padding: 0,             // no extra padding around logo/text
+    }}
+  >
+    <img
+      src="/logo.jpg"
+      alt="SocialSage"
+      style={{ width: 32, height: 32, borderRadius: 10 }}
+    />
+    <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+  </button>
+</div>
 
             {/* Right: email + plan badge */}
             {user && (
