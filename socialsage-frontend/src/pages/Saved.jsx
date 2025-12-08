@@ -1,81 +1,118 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useAuth } from '../auth/AuthContext';
+import Sidebar from '../components/Sidebar';
 
 export default function Saved() {
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div
       style={{
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)",
-        color: "#fff",
+        display: 'flex',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0b0b0b 0%, #05050a 60%, #05060d 100%)',
+        color: '#fff',
       }}
     >
-      <header
-        style={{
-          maxWidth: 1120,
-          margin: "0 auto",
-          padding: "20px 20px 10px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img
-            src="/logo.jpg"
-            alt="SocialSage Logo"
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onItemClick={() => setIsSidebarOpen(false)}
+      />
+
+      <div className="dashboard-main">
+        {/* Mobile header – same as Account */}
+        <div className="dashboard-mobile-header">
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(v => !v)}
             style={{
-              width: 32,
-              height: 32,
-              borderRadius: 10,
-              objectFit: "cover",
-              boxShadow: "0 4px 12px rgba(255, 217, 69, 0.2)",
-            }}
-          />
-          <span
-            style={{
-              fontWeight: 800,
-              fontSize: "1.3rem",
-              letterSpacing: "-0.04em",
+              background: 'transparent',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              cursor: 'pointer',
             }}
           >
-            SocialSage
-          </span>
+            <img
+              src="/logo.jpg"
+              alt="SocialSage"
+              style={{ width: 32, height: 32, borderRadius: 10 }}
+            />
+            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+          </button>
         </div>
 
-        <button
-          onClick={() => navigate("/dashboard")}
-          style={{
-            background: "transparent",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            borderRadius: 999,
-            padding: "7px 16px",
-            color: "#eee",
-            fontSize: "0.9rem",
-            cursor: "pointer",
-          }}
-        >
-          Back to app
-        </button>
-      </header>
+        <div className="dashboard-content">
+          {/* Optional: top-right account info, like Dashboard */}
+          {user && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginBottom: 24,
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  fontSize: '0.85rem',
+                }}
+              >
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ color: '#e5e7eb', fontWeight: 600 }}>
+                    {user.email}
+                  </div>
+                  <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
+                    Account type
+                  </div>
+                </div>
+                <span
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 999,
+                    background:
+                      user.plan === 'pro'
+                        ? 'rgba(22,163,74,0.15)'
+                        : user.plan === 'starter'
+                        ? 'rgba(234,179,8,0.15)'
+                        : 'rgba(148,163,184,0.2)',
+                    color:
+                      user.plan === 'pro'
+                        ? '#22c55e'
+                        : user.plan === 'starter'
+                        ? '#eab308'
+                        : '#e5e7eb',
+                    border:
+                      user.plan === 'pro'
+                        ? '1px solid rgba(22,163,74,0.5)'
+                        : user.plan === 'starter'
+                        ? '1px solid rgba(234,179,8,0.5)'
+                        : '1px solid rgba(148,163,184,0.5)',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    fontSize: '0.7rem',
+                  }}
+                >
+                  {(user.plan || 'free').toUpperCase()}
+                </span>
+              </div>
+            </div>
+          )}
 
-      <main
-        style={{
-          maxWidth: 1120,
-          margin: "40px auto 80px",
-          padding: "0 20px",
-        }}
-      >
-        <h1 style={{ fontSize: "2rem", fontWeight: 900, marginBottom: 16 }}>
-          Saved
-        </h1>
-        <p style={{ color: "#bbb", maxWidth: 520 }}>
-          All your saved personas, prompts, and generated content will appear
-          here so you can quickly reuse your best assets.
-        </p>
-      </main>
+          <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 16 }}>
+            Saved
+          </h1>
+          <p style={{ color: '#bbb', maxWidth: 520 }}>
+            All your saved personas, prompts, and generated content will appear
+            here so you can quickly reuse your best assets.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
