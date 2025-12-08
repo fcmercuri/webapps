@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function Dashboard() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, token } = useAuth();
   const [personas, setPersonas] = useState([]);
   const [prompts, setPrompts] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -20,28 +20,48 @@ export default function Dashboard() {
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // Hooks must come before any conditional return
   useEffect(() => {
+    async function loadUserProfile() {
+      try {
+        const res = await api.get('/api/user/profile');
+        setUser(res.data);
+      } catch (err) {
+        console.error('Failed to load profile', err);
+        setError('Failed to load profile');
+      }
+    }
+
+    async function loadPersonas() {
+      try {
+        const res = await api.get('/api/personas');
+        setPersonas(res.data || []);
+      } catch (err) {
+        console.error('Failed to load personas', err);
+        setError('Failed to load personas');
+      }
+    }
+
     loadUserProfile();
     loadPersonas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setUser]);
 
-  async function loadUserProfile() {
-    try {
-      const res = await api.get('/api/user/profile');
-      setUser(res.data);
-    } catch (err) {
-      console.error('Failed to load profile');
-    }
-  }
-
-  async function loadPersonas() {
-    try {
-      const res = await api.get('/api/personas');
-      setPersonas(res.data);
-    } catch (err) {
-      setError('Failed to load personas');
-    }
+  // Safe early return AFTER hooks
+  if (!token) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
+          color: '#fff',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        Redirecting to login…
+      </div>
+    );
   }
 
   async function handleIndustrySelect(industry) {
@@ -58,8 +78,8 @@ export default function Dashboard() {
 
       await api.put('/api/user/industry', { industry });
       const res = await api.post('/api/personas/generate', { industry });
-      setPersonas(res.data);
-      setUser({ ...user, industry });
+      setPersonas(res.data || []);
+      setUser(prev => ({ ...(prev || {}), industry }));
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate personas');
     } finally {
@@ -79,7 +99,7 @@ export default function Dashboard() {
       const res = await api.post('/api/prompts/generate', {
         personaId: persona._id,
       });
-      setPrompts(res.data);
+      setPrompts(res.data || []);
     } catch (err) {
       setError('Failed to generate prompts');
     } finally {
@@ -136,6 +156,23 @@ export default function Dashboard() {
     }
   }
 
+  if (!user) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
+          color: '#fff',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        Loading dashboard…
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
@@ -179,63 +216,6 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-content">
-          {/* Email + plan */}
-          {user && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                marginBottom: 16,
-              }}
-            >
-              <div style={{ textAlign: 'right', marginRight: 12 }}>
-                <div
-                  style={{
-                    color: '#e5e7eb',
-                    fontWeight: 600,
-                    fontSize: '0.9rem',
-                  }}
-                >
-                  {user.email}
-                </div>
-                <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
-                  Account type
-                </div>
-              </div>
-              <span
-                style={{
-                  padding: '4px 10px',
-                  borderRadius: 999,
-                  background:
-                    user.plan === 'pro'
-                      ? 'rgba(22,163,74,0.15)'
-                      : user.plan === 'starter'
-                      ? 'rgba(234,179,8,0.15)'
-                      : 'rgba(148,163,184,0.2)',
-                  color:
-                    user.plan === 'pro'
-                      ? '#22c55e'
-                      : user.plan === 'starter'
-                      ? '#eab308'
-                      : '#e5e7eb',
-                  border:
-                    user.plan === 'pro'
-                      ? '1px solid rgba(22,163,74,0.5)'
-                      : user.plan === 'starter'
-                      ? '1px solid rgba(234,179,8,0.5)'
-                      : '1px solid rgba(148,163,184,0.5)',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  fontSize: '0.7rem',
-                }}
-              >
-                {user.plan || 'free'}
-              </span>
-            </div>
-          )}
-
           {/* Upgrade buttons */}
           {user && (
             <div style={{ marginBottom: 32 }}>
@@ -283,7 +263,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Error */}
+          {/* Error Message */}
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -308,7 +288,7 @@ export default function Dashboard() {
             currentIndustry={user?.industry}
           />
 
-          {/* Personas */}
+          {/* Personas Section */}
           {personas.length > 0 && (
             <div style={{ marginBottom: '40px' }}>
               <h2
@@ -329,7 +309,7 @@ export default function Dashboard() {
                   gap: '20px',
                 }}
               >
-                {personas.map(persona => (
+                {(personas || []).map(persona => (
                   <PersonaCard
                     key={persona._id}
                     persona={persona}
@@ -342,7 +322,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Prompts + content */}
+          {/* Prompts & Content Section */}
           {selectedPersona && (
             <div
               style={{
@@ -394,7 +374,7 @@ export default function Dashboard() {
                     gap: '15px',
                   }}
                 >
-                  {prompts.map(prompt => (
+                  {(prompts || []).map(prompt => (
                     <PromptCard
                       key={prompt._id}
                       prompt={prompt}
@@ -405,6 +385,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
+              {/* Right: Content Editor */}
               <div id="content-editor">
                 <ContentEditor
                   content={generatedContent}
@@ -414,7 +395,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Empty state */}
+          {/* Empty State */}
           {personas.length === 0 && !loading && (
             <motion.div
               initial={{ opacity: 0 }}
