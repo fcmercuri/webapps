@@ -203,9 +203,8 @@ return (
           </span>
         </div>
       )}
-    </div>
-  </div>
-        {personas.length > 0 && (
+
+      {personas.length > 0 && (
         <div style={{ marginTop: 32 }}>
           <h2
             style={{
@@ -237,6 +236,7 @@ return (
           </div>
         </div>
       )}
-
+    </div>
+  </div>
 );
 }
