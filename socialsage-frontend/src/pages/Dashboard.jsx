@@ -203,6 +203,53 @@ return (
           </span>
         </div>
       )}
+      
+            {user && (
+        <div style={{ marginBottom: 32 }}>
+          {user.plan === "free" && (
+            <button
+              onClick={() =>
+                handleUpgrade("price_1SXqa1PwyyuQCEbaBU1sIZvY")
+              }
+              style={{
+                background: "#ffd945",
+                color: "#1a1a28",
+                fontWeight: 700,
+                border: "none",
+                padding: "0.8rem 2rem",
+                borderRadius: 8,
+                fontSize: "1.12rem",
+                cursor: "pointer",
+                boxShadow: "0 2px 12px #ffd94555",
+              }}
+            >
+              Upgrade to Starter
+            </button>
+          )}
+
+          {user.plan === "starter" && (
+            <button
+              onClick={() =>
+                handleUpgrade("price_1SXpzjPwyyuQCEbaNxjlPgtA")
+              }
+              style={{
+                background: "#ffd945",
+                color: "#1a1a28",
+                fontWeight: 700,
+                border: "none",
+                padding: "0.8rem 2rem",
+                borderRadius: 8,
+                fontSize: "1.12rem",
+                cursor: "pointer",
+                boxShadow: "0 2px 12px #ffd94555",
+              }}
+            >
+              Upgrade to Pro
+            </button>
+          )}
+        </div>
+      )}
+
 
       {personas.length > 0 && (
         <div style={{ marginTop: 32 }}>
