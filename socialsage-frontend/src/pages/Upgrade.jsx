@@ -95,7 +95,7 @@ export default function PersonaInsights() {
         <div
           className="dashboard-content"
           style={{
-            padding: '20px 16px 40px',
+            padding: '0 16px 32px',
             maxWidth: 1200,
             margin: '0 auto',
           }}
