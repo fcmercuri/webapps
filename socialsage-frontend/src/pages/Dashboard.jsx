@@ -205,12 +205,13 @@ export default function Dashboard() {
       wordBreak: 'break-all',   // allow breaking long emails
     }}
   >
-    {user.email}
+    {user.email?.split('@')[0] || ''}
   </div>
   <div style={{ color: '#9ca3af', fontSize: '0.75rem' }}>
     Account type
   </div>
 </div>
+
                 <span
                   style={{
                     padding: '4px 10px',
