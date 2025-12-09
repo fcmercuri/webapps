@@ -64,9 +64,12 @@ export default function Account() {
         onItemClick={() => setIsSidebarOpen(false)}
       />
 
-      <div className="dashboard-main">
+           <div className="dashboard-main">
         {/* Mobile header */}
-        <div className="dashboard-mobile-header">
+        <div
+          className="dashboard-mobile-header"
+          style={{ padding: '10px 10px 0' }}
+        >
           <button
             type="button"
             onClick={() => setIsSidebarOpen(v => !v)}
@@ -77,6 +80,7 @@ export default function Account() {
               alignItems: 'center',
               gap: 8,
               cursor: 'pointer',
+              padding: 0,
             }}
           >
             <img
@@ -87,6 +91,7 @@ export default function Account() {
             <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
           </button>
         </div>
+
 
         <div className="dashboard-content">
           <h1
