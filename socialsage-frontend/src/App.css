@@ -513,7 +513,7 @@ body::before {
   }
 }
 
-/* Personas grid helper class – add to the personas grid div */
+/* Personas grid helper class – used on the dashboard */
 .personas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
