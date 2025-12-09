@@ -134,41 +134,75 @@ export default function Dashboard() {
 return (
   <div
     style={{
+      display: "flex",
       minHeight: "100vh",
-      background: "black",
-      color: "white",
-      padding: "40px",
+      background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
+      color: "#fff",
     }}
   >
-    {/* Sidebar: always visible on desktop, toggled on mobile via isSidebarOpen */}
-      <Sidebar
-  isOpen={isSidebarOpen}
-  onItemClick={() => setIsSidebarOpen(false)}
-/>
+    {/* Sidebar placeholder for now */}
+    <div style={{ width: 260, padding: 20 }}>Sidebar</div>
 
-      {/* Main area */}
-      <div className="dashboard-main">
-        {/* Mobile header – visible only on mobile via CSS */}
-        <div className="dashboard-mobile-header">
-          <button
-            type="button"
-            onClick={() => setIsSidebarOpen(v => !v)}
+    {/* Main area */}
+    <div style={{ flex: 1, padding: 24 }}>
+      <h1 style={{ marginBottom: 24 }}>Dashboard</h1>
+
+      {user && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            marginBottom: 16,
+          }}
+        >
+          <div style={{ textAlign: "right", marginRight: 12 }}>
+            <div
+              style={{
+                color: "#e5e7eb",
+                fontWeight: 600,
+                fontSize: "0.9rem",
+              }}
+            >
+              {user.email}
+            </div>
+            <div style={{ color: "#9ca3af", fontSize: "0.8rem" }}>
+              Account type
+            </div>
+          </div>
+          <span
             style={{
-              background: 'transparent',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
+              padding: "4px 10px",
+              borderRadius: 999,
+              background:
+                user.plan === "pro"
+                  ? "rgba(22,163,74,0.15)"
+                  : user.plan === "starter"
+                  ? "rgba(234,179,8,0.15)"
+                  : "rgba(148,163,184,0.2)",
+              color:
+                user.plan === "pro"
+                  ? "#22c55e"
+                  : user.plan === "starter"
+                  ? "#eab308"
+                  : "#e5e7eb",
+              border:
+                user.plan === "pro"
+                  ? "1px solid rgba(22,163,74,0.5)"
+                  : user.plan === "starter"
+                  ? "1px solid rgba(234,179,8,0.5)"
+                  : "1px solid rgba(148,163,184,0.5)",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              fontSize: "0.7rem",
             }}
           >
-            <img
-              src="/logo.jpg"
-              alt="SocialSage"
-              style={{ width: 32, height: 32, borderRadius: 10 }}
-            />
-            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
-          </button>
+            {user.plan || "free"}
+          </span>
         </div>
+      )}
+    </div>
+  </div>
 );
 }
