@@ -354,8 +354,18 @@ app.post('/api/auth/login', async (req, res) => {
 // Get best-converting persona for current user
 app.get('/api/personas/best', authenticateToken, async (req, res) => {
   try {
-    const best = await Persona.findOne({ userId: req.userId })
-      .sort({ conversionScore: -1 })   // highest score first
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const filter = { userId: req.userId };
+    if (user.plan !== 'pro') {
+      filter.isPremium = false;
+    }
+
+    const best = await Persona.findOne(filter)
+      .sort({ conversionScore: -1 })
       .lean();
 
     if (!best) {
@@ -368,6 +378,7 @@ app.get('/api/personas/best', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch best persona' });
   }
 });
+
 
 
 
