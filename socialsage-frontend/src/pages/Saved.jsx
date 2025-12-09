@@ -140,7 +140,6 @@ export default function Saved() {
                       fontSize: 13,
                       color: "#d1d5db",
                       margin: 0,
-                      maxHeight: 120,
                       overflow: "hidden",
                     }}
                   >
