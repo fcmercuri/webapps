@@ -17,7 +17,7 @@ export default function NavigationBar() {
         <div className="nav-left">
           <motion.img
             src="/logo.jpg"
-            alt="SocialSage"
+            alt=""sainthetic"
             className="nav-logo"
             animate={logoSpin ? { rotate: 360, scale: 1.13 } : { rotate: 0, scale: 1 }}
             transition={{ type: "spring", duration: 0.6 }}
@@ -29,7 +29,7 @@ export default function NavigationBar() {
             style={{ cursor: "pointer" }}
             onClick={handleLogoClick}
           >
-            SocialSage
+            sAInthetic
           </span>
         </div>
         <div className="nav-spacer"></div>
