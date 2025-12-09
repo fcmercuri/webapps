@@ -132,15 +132,6 @@ export default function Dashboard() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
-        color: "#fff",
-      }}
-    >
-     return (
   <div
     style={{
       display: "flex",
@@ -156,8 +147,7 @@ export default function Dashboard() {
     /> */}
     <div style={{ width: 260, padding: 20 }}>Sidebar</div>
 
-
-      {/* Main area */}
+    {/* Main area */}
       <div style={{ flex: 1, padding: 24 }}>
         <h1 style={{ marginBottom: 24 }}>Dashboard</h1>
 
