@@ -351,6 +351,25 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// Get best-converting persona for current user
+app.get('/api/personas/best', authenticateToken, async (req, res) => {
+  try {
+    const best = await Persona.findOne({ userId: req.userId })
+      .sort({ conversionScore: -1 })   // highest score first
+      .lean();
+
+    if (!best) {
+      return res.status(404).json({ error: 'No personas found' });
+    }
+
+    res.json(best);
+  } catch (err) {
+    console.error('❌ Error fetching best persona:', err);
+    res.status(500).json({ error: 'Failed to fetch best persona' });
+  }
+});
+
+
 // --- USER PROFILE ---
 app.get('/api/user/profile', authenticateToken, async (req, res) => {
   try {
