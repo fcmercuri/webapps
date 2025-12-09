@@ -143,11 +143,14 @@ return (
       color: "#fff",
     }}
   >
+    {/* Simple sidebar placeholder */}
     <div style={{ width: 260, padding: 20 }}>Sidebar</div>
 
+    {/* Main area */}
     <div style={{ flex: 1, padding: 24 }}>
       <h1 style={{ marginBottom: 24 }}>Dashboard</h1>
 
+      {/* User header */}
       {user && (
         <div
           style={{
@@ -203,8 +206,9 @@ return (
           </span>
         </div>
       )}
-      
-            {user && (
+
+      {/* Upgrade buttons */}
+      {user && (
         <div style={{ marginBottom: 32 }}>
           {user.plan === "free" && (
             <button
@@ -250,7 +254,7 @@ return (
         </div>
       )}
 
-
+      {/* Personas Section */}
       {personas.length > 0 && (
         <div style={{ marginTop: 32 }}>
           <h2
@@ -280,6 +284,56 @@ return (
                 onUnlock={() => handleUpgrade("price_PRO_REAL_ID")}
               />
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Prompts & Content Section */}
+      {selectedPersona && (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1.2fr",
+            gap: "30px",
+            marginTop: "40px",
+          }}
+        >
+          <div>
+            <h2
+              style={{
+                fontSize: "1.5rem",
+                fontWeight: 800,
+                color: "#ffd945",
+                margin: "0 0 8px 0",
+                letterSpacing: "-0.5px",
+              }}
+            >
+              Content Ideas for {selectedPersona.name}
+            </h2>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "15px",
+              }}
+            >
+              {prompts.map((prompt) => (
+                <PromptCard
+                  key={prompt._id}
+                  prompt={prompt}
+                  onGenerate={handleGenerateContent}
+                  loading={loading}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div id="content-editor">
+            <ContentEditor
+              content={generatedContent}
+              onSave={handleSaveContent}
+            />
           </div>
         </div>
       )}
