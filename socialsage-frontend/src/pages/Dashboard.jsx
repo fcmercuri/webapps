@@ -141,9 +141,12 @@ export default function Dashboard() {
       }}
     >
       {/* Sidebar */}
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onItemClick={() => setIsSidebarOpen(false)}
+{/* <Sidebar
+  isOpen={isSidebarOpen}
+  onItemClick={() => setIsSidebarOpen(false)}
+/> */}
+<div style={{ width: 260, padding: 20 }}>Sidebar</div>
+
       />
 
       {/* Main area */}
