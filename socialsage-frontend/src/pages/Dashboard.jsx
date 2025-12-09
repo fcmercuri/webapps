@@ -195,20 +195,22 @@ export default function Dashboard() {
                   flexShrink: 0,
                 }}
               >
-                <div style={{ textAlign: 'right', marginRight: 12 }}>
-                  <div
-                    style={{
-                      color: '#e5e7eb',
-                      fontWeight: 600,
-                      fontSize: '0.9rem',
-                    }}
-                  >
-                    {user.email}
-                  </div>
-                  <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
-                    Account type
-                  </div>
-                </div>
+                <div style={{ textAlign: 'right', marginRight: 12, maxWidth: 170 }}>
+  <div
+    style={{
+      color: '#e5e7eb',
+      fontWeight: 600,
+      fontSize: '0.8rem',       // smaller font
+      lineHeight: 1.2,
+      wordBreak: 'break-all',   // allow breaking long emails
+    }}
+  >
+    {user.email}
+  </div>
+  <div style={{ color: '#9ca3af', fontSize: '0.75rem' }}>
+    Account type
+  </div>
+</div>
                 <span
                   style={{
                     padding: '4px 10px',
