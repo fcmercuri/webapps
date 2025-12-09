@@ -194,7 +194,7 @@ export default function PersonaInsights() {
                               flexDirection: 'column',
                               alignItems: 'center',
                               justifyContent: 'flex-end',
-                              fontSize: '0.75rem',
+                              fontSize: '0.55rem',
                             }}
                           >
                             <div
