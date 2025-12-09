@@ -14,7 +14,7 @@ export default function PersonaInsights() {
         setLoading(true);
         setError('');
         const res = await api.get('/api/personas');
-        setPersonas(res.data);
+        setPersonas(res.data || []);
       } catch (err) {
         console.error('Failed to load personas', err);
         setError('Failed to load personas');
@@ -41,10 +41,8 @@ export default function PersonaInsights() {
 
   const premiumCount = personas.filter(p => p.isPremium).length;
 
-  const maxIndustryCount = Object.values(industries).reduce(
-    (m, v) => (v > m ? v : m),
-    0
-  );
+  const maxIndustryCount =
+    Object.values(industries).reduce((m, v) => (v > m ? v : m), 0) || 1;
 
   return (
     <div
@@ -175,10 +173,15 @@ export default function PersonaInsights() {
                       }}
                     >
                       {Object.entries(industries).map(([industry, count]) => {
-                        const heightPct =
+                        const rawPct =
                           maxIndustryCount > 0
-                            ? Math.round((count / maxIndustryCount) * 100)
+                            ? (count / maxIndustryCount) * 100
                             : 0;
+                        const heightPct = Math.max(
+                          8,
+                          Math.round(rawPct)
+                        ); // ensure visible bar
+
                         return (
                           <div
                             key={industry}
@@ -199,7 +202,8 @@ export default function PersonaInsights() {
                                 background:
                                   'linear-gradient(180deg,#ffd945,#fbbf24)',
                                 borderRadius: 8,
-                                boxShadow: '0 6px 18px rgba(250,204,21,0.35)',
+                                boxShadow:
+                                  '0 6px 18px rgba(250,204,21,0.35)',
                                 display: 'flex',
                                 alignItems: 'flex-end',
                                 justifyContent: 'center',
@@ -231,7 +235,9 @@ export default function PersonaInsights() {
 
               {/* Industry table */}
               <section style={{ marginBottom: 32 }}>
-                <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>Details</h2>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>
+                  Details
+                </h2>
                 {Object.keys(industries).length === 0 ? (
                   <p style={{ color: '#bbb' }}>No personas yet.</p>
                 ) : (
@@ -257,17 +263,21 @@ export default function PersonaInsights() {
                         </tr>
                       </thead>
                       <tbody>
-                        {Object.entries(industries).map(([industry, count]) => (
-                          <tr key={industry}>
-                            <td style={tdStyle}>{industry}</td>
-                            <td style={tdStyle}>{count}</td>
-                            <td style={tdStyle}>
-                              {total
-                                ? `${Math.round((count / total) * 100)}%`
-                                : '0%'}
-                            </td>
-                          </tr>
-                        ))}
+                        {Object.entries(industries).map(
+                          ([industry, count]) => (
+                            <tr key={industry}>
+                              <td style={tdStyle}>{industry}</td>
+                              <td style={tdStyle}>{count}</td>
+                              <td style={tdStyle}>
+                                {total
+                                  ? `${Math.round(
+                                      (count / total) * 100
+                                    )}%`
+                                  : '0%'}
+                              </td>
+                            </tr>
+                          )
+                        )}
                       </tbody>
                     </table>
                   </div>
