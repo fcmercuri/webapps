@@ -205,5 +205,38 @@ return (
       )}
     </div>
   </div>
+        {personas.length > 0 && (
+        <div style={{ marginTop: 32 }}>
+          <h2
+            style={{
+              fontSize: "1.8rem",
+              fontWeight: 800,
+              color: "#ffd945",
+              margin: "0 0 20px 0",
+              letterSpacing: "-0.5px",
+            }}
+          >
+            Your Customer Personas
+          </h2>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+              gap: "20px",
+            }}
+          >
+            {personas.map((persona) => (
+              <PersonaCard
+                key={persona._id}
+                persona={persona}
+                onClick={() => handlePersonaClick(persona)}
+                isLocked={persona.isPremium && user?.plan !== "pro"}
+                onUnlock={() => handleUpgrade("price_PRO_REAL_ID")}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
 );
 }
