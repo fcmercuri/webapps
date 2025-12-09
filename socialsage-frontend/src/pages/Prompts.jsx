@@ -1,61 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-
-const personaPrompts = [
-  {
-    title: "Understand their day",
-    text:
-      "Describe a typical workday for [Persona Name]. What tasks take most of their time, and where do they feel the most friction?",
-  },
-  {
-    title: "Hidden frustrations",
-    text:
-      "List 10 specific frustrations [Persona Name] experiences when trying to achieve [main goal]. Prioritize the ones that feel emotionally painful.",
-  },
-  {
-    title: "Jobs to be done",
-    text:
-      "For [Persona Name], list the top 5 'jobs to be done' they hire a product like ours for. Write them as short, action‑oriented sentences.",
-  },
-  {
-    title: "Buying triggers",
-    text:
-      "What events or situations make [Persona Name] actively start looking for a solution like ours? Give 8 examples with context.",
-  },
-  {
-    title: "Objections and fears",
-    text:
-      "List 10 common objections or fears [Persona Name] has before buying our product. Suggest a concise response for each one.",
-  },
-  {
-    title: "Information sources",
-    text:
-      "Where does [Persona Name] go to research solutions like ours (people, channels, sites, tools)? Describe 8 realistic sources.",
-  },
-  {
-    title: "Messaging angles",
-    text:
-      "Create 7 different messaging angles to pitch our product to [Persona Name], each focused on a different benefit or outcome.",
-  },
-  {
-    title: "Story hook",
-    text:
-      "Write a short story (150–200 words) about a day when [Persona Name] finally solves [pain point] using a product like ours.",
-  },
-  {
-    title: "Content ideas",
-    text:
-      "Generate 15 content ideas (titles only) that would feel irresistibly useful to [Persona Name] this month.",
-  },
-  {
-    title: "Before/after grid",
-    text:
-      "Create a before/after grid for [Persona Name]: describe their 'before' situation and 'after' situation across 6 dimensions (results, feelings, time, money, status, control).",
-  },
-];
+import api from "../api/axios";
 
 export default function Prompts() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [persona, setPersona] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadBestPersona() {
+      try {
+        setLoading(true);
+        setError("");
+        const res = await api.get("/api/personas/best");
+        setPersona(res.data);
+      } catch (err) {
+        setError(err.response?.data?.error || "Failed to load persona");
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadBestPersona();
+  }, []);
+
+  const prompts = persona
+    ? [
+        {
+          title: "Understand their day",
+          text: `Describe a typical workday for ${persona.name}. What tasks take most of their time, and where do they feel the most friction?`,
+        },
+        {
+          title: "Hidden frustrations",
+          text: `List 10 specific frustrations ${persona.name} experiences when trying to achieve ${persona.goals?.[0] || "their main goal"}. Prioritize the ones that feel emotionally painful.`,
+        },
+        {
+          title: "Jobs to be done",
+          text: `For ${persona.name}, list the top 5 'jobs to be done' they hire a product like ours for. Write them as short, action‑oriented sentences.`,
+        },
+        {
+          title: "Buying triggers",
+          text: `What events or situations make ${persona.name} actively start looking for a solution like ours? Give 8 examples with context, based on their pains such as ${persona.painPoints?.[0] || "their key pain point"}.`,
+        },
+        {
+          title: "Objections and fears",
+          text: `List 10 common objections or fears someone like ${persona.name} has before buying our product. Suggest a concise response for each one.`,
+        },
+        {
+          title: "Information sources",
+          text: `Where does ${persona.name} go to research solutions like ours (people, channels, sites, tools)? Describe 8 realistic sources.`,
+        },
+        {
+          title: "Messaging angles",
+          text: `Create 7 different messaging angles to pitch our product to ${persona.name}, each focused on a different benefit or outcome they care about.`,
+        },
+        {
+          title: "Story hook",
+          text: `Write a short story (150–200 words) about a day when ${persona.name} finally solves ${persona.painPoints?.[0] || "their biggest pain point"} using a product like ours.`,
+        },
+        {
+          title: "Content ideas",
+          text: `Generate 15 content ideas (titles only) that would feel irresistibly useful to ${persona.name} this month, given their goals like ${persona.goals?.slice(0,2).join(", ") || "their main goals"}.`,
+        },
+        {
+          title: "Before/after grid",
+          text: `Create a before/after grid for ${persona.name}: describe their 'before' situation and 'after' situation across 6 dimensions (results, feelings, time, money, status, control), using their pains like ${persona.painPoints?.[0] || "their main pain"} as input.`,
+        },
+      ]
+    : [];
 
   return (
     <div
@@ -80,7 +92,7 @@ export default function Prompts() {
         >
           <button
             type="button"
-            onClick={() => setIsSidebarOpen(v => !v)}
+            onClick={() => setIsSidebarOpen((v) => !v)}
             style={{
               background: "transparent",
               border: "none",
@@ -106,64 +118,82 @@ export default function Prompts() {
           >
             Persona prompts for LLMs
           </h1>
-          <p style={{ color: "#bbb", maxWidth: 640, marginBottom: 24 }}>
-            Copy any of these into your LLM and replace{" "}
-            <span style={{ color: "#ffd945" }}>[Persona Name]</span> and{" "}
-            <span style={{ color: "#ffd945" }}>[main goal]</span> /
-            <span style={{ color: "#ffd945" }}>[pain point]</span> with one of
-            your personas.
-          </p>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: 18,
-            }}
-          >
-            {personaPrompts.map((p, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: "#15151f",
-                  borderRadius: 18,
-                  padding: "16px 18px 18px",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-                }}
-              >
+          {loading && <p style={{ color: "#bbb" }}>Loading best persona…</p>}
+
+          {error && (
+            <p style={{ color: "#fca5a5", marginBottom: 16 }}>{error}</p>
+          )}
+
+          {persona && (
+            <p style={{ color: "#bbb", maxWidth: 640, marginBottom: 24 }}>
+              These prompts are tailored to your highest‑converting persona:{" "}
+              <span style={{ color: "#ffd945", fontWeight: 600 }}>
+                {persona.name}
+              </span>
+              . Copy any of them into your LLM.
+            </p>
+          )}
+
+          {!loading && !error && !persona && (
+            <p style={{ color: "#bbb" }}>
+              You do not have any personas yet. Generate some personas first.
+            </p>
+          )}
+
+          {persona && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(260px, 1fr))",
+                gap: 18,
+              }}
+            >
+              {prompts.map((p, idx) => (
                 <div
+                  key={idx}
                   style={{
-                    fontSize: 12,
-                    color: "#888",
-                    marginBottom: 6,
+                    background: "#15151f",
+                    borderRadius: 18,
+                    padding: "16px 18px 18px",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
                   }}
                 >
-                  Prompt #{idx + 1}
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "#888",
+                      marginBottom: 6,
+                    }}
+                  >
+                    Prompt #{idx + 1}
+                  </div>
+                  <h2
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 700,
+                      margin: "0 0 6px",
+                      color: "#ffd945",
+                    }}
+                  >
+                    {p.title}
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: 13,
+                      color: "#ddd",
+                      margin: 0,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {p.text}
+                  </p>
                 </div>
-                <h2
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 700,
-                    margin: "0 0 6px",
-                    color: "#ffd945",
-                  }}
-                >
-                  {p.title}
-                </h2>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#ddd",
-                    margin: 0,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {p.text}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
