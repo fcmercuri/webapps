@@ -66,7 +66,6 @@ html, body, #root {
   background: #ffe267;
   color: #191919 !important;
 }
-/* Underline effect for nav on desktop */
 .nav-right a::after {
   content: '';
   position: absolute;
@@ -209,6 +208,7 @@ button:hover, .button:hover { background: #171717; }
   color: #ef476f;
   font-weight: 700;
 }
+
 ::-webkit-scrollbar { width: 8px; background: #111; }
 ::-webkit-scrollbar-thumb { background: #232323; border-radius: 7px; }
 
@@ -217,7 +217,7 @@ button:hover, .button:hover { background: #171717; }
   nav .logo { margin-bottom: 1rem; }
 }
 
-/* Responsive: stack on small screens */
+/* Responsive: stack nav on small screens */
 @media (max-width: 800px) {
   .main-nav {
     flex-direction: column;
@@ -244,6 +244,7 @@ button:hover, .button:hover { background: #171717; }
     display: none;
   }
 }
+
 .nav-right a,
 .nav-right .cta {
   position: relative;
@@ -301,8 +302,7 @@ button:hover, .button:hover { background: #171717; }
   }
 }
 
-/* Responsive Hero Container */
-/* Desktop: two-column hero */
+/* Hero grid */
 .hero-grid {
   max-width: 1200px;
   display: grid;
@@ -311,19 +311,16 @@ button:hover, .button:hover { background: #171717; }
   align-items: center;
 }
 
-/* Mobile: stack persona under text */
 @media (max-width: 768px) {
   .hero-grid {
     display: block;
     max-width: 100%;
     padding: 60px 16px 28px 16px;
   }
-
   .hero-grid > div:first-child {
-    margin-bottom: 24px; /* space between CTA block and persona card */
+    margin-bottom: 24px;
   }
 }
-
 
 /* Responsive Heading Styles */
 #hero h1 {
@@ -365,7 +362,6 @@ button:hover, .button:hover { background: #171717; }
   text-decoration: none;
 }
 
-/* Responsive padding for small screens */
 @media (max-width: 700px) {
   #hero {
     max-width: 100vw;
@@ -401,8 +397,7 @@ button:hover, .button:hover { background: #171717; }
   }
 }
 
-/* Mobile: stack Step section + make image tall */
-/* Desktop layout for steps */
+/* How it works section */
 .how-step-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -411,26 +406,22 @@ button:hover, .button:hover { background: #171717; }
   margin-bottom: 8rem;
 }
 
-/* Mobile: stack with text above image */
 @media (max-width: 768px) {
   .how-step-wrapper {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
-
   .how-step-wrapper .step-text {
     order: 1;
     text-align: left;
   }
-
   .how-step-wrapper .step-image {
     order: 2;
     width: 100%;
     margin: 0;
     max-width: 100%;
   }
-
   .how-step-wrapper .step-image img {
     width: 100%;
     height: auto;
@@ -453,18 +444,16 @@ body::before {
   z-index: 0;
 }
 
-/* Mobile hero: stack persona under text */
+/* Hero grid mobile override */
 @media (max-width: 768px) {
   #hero.hero-grid {
-    display: block;          /* stop using grid on small screens */
+    display: block;
     padding: 60px 16px 28px 16px;
     max-width: 100%;
   }
-
   #hero.hero-grid > div:first-child {
-    margin-bottom: 24px;     /* space between CTA block and persona card */
+    margin-bottom: 24px;
   }
-
   #hero.hero-grid > div,
   #hero.hero-grid > .motion-div,
   #hero.hero-grid > .hero-right {
@@ -472,7 +461,7 @@ body::before {
   }
 }
 
-/* Desktop: sidebar fixed and always visible */
+/* Desktop: sidebar fixed */
 .sidebar-wrapper {
   width: 240px;
   flex-shrink: 0;
@@ -484,19 +473,21 @@ body::before {
   transform: translateX(0);
 }
 
+/* Main dashboard area */
 .dashboard-main {
   flex: 1;
-  padding: 40px;
+  padding: 32px 24px;
   max-width: 1400px;
   margin-left: 240px;
+  box-sizing: border-box;
 }
 
 .dashboard-mobile-header {
   display: none;
 }
 
-/* Mobile: hide sidebar until open, show header */
-@media (max-width: 768px) {
+/* Mobile / tablet sidebar behaviour */
+@media (max-width: 1024px) {
   .sidebar-wrapper {
     transform: translateX(-100%);
     transition: transform 0.25s ease-out;
@@ -508,16 +499,48 @@ body::before {
 
   .dashboard-main {
     margin-left: 0;
-    padding: 20px;
+    padding: 20px 16px;
   }
 
   .dashboard-mobile-header {
     display: flex;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   .dashboard-content {
     padding: 0;
+  }
+}
+
+/* Personas grid helper class – add to the personas grid div */
+.personas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1200px) {
+  .personas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .personas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Prompts + editor layout helper */
+.dashboard-prompts-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-prompts-layout {
+    grid-template-columns: 1fr;
   }
 }
