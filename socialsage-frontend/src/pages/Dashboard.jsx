@@ -28,25 +28,24 @@ export default function Dashboard() {
   }, []);
 
   async function loadUserProfile() {
-  try {
-    const res = await api.get('/api/user/profile');
-    console.log('profile res', res.data);   // <‑‑ add this line
-    setUser(res.data);
-  } catch (err) {
-    console.error('Failed to load profile', err);
+    try {
+      const res = await api.get('/api/user/profile');
+      console.log('profile res', res.data);
+      setUser(res.data);
+    } catch (err) {
+      console.error('Failed to load profile', err);
+    }
   }
-}
 
-async function loadPersonas() {
-  try {
-    const res = await api.get('/api/personas');
-    console.log('personas res', res.data);  // <‑‑ add this line
-    setPersonas(Array.isArray(res.data) ? res.data : []);
-  } catch (err) {
-    setError('Failed to load personas');
+  async function loadPersonas() {
+    try {
+      const res = await api.get('/api/personas');
+      console.log('personas res', res.data);
+      setPersonas(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      setError('Failed to load personas');
+    }
   }
-}
-
 
   async function handleIndustrySelect(industry) {
     try {
@@ -132,212 +131,210 @@ async function loadPersonas() {
     }
   }
 
-  // keep all code above this line
+  return (
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
+        color: "#fff",
+      }}
+    >
+      {/* Simple sidebar placeholder – swap for <Sidebar .../> when ready */}
+      <div style={{ width: 260, padding: 20 }}>Sidebar</div>
 
-return (
-  <div
-    style={{
-      display: "flex",
-      minHeight: "100vh",
-      background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
-      color: "#fff",
-    }}
-  >
-    {/* Simple sidebar placeholder */}
-    <div style={{ width: 260, padding: 20 }}>Sidebar</div>
+      {/* Main area */}
+      <div style={{ flex: 1, padding: 24 }}>
+        <h1 style={{ marginBottom: 24 }}>Dashboard</h1>
 
-    {/* Main area */}
-    <div style={{ flex: 1, padding: 24 }}>
-      <h1 style={{ marginBottom: 24 }}>Dashboard</h1>
-
-      {/* User header */}
-      {user && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            marginBottom: 16,
-          }}
-        >
-          <div style={{ textAlign: "right", marginRight: 12 }}>
-            <div
-              style={{
-                color: "#e5e7eb",
-                fontWeight: 600,
-                fontSize: "0.9rem",
-              }}
-            >
-              {user.email}
-            </div>
-            <div style={{ color: "#9ca3af", fontSize: "0.8rem" }}>
-              Account type
-            </div>
-          </div>
-          <span
-            style={{
-              padding: "4px 10px",
-              borderRadius: 999,
-              background:
-                user.plan === "pro"
-                  ? "rgba(22,163,74,0.15)"
-                  : user.plan === "starter"
-                  ? "rgba(234,179,8,0.15)"
-                  : "rgba(148,163,184,0.2)",
-              color:
-                user.plan === "pro"
-                  ? "#22c55e"
-                  : user.plan === "starter"
-                  ? "#eab308"
-                  : "#e5e7eb",
-              border:
-                user.plan === "pro"
-                  ? "1px solid rgba(22,163,74,0.5)"
-                  : user.plan === "starter"
-                  ? "1px solid rgba(234,179,8,0.5)"
-                  : "1px solid rgba(148,163,184,0.5)",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              fontSize: "0.7rem",
-            }}
-          >
-            {user.plan || "free"}
-          </span>
-        </div>
-      )}
-
-      {/* Upgrade buttons */}
-      {user && (
-        <div style={{ marginBottom: 32 }}>
-          {user.plan === "free" && (
-            <button
-              onClick={() =>
-                handleUpgrade("price_1SXqa1PwyyuQCEbaBU1sIZvY")
-              }
-              style={{
-                background: "#ffd945",
-                color: "#1a1a28",
-                fontWeight: 700,
-                border: "none",
-                padding: "0.8rem 2rem",
-                borderRadius: 8,
-                fontSize: "1.12rem",
-                cursor: "pointer",
-                boxShadow: "0 2px 12px #ffd94555",
-              }}
-            >
-              Upgrade to Starter
-            </button>
-          )}
-
-          {user.plan === "starter" && (
-            <button
-              onClick={() =>
-                handleUpgrade("price_1SXpzjPwyyuQCEbaNxjlPgtA")
-              }
-              style={{
-                background: "#ffd945",
-                color: "#1a1a28",
-                fontWeight: 700,
-                border: "none",
-                padding: "0.8rem 2rem",
-                borderRadius: 8,
-                fontSize: "1.12rem",
-                cursor: "pointer",
-                boxShadow: "0 2px 12px #ffd94555",
-              }}
-            >
-              Upgrade to Pro
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Personas Section */}
-      {personas.length > 0 && (
-        <div style={{ marginTop: 32 }}>
-          <h2
-            style={{
-              fontSize: "1.8rem",
-              fontWeight: 800,
-              color: "#ffd945",
-              margin: "0 0 20px 0",
-              letterSpacing: "-0.5px",
-            }}
-          >
-            Your Customer Personas
-          </h2>
+        {/* User header */}
+        {user && (
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-              gap: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              marginBottom: 16,
             }}
           >
-            {personas.map((persona) => (
-              <PersonaCard
-                key={persona._id}
-                persona={persona}
-                onClick={() => handlePersonaClick(persona)}
-                isLocked={persona.isPremium && user?.plan !== "pro"}
-                onUnlock={() => handleUpgrade("price_PRO_REAL_ID")}
-              />
-            ))}
+            <div style={{ textAlign: "right", marginRight: 12 }}>
+              <div
+                style={{
+                  color: "#e5e7eb",
+                  fontWeight: 600,
+                  fontSize: "0.9rem",
+                }}
+              >
+                {user.email}
+              </div>
+              <div style={{ color: "#9ca3af", fontSize: "0.8rem" }}>
+                Account type
+              </div>
+            </div>
+            <span
+              style={{
+                padding: "4px 10px",
+                borderRadius: 999,
+                background:
+                  user.plan === "pro"
+                    ? "rgba(22,163,74,0.15)"
+                    : user.plan === "starter"
+                    ? "rgba(234,179,8,0.15)"
+                    : "rgba(148,163,184,0.2)",
+                color:
+                  user.plan === "pro"
+                    ? "#22c55e"
+                    : user.plan === "starter"
+                    ? "#eab308"
+                    : "#e5e7eb",
+                border:
+                  user.plan === "pro"
+                    ? "1px solid rgba(22,163,74,0.5)"
+                    : user.plan === "starter"
+                    ? "1px solid rgba(234,179,8,0.5)"
+                    : "1px solid rgba(148,163,184,0.5)",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                fontSize: "0.7rem",
+              }}
+            >
+              {user.plan || "free"}
+            </span>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Prompts & Content Section */}
-      {selectedPersona && (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.2fr",
-            gap: "30px",
-            marginTop: "40px",
-          }}
-        >
-          <div>
+        {/* Upgrade buttons */}
+        {user && (
+          <div style={{ marginBottom: 32 }}>
+            {user.plan === "free" && (
+              <button
+                onClick={() =>
+                  handleUpgrade("price_1SXqa1PwyyuQCEbaBU1sIZvY")
+                }
+                style={{
+                  background: "#ffd945",
+                  color: "#1a1a28",
+                  fontWeight: 700,
+                  border: "none",
+                  padding: "0.8rem 2rem",
+                  borderRadius: 8,
+                  fontSize: "1.12rem",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 12px #ffd94555",
+                }}
+              >
+                Upgrade to Starter
+              </button>
+            )}
+
+            {user.plan === "starter" && (
+              <button
+                onClick={() =>
+                  handleUpgrade("price_1SXpzjPwyyuQCEbaNxjlPgtA")
+                }
+                style={{
+                  background: "#ffd945",
+                  color: "#1a1a28",
+                  fontWeight: 700,
+                  border: "none",
+                  padding: "0.8rem 2rem",
+                  borderRadius: 8,
+                  fontSize: "1.12rem",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 12px #ffd94555",
+                }}
+              >
+                Upgrade to Pro
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Personas Section */}
+        {personas.length > 0 && (
+          <div style={{ marginTop: 32 }}>
             <h2
               style={{
-                fontSize: "1.5rem",
+                fontSize: "1.8rem",
                 fontWeight: 800,
                 color: "#ffd945",
-                margin: "0 0 8px 0",
+                margin: "0 0 20px 0",
                 letterSpacing: "-0.5px",
               }}
             >
-              Content Ideas for {selectedPersona.name}
+              Your Customer Personas
             </h2>
-
             <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "15px",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+                gap: "20px",
               }}
             >
-              {prompts.map((prompt) => (
-                <PromptCard
-                  key={prompt._id}
-                  prompt={prompt}
-                  onGenerate={handleGenerateContent}
-                  loading={loading}
+              {personas.map((persona) => (
+                <PersonaCard
+                  key={persona._id}
+                  persona={persona}
+                  onClick={() => handlePersonaClick(persona)}
+                  isLocked={persona.isPremium && user?.plan !== "pro"}
+                  onUnlock={() => handleUpgrade("price_PRO_REAL_ID")}
                 />
               ))}
             </div>
           </div>
+        )}
 
-          <div id="content-editor">
-            <ContentEditor
-              content={generatedContent}
-              onSave={handleSaveContent}
-            />
+        {/* Prompts & Content Section */}
+        {selectedPersona && (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1.2fr",
+              gap: "30px",
+              marginTop: "40px",
+            }}
+          >
+            <div>
+              <h2
+                style={{
+                  fontSize: "1.5rem",
+                  fontWeight: 800,
+                  color: "#ffd945",
+                  margin: "0 0 8px 0",
+                  letterSpacing: "-0.5px",
+                }}
+              >
+                Content Ideas for {selectedPersona.name}
+              </h2>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "15px",
+                }}
+              >
+                {prompts.map((prompt) => (
+                  <PromptCard
+                    key={prompt._id}
+                    prompt={prompt}
+                    onGenerate={handleGenerateContent}
+                    loading={loading}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div id="content-editor">
+              <ContentEditor
+                content={generatedContent}
+                onSave={handleSaveContent}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
 }
