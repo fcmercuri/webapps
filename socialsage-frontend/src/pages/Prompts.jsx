@@ -24,6 +24,30 @@ export default function Prompts() {
     loadBestPersona();
   }, []);
 
+  // Safely normalise goals and pains
+  const goalsArray = Array.isArray(persona?.goals)
+    ? persona.goals
+    : typeof persona?.goals === "string"
+    ? persona.goals
+        .split(",")
+        .map((g) => g.trim())
+        .filter(Boolean)
+    : [];
+
+  const painsArray = Array.isArray(persona?.painPoints)
+    ? persona.painPoints
+    : typeof persona?.painPoints === "string"
+    ? persona.painPoints
+        .split(",")
+        .map((p) => p.trim())
+        .filter(Boolean)
+    : [];
+
+  const mainGoal = goalsArray[0] || "their main goal";
+  const mainPain = painsArray[0] || "their key pain point";
+  const goalsSummary =
+    goalsArray.length > 0 ? goalsArray.slice(0, 2).join(", ") : "their main goals";
+
   const prompts = persona
     ? [
         {
@@ -32,7 +56,7 @@ export default function Prompts() {
         },
         {
           title: "Hidden frustrations",
-          text: `List 10 specific frustrations ${persona.name} experiences when trying to achieve ${persona.goals?.[0] || "their main goal"}. Prioritize the ones that feel emotionally painful.`,
+          text: `List 10 specific frustrations ${persona.name} experiences when trying to achieve ${mainGoal}. Prioritize the ones that feel emotionally painful.`,
         },
         {
           title: "Jobs to be done",
@@ -40,7 +64,7 @@ export default function Prompts() {
         },
         {
           title: "Buying triggers",
-          text: `What events or situations make ${persona.name} actively start looking for a solution like ours? Give 8 examples with context, based on their pains such as ${persona.painPoints?.[0] || "their key pain point"}.`,
+          text: `What events or situations make ${persona.name} actively start looking for a solution like ours? Give 8 examples with context, based on their pains such as ${mainPain}.`,
         },
         {
           title: "Objections and fears",
@@ -56,15 +80,15 @@ export default function Prompts() {
         },
         {
           title: "Story hook",
-          text: `Write a short story (150–200 words) about a day when ${persona.name} finally solves ${persona.painPoints?.[0] || "their biggest pain point"} using a product like ours.`,
+          text: `Write a short story (150–200 words) about a day when ${persona.name} finally solves ${mainPain} using a product like ours.`,
         },
         {
           title: "Content ideas",
-          text: `Generate 15 content ideas (titles only) that would feel irresistibly useful to ${persona.name} this month, given their goals like ${persona.goals?.slice(0,2).join(", ") || "their main goals"}.`,
+          text: `Generate 15 content ideas (titles only) that would feel irresistibly useful to ${persona.name} this month, given their goals like ${goalsSummary}.`,
         },
         {
           title: "Before/after grid",
-          text: `Create a before/after grid for ${persona.name}: describe their 'before' situation and 'after' situation across 6 dimensions (results, feelings, time, money, status, control), using their pains like ${persona.painPoints?.[0] || "their main pain"} as input.`,
+          text: `Create a before/after grid for ${persona.name}: describe their 'before' situation and 'after' situation across 6 dimensions (results, feelings, time, money, status, control), using their pains like ${mainPain} as input.`,
         },
       ]
     : [];
