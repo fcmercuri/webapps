@@ -716,7 +716,7 @@ const cards = [
           margin: 0,
         }}
       >
-        SocialSage AI instantly generates 1 (Free Plan) detailed customer persona with goals, pain points, and
+        sAInthetic instantly generates 1 (Free Plan) detailed customer persona with goals, pain points, and
         behaviors: like having a marketing team in your pocket
       </p>
     </motion.div>
@@ -1239,7 +1239,7 @@ const cards = [
     }}
   >
     <p style={{ color: "#bbb", marginBottom: "2.2rem", fontSize: "1.15rem" }}>
-      SocialSage empowers you to build AI-powered personas, tap into real-time trends, and deliver content optimized for every major discovery channel
+      sAInthetic empowers you to build AI-powered personas, tap into real-time trends, and deliver content optimized for every major discovery channel
     </p>
   </div>
 </section>
@@ -1450,7 +1450,7 @@ const cards = [
   borderTop: "1px solid #232323",
   marginTop: "3rem"
 }}>
-  © {new Date().getFullYear()} SocialSage. All rights reserved
+  © {new Date().getFullYear()} sAInthetic. All rights reserved
   <div style={{ fontSize: ".95rem", color: "#999", marginTop: 2 }}>
     Empowering AI-powered creators and brands
   </div>
