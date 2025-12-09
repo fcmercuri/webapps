@@ -264,7 +264,7 @@ const cards = [
         textDecoration: "none",
       }}
     >
-      Try SocialSage Free
+      Try sAInthetic Free
     </motion.a>
 
     <p
