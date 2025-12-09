@@ -200,7 +200,7 @@ export default function Dashboard() {
     style={{
       color: '#e5e7eb',
       fontWeight: 600,
-      fontSize: '0.8rem',       // smaller font
+      fontSize: '0.5rem',       // smaller font
       lineHeight: 1.2,
       wordBreak: 'break-all',   // allow breaking long emails
     }}
