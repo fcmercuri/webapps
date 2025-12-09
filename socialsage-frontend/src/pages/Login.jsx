@@ -32,7 +32,7 @@ export default function Login() {
         if (!res.ok) throw new Error(data.error || "Google login failed");
 
         loginSuccess(data.token, data.user);
-        navigate("/dashboard");
+        navigate("/dashboard", { replace: true });
       } catch (err) {
         setError(err.message || "Google login failed");
       }
@@ -61,7 +61,7 @@ export default function Login() {
       if (!res.ok) throw new Error(data.error || "Login failed");
 
       loginSuccess(data.token, data.user);
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
