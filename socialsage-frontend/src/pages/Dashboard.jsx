@@ -165,7 +165,7 @@ export default function Dashboard() {
   >
     <img
       src="/logo.jpg"
-      alt="SocialSage"
+      alt="sainthetic"
       style={{ width: 32, height: 32, borderRadius: 10 }}
     />
     <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
