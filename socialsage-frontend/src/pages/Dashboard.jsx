@@ -140,8 +140,11 @@ export default function Dashboard() {
         color: "#fff",
       }}
     >
-      {/* Simple sidebar placeholder – swap for <Sidebar .../> when ready */}
-      <div style={{ width: 260, padding: 20 }}>Sidebar</div>
+      {/* Sidebar */}
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onItemClick={() => setIsSidebarOpen(false)}
+      />
 
       {/* Main area */}
       <div style={{ flex: 1, padding: 24 }}>
@@ -250,6 +253,12 @@ export default function Dashboard() {
             )}
           </div>
         )}
+
+        {/* Industry Selector */}
+        <IndustrySelector
+          onSelect={handleIndustrySelect}
+          currentIndustry={user?.industry}
+        />
 
         {/* Personas Section */}
         {personas.length > 0 && (
