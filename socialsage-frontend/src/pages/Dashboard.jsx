@@ -133,32 +133,30 @@ export default function Dashboard() {
   return (
     <div
       style={{
-        display: "flex",
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
-        color: "#fff",
+        display: 'flex',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
+        color: '#fff',
       }}
     >
-      {/* Sidebar */}
       <Sidebar
         isOpen={isSidebarOpen}
         onItemClick={() => setIsSidebarOpen(false)}
       />
 
-      {/* Main area */}
       <div className="dashboard-main">
         {/* Mobile header */}
         <div className="dashboard-mobile-header">
           <button
             type="button"
-            onClick={() => setIsSidebarOpen((v) => !v)}
+            onClick={() => setIsSidebarOpen(v => !v)}
             style={{
-              background: "transparent",
-              border: "none",
-              display: "flex",
-              alignItems: "center",
+              background: 'transparent',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
               gap: 8,
-              cursor: "pointer",
+              cursor: 'pointer',
             }}
           >
             <img
@@ -166,7 +164,7 @@ export default function Dashboard() {
               alt="SocialSage"
               style={{ width: 32, height: 32, borderRadius: 10 }}
             />
-            <span style={{ color: "#fff", fontWeight: 700 }}>Menu</span>
+            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
           </button>
         </div>
 
@@ -177,55 +175,55 @@ export default function Dashboard() {
           {user && (
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
                 marginBottom: 16,
               }}
             >
-              <div style={{ textAlign: "right", marginRight: 12 }}>
+              <div style={{ textAlign: 'right', marginRight: 12 }}>
                 <div
                   style={{
-                    color: "#e5e7eb",
+                    color: '#e5e7eb',
                     fontWeight: 600,
-                    fontSize: "0.9rem",
+                    fontSize: '0.9rem',
                   }}
                 >
                   {user.email}
                 </div>
-                <div style={{ color: "#9ca3af", fontSize: "0.8rem" }}>
+                <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
                   Account type
                 </div>
               </div>
               <span
                 style={{
-                  padding: "4px 10px",
+                  padding: '4px 10px',
                   borderRadius: 999,
                   background:
-                    user.plan === "pro"
-                      ? "rgba(22,163,74,0.15)"
-                      : user.plan === "starter"
-                      ? "rgba(234,179,8,0.15)"
-                      : "rgba(148,163,184,0.2)",
+                    user.plan === 'pro'
+                      ? 'rgba(22,163,74,0.15)'
+                      : user.plan === 'starter'
+                      ? 'rgba(234,179,8,0.15)'
+                      : 'rgba(148,163,184,0.2)',
                   color:
-                    user.plan === "pro"
-                      ? "#22c55e"
-                      : user.plan === "starter"
-                      ? "#eab308"
-                      : "#e5e7eb",
+                    user.plan === 'pro'
+                      ? '#22c55e'
+                      : user.plan === 'starter'
+                      ? '#eab308'
+                      : '#e5e7eb',
                   border:
-                    user.plan === "pro"
-                      ? "1px solid rgba(22,163,74,0.5)"
-                      : user.plan === "starter"
-                      ? "1px solid rgba(234,179,8,0.5)"
-                      : "1px solid rgba(148,163,184,0.5)",
+                    user.plan === 'pro'
+                      ? '1px solid rgba(22,163,74,0.5)'
+                      : user.plan === 'starter'
+                      ? '1px solid rgba(234,179,8,0.5)'
+                      : '1px solid rgba(148,163,184,0.5)',
                   fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  fontSize: "0.7rem",
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  fontSize: '0.7rem',
                 }}
               >
-                {user.plan || "free"}
+                {user.plan || 'free'}
               </span>
             </div>
           )}
@@ -233,42 +231,42 @@ export default function Dashboard() {
           {/* Upgrade buttons */}
           {user && (
             <div style={{ marginBottom: 32 }}>
-              {user.plan === "free" && (
+              {user.plan === 'free' && (
                 <button
                   onClick={() =>
-                    handleUpgrade("price_1SXqa1PwyyuQCEbaBU1sIZvY")
+                    handleUpgrade('price_1SXqa1PwyyuQCEbaBU1sIZvY')
                   }
                   style={{
-                    background: "#ffd945",
-                    color: "#1a1a28",
+                    background: '#ffd945',
+                    color: '#1a1a28',
                     fontWeight: 700,
-                    border: "none",
-                    padding: "0.8rem 2rem",
+                    border: 'none',
+                    padding: '0.8rem 2rem',
                     borderRadius: 8,
-                    fontSize: "1.12rem",
-                    cursor: "pointer",
-                    boxShadow: "0 2px 12px #ffd94555",
+                    fontSize: '1.12rem',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 12px #ffd94555',
                   }}
                 >
                   Upgrade to Starter
                 </button>
               )}
 
-              {user.plan === "starter" && (
+              {user.plan === 'starter' && (
                 <button
                   onClick={() =>
-                    handleUpgrade("price_1SXpzjPwyyuQCEbaNxjlPgtA")
+                    handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA')
                   }
                   style={{
-                    background: "#ffd945",
-                    color: "#1a1a28",
+                    background: '#ffd945',
+                    color: '#1a1a28',
                     fontWeight: 700,
-                    border: "none",
-                    padding: "0.8rem 2rem",
+                    border: 'none',
+                    padding: '0.8rem 2rem',
                     borderRadius: 8,
-                    fontSize: "1.12rem",
-                    cursor: "pointer",
-                    boxShadow: "0 2px 12px #ffd94555",
+                    fontSize: '1.12rem',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 12px #ffd94555',
                   }}
                 >
                   Upgrade to Pro
@@ -277,16 +275,16 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Error Message */}
+          {/* Error message */}
           {error && (
             <div
               style={{
-                background: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
-                color: "#ff6b6b",
-                padding: "16px 20px",
-                borderRadius: "12px",
-                marginBottom: "30px",
+                background: 'rgba(239, 68, 68, 0.1)',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                color: '#ff6b6b',
+                padding: '16px 20px',
+                borderRadius: '12px',
+                marginBottom: '30px',
                 fontWeight: 500,
               }}
             >
@@ -294,7 +292,7 @@ export default function Dashboard() {
             </div>
           )}
 
-          {/* Industry Selector */}
+          {/* Industry selector */}
           <IndustrySelector
             onSelect={handleIndustrySelect}
             currentIndustry={user?.industry}
@@ -305,23 +303,23 @@ export default function Dashboard() {
             <div style={{ marginTop: 32 }}>
               <h2
                 style={{
-                  fontSize: "1.8rem",
+                  fontSize: '1.8rem',
                   fontWeight: 800,
-                  color: "#ffd945",
-                  margin: "0 0 20px 0",
-                  letterSpacing: "-0.5px",
+                  color: '#ffd945',
+                  margin: '0 0 20px 0',
+                  letterSpacing: '-0.5px',
                 }}
               >
                 Your Customer Personas
               </h2>
               <div className="personas-grid">
-                {personas.map((persona) => (
+                {personas.map(persona => (
                   <PersonaCard
                     key={persona._id}
                     persona={persona}
                     onClick={() => handlePersonaClick(persona)}
-                    isLocked={persona.isPremium && user?.plan !== "pro"}
-                    onUnlock={() => handleUpgrade("price_PRO_REAL_ID")}
+                    isLocked={persona.isPremium && user?.plan !== 'pro'}
+                    onUnlock={() => handleUpgrade('price_PRO_REAL_ID')}
                   />
                 ))}
               </div>
@@ -332,16 +330,16 @@ export default function Dashboard() {
           {selectedPersona && (
             <div
               className="dashboard-prompts-layout"
-              style={{ marginTop: "40px" }}
+              style={{ marginTop: '40px' }}
             >
               <div>
                 <h2
                   style={{
-                    fontSize: "1.5rem",
+                    fontSize: '1.5rem',
                     fontWeight: 800,
-                    color: "#ffd945",
-                    margin: "0 0 8px 0",
-                    letterSpacing: "-0.5px",
+                    color: '#ffd945',
+                    margin: '0 0 8px 0',
+                    letterSpacing: '-0.5px',
                   }}
                 >
                   Content Ideas for {selectedPersona.name}
@@ -349,12 +347,12 @@ export default function Dashboard() {
 
                 <div
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "15px",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '15px',
                   }}
                 >
-                  {prompts.map((prompt) => (
+                  {prompts.map(prompt => (
                     <PromptCard
                       key={prompt._id}
                       prompt={prompt}
