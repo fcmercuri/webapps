@@ -730,7 +730,9 @@ app.post('/api/billing/cancel', authenticateToken, async (req, res) => {
     }
 
     if (!user.stripeSubscriptionId) {
-      return res.status(400).json({ error: 'No active subscription' });
+      return res
+        .status(400)
+        .json({ error: 'No active Stripe subscription linked to this user' });
     }
 
     const sub = await stripe.subscriptions.update(
@@ -744,6 +746,7 @@ app.post('/api/billing/cancel', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Failed to cancel renewal' });
   }
 });
+
 
 
 
