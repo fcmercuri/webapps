@@ -140,8 +140,35 @@ return (
       padding: "40px",
     }}
   >
-    <h1>Dashboard works</h1>
-    <pre>{JSON.stringify(user, null, 2)}</pre>
-  </div>
+    {/* Sidebar: always visible on desktop, toggled on mobile via isSidebarOpen */}
+      <Sidebar
+  isOpen={isSidebarOpen}
+  onItemClick={() => setIsSidebarOpen(false)}
+/>
+
+      {/* Main area */}
+      <div className="dashboard-main">
+        {/* Mobile header – visible only on mobile via CSS */}
+        <div className="dashboard-mobile-header">
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(v => !v)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              cursor: 'pointer',
+            }}
+          >
+            <img
+              src="/logo.jpg"
+              alt="SocialSage"
+              style={{ width: 32, height: 32, borderRadius: 10 }}
+            />
+            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+          </button>
+        </div>
 );
 }
