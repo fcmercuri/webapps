@@ -146,27 +146,32 @@ export default function Dashboard() {
 
       <div className="dashboard-main">
         {/* Mobile header */}
-        <div className="dashboard-mobile-header">
-          <button
-            type="button"
-            onClick={() => setIsSidebarOpen(v => !v)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-            }}
-          >
-            <img
-              src="/logo.jpg"
-              alt="SocialSage"
-              style={{ width: 32, height: 32, borderRadius: 10 }}
-            />
-            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
-          </button>
-        </div>
+<div
+  className="dashboard-mobile-header"
+  style={{ padding: '10px 10px 0' }}   // add this inline style
+>
+  <button
+    type="button"
+    onClick={() => setIsSidebarOpen(v => !v)}
+    style={{
+      background: 'transparent',
+      border: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      cursor: 'pointer',
+      padding: 0,
+    }}
+  >
+    <img
+      src="/logo.jpg"
+      alt="SocialSage"
+      style={{ width: 32, height: 32, borderRadius: 10 }}
+    />
+    <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+  </button>
+</div>
+
 
         <div className="dashboard-content">
           {/* Top row: title + user info */}
