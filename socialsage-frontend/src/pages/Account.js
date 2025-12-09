@@ -193,7 +193,7 @@ export default function Account() {
                   </span>
                 </div>
                 <p style={{ margin: 0, color: '#9ca3af', fontSize: '0.85rem' }}>
-                  Manage your subscription and billing details for your SocialSage
+                  Manage your subscription and billing details for your sAInthetic
                   account.
                 </p>
               </div>
