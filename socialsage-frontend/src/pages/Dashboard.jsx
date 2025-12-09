@@ -28,22 +28,25 @@ export default function Dashboard() {
   }, []);
 
   async function loadUserProfile() {
-    try {
-      const res = await api.get('/api/user/profile');
-      setUser(res.data);
-    } catch (err) {
-      console.error('Failed to load profile');
-    }
+  try {
+    const res = await api.get('/api/user/profile');
+    console.log('profile res', res.data);   // <‑‑ add this line
+    setUser(res.data);
+  } catch (err) {
+    console.error('Failed to load profile', err);
   }
+}
 
-  async function loadPersonas() {
-    try {
-      const res = await api.get('/api/personas');
-      setPersonas(res.data);
-    } catch (err) {
-      setError('Failed to load personas');
-    }
+async function loadPersonas() {
+  try {
+    const res = await api.get('/api/personas');
+    console.log('personas res', res.data);  // <‑‑ add this line
+    setPersonas(Array.isArray(res.data) ? res.data : []);
+  } catch (err) {
+    setError('Failed to load personas');
   }
+}
+
 
   async function handleIndustrySelect(industry) {
     try {
