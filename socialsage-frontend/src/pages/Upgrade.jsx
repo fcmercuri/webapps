@@ -1,134 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../auth/AuthContext';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
-import IndustrySelector from '../components/IndustrySelector';
-import PersonaCard from '../components/PersonaCard';
-import PromptCard from '../components/PromptCard';
-import ContentEditor from '../components/ContentEditor';
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-export default function Dashboard() {
-  const { user, setUser } = useAuth();
+export default function PersonaInsights() {
   const [personas, setPersonas] = useState([]);
-  const [prompts, setPrompts] = useState([]);
-  const [selectedPersona, setSelectedPersona] = useState(null);
-  const [generatedContent, setGeneratedContent] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  console.log('Dashboard user:', user);
-
   useEffect(() => {
-    loadUserProfile();
-    loadPersonas();
+    async function load() {
+      try {
+        setLoading(true);
+        setError('');
+        const res = await api.get('/api/personas');
+        setPersonas(res.data || []);
+      } catch (err) {
+        console.error('Failed to load personas', err);
+        setError('Failed to load personas');
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
   }, []);
 
-  async function loadUserProfile() {
-    try {
-      const res = await api.get('/api/user/profile');
-      console.log('profile res', res.data);
-      setUser(res.data);
-    } catch (err) {
-      console.error('Failed to load profile', err);
-    }
-  }
+  const total = personas.length;
 
-  async function loadPersonas() {
-    try {
-      const res = await api.get('/api/personas');
-      console.log('personas res', res.data);
-      setPersonas(Array.isArray(res.data) ? res.data : []);
-    } catch (err) {
-      setError('Failed to load personas');
-    }
-  }
+  const industries = personas.reduce((acc, p) => {
+    let key = p.industry || 'Unknown';
 
-  async function handleIndustrySelect(industry) {
-    try {
-      setLoading(true);
-      setError('');
+    const lower = key.toLowerCase();
+    if (lower === 'ecommerce' || lower === 'e-commerce') {
+      key = 'E-commerce & Retail';
+    }
 
-      if (user?.plan === 'starter' && personas.length >= 5) {
-        setError('Starter plan allows up to 5 personas. Upgrade to Pro for unlimited.');
-        return;
-      }
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
 
-      await api.put('/api/user/industry', { industry });
-      const res = await api.post('/api/personas/generate', { industry });
-      setPersonas(res.data);
-      setUser({ ...user, industry });
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate personas');
-    } finally {
-      setLoading(false);
-    }
-  }
+  const ages = personas.map(p => p.age).filter(a => typeof a === 'number');
+  const avgAge =
+    ages.length > 0 ? Math.round(ages.reduce((s, a) => s + a, 0) / ages.length) : null;
+  const minAge = ages.length > 0 ? Math.min(...ages) : null;
+  const maxAge = ages.length > 0 ? Math.max(...ages) : null;
 
-  async function handlePersonaClick(persona) {
-    if (persona.isPremium && user?.plan !== 'pro') {
-      await handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA');
-      return;
-    }
-    setSelectedPersona(persona);
-    setGeneratedContent(null);
-    try {
-      setLoading(true);
-      const res = await api.post('/api/prompts/generate', { personaId: persona._id });
-      setPrompts(res.data);
-    } catch (err) {
-      setError('Failed to generate prompts');
-    } finally {
-      setLoading(false);
-    }
-  }
+  const premiumCount = personas.filter(p => p.isPremium).length;
 
-  async function handleGenerateContent(promptId) {
-    try {
-      setLoading(true);
-      setError('');
-      setGeneratedContent(null);
-      const res = await api.post('/api/content/generate', { promptId, type: 'website' });
-      setGeneratedContent(res.data);
-      setTimeout(() => {
-        const editor = document.getElementById('content-editor');
-        if (editor) editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    } catch (err) {
-      setError(err.response?.data?.error || 'Failed to generate content');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleSaveContent(content) {
-    try {
-      alert('Content saved successfully!');
-    } catch (err) {
-      setError('Failed to save content');
-    }
-  }
-
-  async function handleUpgrade(priceId) {
-    if (!user || !user.email) {
-      alert('Please log in to upgrade.');
-      return;
-    }
-    try {
-      const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId, customerEmail: user.email }),
-      });
-      const { url } = await res.json();
-      if (url) window.location = url;
-      else alert('Failed to start payment. Please try again later.');
-    } catch (err) {
-      alert('Failed to start payment: ' + (err.message || 'Unknown error'));
-    }
-  }
+  const maxIndustryCount =
+    Object.values(industries).reduce((m, v) => (v > m ? v : m), 0) || 1;
 
   return (
     <div
@@ -145,7 +65,7 @@ export default function Dashboard() {
       />
 
       <div className="dashboard-main">
-        {/* Mobile header – with padding controlled inline, same as Analytics */}
+        {/* Mobile header (same as Dashboard) */}
         <div
           className="dashboard-mobile-header"
           style={{ padding: '10px 10px 0' }}
@@ -172,221 +92,242 @@ export default function Dashboard() {
           </button>
         </div>
 
-        <div className="dashboard-content">
-          {/* Top row: title + user info */}
-          <div
+        <div
+          className="dashboard-content"
+          style={{
+            padding: '20px 16px 40px',
+            maxWidth: 1200,
+            margin: '0 auto',
+          }}
+        >
+          <h1
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: 16,
-              gap: 12,
+              fontSize: '2rem',
+              fontWeight: 800,
+              marginBottom: 24,
             }}
           >
-            <h1 style={{ margin: 0 }}>Dashboard</h1>
+            Persona Demographics
+          </h1>
 
-            {user && (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                  flexShrink: 0,
-                }}
-              >
-                <div style={{ textAlign: 'right', marginRight: 12 }}>
-                  <div
-                    style={{
-                      color: '#e5e7eb',
-                      fontWeight: 600,
-                      fontSize: '0.9rem',
-                    }}
-                  >
-                    {user.email}
-                  </div>
-                  <div style={{ color: '#9ca3af', fontSize: '0.8rem' }}>
-                    Account type
-                  </div>
-                </div>
-                <span
-                  style={{
-                    padding: '4px 10px',
-                    borderRadius: 999,
-                    background:
-                      user.plan === 'pro'
-                        ? 'rgba(22,163,74,0.15)'
-                        : user.plan === 'starter'
-                        ? 'rgba(234,179,8,0.15)'
-                        : 'rgba(148,163,184,0.2)',
-                    color:
-                      user.plan === 'pro'
-                        ? '#22c55e'
-                        : user.plan === 'starter'
-                        ? '#eab308'
-                        : '#e5e7eb',
-                    border:
-                      user.plan === 'pro'
-                        ? '1px solid rgba(22,163,74,0.5)'
-                        : user.plan === 'starter'
-                        ? '1px solid rgba(234,179,8,0.5)'
-                        : '1px solid rgba(148,163,184,0.5)',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    fontSize: '0.7rem',
-                  }}
-                >
-                  {user.plan || 'free'}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Upgrade buttons */}
-          {user && (
-            <div style={{ marginBottom: 32 }}>
-              {user.plan === 'free' && (
-                <button
-                  onClick={() =>
-                    handleUpgrade('price_1SXqa1PwyyuQCEbaBU1sIZvY')
-                  }
-                  style={{
-                    background: '#ffd945',
-                    color: '#1a1a28',
-                    fontWeight: 700,
-                    border: 'none',
-                    padding: '0.8rem 2rem',
-                    borderRadius: 8,
-                    fontSize: '1.12rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 12px #ffd94555',
-                  }}
-                >
-                  Upgrade to Starter
-                </button>
-              )}
-
-              {user.plan === 'starter' && (
-                <button
-                  onClick={() =>
-                    handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA')
-                  }
-                  style={{
-                    background: '#ffd945',
-                    color: '#1a1a28',
-                    fontWeight: 700,
-                    border: 'none',
-                    padding: '0.8rem 2rem',
-                    borderRadius: 8,
-                    fontSize: '1.12rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 12px #ffd94555',
-                  }}
-                >
-                  Upgrade to Pro
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* Error message */}
           {error && (
             <div
               style={{
-                background: 'rgba(239, 68, 68, 0.1)',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
+                background: 'rgba(239,68,68,0.1)',
+                border: '1px solid rgba(239,68,68,0.4)',
+                padding: '12px 16px',
+                borderRadius: 10,
+                marginBottom: 20,
                 color: '#ff6b6b',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                marginBottom: '30px',
-                fontWeight: 500,
               }}
             >
               {error}
             </div>
           )}
 
-          {/* Industry selector */}
-          <IndustrySelector
-            onSelect={handleIndustrySelect}
-            currentIndustry={user?.industry}
-          />
+          {loading && <div style={{ color: '#bbb' }}>Loading...</div>}
 
-          {/* Personas Section */}
-          {personas.length > 0 && (
-            <div style={{ marginTop: 32 }}>
-              <h2
+          {!loading && !error && (
+            <>
+              {/* Summary cards */}
+              <div
                 style={{
-                  fontSize: '1.8rem',
-                  fontWeight: 800,
-                  color: '#ffd945',
-                  margin: '0 0 20px 0',
-                  letterSpacing: '-0.5px',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: 16,
+                  marginBottom: 32,
                 }}
               >
-                Your Customer Personas
-              </h2>
-              <div className="personas-grid">
-                {personas.map(persona => (
-                  <PersonaCard
-                    key={persona._id}
-                    persona={persona}
-                    onClick={() => handlePersonaClick(persona)}
-                    isLocked={persona.isPremium && user?.plan !== 'pro'}
-                    onUnlock={() => handleUpgrade('price_PRO_REAL_ID')}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Prompts & Content Section */}
-          {selectedPersona && (
-            <div
-              className="dashboard-prompts-layout"
-              style={{ marginTop: '40px' }}
-            >
-              <div>
-                <h2
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 800,
-                    color: '#ffd945',
-                    margin: '0 0 8px 0',
-                    letterSpacing: '-0.5px',
-                  }}
-                >
-                  Content Ideas for {selectedPersona.name}
-                </h2>
-
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px',
-                  }}
-                >
-                  {prompts.map(prompt => (
-                    <PromptCard
-                      key={prompt._id}
-                      prompt={prompt}
-                      onGenerate={handleGenerateContent}
-                      loading={loading}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div id="content-editor">
-                <ContentEditor
-                  content={generatedContent}
-                  onSave={handleSaveContent}
+                <StatCard label="Total personas" value={total} />
+                <StatCard
+                  label="Premium personas"
+                  value={`${premiumCount} (${
+                    total ? Math.round((premiumCount / total) * 100) : 0
+                  }%)`}
+                />
+                <StatCard
+                  label="Average age"
+                  value={avgAge ? `${avgAge} yrs` : 'N/A'}
+                  sub={`${minAge ?? '-'} – ${maxAge ?? '-'}`}
                 />
               </div>
-            </div>
+
+              {/* Industry bar chart */}
+              <section style={{ marginBottom: 32 }}>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>
+                  Personas by industry
+                </h2>
+                {Object.keys(industries).length === 0 ? (
+                  <p style={{ color: '#bbb' }}>No personas yet.</p>
+                ) : (
+                  <div
+                    style={{
+                      background: 'rgba(15,23,42,0.9)',
+                      borderRadius: 12,
+                      padding: '16px 12px 20px',
+                      border: '1px solid rgba(148,163,184,0.4)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        gap: 8,
+                        height: 200,
+                        paddingBottom: 16,
+                        overflowX: 'auto',
+                      }}
+                    >
+                      {Object.entries(industries).map(([industry, count]) => {
+                        const rawPct =
+                          maxIndustryCount > 0
+                            ? (count / maxIndustryCount) * 100
+                            : 0;
+                        const heightPct = Math.max(8, Math.round(rawPct));
+
+                        return (
+                          <div
+                            key={industry}
+                            style={{
+                              flex: '0 0 60px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'flex-end',
+                              fontSize: '0.75rem',
+                            }}
+                          >
+                            <div
+                              style={{
+                                width: '70%',
+                                minWidth: 24,
+                                height: `${heightPct}%`,
+                                background:
+                                  'linear-gradient(180deg,#ffd945,#fbbf24)',
+                                borderRadius: 8,
+                                boxShadow:
+                                  '0 6px 18px rgba(250,204,21,0.35)',
+                                display: 'flex',
+                                alignItems: 'flex-end',
+                                justifyContent: 'center',
+                                color: '#111827',
+                                fontWeight: 700,
+                                paddingBottom: 4,
+                              }}
+                            >
+                              {count}
+                            </div>
+                            <div
+                              style={{
+                                marginTop: 6,
+                                color: '#e5e7eb',
+                                textAlign: 'center',
+                                maxWidth: 72,
+                                wordBreak: 'break-word',
+                              }}
+                            >
+                              {industry}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </section>
+
+              {/* Industry table */}
+              <section style={{ marginBottom: 32 }}>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: 12 }}>
+                  Details
+                </h2>
+                {Object.keys(industries).length === 0 ? (
+                  <p style={{ color: '#bbb' }}>No personas yet.</p>
+                ) : (
+                  <div
+                    style={{
+                      overflowX: 'auto',
+                      borderRadius: 12,
+                      border: '1px solid rgba(148,163,184,0.4)',
+                    }}
+                  >
+                    <table
+                      style={{
+                        width: '100%',
+                        borderCollapse: 'collapse',
+                        background: 'rgba(15,23,42,0.8)',
+                      }}
+                    >
+                      <thead>
+                        <tr style={{ background: 'rgba(15,23,42,0.9)' }}>
+                          <th style={thStyle}>Industry</th>
+                          <th style={thStyle}>Personas</th>
+                          <th style={thStyle}>Share</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(industries).map(
+                          ([industry, count]) => (
+                            <tr key={industry}>
+                              <td style={tdStyle}>{industry}</td>
+                              <td style={tdStyle}>{count}</td>
+                              <td style={tdStyle}>
+                                {total
+                                  ? `${Math.round(
+                                      (count / total) * 100
+                                    )}%`
+                                  : '0%'}
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </section>
+            </>
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+const thStyle = {
+  textAlign: 'left',
+  padding: '10px 14px',
+  fontSize: '0.8rem',
+  textTransform: 'uppercase',
+  letterSpacing: '0.06em',
+  borderBottom: '1px solid rgba(148,163,184,0.3)',
+};
+
+const tdStyle = {
+  padding: '10px 14px',
+  borderBottom: '1px solid rgba(30,41,59,0.7)',
+  fontSize: '0.9rem',
+};
+
+function StatCard({ label, value, sub }) {
+  return (
+    <div
+      style={{
+        background: 'rgba(15,23,42,0.9)',
+        borderRadius: 12,
+        padding: '18px 20px',
+        border: '1px solid rgba(148,163,184,0.4)',
+      }}
+    >
+      <div style={{ fontSize: '0.85rem', color: '#9ca3af', marginBottom: 6 }}>
+        {label}
+      </div>
+      <div style={{ fontSize: '1.6rem', fontWeight: 800 }}>{value}</div>
+      {sub && (
+        <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginTop: 2 }}>
+          {sub}
+        </div>
+      )}
     </div>
   );
 }
