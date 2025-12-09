@@ -46,7 +46,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
       >
         <img
           src="/logo.jpg"
-          alt="SocialSage Logo"
+          alt="sainthetic Logo"
           style={{
             width: '40px',
             height: '40px',
@@ -65,7 +65,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
             letterSpacing: '-0.5px',
           }}
         >
-          SocialSage
+          sAInthetic
         </h1>
       </div>
 
