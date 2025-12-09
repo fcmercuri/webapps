@@ -15,13 +15,13 @@ import Content from './pages/Content';
 import Saved from './pages/Saved';
 import Upgrade from './pages/Upgrade';
 
-// Only for logged‑in users
+// Private: only for logged-in users
 function PrivateRoute({ children }) {
   const { token } = useAuth();
   return token ? children : <Navigate to="/login" replace />;
 }
 
-// Only for logged‑out users (login/register)
+// Public: only for logged-out users (login & register)
 function PublicRoute({ children }) {
   const { token } = useAuth();
   return token ? <Navigate to="/dashboard" replace /> : children;
