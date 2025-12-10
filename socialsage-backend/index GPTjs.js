@@ -58,7 +58,7 @@ mongoose.connect(MONGO_URI)
 // --- ROUTES ---
 
 app.get('/', (req, res) => {
-  res.send('SocialSage API is running');
+  res.send('sAInthetic API is running');
 });
 
 // --- AUTH ---
