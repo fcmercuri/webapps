@@ -189,8 +189,30 @@ export default function Login() {
             />
           </div>
 
+          {/* Forgot password link */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: -8,
+              marginBottom: 4,
+            }}
+          >
+            <span
+              style={{
+                fontSize: "0.85rem",
+                color: "#ffd945",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/forgot-password")}
+            >
+              Forgot password?
+            </span>
+          </div>
+
           {error && (
             <div
+
               style={{
                 background: "rgba(239,68,68,0.1)",
                 border: "1px solid rgba(239,68,68,0.3)",

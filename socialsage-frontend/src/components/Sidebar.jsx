@@ -11,9 +11,8 @@ export default function Sidebar({ isOpen, onItemClick }) {
     { icon: '', label: 'Dashboard', path: '/dashboard' },
     { icon: '', label: 'Personas', path: '/personas' },
     { icon: '', label: 'Prompts', path: '/prompts' },
-    { icon: '', label: 'Content', path: '/content' },
     { icon: '', label: 'Saved', path: '/saved' },
-    { icon: '', label: 'Analytics', path: '/upgrade' },
+    { icon: '', label: 'Analytics', path: '/analytics' },
     { icon: '', label: 'Account & Billing', path: '/account' },
   ];
 

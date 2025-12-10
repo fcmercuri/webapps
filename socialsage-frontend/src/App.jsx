@@ -13,7 +13,8 @@ import Personas from './pages/Personas';
 import Prompts from './pages/Prompts';
 import Content from './pages/Content';
 import Saved from './pages/Saved';
-import Upgrade from './pages/Upgrade';
+import Analytics from './pages/analytics';  
+import ForgotPassword from './pages/ForgotPassword';
 
 // Private: only for logged-in users
 function PrivateRoute({ children }) {
@@ -21,7 +22,7 @@ function PrivateRoute({ children }) {
   return token ? children : <Navigate to="/login" replace />;
 }
 
-// Public: only for logged-out users (login & register)
+// Public: only for logged-out users (login, register, forgot)
 function PublicRoute({ children }) {
   const { token } = useAuth();
   return token ? <Navigate to="/dashboard" replace /> : children;
@@ -48,6 +49,15 @@ function App() {
             element={
               <PublicRoute>
                 <Login />
+              </PublicRoute>
+            }
+          />
+
+          <Route
+            path="/forgot-password"
+            element={
+              <PublicRoute>
+                <ForgotPassword />
               </PublicRoute>
             }
           />
@@ -96,10 +106,10 @@ function App() {
             }
           />
           <Route
-            path="/upgrade"
+            path="/analytics"
             element={
               <PrivateRoute>
-                <Upgrade />
+                <Analytics />  
               </PrivateRoute>
             }
           />
