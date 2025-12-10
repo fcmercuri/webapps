@@ -179,7 +179,7 @@ export default function Register() {
               letterSpacing: "-1px",
             }}
           >
-            SocialSage
+           sAInthetic
           </h1>
           <p style={{ color: "#bbb", fontSize: "1rem", margin: 0 }}>
             Create your account to get started
