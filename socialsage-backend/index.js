@@ -289,7 +289,7 @@ mongoose
 
 // --- ROUTES ---
 app.get('/', (req, res) => {
-  res.send('SocialSage API is running with Perplexity AI');
+  res.send('sAInthetic API is running with Perplexity AI');
 });
 
 // --- AUTH ---
