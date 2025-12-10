@@ -144,7 +144,7 @@ export default function Login() {
           </h1>
 
           <p style={{ color: "#bbb", margin: 0 }}>
-            Sign in to your SocialSage account
+            Sign in to your sAInthetic account
           </p>
         </div>
 
