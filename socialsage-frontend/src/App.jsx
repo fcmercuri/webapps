@@ -19,15 +19,9 @@ import ForgotPassword from './pages/ForgotPassword';
 // PRIVATE ROUTE
 function PrivateRoute({ children }) {
   const { token } = useAuth();
-  const firstLogin = localStorage.getItem("firstLogin");
 
-  if (!token) return <Navigate to="/login" replace />;
-
-  // Prevent infinite redirect loop when already on /welcome
-  const currentPath = window.location.pathname;
-
-  if (firstLogin === "true" && currentPath !== "/welcome") {
-    return <Navigate to="/welcome" replace />;
+  if (!token) {
+    return <Navigate to="/login" replace />;
   }
 
   return children;
@@ -38,10 +32,12 @@ function PublicRoute({ children }) {
   const { token } = useAuth();
   const firstLogin = localStorage.getItem("firstLogin");
 
+  // If logged in AND first login → go to welcome
   if (token && firstLogin === "true") {
     return <Navigate to="/welcome" replace />;
   }
 
+  // If logged in AND not first login → dashboard
   if (token) {
     return <Navigate to="/dashboard" replace />;
   }
@@ -85,7 +81,6 @@ function App() {
 
           <Route path="/success" element={<Success />} />
 
-          {/* Welcome page is protected but allows first-timers */}
           <Route
             path="/welcome"
             element={
@@ -126,7 +121,7 @@ function App() {
             path="/content"
             element={
               <PrivateRoute>
-                <Content />
+                Content />
               </PrivateRoute>
             }
           />
