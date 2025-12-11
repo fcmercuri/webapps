@@ -112,9 +112,11 @@ export default function Register() {
         if (url) window.location = url;
         else setError("Failed to retrieve payment URL.");
       } else {
-        // FREE FLOW: registration only, no auto‑login
-        localStorage.setItem("firstLogin", "true");
-        navigate("/login");
+        // FREE FLOW: user registered — auto-login and go to welcome
+localStorage.setItem("firstLogin", "true");
+
+loginSuccess(registerData.token, registerData.user);
+navigate("/welcome");
       }
     } catch (err) {
       setError(err.message || "Registration failed");
