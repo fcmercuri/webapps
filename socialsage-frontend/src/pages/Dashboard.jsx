@@ -252,7 +252,7 @@ export default function Dashboard() {
               {user.plan === 'free' && (
                 <button
                   onClick={() =>
-                    handleUpgrade('price_1SXqa1PwyyuQCEbaBU1sIZvY')
+                    handleUpgrade('price_1SdH1fPwyyuQCEbaZt4loxPH')
                   }
                   style={{
                     background: '#ffd945',
@@ -273,7 +273,7 @@ export default function Dashboard() {
               {user.plan === 'starter' && (
                 <button
                   onClick={() =>
-                    handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA')
+                    handleUpgrade('price_1SdH2yPwyyuQCEbacY3y1487')
                   }
                   style={{
                     background: '#ffd945',
