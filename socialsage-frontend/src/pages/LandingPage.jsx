@@ -795,6 +795,78 @@ const cards = [
   </motion.div>
 </div>
 
+        {/* STEP 3 */}
+<div
+  ref={step3Ref}
+  data-step="3"
+  className="how-step-wrapper"
+>
+  {/* Image first */}
+  <motion.div
+    className="step-image"
+    initial={{ opacity: 0, x: -50 }}
+    animate={step3InView ? { opacity: 1, x: 0 } : {}}
+    transition={{ duration: 0.8 }}
+    style={{
+      borderRadius: 16,
+      overflow: "hidden",
+      boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
+      border: "2px solid rgba(255, 217, 69, 0.3)",
+    }}
+  >
+    <img
+      src="step-3-prompts.jpg"
+      alt="Content Ideas"
+      style={{ width: "100%", display: "block" }}
+    />
+  </motion.div>
+
+  {/* Text second */}
+  <motion.div
+    className="step-text"
+    initial={{ opacity: 0, x: 50 }}
+    animate={step3InView ? { opacity: 1, x: 0 } : {}}
+    transition={{ duration: 0.8, delay: 0.2 }}
+  >
+    <div
+      style={{
+        background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
+        color: "#000",
+        padding: "8px 20px",
+        borderRadius: 20,
+        fontSize: "0.875rem",
+        fontWeight: 700,
+        display: "inline-block",
+        marginBottom: 20,
+      }}
+    >
+      STEP 3
+    </div>
+    <h3
+      style={{
+        fontSize: "2.2rem",
+        fontWeight: 800,
+        margin: "0 0 20px 0",
+        letterSpacing: "-1px",
+        color: "#fff",
+      }}
+    >
+      Content Ideas That Convert
+    </h3>
+    <p
+      style={{
+        fontSize: "1.15rem",
+        color: "#bbb",
+        lineHeight: 1.7,
+        margin: 0,
+      }}
+    >
+      Get 5 targeted content prompts for each persona: SEO articles, social posts, email
+      campaigns, and more. No more writer&apos;s block
+    </p>
+  </motion.div>
+</div>
+
   {/* STEP 4 */}
   <div
   ref={step4Ref}
