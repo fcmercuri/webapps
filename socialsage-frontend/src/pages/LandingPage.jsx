@@ -1203,7 +1203,7 @@ const cards = [
       <button
         onClick={(e) => {
           e.stopPropagation(); // so card click doesn't trigger
-          handleUpgrade("price_1SXpzjPwyyuQCEbaNxjlPgtA"); // Use real Stripe Price ID if needed
+          handleUpgrade("price_1SdH2yPwyyuQCEbacY3y1487"); // Use real Stripe Price ID if needed
         }}
         style={{
           width: "calc(100% - 0px)",
