@@ -13,8 +13,17 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  const goAfterLogin = () => {
+    const firstLogin = localStorage.getItem("firstLogin");
+    console.log("firstLogin flag on login:", firstLogin);
+    if (firstLogin === "true") {
+      navigate("/welcome", { replace: true });
+    } else {
+      navigate("/dashboard", { replace: true });
+    }
+  };
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -31,13 +40,7 @@ export default function Login() {
         if (!res.ok) throw new Error(data.error || "Google login failed");
 
         loginSuccess(data.token, data.user);
-
-        const firstLogin = localStorage.getItem("firstLogin");
-        if (firstLogin === "true") {
-          navigate("/welcome", { replace: true });
-        } else {
-          navigate("/dashboard", { replace: true });
-        }
+        goAfterLogin();
       } catch (err) {
         setError(err.message || "Google login failed");
       }
@@ -66,13 +69,7 @@ export default function Login() {
       if (!res.ok) throw new Error(data.error || "Login failed");
 
       loginSuccess(data.token, data.user);
-
-      const firstLogin = localStorage.getItem("firstLogin");
-      if (firstLogin === "true") {
-        navigate("/welcome", { replace: true });
-      } else {
-        navigate("/dashboard", { replace: true });
-      }
+      goAfterLogin();
     } catch (err) {
       setError(err.message);
     } finally {
