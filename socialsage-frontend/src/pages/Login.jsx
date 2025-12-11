@@ -14,7 +14,6 @@ export default function Login() {
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-  // Detect Safari to avoid heavy blur
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const loginWithGoogle = useGoogleLogin({
@@ -32,7 +31,13 @@ export default function Login() {
         if (!res.ok) throw new Error(data.error || "Google login failed");
 
         loginSuccess(data.token, data.user);
-        navigate("/dashboard", { replace: true });
+
+        const firstLogin = localStorage.getItem("firstLogin");
+        if (firstLogin === "true") {
+          navigate("/welcome", { replace: true });
+        } else {
+          navigate("/dashboard", { replace: true });
+        }
       } catch (err) {
         setError(err.message || "Google login failed");
       }
@@ -61,7 +66,13 @@ export default function Login() {
       if (!res.ok) throw new Error(data.error || "Login failed");
 
       loginSuccess(data.token, data.user);
-      navigate("/dashboard", { replace: true });
+
+      const firstLogin = localStorage.getItem("firstLogin");
+      if (firstLogin === "true") {
+        navigate("/welcome", { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -81,8 +92,6 @@ export default function Login() {
         overflow: "hidden",
       }}
     >
-
-      {/* SAFARI-SAFE GLOW */}
       <div
         style={{
           position: "absolute",
@@ -90,9 +99,10 @@ export default function Login() {
           right: "10%",
           width: 350,
           height: 350,
-          background: "radial-gradient(circle, rgba(255,217,69,0.25), transparent 70%)",
+          background:
+            "radial-gradient(circle, rgba(255,217,69,0.25), transparent 70%)",
           borderRadius: "50%",
-          filter: "blur(20px)",      // safe max for iOS
+          filter: "blur(20px)",
           pointerEvents: "none",
           zIndex: 1,
         }}
@@ -104,7 +114,7 @@ export default function Login() {
         transition={{ duration: 0.6 }}
         style={{
           background: "rgba(20, 20, 22, 0.75)",
-          backdropFilter: isSafari ? "blur(4px)" : "blur(12px)", // reduced for Safari
+          backdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
           WebkitBackdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
           border: "1px solid rgba(255, 217, 69, 0.1)",
           borderRadius: "20px",
@@ -116,7 +126,6 @@ export default function Login() {
           boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
         }}
       >
-
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <img
             src="/logo.jpg"
@@ -134,7 +143,8 @@ export default function Login() {
             style={{
               fontSize: "2rem",
               fontWeight: 900,
-              background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
+              background:
+                "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               margin: 0,
@@ -148,9 +158,14 @@ export default function Login() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: 20 }}
+        >
           <div>
-            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
+            <label
+              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
+            >
               Email Address
             </label>
             <input
@@ -170,7 +185,9 @@ export default function Login() {
           </div>
 
           <div>
-            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
+            <label
+              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
+            >
               Password
             </label>
             <input
@@ -189,7 +206,6 @@ export default function Login() {
             />
           </div>
 
-          {/* Forgot password link */}
           <div
             style={{
               display: "flex",
@@ -212,7 +228,6 @@ export default function Login() {
 
           {error && (
             <div
-
               style={{
                 background: "rgba(239,68,68,0.1)",
                 border: "1px solid rgba(239,68,68,0.3)",
@@ -253,9 +268,21 @@ export default function Login() {
             marginTop: 22,
           }}
         >
-          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
+          <div
+            style={{
+              flex: 1,
+              height: 1,
+              background: "rgba(255,255,255,0.08)",
+            }}
+          />
           <span style={{ color: "#777" }}>or</span>
-          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
+          <div
+            style={{
+              flex: 1,
+              height: 1,
+              background: "rgba(255,255,255,0.08)",
+            }}
+          />
         </div>
 
         <button
@@ -272,7 +299,11 @@ export default function Login() {
             marginTop: 10,
           }}
         >
-          <img src="/google-icon.svg" alt="" style={{ width: 18, marginRight: 8 }} />
+          <img
+            src="/google-icon.svg"
+            alt=""
+            style={{ width: 18, marginRight: 8 }}
+          />
           Continue with Google
         </button>
 
