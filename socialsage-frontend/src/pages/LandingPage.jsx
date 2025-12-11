@@ -222,7 +222,7 @@ const cards = [
       margin: "0 0 0.6rem 0",
     }}
   >
-    Skyrocket Your Growth with the 1st Mobile App that Generates AI Personas
+    Skyrocket Your Growth with the First Mobile AI Persona Generator
   </motion.h1>
 
   <motion.h2
@@ -236,7 +236,7 @@ const cards = [
       margin: "0 0 24px 0",
     }}
   >
-    See exactly who you are talking to, what they care about, and turn insights into high‑converting content and ready made LLMs prompts
+    Understand your audience's needs, pain points and motivtions and turn insights into plug-and-play LLMs prompt and high-converting content
   </motion.h2>
 
   <div
