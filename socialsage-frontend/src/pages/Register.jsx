@@ -28,13 +28,10 @@ export default function Register() {
         });
 
         const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || "Google login failed");
 
-        if (!res.ok) {
-          throw new Error(data?.error || "Google login failed");
-        }
-
-        const { token, user } = data;
-        loginSuccess(token, user);
+        loginSuccess(data.token, data.user);
+        localStorage.setItem("firstLogin", "true");
         navigate("/welcome");
       } catch (err) {
         setError(err.message || "Google login failed");
@@ -47,7 +44,6 @@ export default function Register() {
     e.preventDefault();
     setError("");
 
-    // VALIDATION
     if (!email || !password || !confirmPassword) {
       setError("All fields are required");
       return;
@@ -61,19 +57,14 @@ export default function Register() {
       return;
     }
 
-    console.log("▶ handleSubmit passed validation");
-
     try {
       setLoading(true);
-      console.log("▶ REGISTER start", { email });
 
       const registerRes = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
-      console.log("▶ REGISTER status", registerRes.status);
 
       const contentType = registerRes.headers.get("content-type") || "";
       if (!contentType.includes("application/json")) {
@@ -86,18 +77,13 @@ export default function Register() {
       }
 
       const registerData = await registerRes.json();
-
       if (!registerRes.ok) {
-        console.log("▶ REGISTER failed", registerData);
         throw new Error(registerData?.error || "Registration failed");
       }
 
-      console.log("▶ REGISTER ok, checking upgradePriceId");
       const upgradePriceId = localStorage.getItem("upgradePriceId");
-
       if (upgradePriceId) {
         // PREMIUM FLOW
-        console.log("▶ PREMIUM FLOW, redirecting to Stripe");
         localStorage.removeItem("upgradePriceId");
 
         const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
@@ -128,33 +114,24 @@ export default function Register() {
           setError("Failed to retrieve payment URL.");
         }
       } else {
-        // FREE PLAN FLOW: auto‑login after successful registration
-        console.log("▶ FREE FLOW, starting AUTO LOGIN");
-
+        // FREE FLOW: auto‑login then go to welcome
         const loginRes = await fetch(`${BASE_URL}/api/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
         });
 
-        console.log("▶ AUTO LOGIN status", loginRes.status);
         const loginData = await loginRes.json();
-        console.log("▶ AUTO LOGIN data", loginData);
-
         if (!loginRes.ok) {
-          console.log("AUTO LOGIN FAILED", loginRes.status, loginData);
           throw new Error(loginData?.error || "Auto-login failed");
         }
 
         const { token, user } = loginData;
-        console.log("AUTO LOGIN OK", { token, user });
-
         loginSuccess(token, user);
-        console.log("▶ NAVIGATE /welcome");
+        localStorage.setItem("firstLogin", "true");
         navigate("/welcome");
       }
     } catch (err) {
-      console.error("REGISTER FLOW ERROR", err);
       setError(err.message || "Registration failed");
     } finally {
       setLoading(false);
