@@ -127,24 +127,32 @@ export default function Saved() {
                     {item.type || "Content"}
                   </div>
                   <h2
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 700,
-                      margin: "0 0 8px",
-                    }}
-                  >
-                    {item.title}
-                  </h2>
-                  <p
-                    style={{
-                      fontSize: 13,
-                      color: "#d1d5db",
-                      margin: 0,
-                      overflow: "hidden",
-                    }}
-                  >
-                    {item.body}
-                  </p>
+  style={{
+    fontSize: 16,
+    fontWeight: 700,
+    margin: "0 0 8px",
+  }}
+>
+  {item.title}
+</h2>
+
+<div
+  style={{
+    fontSize: 13,
+    color: "#d1d5db",
+    margin: 0,
+  }}
+>
+  {item.body
+    ?.split(/\n\s*\n/) // split on blank line = new paragraph
+    .filter(Boolean)
+    .map((para, idx) => (
+      <p key={idx} style={{ margin: idx === 0 ? 0 : "8px 0 0" }}>
+        {para}
+      </p>
+    ))}
+</div>
+
                 </div>
               ))}
             </div>
