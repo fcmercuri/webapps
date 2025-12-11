@@ -6,7 +6,7 @@ import { useAuth } from "../auth/AuthContext";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { loginSuccess } = useAuth(); // still used for Google sign-up flow
+  const { loginSuccess } = useAuth(); // used only for Google flow
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,17 +28,16 @@ export default function Register() {
         });
 
         const data = await res.json();
-        if (!res.ok) throw new Error(data?.error || "Google login failed");
+        if (!res.ok) throw new Error(data?.error || "Google sign up failed");
 
-        // Google signup logs in immediately, then go to welcome first time
         loginSuccess(data.token, data.user);
         localStorage.setItem("firstLogin", "true");
         navigate("/welcome");
       } catch (err) {
-        setError(err.message || "Google login failed");
+        setError(err.message || "Google sign up failed");
       }
     },
-    onError: () => setError("Google login failed"),
+    onError: () => setError("Google sign up failed"),
   });
 
   async function handleSubmit(e) {
@@ -84,7 +83,7 @@ export default function Register() {
 
       const upgradePriceId = localStorage.getItem("upgradePriceId");
       if (upgradePriceId) {
-        // PREMIUM FLOW – still goes straight to Stripe
+        // PREMIUM FLOW – go to Stripe
         localStorage.removeItem("upgradePriceId");
 
         const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
