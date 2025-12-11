@@ -6,7 +6,7 @@ import { useAuth } from "../auth/AuthContext";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { loginSuccess } = useAuth();
+  const { loginSuccess } = useAuth(); // still used for Google sign-up flow
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +30,7 @@ export default function Register() {
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || "Google login failed");
 
+        // Google signup logs in immediately, then go to welcome first time
         loginSuccess(data.token, data.user);
         localStorage.setItem("firstLogin", "true");
         navigate("/welcome");
@@ -83,7 +84,7 @@ export default function Register() {
 
       const upgradePriceId = localStorage.getItem("upgradePriceId");
       if (upgradePriceId) {
-        // PREMIUM FLOW
+        // PREMIUM FLOW – still goes straight to Stripe
         localStorage.removeItem("upgradePriceId");
 
         const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
@@ -114,22 +115,9 @@ export default function Register() {
           setError("Failed to retrieve payment URL.");
         }
       } else {
-        // FREE FLOW: auto‑login then go to welcome
-        const loginRes = await fetch(`${BASE_URL}/api/auth/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-
-        const loginData = await loginRes.json();
-        if (!loginRes.ok) {
-          throw new Error(loginData?.error || "Auto-login failed");
-        }
-
-        const { token, user } = loginData;
-        loginSuccess(token, user);
+        // FREE FLOW: registration only, no auto-login
         localStorage.setItem("firstLogin", "true");
-        navigate("/welcome");
+        navigate("/login");
       }
     } catch (err) {
       setError(err.message || "Registration failed");
