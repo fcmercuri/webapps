@@ -947,8 +947,6 @@ const cards = [
     </motion.div>
   </div>
 
-</motion.div>  {/* ← Correct closing tag */}
-
 </section>
 
         {/* ============================================ */}
