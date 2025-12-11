@@ -20,27 +20,16 @@ import ForgotPassword from './pages/ForgotPassword';
 function PrivateRoute({ children }) {
   const { token } = useAuth();
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-
+  if (!token) return <Navigate to="/login" replace />;
   return children;
 }
 
 // PUBLIC ROUTE
 function PublicRoute({ children }) {
   const { token } = useAuth();
-  const firstLogin = localStorage.getItem("firstLogin");
 
-  // If logged in AND first login → go to welcome
-  if (token && firstLogin === "true") {
-    return <Navigate to="/welcome" replace />;
-  }
-
-  // If logged in AND not first login → dashboard
-  if (token) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  // Logged-in users always go to dashboard (welcome handled in Login.jsx)
+  if (token) return <Navigate to="/dashboard" replace />;
 
   return children;
 }
@@ -121,7 +110,7 @@ function App() {
             path="/content"
             element={
               <PrivateRoute>
-                Content />
+                <Content />
               </PrivateRoute>
             }
           />
