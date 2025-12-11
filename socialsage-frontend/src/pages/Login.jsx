@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -17,10 +16,9 @@ export default function Login() {
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const goAfterLogin = () => {
-    // Check if it's the user's first login
     const firstLogin = localStorage.getItem("firstLogin");
 
-    if (!firstLogin) {
+    if (!firstLogin || firstLogin === "true") {
       localStorage.setItem("firstLogin", "true");
       navigate("/welcome", { replace: true });
     } else {
@@ -28,7 +26,6 @@ export default function Login() {
     }
   };
 
-  // Google Login
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
@@ -52,7 +49,6 @@ export default function Login() {
     onError: () => setError("Google login failed"),
   });
 
-  // Email/Password Login
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
@@ -293,7 +289,7 @@ export default function Login() {
         </button>
 
         <p style={{ textAlign: "center", color: "#bbb", marginTop: 25 }}>
-          Don't have an account?{" "}
+          Don’t have an account?{" "}
           <Link to="/register" style={{ color: "#ffd945", fontWeight: 600 }}>
             Sign Up
           </Link>
