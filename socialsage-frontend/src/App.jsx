@@ -13,7 +13,7 @@ import Personas from './pages/Personas';
 import Prompts from './pages/Prompts';
 import Content from './pages/Content';
 import Saved from './pages/Saved';
-import Analytics from './pages/analytics';  
+import Analytics from './pages/analytics';
 import ForgotPassword from './pages/ForgotPassword';
 
 // Private: only for logged-in users
@@ -63,7 +63,16 @@ function App() {
           />
 
           <Route path="/success" element={<Success />} />
-          <Route path="/welcome" element={<Welcome />} />
+
+          {/* Welcome is now private */}
+          <Route
+            path="/welcome"
+            element={
+              <PrivateRoute>
+                <Welcome />
+              </PrivateRoute>
+            }
+          />
 
           <Route
             path="/dashboard"
@@ -109,7 +118,7 @@ function App() {
             path="/analytics"
             element={
               <PrivateRoute>
-                <Analytics />  
+                <Analytics />
               </PrivateRoute>
             }
           />
