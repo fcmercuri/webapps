@@ -207,7 +207,7 @@ export default function Dashboard() {
   >
     {user.email?.split('@')[0] || ''}
   </div>
-  <div style={{ color: '#9ca3af', fontSize: '0.75rem' }}>
+  <div style={{ color: '#9ca3af', fontSize: '1.75rem' }}>
     Account type
   </div>
 </div>

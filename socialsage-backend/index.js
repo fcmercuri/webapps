@@ -1,6 +1,7 @@
 require('dotenv').config({ path: 'mongo.env' });
 console.log('STRIPE_SECRET_KEY present?', !!process.env.STRIPE_SECRET_KEY);
 
+const crypto = require('crypto');
 const Persona = require('./models/Persona');
 const Prompt = require('./models/Prompt');
 const Content = require('./models/Content');
@@ -779,6 +780,67 @@ app.post('/api/billing/cancel', authenticateToken, async (req, res) => {
   }
 });
 
+// Request password reset
+app.post('/api/auth/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required' });
+
+    const user = await User.findOne({ email });
+    // Always respond success to avoid leaking which emails exist
+    if (!user) return res.json({ message: 'If the account exists, an email was sent.' });
+
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 1000 * 60 * 30; // 30 minutes
+    await user.save();
+
+    const baseUrl =
+      process.env.NODE_ENV === 'production'
+        ? 'https://socialsage-frontend.onrender.com'
+        : 'http://localhost:3000';
+
+    const resetLink = `${baseUrl}/reset-password/${token}`;
+
+    // TODO: send resetLink by email with your provider (SendGrid, Resend, etc.)
+    console.log('Password reset link for', email, resetLink);
+
+    res.json({ message: 'If the account exists, an email was sent.' });
+  } catch (err) {
+    console.error('❌ Forgot-password error:', err);
+    res.status(500).json({ error: 'Failed to start reset' });
+  }
+});
+
+// Complete password reset
+app.post('/api/auth/reset-password', async (req, res) => {
+  try {
+    const { token, password } = req.body;
+    if (!token || !password) {
+      return res.status(400).json({ error: 'Token and password are required' });
+    }
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Reset link is invalid or expired' });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+    user.password = hash;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+    console.error('❌ Reset-password error:', err);
+    res.status(500).json({ error: 'Failed to reset password' });
+  }
+});
 
 
 
