@@ -141,9 +141,9 @@ export default function Welcome() {
               fontSize: "0.9rem",
             }}
           >
-            <li>Create your first AI persona.</li>
-            <li>Describe your business model and goals.</li>
-            <li>Get tailored monetisation ideas and action steps.</li>
+            <li>Select your industry to generate your first AI persona.</li>
+            <li>Explore the ready‑made prompts attached to that persona.</li>
+            <li>Turn those prompts into tailored website content and offers.</li>
           </ul>
         </div>
 
