@@ -8,7 +8,7 @@ const Welcome = () => {
   const { user } = useAuth();
 
   const handleContinue = () => {
-    localStorage.setItem("firstLogin", "false");
+    localStorage.removeItem("firstLogin");
     navigate("/dashboard");
   };
 
