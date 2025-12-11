@@ -236,7 +236,7 @@ const cards = [
       margin: "0 0 24px 0",
     }}
   >
-    Understand your audience’s needs and pain points, then turn those insights into plug-and-play LLM prompts and high-converting content
+    Understand your audience’s needs and pain points: turn insights into plug-and-play LLM prompts and high-converting content
   </motion.h2>
 
   <div
