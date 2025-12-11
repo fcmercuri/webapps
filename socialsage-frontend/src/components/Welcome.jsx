@@ -1,62 +1,47 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export default function Welcome() {
+const Welcome = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleContinue = () => {
+    navigate("/dashboard");
+  };
+
   return (
-    <section style={{
-      minHeight: "70vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: "3.7rem",
-      textAlign: "center"
-    }}>
-      <div
-        style={{
-          background: "#222",
-          borderRadius: "26px",
-          padding: "0.47rem 1.2rem",
-          display: "inline-block",
-          marginBottom: "2.1rem",
-          fontWeight: 700,
-          color: "#ffd945",
-          fontSize: "1rem",
-          letterSpacing: "0.7px"
-        }}>
-        The AI OS for Social Media Managers
+    <div className="min-h-screen flex items-center justify-center bg-[#050816] text-white">
+      <div className="max-w-md w-full bg-black/40 border border-yellow-400/40 rounded-2xl p-8 shadow-xl">
+        <h1 className="text-3xl font-bold mb-4 text-center">
+          Welcome to sAInthetic
+        </h1>
+
+        <p className="text-gray-300 text-center mb-6">
+          Your account has been created and you are now signed in
+          {user?.email ? ` as ${user.email}` : ""}.
+        </p>
+
+        <ul className="text-sm text-gray-300 mb-6 list-disc list-inside space-y-1">
+          <li>Create your first AI persona.</li>
+          <li>Describe your business model and goals.</li>
+          <li>Get tailored monetisation ideas and action steps.</li>
+        </ul>
+
+        <button
+          onClick={handleContinue}
+          className="w-full py-3 bg-yellow-400 hover:bg-yellow-300 text-black font-semibold rounded-lg transition-colors"
+        >
+          Go to your dashboard
+        </button>
+
+        <p className="mt-4 text-xs text-gray-500 text-center">
+          You can always update your profile and preferences later from the
+          dashboard.
+        </p>
       </div>
-      <motion.h1
-        className="hero-text"
-        style={{
-          fontWeight: 900,
-          fontSize: "2.1rem",
-          color: "#fff",
-          marginBottom: "1.5rem",
-          lineHeight: 1.13
-        }}
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-      >
-        All your social content, planning, personas & competitor insights in one place.
-      </motion.h1>
-      <p style={{
-        color: "#bbbbbb",
-        fontSize: "1.10rem",
-        maxWidth: 420,
-        fontWeight: 400,
-        margin: "0 auto 1.3rem"
-      }}>
-        Save hours every week and grow faster with SocialSage’s Persona Builder, Topic Generator, Content Briefs & Competitor Inbox.
-      </p>
-      <motion.a
-        href="#signup"
-        className="hero-btn"
-        whileHover={{ scale: 1.06 }}
-      >
-        Try Free Now
-      </motion.a>
-    </section>
+    </div>
   );
-}
+};
+
+export default Welcome;
