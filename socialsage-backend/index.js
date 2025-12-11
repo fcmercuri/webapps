@@ -15,17 +15,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,       // e.g. smtp.gmail.com
-  port: process.env.EMAIL_PORT,       // e.g. 587
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
 
@@ -814,20 +806,20 @@ app.post('/api/auth/forgot-password', async (req, res) => {
 
         const resetLink = `${baseUrl}/reset-password/${token}`;
 
-        try {
-          await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: email,
-            subject: 'Reset your SocialSage password',
-            text: `Click this link to reset your password: ${resetLink}`,
-          });
-          console.log('Sent reset email to', email, resetLink);
-        } catch (err) {
-          console.error('Email send error:', err);
-        }
-        
-        // Always respond success to the client
-        res.json({ message: 'If the account exists, an email was sent.' });        
+try {
+  await resend.emails.send({
+    from: process.env.FROM_EMAIL,   // set this in env to a verified sender
+    to: email,
+    subject: 'Reset your SocialSage password',
+    text: `Click this link to reset your password: ${resetLink}`,
+  });
+  console.log('Sent reset email to', email, resetLink);
+} catch (err) {
+  console.error('Email send error:', err);
+}
+
+// Always respond to frontend
+res.json({ message: 'If the account exists, an email was sent.' });     
   } catch (err) {
     console.error('❌ Forgot-password error:', err);
     res.status(500).json({ error: 'Failed to start reset' });
