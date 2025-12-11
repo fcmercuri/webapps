@@ -865,10 +865,10 @@ const cards = [
     </motion.div>
   </div>
 
-        {/* STEP 4 */}
+        {/* STEP 5 */}
   <div
   ref={step4Ref}
-  data-step="4"
+  data-step="5"
   className="how-step-wrapper"
 >
     <motion.div
@@ -884,7 +884,7 @@ const cards = [
       }}
     >
       <img
-        src="step-4-content.jpg"
+        src="step-5-prompts.jpg"
         alt="Generated Content"
         style={{ width: "100%", display: "block" }}
       />
@@ -908,7 +908,7 @@ const cards = [
           marginBottom: 20,
         }}
       >
-        STEP 4
+        STEP 5
       </div>
       <h3
         style={{
@@ -919,7 +919,7 @@ const cards = [
           color: "#fff",
         }}
       >
-        Professional Copy, Instantly
+        Prompt Library On Demand
       </h3>
       <p
         style={{
@@ -929,8 +929,7 @@ const cards = [
           margin: 0,
         }}
       >
-        One click generates 1.000–1.500 words of conversion-ready copy that speaks directly to your
-        customers&apos; needs. Edit, save, and ship
+        Every persona unlocks a focused library of powerful, ready‑to‑use prompts. Quickly surface dozens of questions that reflect realistic, synthetic persona queries 
       </p>
     </motion.div>
   </div>
