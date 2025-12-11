@@ -1082,7 +1082,7 @@ const cards = [
         <button
           onClick={(e) => {
             e.stopPropagation();
-            handleUpgrade("price_1SXqa1PwyyuQCEbaBU1sIZvY"); // Replace with real Stripe Price ID
+            handleUpgrade("price_1SdH1fPwyyuQCEbaZt4loxPH"); // Replace with real Stripe Price ID
           }}
           style={{
             width: "calc(100% - 0px)",
