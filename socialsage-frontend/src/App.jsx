@@ -16,16 +16,37 @@ import Saved from './pages/Saved';
 import Analytics from './pages/analytics';
 import ForgotPassword from './pages/ForgotPassword';
 
-// Private: only for logged-in users
+// PRIVATE ROUTE
 function PrivateRoute({ children }) {
   const { token } = useAuth();
-  return token ? children : <Navigate to="/login" replace />;
+  const firstLogin = localStorage.getItem("firstLogin");
+
+  if (!token) return <Navigate to="/login" replace />;
+
+  // Prevent infinite redirect loop when already on /welcome
+  const currentPath = window.location.pathname;
+
+  if (firstLogin === "true" && currentPath !== "/welcome") {
+    return <Navigate to="/welcome" replace />;
+  }
+
+  return children;
 }
 
-// Public: only for logged-out users (login, register, forgot)
+// PUBLIC ROUTE
 function PublicRoute({ children }) {
   const { token } = useAuth();
-  return token ? <Navigate to="/dashboard" replace /> : children;
+  const firstLogin = localStorage.getItem("firstLogin");
+
+  if (token && firstLogin === "true") {
+    return <Navigate to="/welcome" replace />;
+  }
+
+  if (token) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
 }
 
 function App() {
@@ -64,7 +85,7 @@ function App() {
 
           <Route path="/success" element={<Success />} />
 
-          {/* Welcome is now private */}
+          {/* Welcome page is protected but allows first-timers */}
           <Route
             path="/welcome"
             element={
@@ -82,6 +103,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/personas"
             element={
@@ -90,6 +112,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/prompts"
             element={
@@ -98,6 +121,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/content"
             element={
@@ -106,6 +130,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/saved"
             element={
@@ -114,6 +139,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/analytics"
             element={
@@ -122,6 +148,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           <Route
             path="/account"
             element={
