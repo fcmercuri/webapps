@@ -779,7 +779,7 @@ const cards = [
         color: "#fff",
       }}
     >
-      Content Ideas That Convert
+      Prompt Library On Demand
     </h3>
     <p
       style={{
@@ -789,8 +789,8 @@ const cards = [
         margin: 0,
       }}
     >
-      Get 5 targeted content prompts for each persona: SEO articles, social posts, email
-      campaigns, and more. No more writer&apos;s block
+      Every persona unlocks a focused library of powerful, ready-to-use prompts. Quickly surface
+dozens of questions that reflect realistic, synthetic persona queries
     </p>
   </motion.div>
 </div>
