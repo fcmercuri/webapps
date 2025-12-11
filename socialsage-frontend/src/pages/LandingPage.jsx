@@ -946,7 +946,7 @@ const cards = [
       </p>
     </motion.div>
   </div>
-
+</motion.div>
 </section>
 
         {/* ============================================ */}
