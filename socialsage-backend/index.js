@@ -800,12 +800,22 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         ? 'https://socialsage-frontend.onrender.com'
         : 'http://localhost:3000';
 
-    const resetLink = `${baseUrl}/reset-password/${token}`;
+        const resetLink = `${baseUrl}/reset-password/${token}`;
 
-    // TODO: send resetLink by email with your provider (SendGrid, Resend, etc.)
-    console.log('Password reset link for', email, resetLink);
-
-    res.json({ message: 'If the account exists, an email was sent.' });
+        try {
+          await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Reset your SocialSage password',
+            text: `Click this link to reset your password: ${resetLink}`,
+          });
+          console.log('Sent reset email to', email, resetLink);
+        } catch (err) {
+          console.error('Email send error:', err);
+        }
+        
+        // Always respond success to the client
+        res.json({ message: 'If the account exists, an email was sent.' });        
   } catch (err) {
     console.error('❌ Forgot-password error:', err);
     res.status(500).json({ error: 'Failed to start reset' });
