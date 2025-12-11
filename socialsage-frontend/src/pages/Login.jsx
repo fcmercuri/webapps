@@ -17,24 +17,15 @@ export default function Login() {
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const goAfterLogin = () => {
-  const firstLogin = localStorage.getItem("firstLogin"); // "true" | "false" | null
+    // Check if it's the user's first login
+    const firstLogin = localStorage.getItem("firstLogin");
 
-  // 1️⃣ Brand-new user (no flag saved yet)
-  if (firstLogin === null) {
-    localStorage.setItem("firstLogin", "true");
-    navigate("/welcome", { replace: true });
-    return;
-  }
-
-  // 2️⃣ User logged in before but still has "true" → show welcome again
-  if (firstLogin === "true") {
-    navigate("/welcome", { replace: true });
-    return;
-  }
-
-  // 3️⃣ Returning user who finished welcome
-  navigate("/dashboard", { replace: true });
-};
+    if (!firstLogin) {
+      localStorage.setItem("firstLogin", "true");
+      navigate("/welcome", { replace: true });
+    } else {
+      navigate("/dashboard", { replace: true });
+    }
   };
 
   // Google Login
@@ -53,7 +44,7 @@ export default function Login() {
         if (!res.ok) throw new Error(data.error || "Google login failed");
 
         loginSuccess(data.token, data.user);
-        goAfterLogin(); // First login check
+        goAfterLogin();
       } catch (err) {
         setError(err.message || "Google login failed");
       }
@@ -84,7 +75,7 @@ export default function Login() {
       if (!res.ok) throw new Error(data.error || "Login failed");
 
       loginSuccess(data.token, data.user);
-      goAfterLogin(); // First login check
+      goAfterLogin();
     } catch (err) {
       setError(err.message || "Login failed");
     } finally {
@@ -92,6 +83,7 @@ export default function Login() {
     }
   }
 
+  return (
   return (
     <div
       style={{
