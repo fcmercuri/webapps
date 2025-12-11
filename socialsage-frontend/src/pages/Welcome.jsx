@@ -1,89 +1,172 @@
 // src/pages/Welcome.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useAuth } from "../auth/AuthContext";
 
-const Welcome = () => {
+export default function Welcome() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const handleContinue = () => {
-    // Mark first login as completed
     localStorage.setItem("firstLogin", "false");
     navigate("/dashboard", { replace: true });
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#050816] via-black to-[#0a0a1e] text-white p-4">
-      {/* Background subtle pattern for depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.3),transparent),radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.1),transparent)]" />
-      
-      <div className="relative max-w-md w-full bg-black/60 backdrop-blur-xl border border-yellow-400/30 rounded-3xl p-10 shadow-2xl max-h-[90vh] overflow-y-auto">
-        {/* Logo Section - Adapt to your app's logo */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-24 h-24 bg-gradient-to-r from-yellow-400 via-yellow-300 to-orange-400 rounded-2xl flex items-center justify-center shadow-2xl mb-4">
-            {/* Replace with your actual logo SVG/component */}
-            <svg className="w-12 h-12 text-black" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
-              <path fill="none" d="M12 2v20M2 7l10 5 10-5"/>
-            </svg>
-          </div>
-          <h1 className="text-4xl font-black bg-gradient-to-r from-yellow-400 via-yellow-300 to-orange-500 bg-clip-text text-transparent tracking-tight">
-            sAInthetic
-          </h1>
-          <p className="text-yellow-400/80 text-sm font-medium mt-1 tracking-wider uppercase">AI Persona Platform</p>
-        </div>
+  // Reuse same Safari blur detection as Login
+  const isSafari = /^((?!chrome|android).)*safari/i.test(
+    navigator.userAgent
+  );
 
-        {/* Welcome Message */}
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-3 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
-            Welcome Aboard
-          </h2>
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Your account has been created and you're now signed in
-            {user?.email ? ` as ${user.email}` : ""}.
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* same glow as login */}
+      <div
+        style={{
+          position: "absolute",
+          top: "10%",
+          right: "10%",
+          width: 350,
+          height: 350,
+          background:
+            "radial-gradient(circle, rgba(255,217,69,0.25), transparent 70%)",
+          borderRadius: "50%",
+          filter: "blur(20px)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        style={{
+          background: "rgba(20, 20, 22, 0.8)",
+          backdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
+          WebkitBackdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
+          border: "1px solid rgba(255, 217, 69, 0.1)",
+          borderRadius: "20px",
+          padding: "50px 40px",
+          maxWidth: 480,
+          width: "90%",
+          position: "relative",
+          zIndex: 10,
+          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+          color: "#fff",
+        }}
+      >
+        {/* Header with same logo + title as login */}
+        <div style={{ textAlign: "center", marginBottom: "30px" }}>
+          <img
+            src="/logo.jpg"
+            alt="sAInthetic Logo"
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "12px",
+              objectFit: "cover",
+              marginBottom: 15,
+            }}
+          />
+          <h1
+            style={{
+              fontSize: "2rem",
+              fontWeight: 900,
+              background:
+                "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              margin: 0,
+            }}
+          >
+            Welcome to sAInthetic
+          </h1>
+          <p style={{ color: "#bbb", marginTop: 8 }}>
+            Onboarding your new AI‑powered workspace
           </p>
         </div>
 
-        {/* Next Steps */}
-        <div className="mb-10">
-          <h3 className="text-yellow-400 font-semibold text-lg mb-4 text-center tracking-wide">Get Started In 3 Steps</h3>
-          <ul className="space-y-3 text-sm text-gray-300">
-            <li className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-yellow-400/20 border-2 border-yellow-400/50 rounded-full flex items-center justify-center text-xs font-bold text-yellow-400 mt-0.5 flex-shrink-0">1</div>
-              <span>Create your first AI persona</span>
-            </li>
-            <li className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-yellow-400/20 border-2 border-yellow-400/50 rounded-full flex items-center justify-center text-xs font-bold text-yellow-400 mt-0.5 flex-shrink-0">2</div>
-              <span>Describe your business model and goals</span>
-            </li>
-            <li className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-yellow-400/20 border-2 border-yellow-400/50 rounded-full flex items-center justify-center text-xs font-bold text-yellow-400 mt-0.5 flex-shrink-0">3</div>
-              <span>Get tailored monetization strategies</span>
-            </li>
+        {/* Main welcome copy */}
+        <div style={{ marginBottom: 24 }}>
+          <p
+            style={{
+              color: "#d1d5db",
+              fontSize: "0.98rem",
+              textAlign: "center",
+              marginBottom: 16,
+              lineHeight: 1.5,
+            }}
+          >
+            Your account has been created and you are now signed in
+            {user?.email ? ` as ${user.email}.` : "."}
+          </p>
+        </div>
+
+        {/* Next steps box */}
+        <div
+          style={{
+            background: "rgba(15, 23, 42, 0.9)",
+            borderRadius: 14,
+            padding: "16px 18px",
+            border: "1px solid rgba(148, 163, 184, 0.35)",
+            marginBottom: 24,
+          }}
+        >
+          <p
+            style={{
+              fontSize: "0.9rem",
+              color: "#e5e7eb",
+              margin: "0 0 10px 0",
+              fontWeight: 600,
+            }}
+          >
+            Next steps
+          </p>
+          <ul
+            style={{
+              paddingLeft: "1.1rem",
+              margin: 0,
+              color: "#cbd5f5",
+              fontSize: "0.9rem",
+            }}
+          >
+            <li>Create your first AI persona.</li>
+            <li>Describe your business model and goals.</li>
+            <li>Get tailored monetisation ideas and action steps.</li>
           </ul>
         </div>
 
-        {/* CTA Button */}
+        {/* CTA button styled like login primary button */}
         <button
+          type="button"
           onClick={handleContinue}
-          className="group w-full py-4 bg-gradient-to-r from-yellow-400 to-yellow-300 hover:from-yellow-300 hover:to-yellow-200 text-black font-bold text-lg rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transform-gpu border-2 border-yellow-300/50"
+          style={{
+            width: "100%",
+            background: "#ffd945",
+            color: "#191919",
+            border: "none",
+            padding: "13px 20px",
+            borderRadius: "10px",
+            fontWeight: 700,
+            fontSize: "1rem",
+            cursor: "pointer",
+            boxShadow: "0 8px 20px rgba(255, 217, 69, 0.25)",
+          }}
         >
-          <span className="flex items-center justify-center space-x-2">
-            <span>Launch Dashboard</span>
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </span>
+          Go to your dashboard
         </button>
-
-        {/* Subtle footer */}
-        <p className="text-xs text-gray-500 text-center mt-6 tracking-wide">
-          Ready to monetize your AI personas? 🚀
-        </p>
-      </div>
+      </motion.div>
     </div>
   );
-};
-
-export default Welcome;
+}
