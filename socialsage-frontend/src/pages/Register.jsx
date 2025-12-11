@@ -1,3 +1,4 @@
+// src/pages/Register.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -6,7 +7,7 @@ import { useAuth } from "../auth/AuthContext";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { loginSuccess } = useAuth(); // used only for Google flow
+  const { loginSuccess } = useAuth(); // only for Google flow
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +31,7 @@ export default function Register() {
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || "Google sign up failed");
 
+        // Google sign‑up logs in immediately, then goes to welcome
         loginSuccess(data.token, data.user);
         localStorage.setItem("firstLogin", "true");
         navigate("/welcome");
@@ -107,14 +109,10 @@ export default function Register() {
 
         const data = await res.json();
         const url = data?.url;
-
-        if (url) {
-          window.location = url;
-        } else {
-          setError("Failed to retrieve payment URL.");
-        }
+        if (url) window.location = url;
+        else setError("Failed to retrieve payment URL.");
       } else {
-        // FREE FLOW: registration only, no auto-login
+        // FREE FLOW: registration only, no auto‑login
         localStorage.setItem("firstLogin", "true");
         navigate("/login");
       }
@@ -216,8 +214,6 @@ export default function Register() {
                 color: "white",
                 fontSize: "1rem",
                 fontFamily: "inherit",
-                transition: "all 0.2s",
-                boxSizing: "border-box",
               }}
             />
           </div>
@@ -246,10 +242,6 @@ export default function Register() {
                 border: "1.5px solid #232323",
                 borderRadius: "10px",
                 color: "white",
-                fontSize: "1rem",
-                fontFamily: "inherit",
-                transition: "all 0.2s",
-                boxSizing: "border-box",
               }}
             />
           </div>
@@ -278,10 +270,6 @@ export default function Register() {
                 border: "1.5px solid #232323",
                 borderRadius: "10px",
                 color: "white",
-                fontSize: "1rem",
-                fontFamily: "inherit",
-                transition: "all 0.2s",
-                boxSizing: "border-box",
               }}
             />
           </div>
@@ -295,7 +283,6 @@ export default function Register() {
                 padding: "12px 14px",
                 borderRadius: "8px",
                 fontSize: "0.9rem",
-                fontWeight: 500,
               }}
             >
               {error}
@@ -314,7 +301,6 @@ export default function Register() {
               fontWeight: 700,
               fontSize: "1rem",
               cursor: "pointer",
-              transition: "all 0.2s",
               opacity: loading ? 0.6 : 1,
               marginTop: "10px",
               boxShadow: "0 8px 20px rgba(255, 217, 69, 0.2)",
