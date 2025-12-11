@@ -49,7 +49,7 @@ export default function ForgotPassword() {
           Reset your password
         </h1>
         <p style={{ color: "#bbb", marginBottom: 16 }}>
-          Enter the email you use for SocialSage and we will send you a reset
+          Enter the email you use for AInthetic and we will send you a reset
           link.
         </p>
 
