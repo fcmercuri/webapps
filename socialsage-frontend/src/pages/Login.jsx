@@ -17,15 +17,24 @@ export default function Login() {
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const goAfterLogin = () => {
-    // Check if it's the user's first login
-    const firstLogin = localStorage.getItem("firstLogin");
+  const firstLogin = localStorage.getItem("firstLogin"); // "true" | "false" | null
 
-    if (!firstLogin) {
-      localStorage.setItem("firstLogin", "true");
-      navigate("/welcome", { replace: true });
-    } else {
-      navigate("/dashboard", { replace: true });
-    }
+  // 1️⃣ Brand-new user (no flag saved yet)
+  if (firstLogin === null) {
+    localStorage.setItem("firstLogin", "true");
+    navigate("/welcome", { replace: true });
+    return;
+  }
+
+  // 2️⃣ User logged in before but still has "true" → show welcome again
+  if (firstLogin === "true") {
+    navigate("/welcome", { replace: true });
+    return;
+  }
+
+  // 3️⃣ Returning user who finished welcome
+  navigate("/dashboard", { replace: true });
+};
   };
 
   // Google Login
