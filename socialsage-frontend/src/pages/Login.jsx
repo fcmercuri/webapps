@@ -84,7 +84,6 @@ export default function Login() {
   }
 
   return (
-  return (
     <div
       style={{
         minHeight: "100vh",
@@ -294,7 +293,7 @@ export default function Login() {
         </button>
 
         <p style={{ textAlign: "center", color: "#bbb", marginTop: 25 }}>
-          Don’t have an account?{" "}
+          Don't have an account?{" "}
           <Link to="/register" style={{ color: "#ffd945", fontWeight: 600 }}>
             Sign Up
           </Link>
