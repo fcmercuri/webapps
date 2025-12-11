@@ -35,7 +35,7 @@ export default function Register() {
 
         const { token, user } = data;
         loginSuccess(token, user);
-        navigate("/Welcome");
+        navigate("/welcome");
       } catch (err) {
         setError(err.message || "Google login failed");
       }
@@ -47,6 +47,7 @@ export default function Register() {
     e.preventDefault();
     setError("");
 
+    // VALIDATION
     if (!email || !password || !confirmPassword) {
       setError("All fields are required");
       return;
@@ -60,13 +61,19 @@ export default function Register() {
       return;
     }
 
+    console.log("▶ handleSubmit passed validation");
+
     try {
       setLoading(true);
+      console.log("▶ REGISTER start", { email });
+
       const registerRes = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+
+      console.log("▶ REGISTER status", registerRes.status);
 
       const contentType = registerRes.headers.get("content-type") || "";
       if (!contentType.includes("application/json")) {
@@ -81,11 +88,16 @@ export default function Register() {
       const registerData = await registerRes.json();
 
       if (!registerRes.ok) {
+        console.log("▶ REGISTER failed", registerData);
         throw new Error(registerData?.error || "Registration failed");
       }
 
+      console.log("▶ REGISTER ok, checking upgradePriceId");
       const upgradePriceId = localStorage.getItem("upgradePriceId");
+
       if (upgradePriceId) {
+        // PREMIUM FLOW
+        console.log("▶ PREMIUM FLOW, redirecting to Stripe");
         localStorage.removeItem("upgradePriceId");
 
         const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
@@ -116,9 +128,33 @@ export default function Register() {
           setError("Failed to retrieve payment URL.");
         }
       } else {
-        navigate("/login");
+        // FREE PLAN FLOW: auto‑login after successful registration
+        console.log("▶ FREE FLOW, starting AUTO LOGIN");
+
+        const loginRes = await fetch(`${BASE_URL}/api/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        console.log("▶ AUTO LOGIN status", loginRes.status);
+        const loginData = await loginRes.json();
+        console.log("▶ AUTO LOGIN data", loginData);
+
+        if (!loginRes.ok) {
+          console.log("AUTO LOGIN FAILED", loginRes.status, loginData);
+          throw new Error(loginData?.error || "Auto-login failed");
+        }
+
+        const { token, user } = loginData;
+        console.log("AUTO LOGIN OK", { token, user });
+
+        loginSuccess(token, user);
+        console.log("▶ NAVIGATE /welcome");
+        navigate("/welcome");
       }
     } catch (err) {
+      console.error("REGISTER FLOW ERROR", err);
       setError(err.message || "Registration failed");
     } finally {
       setLoading(false);
@@ -179,7 +215,7 @@ export default function Register() {
               letterSpacing: "-1px",
             }}
           >
-           sAInthetic
+            sAInthetic
           </h1>
           <p style={{ color: "#bbb", fontSize: "1rem", margin: 0 }}>
             Create your account to get started
@@ -273,7 +309,7 @@ export default function Register() {
               placeholder="Confirm your password"
               style={{
                 width: "100%",
-                                padding: "12px 16px",
+                padding: "12px 16px",
                 background: "#0B0B0B",
                 border: "1.5px solid #232323",
                 borderRadius: "10px",
@@ -324,7 +360,6 @@ export default function Register() {
           </button>
         </form>
 
-        {/* Separator */}
         <div
           style={{
             display: "flex",
@@ -351,7 +386,6 @@ export default function Register() {
           />
         </div>
 
-        {/* Google button */}
         <button
           type="button"
           onClick={() => loginWithGoogle()}
@@ -403,4 +437,3 @@ export default function Register() {
     </div>
   );
 }
-
