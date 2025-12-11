@@ -975,7 +975,7 @@ const cards = [
       dozens of questions that reflect realistic, synthetic persona queries.
     </p>
   </motion.div>
-  </div>
+  
 </section>
 
         {/* ============================================ */}
