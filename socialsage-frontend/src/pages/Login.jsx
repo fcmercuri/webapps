@@ -1,3 +1,4 @@
+// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -16,15 +17,18 @@ export default function Login() {
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   const goAfterLogin = () => {
+    // Check if it's the user's first login
     const firstLogin = localStorage.getItem("firstLogin");
-    console.log("firstLogin flag on login:", firstLogin);
-    if (firstLogin === "true") {
+
+    if (!firstLogin) {
+      localStorage.setItem("firstLogin", "true");
       navigate("/welcome", { replace: true });
     } else {
       navigate("/dashboard", { replace: true });
     }
   };
 
+  // Google Login
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
@@ -40,7 +44,7 @@ export default function Login() {
         if (!res.ok) throw new Error(data.error || "Google login failed");
 
         loginSuccess(data.token, data.user);
-        goAfterLogin();
+        goAfterLogin(); // First login check
       } catch (err) {
         setError(err.message || "Google login failed");
       }
@@ -48,6 +52,7 @@ export default function Login() {
     onError: () => setError("Google login failed"),
   });
 
+  // Email/Password Login
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
@@ -59,6 +64,7 @@ export default function Login() {
 
     try {
       setLoading(true);
+
       const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,9 +75,9 @@ export default function Login() {
       if (!res.ok) throw new Error(data.error || "Login failed");
 
       loginSuccess(data.token, data.user);
-      goAfterLogin();
+      goAfterLogin(); // First login check
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -135,7 +141,6 @@ export default function Login() {
               marginBottom: "15px",
             }}
           />
-
           <h1
             style={{
               fontSize: "2rem",
@@ -149,7 +154,6 @@ export default function Login() {
           >
             Welcome Back
           </h1>
-
           <p style={{ color: "#bbb", margin: 0 }}>
             Sign in to your sAInthetic account
           </p>
@@ -160,9 +164,7 @@ export default function Login() {
           style={{ display: "flex", flexDirection: "column", gap: 20 }}
         >
           <div>
-            <label
-              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
-            >
+            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
               Email Address
             </label>
             <input
@@ -182,9 +184,7 @@ export default function Login() {
           </div>
 
           <div>
-            <label
-              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
-            >
+            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
               Password
             </label>
             <input
@@ -265,21 +265,9 @@ export default function Login() {
             marginTop: 22,
           }}
         >
-          <div
-            style={{
-              flex: 1,
-              height: 1,
-              background: "rgba(255,255,255,0.08)",
-            }}
-          />
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
           <span style={{ color: "#777" }}>or</span>
-          <div
-            style={{
-              flex: 1,
-              height: 1,
-              background: "rgba(255,255,255,0.08)",
-            }}
-          />
+          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
         </div>
 
         <button
@@ -294,23 +282,17 @@ export default function Login() {
             padding: "12px 16px",
             fontWeight: 600,
             marginTop: 10,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
           }}
         >
-          <img
-            src="/google-icon.svg"
-            alt=""
-            style={{ width: 18, marginRight: 8 }}
-          />
+          <img src="/google-icon.svg" alt="Google logo" style={{ width: 18 }} />
           Continue with Google
         </button>
 
-        <p
-          style={{
-            textAlign: "center",
-            color: "#bbb",
-            marginTop: 25,
-          }}
-        >
+        <p style={{ textAlign: "center", color: "#bbb", marginTop: 25 }}>
           Don’t have an account?{" "}
           <Link to="/register" style={{ color: "#ffd945", fontWeight: 600 }}>
             Sign Up
