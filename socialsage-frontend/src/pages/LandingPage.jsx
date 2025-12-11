@@ -864,6 +864,76 @@ const cards = [
       </p>
     </motion.div>
   </div>
+
+        {/* STEP 4 */}
+  <div
+  ref={step4Ref}
+  data-step="4"
+  className="how-step-wrapper"
+>
+    <motion.div
+      className="step-image"
+      initial={{ opacity: 0, x: -50 }}
+      animate={step4InView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8 }}
+      style={{
+        borderRadius: 16,
+        overflow: "hidden",
+        boxShadow: "0 20px 60px rgba(255, 217, 69, 0.2)",
+        border: "2px solid rgba(255, 217, 69, 0.3)",
+      }}
+    >
+      <img
+        src="step-4-content.jpg"
+        alt="Generated Content"
+        style={{ width: "100%", display: "block" }}
+      />
+    </motion.div>
+
+    <motion.div
+      className="step-text"
+      initial={{ opacity: 0, x: 50 }}
+      animate={step4InView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
+      <div
+        style={{
+          background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
+          color: "#000",
+          padding: "8px 20px",
+          borderRadius: 20,
+          fontSize: "0.875rem",
+          fontWeight: 700,
+          display: "inline-block",
+          marginBottom: 20,
+        }}
+      >
+        STEP 4
+      </div>
+      <h3
+        style={{
+          fontSize: "2.2rem",
+          fontWeight: 800,
+          margin: "0 0 20px 0",
+          letterSpacing: "-1px",
+          color: "#fff",
+        }}
+      >
+        Professional Copy, Instantly
+      </h3>
+      <p
+        style={{
+          fontSize: "1.15rem",
+          color: "#bbb",
+          lineHeight: 1.7,
+          margin: 0,
+        }}
+      >
+        One click generates 1.000–1.500 words of conversion-ready copy that speaks directly to your
+        customers&apos; needs. Edit, save, and ship
+      </p>
+    </motion.div>
+  </div>
 </section>
 
         {/* ============================================ */}
