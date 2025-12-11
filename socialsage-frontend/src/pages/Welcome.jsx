@@ -2,55 +2,39 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
-import { motion } from "framer-motion";
 
 const Welcome = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const handleContinue = () => {
+    // Mark first login as completed
     localStorage.setItem("firstLogin", "false");
-    navigate("/dashboard");
+    navigate("/dashboard", { replace: true });
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-tr from-gray-900 via-indigo-900 to-black overflow-hidden px-4">
-      {/* Background floating circle */}
-      <div className="absolute top-10 right-10 w-80 h-80 bg-yellow-400/20 rounded-full filter blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-10 left-5 w-60 h-60 bg-pink-500/20 rounded-full filter blur-2xl pointer-events-none"></div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 w-full max-w-lg bg-black/60 backdrop-blur-md border border-yellow-400/30 rounded-3xl p-10 shadow-xl"
-      >
-        {/* Heading */}
-        <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-yellow-400 text-center mb-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#050816] text-white">
+      <div className="max-w-md w-full bg-black/40 border border-yellow-400/40 rounded-2xl p-8 shadow-xl">
+        <h1 className="text-3xl font-bold mb-4 text-center">
           Welcome to sAInthetic
         </h1>
-
-        {/* Subtitle */}
-        <p className="text-gray-300 text-center text-lg md:text-xl mb-6">
+        <p className="text-gray-300 text-center mb-6">
           Your account has been created and you are now signed in
           {user?.email ? ` as ${user.email}` : ""}.
         </p>
-
-        {/* Features / Steps */}
-        <ul className="mb-8 space-y-3 list-disc list-inside text-gray-300 text-base md:text-lg">
+        <ul className="text-sm text-gray-300 mb-6 list-disc list-inside space-y-1">
           <li>Create your first AI persona.</li>
           <li>Describe your business model and goals.</li>
           <li>Get tailored monetisation ideas and action steps.</li>
         </ul>
-
-        {/* Continue Button */}
         <button
           onClick={handleContinue}
-          className="w-full py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl text-lg transition-all shadow-lg hover:shadow-xl"
+          className="w-full py-3 bg-yellow-400 hover:bg-yellow-300 text-black font-semibold rounded-lg transition-colors"
         >
           Go to your dashboard
         </button>
-      </motion.div>
+      </div>
     </div>
   );
 };
