@@ -302,18 +302,35 @@ app.post('/api/auth/register', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password)
+    if (!email || !password) {
       return res.status(400).json({ error: 'Email and password required' });
+    }
 
     const existing = await User.findOne({ email });
-    if (existing)
+    if (existing) {
       return res.status(400).json({ error: 'Email already registered' });
+    }
 
     const hash = await bcrypt.hash(password, 10);
     const user = new User({ email, password: hash });
     await user.save();
 
     console.log('✅ User registered:', email);
+
+    // Send welcome email (non-blocking for user)
+    try {
+      await resend.emails.send({
+        from: process.env.FROM_EMAIL,
+        to: email,
+        subject: 'Welcome to sAInthetic',
+        text: 'Your account has been created successfully. You can now log in and start using sAInthetic.',
+      });
+      console.log('Sent welcome email to', email);
+    } catch (err) {
+      console.error('Welcome email error:', err);
+      // Do not fail registration if email sending fails
+    }
+
     res.status(201).json({ message: 'User registered' });
   } catch (err) {
     console.error('❌ Registration error:', err);
@@ -355,6 +372,7 @@ app.post('/api/auth/login', async (req, res) => {
     res.status(500).json({ error: 'Login failed' });
   }
 });
+
 
 // Get best-converting persona for current user
 app.get('/api/personas/best', authenticateToken, async (req, res) => {
