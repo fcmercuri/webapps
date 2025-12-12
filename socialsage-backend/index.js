@@ -71,34 +71,32 @@ app.post('/api/create-checkout-session', async (req, res) => {
         ? 'https://socialsage-frontend.onrender.com'
         : 'http://localhost:3000';
 
-    const session = await stripe.checkout.sessions.create({
+    const params = {
       payment_method_types: ['card'],
       mode: 'subscription',
       line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
+        { price: priceId, quantity: 1 },
       ],
       customer_email: customerEmail,
-
-      // ← Add this block for your internal test runs
-      discounts: [
-        {
-          coupon: process.env.STRIPE_TEST_100_COUPON_ID, // e.g. "coupon_123"
-        },
-      ],
-
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/cancel`,
-    });
+    };
 
+    // Only apply coupon if env var is set
+    if (process.env.STRIPE_TEST_100_COUPON_ID) {
+      params.discounts = [
+        { coupon: process.env.STRIPE_TEST_100_COUPON_ID },
+      ];
+    }
+
+    const session = await stripe.checkout.sessions.create(params);
     res.json({ url: session.url });
   } catch (err) {
     console.error('Stripe checkout error:', err);
     res.status(500).json({ error: 'Failed to create checkout session' });
   }
 });
+
 
 
 // >>> GOOGLE LOGIN ROUTE <<<
