@@ -578,7 +578,7 @@ const cards = [
       fontSize: "1.15rem",
     }}
   >
-    Generate customer personas, content ideas, and conversion-ready copy in minutes – not hours
+    Generate customer personas, content ideas, and conversion-ready copy in minutes
   </p>
 
   <div
