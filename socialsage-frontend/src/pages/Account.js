@@ -22,7 +22,7 @@ export default function Account() {
         const profileRes = await api.get('/api/user/profile');
         setUser(profileRes.data);
 
-        // Load billing info (Stripe subscription mapped by backend)
+        // Load billing info from backend (Stripe-mapped)
         const billingRes = await api.get('/api/billing');
         setBilling(billingRes.data);
       } catch (err) {
@@ -41,10 +41,10 @@ export default function Account() {
       setSaving(true);
       setError('');
 
-      // Backend should call stripe.subscriptions.update(..., { cancel_at_period_end: true })
+      // Backend must call stripe.subscriptions.update(subId, { cancel_at: 'end_of_period' })
       await api.post('/api/billing/cancel');
 
-      // Reload billing after cancelling
+      // Reload billing state
       const billingRes = await api.get('/api/billing');
       setBilling(billingRes.data);
     } catch (err) {
@@ -57,7 +57,6 @@ export default function Account() {
   const plan = user?.plan || 'free';
   const planLabel = plan.toUpperCase();
 
-  // Helper to handle Stripe timestamps (unix or ISO) safely
   const formatDate = value => {
     if (!value) return null;
     const d = typeof value === 'number' ? new Date(value * 1000) : new Date(value);
@@ -65,18 +64,12 @@ export default function Account() {
     return d.toLocaleDateString();
   };
 
-  const nextRenewalLabel = billing?.renewsAt
-    ? formatDate(billing.renewsAt)
-    : null;
-
-  const cancelledAtLabel = billing?.cancelledAt
-    ? formatDate(billing.cancelledAt)
-    : null;
+  const nextRenewalLabel = billing?.renewsAt ? formatDate(billing.renewsAt) : null;
+  const cancelAtLabel = billing?.cancelAt ? formatDate(billing.cancelAt) : null;
+  const cancelledAtLabel = billing?.cancelledAt ? formatDate(billing.cancelledAt) : null;
 
   const isActive = billing?.status === 'active';
-  const isScheduledToCancel = Boolean(
-    billing?.cancelAtPeriodEnd || billing?.cancelledAt,
-  );
+  const isScheduledToCancel = Boolean(billing?.cancelAt);
 
   return (
     <div
@@ -298,18 +291,15 @@ export default function Account() {
                     </p>
                   )}
 
-                  {billing?.amount && (
-                    <p style={{ margin: '0 0 4px', fontSize: '0.85rem' }}>
-                      Amount:{' '}
-                      <strong>
-                        {billing.amountFormatted || billing.amount}
-                      </strong>
-                    </p>
-                  )}
-
-                  {billing?.latestInvoiceStatus && (
-                    <p style={{ margin: '0 0 4px', fontSize: '0.8rem' }}>
-                      Last payment status: {billing.latestInvoiceStatus}
+                  {cancelAtLabel && (
+                    <p
+                      style={{
+                        margin: '0 0 4px',
+                        color: '#f97316',
+                        fontSize: '0.8rem',
+                      }}
+                    >
+                      Auto‑renew will stop on {cancelAtLabel}.
                     </p>
                   )}
 
@@ -321,7 +311,7 @@ export default function Account() {
                         fontSize: '0.8rem',
                       }}
                     >
-                      Auto‑renew cancelled on {cancelledAtLabel}.
+                      Subscription fully cancelled on {cancelledAtLabel}.
                     </p>
                   )}
                 </div>
@@ -348,7 +338,7 @@ export default function Account() {
                   </button>
                 )}
 
-                {isScheduledToCancel && nextRenewalLabel && (
+                {isScheduledToCancel && cancelAtLabel && (
                   <p
                     style={{
                       marginTop: 10,
@@ -356,8 +346,8 @@ export default function Account() {
                       color: '#f97316',
                     }}
                   >
-                    Your subscription will remain active until {nextRenewalLabel}{' '}
-                    and will not renew after that.
+                    Your subscription stays active until {cancelAtLabel} and
+                    will not renew after that.
                   </p>
                 )}
               </div>
