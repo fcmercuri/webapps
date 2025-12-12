@@ -50,7 +50,7 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
         {currentIndustry ? 'Change Your Industry' : 'Select Your Industry'}
       </h2>
       <p style={{ color: '#bbb', margin: '0 0 30px 0', fontSize: '1rem' }}>
-        We'll generate AI-powered customer personas tailored to your market
+        We'll generate AI-powered customer personas and prompts tailored to your market
       </p>
 
       <form onSubmit={handleSubmit}>
