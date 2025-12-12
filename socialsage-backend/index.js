@@ -81,8 +81,16 @@ app.post('/api/create-checkout-session', async (req, res) => {
         },
       ],
       customer_email: customerEmail,
+
+      // ← Add this block for your internal test runs
+      discounts: [
+        {
+          coupon: process.env.STRIPE_TEST_100_COUPON_ID, // e.g. "coupon_123"
+        },
+      ],
+
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}`,
+      cancel_url: `${baseUrl}/cancel`,
     });
 
     res.json({ url: session.url });
@@ -91,6 +99,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     res.status(500).json({ error: 'Failed to create checkout session' });
   }
 });
+
 
 // >>> GOOGLE LOGIN ROUTE <<<
 app.post('/api/auth/google-login', async (req, res) => {
