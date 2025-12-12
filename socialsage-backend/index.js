@@ -824,6 +824,13 @@ app.post('/api/billing/cancel', authenticateToken, async (req, res) => {
 app.post('/api/billing/portal', authenticateToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
+    console.log('Portal user check:', {
+      userId: req.userId,
+      hasUser: !!user,
+      email: user?.email,
+      stripeCustomerId: user?.stripeCustomerId,
+    });
+
     if (!user || !user.stripeCustomerId) {
       return res
         .status(400)
@@ -843,9 +850,12 @@ app.post('/api/billing/portal', authenticateToken, async (req, res) => {
     return res.json({ url: session.url });
   } catch (err) {
     console.error('Stripe portal error:', err);
-    return res.status(500).json({ error: 'Failed to create billing portal session' });
+    return res
+      .status(500)
+      .json({ error: 'Failed to create billing portal session' });
   }
 });
+
 
 
 // Request password reset
