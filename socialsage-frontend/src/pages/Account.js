@@ -17,10 +17,11 @@ export default function Account() {
       try {
         setLoading(true);
         setError('');
-        // refresh profile
+        // Refresh profile
         const profileRes = await api.get('/api/user/profile');
         setUser(profileRes.data);
-        // load billing info
+
+        // Load billing info
         const billingRes = await api.get('/api/billing');
         setBilling(billingRes.data);
       } catch (err) {
@@ -34,9 +35,11 @@ export default function Account() {
 
   async function handleCancelRenewal() {
     if (!window.confirm('Cancel auto‑renew for your subscription?')) return;
+
     try {
       setSaving(true);
       setError('');
+      // Backend should set cancel_at_period_end / cancel_at on the Stripe subscription
       await api.post('/api/billing/cancel');
       const billingRes = await api.get('/api/billing');
       setBilling(billingRes.data);
@@ -49,6 +52,25 @@ export default function Account() {
 
   const plan = user?.plan || 'free';
   const planLabel = plan.toUpperCase();
+
+  // Small helpers for Stripe dates (assuming backend sends ISO strings or timestamps)
+  const formatDate = value => {
+    if (!value) return null;
+    const d = typeof value === 'number' ? new Date(value * 1000) : new Date(value);
+    if (Number.isNaN(d.getTime())) return null;
+    return d.toLocaleDateString();
+  };
+
+  const nextRenewalLabel = billing?.renewsAt
+    ? formatDate(billing.renewsAt)
+    : null;
+
+  const cancelledAtLabel = billing?.cancelledAt
+    ? formatDate(billing.cancelledAt)
+    : null;
+
+  const isActive = billing?.status === 'active';
+  const isScheduledToCancel = Boolean(billing?.cancelAtPeriodEnd || billing?.cancelledAt);
 
   return (
     <div
@@ -64,7 +86,7 @@ export default function Account() {
         onItemClick={() => setIsSidebarOpen(false)}
       />
 
-           <div className="dashboard-main">
+      <div className="dashboard-main">
         {/* Mobile header */}
         <div
           className="dashboard-mobile-header"
@@ -91,7 +113,6 @@ export default function Account() {
             <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
           </button>
         </div>
-
 
         <div className="dashboard-content">
           <h1
@@ -231,29 +252,40 @@ export default function Account() {
                     <div style={{ fontSize: '1rem', fontWeight: 700 }}>
                       {billing?.planLabel || planLabel}
                     </div>
+                    {billing?.interval && (
+                      <div
+                        style={{
+                          fontSize: '0.8rem',
+                          color: '#e5e7eb',
+                          marginTop: 2,
+                        }}
+                      >
+                        Billed {billing.interval}
+                      </div>
+                    )}
                   </div>
+
                   {billing?.status && (
                     <span
                       style={{
                         fontSize: '0.75rem',
-                        color:
-                          billing.status === 'active' ? '#22c55e' : '#f97316',
+                        color: isActive ? '#22c55e' : '#f97316',
                       }}
                     >
-                      {billing.status === 'active'
-                        ? 'Active'
+                      {isActive
+                        ? isScheduledToCancel
+                          ? 'Active (cancels at period end)'
+                          : 'Active'
                         : 'Cancelled / not renewing'}
                     </span>
                   )}
                 </div>
 
                 <div style={{ fontSize: '0.9rem', color: '#e5e7eb' }}>
-                  {billing?.renewsAt ? (
+                  {nextRenewalLabel ? (
                     <p style={{ margin: '0 0 4px' }}>
                       Next renewal:{' '}
-                      <strong>
-                        {new Date(billing.renewsAt).toLocaleDateString()}
-                      </strong>
+                      <strong>{nextRenewalLabel}</strong>
                     </p>
                   ) : (
                     <p style={{ margin: '0 0 4px' }}>
@@ -261,15 +293,35 @@ export default function Account() {
                     </p>
                   )}
 
-                  {billing?.cancelledAt && (
-                    <p style={{ margin: 0, color: '#f97316', fontSize: '0.8rem' }}>
-                      Auto‑renew cancelled on{' '}
-                      {new Date(billing.cancelledAt).toLocaleDateString()}.
+                  {billing?.amount && (
+                    <p style={{ margin: '0 0 4px', fontSize: '0.85rem' }}>
+                      Amount:{' '}
+                      <strong>
+                        {billing.amountFormatted || billing.amount}
+                      </strong>
+                    </p>
+                  )}
+
+                  {billing?.latestInvoiceStatus && (
+                    <p style={{ margin: '0 0 4px', fontSize: '0.8rem' }}>
+                      Last payment status: {billing.latestInvoiceStatus}
+                    </p>
+                  )}
+
+                  {cancelledAtLabel && (
+                    <p
+                      style={{
+                        margin: 0,
+                        color: '#f97316',
+                        fontSize: '0.8rem',
+                      }}
+                    >
+                      Auto‑renew cancelled on {cancelledAtLabel}.
                     </p>
                   )}
                 </div>
 
-                {billing?.status === 'active' && (
+                {isActive && !isScheduledToCancel && (
                   <button
                     type="button"
                     onClick={handleCancelRenewal}
@@ -289,6 +341,19 @@ export default function Account() {
                   >
                     {saving ? 'Cancelling…' : 'Cancel auto‑renew'}
                   </button>
+                )}
+
+                {isScheduledToCancel && (
+                  <p
+                    style={{
+                      marginTop: 10,
+                      fontSize: '0.8rem',
+                      color: '#f97316',
+                    }}
+                  >
+                    Your subscription will remain active until the end of the
+                    current billing period and will not renew.
+                  </p>
                 )}
               </div>
             </>
