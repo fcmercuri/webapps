@@ -170,7 +170,9 @@ app.post('/api/stripe/verify-session', async (req, res) => {
   }
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['customer'],
+    });
 
     if (session.payment_status !== 'paid') {
       return res.status(400).json({ error: 'Payment not completed' });
@@ -200,7 +202,10 @@ app.post('/api/stripe/verify-session', async (req, res) => {
 
     // Store Stripe ids
     user.stripeSubscriptionId = session.subscription;
-    user.stripeCustomerId = session.customer;  // ← important
+    user.stripeCustomerId =
+      typeof session.customer === 'string'
+        ? session.customer
+        : session.customer?.id;
 
     console.log('Stripe ids to save:', {
       email: user.email,
