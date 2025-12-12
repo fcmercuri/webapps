@@ -177,8 +177,11 @@ app.post('/api/stripe/verify-session', async (req, res) => {
     }
 
     const email = session.customer_email;
+    console.log('Payment is paid. Looking up user by email:', email);
+
     const user = await User.findOne({ email });
     if (!user) {
+      console.log('User not found in database for email:', email);
       return res.status(404).json({ error: 'User not found' });
     }
 
@@ -197,16 +200,24 @@ app.post('/api/stripe/verify-session', async (req, res) => {
 
     // Store Stripe ids
     user.stripeSubscriptionId = session.subscription;
-    user.stripeCustomerId = session.customer;  // ← add this line
+    user.stripeCustomerId = session.customer;  // ← important
+
+    console.log('Stripe ids to save:', {
+      email: user.email,
+      subscription: user.stripeSubscriptionId,
+      customer: user.stripeCustomerId,
+    });
 
     await user.save();
 
+    console.log('User upgraded, plan:', user.plan);
     return res.json({ message: 'Payment verified', plan: user.plan });
   } catch (err) {
     console.error('Verification error:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 
@@ -835,6 +846,7 @@ app.post('/api/billing/portal', authenticateToken, async (req, res) => {
     return res.status(500).json({ error: 'Failed to create billing portal session' });
   }
 });
+
 
 // Request password reset
 app.post('/api/auth/forgot-password', async (req, res) => {
