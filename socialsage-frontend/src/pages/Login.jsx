@@ -297,7 +297,7 @@ export default function Login() {
           Continue with Google
         </button>
 
-        <p style={{ textAlign: "center", color: "#bbb", marginTop: 25 }}>
+        <p style={{ textAlign: "center", color: "#bbb", fontSize: "0.9rem", marginTop: 25 }}>
           Don’t have an account?{" "}
           <Link
             to="/register"
