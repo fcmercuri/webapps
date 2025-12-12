@@ -13,31 +13,29 @@ export default function Account() {
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // ---------- Helpers ----------
-  const formatDate = (value) => {
+  // Helpers
+  const formatDate = value => {
     if (!value) return null;
     const d = typeof value === 'number' ? new Date(value * 1000) : new Date(value);
     if (Number.isNaN(d.getTime())) return null;
     return d.toLocaleDateString();
   };
 
-  const formatMoney = (amountInCents) => {
+  const formatMoney = amountInCents => {
     if (amountInCents == null) return null;
     return (amountInCents / 100).toFixed(2);
   };
 
-  // ---------- Data loading ----------
+  // Load profile + billing
   useEffect(() => {
     async function loadData() {
       try {
         setLoading(true);
         setError('');
 
-        // Profile
         const profileRes = await api.get('/api/user/profile');
         setUser(profileRes.data);
 
-        // Billing
         const billingRes = await api.get('/api/billing');
         setBilling(billingRes.data);
       } catch (err) {
@@ -49,7 +47,6 @@ export default function Account() {
     loadData();
   }, [setUser]);
 
-  // ---------- Actions ----------
   async function handleCancelRenewal() {
     if (!window.confirm('Cancel auto‑renew for your subscription?')) return;
 
@@ -73,7 +70,6 @@ export default function Account() {
       setPortalLoading(true);
       setError('');
 
-      // Either your /api/billing already returns portalUrl, OR you expose /api/billing/portal
       if (billing?.portalUrl) {
         window.location.href = billing.portalUrl;
         return;
@@ -92,7 +88,6 @@ export default function Account() {
     }
   }
 
-  // ---------- Derived ----------
   const plan = user?.plan || 'free';
   const planLabel = plan.toUpperCase();
 
@@ -102,7 +97,6 @@ export default function Account() {
 
   const isActive = billing?.status === 'active';
   const isScheduledToCancel = Boolean(billing?.cancelAt);
-
   const hasStripeSub = Boolean(billing?.status);
 
   return (
@@ -127,7 +121,7 @@ export default function Account() {
         >
           <button
             type="button"
-            onClick={() => setIsSidebarOpen((v) => !v)}
+            onClick={() => setIsSidebarOpen(v => !v)}
             style={{
               background: 'transparent',
               border: 'none',
@@ -158,7 +152,6 @@ export default function Account() {
             Account & Billing
           </h1>
 
-          {/* Global banner if no Stripe subscription is linked */}
           {!loading && !hasStripeSub && (
             <div
               style={{
@@ -172,8 +165,7 @@ export default function Account() {
               }}
             >
               No active Stripe subscription linked to this user. If you recently
-              upgraded, make sure you used the same email and environment (test vs
-              live).
+              upgraded, confirm you used the same email and live environment.
             </div>
           )}
 
@@ -334,7 +326,6 @@ export default function Account() {
                 </div>
 
                 <div style={{ fontSize: '0.9rem', color: '#e5e7eb' }}>
-                  {/* Next charge */}
                   {billing?.amountFormatted && nextRenewalLabel && (
                     <p style={{ margin: '0 0 4px' }}>
                       Next charge:{' '}
@@ -355,7 +346,6 @@ export default function Account() {
                     </p>
                   )}
 
-                  {/* Cancel info */}
                   {cancelAtLabel && (
                     <p
                       style={{
@@ -381,7 +371,6 @@ export default function Account() {
                     </p>
                   )}
 
-                  {/* Payment method */}
                   {billing?.paymentMethod && (
                     <p
                       style={{
@@ -398,7 +387,6 @@ export default function Account() {
                     </p>
                   )}
 
-                  {/* Recent invoices */}
                   {billing?.invoices?.length > 0 && (
                     <div
                       style={{
@@ -409,7 +397,7 @@ export default function Account() {
                       <div style={{ marginBottom: 4, color: '#9ca3af' }}>
                         Recent invoices:
                       </div>
-                      {billing.invoices.slice(0, 3).map((inv) => (
+                      {billing.invoices.map(inv => (
                         <div key={inv.id} style={{ marginBottom: 2 }}>
                           {formatDate(inv.created)} – $
                           {formatMoney(inv.amountPaid)} – {inv.status}{' '}
@@ -429,7 +417,6 @@ export default function Account() {
                   )}
                 </div>
 
-                {/* Actions */}
                 <div
                   style={{
                     display: 'flex',
