@@ -81,7 +81,6 @@ app.post('/api/create-checkout-session', async (req, res) => {
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/cancel`,
     };
-    }
 
     const session = await stripe.checkout.sessions.create(params);
     res.json({ url: session.url });
@@ -89,9 +88,10 @@ app.post('/api/create-checkout-session', async (req, res) => {
     console.error('Stripe checkout error:', err);
     return res
       .status(err.statusCode || 500)
-      .json({ error: err.message });   // <– add this
+      .json({ error: err.message });
   }
 });
+
 
 
 
