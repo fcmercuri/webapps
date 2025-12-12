@@ -1456,12 +1456,13 @@ dozens of questions that reflect realistic, synthetic persona queries
 }}>
   © {new Date().getFullYear()} sAInthetic. All rights reserved
   <div style={{ fontSize: ".85rem", color: "#999", marginTop: 2 }}>
-    Empowering AI-powered creators and brands from{' '}
-    <a href="https://www.marketingpredictor.com">marketingpredictor.com</a>{' '}
-    <a href="mailto:info@marketingpredictor.com">info@marketingpredictor.com</a>
+    Empowering AI-powered creators and brands from https://www.marketingpredictor.com info@marketingpredictor.com
   </div>
   <USCookieConsent /> 
 </footer>
+
+
+          
 
         </section>
         {/* ============================================ */}
