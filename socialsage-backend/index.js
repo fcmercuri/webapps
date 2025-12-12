@@ -79,7 +79,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
       ],
       customer_email: customerEmail,
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/cancel`,
+      cancel_url: `${baseUrl}`,
     };
 
     const session = await stripe.checkout.sessions.create(params);
