@@ -52,7 +52,7 @@ export default function Prompts() {
     ? [
         {
           title: "Understand their day",
-          text: `Describe a typical workday for ${persona.name}. What tasks take most of their time, and where does ${persona.name} feel the most friction?`,
+          text: `Describe a typical workday for ${persona.name}. What tasks take most of ${persona.name} time, and where does ${persona.name} feel the most friction?`,
         },
         {
           title: "Hidden frustrations",
