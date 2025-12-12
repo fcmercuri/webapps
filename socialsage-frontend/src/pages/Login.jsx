@@ -79,6 +79,16 @@ export default function Login() {
     }
   }
 
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 16px",
+    background: "#0B0B0B",
+    border: "1.5px solid #232323",
+    borderRadius: "10px",
+    color: "#fff",
+    boxSizing: "border-box",
+  };
+
   return (
     <div
       style={{
@@ -141,14 +151,13 @@ export default function Login() {
             style={{
               fontSize: "2rem",
               fontWeight: 900,
-              background:
-                "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
+              background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               margin: 0,
             }}
           >
-            Welcome Back
+            Welcome
           </h1>
           <p style={{ color: "#bbb", margin: 0 }}>
             Sign in to your sAInthetic account
@@ -157,10 +166,17 @@ export default function Login() {
 
         <form
           onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: 20 }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 20,
+            width: "100%",
+          }}
         >
           <div>
-            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
+            <label
+              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
+            >
               Email Address
             </label>
             <input
@@ -168,19 +184,14 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                background: "#0B0B0B",
-                border: "1.5px solid #232323",
-                borderRadius: "10px",
-                color: "#fff",
-              }}
+              style={inputStyle}
             />
           </div>
 
           <div>
-            <label style={{ color: "#ffd945", marginBottom: 8, display: "block" }}>
+            <label
+              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
+            >
               Password
             </label>
             <input
@@ -188,14 +199,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                background: "#0B0B0B",
-                border: "1.5px solid #232323",
-                borderRadius: "10px",
-                color: "#fff",
-              }}
+              style={inputStyle}
             />
           </div>
 
@@ -238,6 +242,7 @@ export default function Login() {
             type="submit"
             disabled={loading}
             style={{
+              width: "100%",
               background: "#ffd945",
               color: "#191919",
               border: "none",
@@ -261,9 +266,13 @@ export default function Login() {
             marginTop: 22,
           }}
         >
-          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
+          <div
+            style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
+          />
           <span style={{ color: "#777" }}>or</span>
-          <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }} />
+          <div
+            style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
+          />
         </div>
 
         <button
@@ -290,7 +299,14 @@ export default function Login() {
 
         <p style={{ textAlign: "center", color: "#bbb", marginTop: 25 }}>
           Don’t have an account?{" "}
-          <Link to="/register" style={{ color: "#ffd945",  textDecoration: "none", fontWeight: 600 }}>
+          <Link
+            to="/register"
+            style={{
+              color: "#ffd945",
+              textDecoration: "none",
+              fontWeight: 600,
+            }}
+          >
             Sign Up
           </Link>
         </p>
