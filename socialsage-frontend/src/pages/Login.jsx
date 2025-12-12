@@ -290,7 +290,7 @@ export default function Login() {
 
         <p style={{ textAlign: "center", color: "#bbb", marginTop: 25 }}>
           Don’t have an account?{" "}
-          <Link to="/register" style={{ color: "#ffd945", fontWeight: 600 }}>
+          <Link to="/register" style={{ color: "#ffd945",  textDecoration: "none", fontWeight: 600 }}>
             Sign Up
           </Link>
         </p>
