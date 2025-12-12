@@ -81,12 +81,6 @@ app.post('/api/create-checkout-session', async (req, res) => {
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/cancel`,
     };
-
-    // Only apply coupon if env var is set
-    if (process.env.STRIPE_TEST_100_COUPON_ID) {
-      params.discounts = [
-        { coupon: process.env.STRIPE_TEST_100_COUPON_ID },
-      ];
     }
 
     const session = await stripe.checkout.sessions.create(params);
