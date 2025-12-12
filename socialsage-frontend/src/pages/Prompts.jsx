@@ -52,7 +52,7 @@ export default function Prompts() {
     ? [
         {
           title: "Understand their day",
-          text: `Describe a typical workday for ${persona.name}. What tasks take most of their time, and where do they feel the most friction?`,
+          text: `Describe a typical workday for ${persona.name}. What tasks take most of their time, and where does ${persona.name} feel the most friction?`,
         },
         {
           title: "Hidden frustrations",
@@ -76,7 +76,7 @@ export default function Prompts() {
         },
         {
           title: "Messaging angles",
-          text: `Create 7 different messaging angles to pitch our product to ${persona.name}, each focused on a different benefit or outcome they care about.`,
+          text: `Create 7 different messaging angles to pitch our product to ${persona.name}, each focused on a different benefit or outcome ${persona.name} cares about.`,
         },
         {
           title: "Story hook",
