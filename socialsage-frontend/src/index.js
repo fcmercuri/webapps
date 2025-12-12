@@ -61,36 +61,6 @@ async function callPerplexity(system, prompt, model = 'sonar') {
   return response.data.choices[0].message.content;
 }
 
-// --- STRIPE CHECKOUT SESSION ROUTE ---
-app.post('/api/create-checkout-session', async (req, res) => {
-  try {
-    const { priceId, customerEmail } = req.body;
-
-    const baseUrl =
-      process.env.NODE_ENV === 'production'
-        ? 'https://socialsage-frontend.onrender.com'
-        : 'http://localhost:3000';
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'subscription',
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
-      customer_email: customerEmail,
-      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}/cancel`,
-    });
-
-    res.json({ url: session.url });
-  } catch (err) {
-    console.error('Stripe checkout error:', err);
-    res.status(500).json({ error: 'Failed to create checkout session' });
-  }
-});
 
 // >>> GOOGLE LOGIN ROUTE <<<
 app.post('/api/auth/google-login', async (req, res) => {
