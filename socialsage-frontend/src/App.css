@@ -547,16 +547,3 @@ body::before {
 }
 
 
-.dashboard-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* New wrapper to center content on big screens */
-.dashboard-content {
-  max-width: 1200px;     /* tweak to taste */
-  margin: 0 auto;        /* centers horizontally */
-  width: 100%;
-}
-
