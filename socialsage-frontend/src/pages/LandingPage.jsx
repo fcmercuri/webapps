@@ -84,9 +84,9 @@ const buttonStyle = { /* existing styles */ };
 const cards = [
   {
     title: "AI Persona Builder",
-    desc: "Create customer avatars, generate AI bios, and unlock segments with a click",
+    desc: "Create customer avatars, generate AI bios, lead score, and unlock segments with a click",
     expandedContent: [
-      "✓ Generate 5 detailed customer personas per industry instantly",
+      "✓ Generate detailed customer personas per industry instantly",
       "✓ AI-powered demographics, psychographics, goals, and pain points",
       "✓ Premium personas with advanced behavioral insights",
       "✓ Export personas to CSV or integrate with your CRM",
@@ -95,7 +95,7 @@ const cards = [
   },
   {
     title: "Topic Trends Generator",
-    desc: "Get trending content ideas based on synthetic queries and prompts",
+    desc: "Get trending content ideas based on synthetic queries and LLM prompts",
     expandedContent: [
       "✓ Real-time trending topics from AI search queries",
       "✓ Discover what your customers are asking ChatGPT & Perplexity",
@@ -109,7 +109,7 @@ const cards = [
     desc: "AI-powered copy and post outlines tailored to your niche and always fresh",
     expandedContent: [
       "✓ Generate 1.000-1500 word conversion-ready copy in seconds",
-      "✓ SEO-optimized blog posts, social captions, and email sequences",
+      "✓ SEO blog posts, social captions, email sequences, FAQs, and schema markup",
       "✓ Content personalized to each persona's needs",
       "✓ One-click regeneration with different angles",
       "✓ Save, edit, and export to your favorite tools"
