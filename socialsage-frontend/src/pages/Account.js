@@ -9,20 +9,35 @@ export default function Account() {
   const [billing, setBilling] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [portalLoading, setPortalLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // ---------- Helpers ----------
+  const formatDate = (value) => {
+    if (!value) return null;
+    const d = typeof value === 'number' ? new Date(value * 1000) : new Date(value);
+    if (Number.isNaN(d.getTime())) return null;
+    return d.toLocaleDateString();
+  };
+
+  const formatMoney = (amountInCents) => {
+    if (amountInCents == null) return null;
+    return (amountInCents / 100).toFixed(2);
+  };
+
+  // ---------- Data loading ----------
   useEffect(() => {
     async function loadData() {
       try {
         setLoading(true);
         setError('');
 
-        // Refresh profile
+        // Profile
         const profileRes = await api.get('/api/user/profile');
         setUser(profileRes.data);
 
-        // Load billing info from backend (Stripe-mapped)
+        // Billing
         const billingRes = await api.get('/api/billing');
         setBilling(billingRes.data);
       } catch (err) {
@@ -34,6 +49,7 @@ export default function Account() {
     loadData();
   }, [setUser]);
 
+  // ---------- Actions ----------
   async function handleCancelRenewal() {
     if (!window.confirm('Cancel auto‑renew for your subscription?')) return;
 
@@ -41,10 +57,8 @@ export default function Account() {
       setSaving(true);
       setError('');
 
-      // Backend must call stripe.subscriptions.update(subId, { cancel_at: 'end_of_period' })
       await api.post('/api/billing/cancel');
 
-      // Reload billing state
       const billingRes = await api.get('/api/billing');
       setBilling(billingRes.data);
     } catch (err) {
@@ -54,15 +68,33 @@ export default function Account() {
     }
   }
 
+  async function handleOpenPortal() {
+    try {
+      setPortalLoading(true);
+      setError('');
+
+      // Either your /api/billing already returns portalUrl, OR you expose /api/billing/portal
+      if (billing?.portalUrl) {
+        window.location.href = billing.portalUrl;
+        return;
+      }
+
+      const res = await api.post('/api/billing/portal');
+      if (res.data?.url) {
+        window.location.href = res.data.url;
+      } else {
+        setError('Could not open billing portal');
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || 'Failed to open billing portal');
+    } finally {
+      setPortalLoading(false);
+    }
+  }
+
+  // ---------- Derived ----------
   const plan = user?.plan || 'free';
   const planLabel = plan.toUpperCase();
-
-  const formatDate = value => {
-    if (!value) return null;
-    const d = typeof value === 'number' ? new Date(value * 1000) : new Date(value);
-    if (Number.isNaN(d.getTime())) return null;
-    return d.toLocaleDateString();
-  };
 
   const nextRenewalLabel = billing?.renewsAt ? formatDate(billing.renewsAt) : null;
   const cancelAtLabel = billing?.cancelAt ? formatDate(billing.cancelAt) : null;
@@ -70,6 +102,8 @@ export default function Account() {
 
   const isActive = billing?.status === 'active';
   const isScheduledToCancel = Boolean(billing?.cancelAt);
+
+  const hasStripeSub = Boolean(billing?.status);
 
   return (
     <div
@@ -93,7 +127,7 @@ export default function Account() {
         >
           <button
             type="button"
-            onClick={() => setIsSidebarOpen(v => !v)}
+            onClick={() => setIsSidebarOpen((v) => !v)}
             style={{
               background: 'transparent',
               border: 'none',
@@ -124,13 +158,32 @@ export default function Account() {
             Account & Billing
           </h1>
 
+          {/* Global banner if no Stripe subscription is linked */}
+          {!loading && !hasStripeSub && (
+            <div
+              style={{
+                background: 'rgba(127,29,29,0.9)',
+                border: '1px solid rgba(248,113,113,0.8)',
+                color: '#fecaca',
+                padding: '10px 14px',
+                borderRadius: 10,
+                marginBottom: 16,
+                fontSize: '0.85rem',
+              }}
+            >
+              No active Stripe subscription linked to this user. If you recently
+              upgraded, make sure you used the same email and environment (test vs
+              live).
+            </div>
+          )}
+
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               style={{
-                background: 'rgba(239, 68, 68, 0.1)',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
+                background: 'rgba(239,68,68,0.1)',
+                border: '1px solid rgba(239,68,68,0.3)',
                 color: '#fecaca',
                 padding: '14px 18px',
                 borderRadius: 12,
@@ -281,16 +334,28 @@ export default function Account() {
                 </div>
 
                 <div style={{ fontSize: '0.9rem', color: '#e5e7eb' }}>
-                  {nextRenewalLabel ? (
+                  {/* Next charge */}
+                  {billing?.amountFormatted && nextRenewalLabel && (
                     <p style={{ margin: '0 0 4px' }}>
-                      Next renewal: <strong>{nextRenewalLabel}</strong>
+                      Next charge:{' '}
+                      <strong>{billing.amountFormatted}</strong> on{' '}
+                      <strong>{nextRenewalLabel}</strong>
                     </p>
-                  ) : (
+                  )}
+
+                  {!billing?.amountFormatted && nextRenewalLabel && (
+                    <p style={{ margin: '0 0 4px' }}>
+                      Next renewal on <strong>{nextRenewalLabel}</strong>
+                    </p>
+                  )}
+
+                  {!nextRenewalLabel && (
                     <p style={{ margin: '0 0 4px' }}>
                       This plan does not have a scheduled renewal date.
                     </p>
                   )}
 
+                  {/* Cancel info */}
                   {cancelAtLabel && (
                     <p
                       style={{
@@ -299,7 +364,8 @@ export default function Account() {
                         fontSize: '0.8rem',
                       }}
                     >
-                      Auto‑renew will stop on {cancelAtLabel}.
+                      Auto‑renew will stop on {cancelAtLabel}. Your access
+                      remains active until then.
                     </p>
                   )}
 
@@ -314,42 +380,104 @@ export default function Account() {
                       Subscription fully cancelled on {cancelledAtLabel}.
                     </p>
                   )}
+
+                  {/* Payment method */}
+                  {billing?.paymentMethod && (
+                    <p
+                      style={{
+                        margin: '8px 0 4px',
+                        fontSize: '0.85rem',
+                        color: '#9ca3af',
+                      }}
+                    >
+                      Payment method:{' '}
+                      {billing.paymentMethod.brand?.toUpperCase()} ••••{' '}
+                      {billing.paymentMethod.last4} exp{' '}
+                      {billing.paymentMethod.expMonth}/
+                      {billing.paymentMethod.expYear}
+                    </p>
+                  )}
+
+                  {/* Recent invoices */}
+                  {billing?.invoices?.length > 0 && (
+                    <div
+                      style={{
+                        marginTop: 8,
+                        fontSize: '0.8rem',
+                      }}
+                    >
+                      <div style={{ marginBottom: 4, color: '#9ca3af' }}>
+                        Recent invoices:
+                      </div>
+                      {billing.invoices.slice(0, 3).map((inv) => (
+                        <div key={inv.id} style={{ marginBottom: 2 }}>
+                          {formatDate(inv.created)} – $
+                          {formatMoney(inv.amountPaid)} – {inv.status}{' '}
+                          {inv.hostedInvoiceUrl && (
+                            <a
+                              href={inv.hostedInvoiceUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{ color: '#38bdf8' }}
+                            >
+                              View
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {isActive && !isScheduledToCancel && (
+                {/* Actions */}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 10,
+                    marginTop: 14,
+                  }}
+                >
+                  {isActive && !isScheduledToCancel && (
+                    <button
+                      type="button"
+                      onClick={handleCancelRenewal}
+                      disabled={saving}
+                      style={{
+                        background: 'transparent',
+                        border: '1px solid rgba(248,113,113,0.7)',
+                        color: '#fecaca',
+                        padding: '8px 14px',
+                        borderRadius: 999,
+                        fontSize: '0.85rem',
+                        fontWeight: 600,
+                        cursor: saving ? 'default' : 'pointer',
+                        opacity: saving ? 0.6 : 1,
+                      }}
+                    >
+                      {saving ? 'Cancelling…' : 'Cancel auto‑renew'}
+                    </button>
+                  )}
+
                   <button
                     type="button"
-                    onClick={handleCancelRenewal}
-                    disabled={saving}
+                    onClick={handleOpenPortal}
+                    disabled={portalLoading}
                     style={{
-                      marginTop: 14,
-                      background: 'transparent',
-                      border: '1px solid rgba(248,113,113,0.7)',
-                      color: '#fecaca',
+                      background: 'rgba(56,189,248,0.1)',
+                      border: '1px solid rgba(56,189,248,0.7)',
+                      color: '#bae6fd',
                       padding: '8px 14px',
                       borderRadius: 999,
                       fontSize: '0.85rem',
                       fontWeight: 600,
-                      cursor: saving ? 'default' : 'pointer',
-                      opacity: saving ? 0.6 : 1,
+                      cursor: portalLoading ? 'default' : 'pointer',
+                      opacity: portalLoading ? 0.6 : 1,
                     }}
                   >
-                    {saving ? 'Cancelling…' : 'Cancel auto‑renew'}
+                    {portalLoading ? 'Opening portal…' : 'Manage billing details'}
                   </button>
-                )}
-
-                {isScheduledToCancel && cancelAtLabel && (
-                  <p
-                    style={{
-                      marginTop: 10,
-                      fontSize: '0.8rem',
-                      color: '#f97316',
-                    }}
-                  >
-                    Your subscription stays active until {cancelAtLabel} and
-                    will not renew after that.
-                  </p>
-                )}
+                </div>
               </div>
             </>
           )}
