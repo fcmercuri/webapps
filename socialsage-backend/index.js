@@ -811,6 +811,33 @@ app.post('/api/billing/cancel', authenticateToken, async (req, res) => {
   }
 });
 
+// POST /api/billing/portal
+app.post('/api/billing/portal', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user || !user.stripeCustomerId) {
+      return res
+        .status(400)
+        .json({ error: 'No Stripe customer linked to this user' });
+    }
+
+    const origin =
+      process.env.NODE_ENV === 'production'
+        ? 'https://socialsage-frontend.onrender.com'
+        : 'http://localhost:3000';
+
+    const session = await stripe.billingPortal.sessions.create({
+      customer: user.stripeCustomerId,
+      return_url: `${origin}/account`,
+    });
+
+    return res.json({ url: session.url });
+  } catch (err) {
+    console.error('Stripe portal error:', err);
+    return res.status(500).json({ error: 'Failed to create billing portal session' });
+  }
+});
+
 // Request password reset
 app.post('/api/auth/forgot-password', async (req, res) => {
   try {
