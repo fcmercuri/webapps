@@ -1455,8 +1455,8 @@ dozens of questions that reflect realistic, synthetic persona queries
   marginTop: "3rem"
 }}>
   © {new Date().getFullYear()} sAInthetic. All rights reserved
-  <div style={{ fontSize: ".95rem", color: "#999", marginTop: 2 }}>
-    Empowering AI-powered creators and brands from <a href="https://www.marketingpredictor.com/">marketingpredictor.com</a><br>info@marketingpredictor.com</br>
+  <div style={{ fontSize: ".85rem", color: "#999", marginTop: 2 }}>
+    Empowering AI-powered creators and brands from <a href="https://www.marketingpredictor.com">marketingpredictor.com</a><br>info@marketingpredictor.com</br>
   </div>
   <USCookieConsent /> 
 </footer>
