@@ -17,6 +17,18 @@ export default function Register() {
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 16px",
+    background: "#0B0B0B",
+    border: "1.5px solid #232323",
+    borderRadius: "10px",
+    color: "white",
+    fontSize: "1rem",
+    fontFamily: "inherit",
+    boxSizing: "border-box",
+  };
+
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
@@ -113,10 +125,9 @@ export default function Register() {
         else setError("Failed to retrieve payment URL.");
       } else {
         // FREE FLOW: user registered — auto-login and go to welcome
-localStorage.setItem("firstLogin", "true");
-
-loginSuccess(registerData.token, registerData.user);
-navigate("/welcome");
+        localStorage.setItem("firstLogin", "true");
+        loginSuccess(registerData.token, registerData.user);
+        navigate("/welcome");
       }
     } catch (err) {
       setError(err.message || "Registration failed");
@@ -188,7 +199,12 @@ navigate("/welcome");
 
         <form
           onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            width: "100%",
+          }}
         >
           <div>
             <label
@@ -207,16 +223,7 @@ navigate("/welcome");
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                background: "#0B0B0B",
-                border: "1.5px solid #232323",
-                borderRadius: "10px",
-                color: "white",
-                fontSize: "1rem",
-                fontFamily: "inherit",
-              }}
+              style={inputStyle}
             />
           </div>
 
@@ -237,14 +244,7 @@ navigate("/welcome");
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter password (6 characters)"
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                background: "#0B0B0B",
-                border: "1.5px solid #232323",
-                borderRadius: "10px",
-                color: "white",
-              }}
+              style={inputStyle}
             />
           </div>
 
@@ -265,14 +265,7 @@ navigate("/welcome");
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm your password"
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                background: "#0B0B0B",
-                border: "1.5px solid #232323",
-                borderRadius: "10px",
-                color: "white",
-              }}
+              style={inputStyle}
             />
           </div>
 
@@ -295,6 +288,7 @@ navigate("/welcome");
             type="submit"
             disabled={loading}
             style={{
+              width: "100%",
               background: "#ffd945",
               color: "#191919",
               border: "none",
