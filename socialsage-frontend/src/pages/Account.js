@@ -17,11 +17,12 @@ export default function Account() {
       try {
         setLoading(true);
         setError('');
+
         // Refresh profile
         const profileRes = await api.get('/api/user/profile');
         setUser(profileRes.data);
 
-        // Load billing info
+        // Load billing info (Stripe subscription mapped by backend)
         const billingRes = await api.get('/api/billing');
         setBilling(billingRes.data);
       } catch (err) {
@@ -39,8 +40,11 @@ export default function Account() {
     try {
       setSaving(true);
       setError('');
-      // Backend should set cancel_at_period_end / cancel_at on the Stripe subscription
+
+      // Backend should call stripe.subscriptions.update(..., { cancel_at_period_end: true })
       await api.post('/api/billing/cancel');
+
+      // Reload billing after cancelling
       const billingRes = await api.get('/api/billing');
       setBilling(billingRes.data);
     } catch (err) {
@@ -53,7 +57,7 @@ export default function Account() {
   const plan = user?.plan || 'free';
   const planLabel = plan.toUpperCase();
 
-  // Small helpers for Stripe dates (assuming backend sends ISO strings or timestamps)
+  // Helper to handle Stripe timestamps (unix or ISO) safely
   const formatDate = value => {
     if (!value) return null;
     const d = typeof value === 'number' ? new Date(value * 1000) : new Date(value);
@@ -70,7 +74,9 @@ export default function Account() {
     : null;
 
   const isActive = billing?.status === 'active';
-  const isScheduledToCancel = Boolean(billing?.cancelAtPeriodEnd || billing?.cancelledAt);
+  const isScheduledToCancel = Boolean(
+    billing?.cancelAtPeriodEnd || billing?.cancelledAt,
+  );
 
   return (
     <div
@@ -284,8 +290,7 @@ export default function Account() {
                 <div style={{ fontSize: '0.9rem', color: '#e5e7eb' }}>
                   {nextRenewalLabel ? (
                     <p style={{ margin: '0 0 4px' }}>
-                      Next renewal:{' '}
-                      <strong>{nextRenewalLabel}</strong>
+                      Next renewal: <strong>{nextRenewalLabel}</strong>
                     </p>
                   ) : (
                     <p style={{ margin: '0 0 4px' }}>
@@ -343,7 +348,7 @@ export default function Account() {
                   </button>
                 )}
 
-                {isScheduledToCancel && (
+                {isScheduledToCancel && nextRenewalLabel && (
                   <p
                     style={{
                       marginTop: 10,
@@ -351,8 +356,8 @@ export default function Account() {
                       color: '#f97316',
                     }}
                   >
-                    Your subscription will remain active until the end of the
-                    current billing period and will not renew.
+                    Your subscription will remain active until {nextRenewalLabel}{' '}
+                    and will not renew after that.
                   </p>
                 )}
               </div>
