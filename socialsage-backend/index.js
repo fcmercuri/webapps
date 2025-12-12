@@ -786,12 +786,12 @@ app.get('/api/billing', authenticateToken, async (req, res) => {
     const sub = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);
 
     res.json({
-      plan: user.plan || 'free',
-      planLabel: (user.plan || 'free').toUpperCase(),
-      status: sub.cancel_at_period_end ? 'cancelled' : 'active',
-      renewsAt: sub.current_period_end * 1000,
-      cancelledAt: sub.cancel_at ? sub.cancel_at * 1000 : null,
-    });
+    plan: user.plan || 'free',
+    planLabel: (user.plan || 'free').toUpperCase(),
+    status: sub.cancel_at_period_end ? 'cancelled' : 'active',
+    renewsAt: sub.current_period_end,      // seconds
+    cancelledAt: sub.cancel_at || null,    // seconds
+  });
   } catch (err) {
     console.error('❌ Billing load error:', err);
     res.status(500).json({ error: 'Failed to load billing info' });
