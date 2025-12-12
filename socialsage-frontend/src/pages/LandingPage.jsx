@@ -1445,28 +1445,20 @@ dozens of questions that reflect realistic, synthetic persona queries
             </motion.a>
           </motion.div>
 
-<footer
-  style={{
-    background: "rgba(11, 11, 11, 0)",
-    color: "#bbb",
-    textAlign: "center",
-    fontWeight: 500,
-    padding: "1.1rem 0",
-    borderTop: "1px solid #232323",
-    marginTop: "3rem",
-  }}
->
+<footer style={{
+  background: "rgba(11, 11, 11, 0)",   // fully transparent
+  color: "#bbb",
+  textAlign: "center",
+  fontWeight: 500,
+  padding: "1.1rem 0",
+  borderTop: "1px solid #232323",
+  marginTop: "3rem"
+}}>
   © {new Date().getFullYear()} sAInthetic. All rights reserved
   <div style={{ fontSize: ".85rem", color: "#999", marginTop: 2 }}>
-    Empowering AI-powered creators and brands from{" "}
-    <a href="https://www.marketingpredictor.com">
-      marketingpredictor.com
-    </a>
-    <span style={{ display: "block", marginTop: 2 }}>
-      info@marketingpredictor.com
-    </span>
+    Empowering AI-powered creators and brands from <a href="https://www.marketingpredictor.com"><marketingpredictor.com </a> info@marketingpredictor.com
   </div>
-  <USCookieConsent />
+  <USCookieConsent /> 
 </footer>
 
         </section>
