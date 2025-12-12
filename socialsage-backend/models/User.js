@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     default: 'free',
   },
 
+  // Stripe billing fields
+  stripeSubscriptionId: { type: String },   // ← add this
+  stripeCustomerId: { type: String },       // ← and this
+
   // password reset fields
   resetPasswordToken: {
     type: String,
