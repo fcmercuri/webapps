@@ -1319,7 +1319,7 @@ dozens of questions that reflect realistic, synthetic persona queries
                   </div>
                 </div>
               </div>
-              <div style={{ fontSize: "1.3rem", color: "#ffd945", marginBottom: 3 }}>★ ★ ★ ★ ★</div>
+              <div style={{ fontSize: "1.3rem", color: "#ffd945", marginBottom: 3 }}>★ ★ ★ ★ </div>
               <div style={{
                 fontWeight: 600,
                 color: "#fff",
