@@ -1,4 +1,3 @@
-// src/pages/Prompts.jsx
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import api from "../api/axios";
@@ -8,6 +7,7 @@ export default function Prompts() {
   const [persona, setPersona] = useState(null);
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [volumeLoading, setVolumeLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -17,7 +17,31 @@ export default function Prompts() {
         setError("");
         const res = await api.get("/api/prompts/best-persona");
         setPersona(res.data.persona);
-        setPrompts(res.data.prompts);
+        const basePrompts = res.data.prompts || [];
+        setPrompts(basePrompts);
+
+        // kick off volume estimation
+        if (basePrompts.length) {
+          setVolumeLoading(true);
+          try {
+            const volRes = await api.post("/api/prompts/volume", {
+              prompts: basePrompts.map((p) => ({ prompt: p.prompt })),
+            });
+            const enriched = volRes.data.prompts || [];
+            // merge volumes back by prompt text
+            const byPrompt = {};
+            enriched.forEach((e) => {
+              byPrompt[e.prompt] = e;
+            });
+            setPrompts(
+              basePrompts.map((p) => byPrompt[p.prompt] || p)
+            );
+          } catch (volErr) {
+            console.error("Volume estimation failed", volErr);
+          } finally {
+            setVolumeLoading(false);
+          }
+        }
       } catch (err) {
         setError(
           err.response?.data?.error ||
@@ -46,7 +70,6 @@ export default function Prompts() {
       />
 
       <div className="dashboard-main">
-        {/* Mobile header */}
         <div
           className="dashboard-mobile-header"
           style={{ padding: "10px 10px 0" }}
@@ -93,6 +116,7 @@ export default function Prompts() {
                 {persona.name}
               </span>
               . Copy any of them into your favourite LLM or search engine.
+              {volumeLoading && " Estimating search volume…"}
             </p>
           )}
 
@@ -136,12 +160,31 @@ export default function Prompts() {
                     style={{
                       fontSize: 13,
                       color: "#ddd",
-                      margin: 0,
+                      margin: "0 0 8px 0",
                       lineHeight: 1.5,
                     }}
                   >
                     {p.prompt}
                   </p>
+
+                  {(p.seoVolume != null || p.llmVolumeEstimate != null) && (
+                    <div
+                      style={{
+                        marginTop: 6,
+                        fontSize: 11,
+                        color: "#9ca3af",
+                      }}
+                    >
+                      {p.seoVolume != null && (
+                        <div>SEO monthly searches: ~{p.seoVolume}</div>
+                      )}
+                      {p.llmVolumeEstimate != null && (
+                        <div>
+                          LLM popularity score (0–100): {p.llmVolumeEstimate}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
