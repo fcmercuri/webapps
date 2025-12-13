@@ -747,6 +747,76 @@ Return JSON like:
   }
 });
 
+// --- ESTIMATE SEARCH & LLM VOLUME FOR PROMPTS ---
+app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
+  try {
+    const { prompts } = req.body; // [{ prompt: string }, ...]
+    if (!Array.isArray(prompts) || prompts.length === 0) {
+      return res.status(400).json({ error: 'prompts array is required' });
+    }
+
+    // 1) Traditional search volume via external SEO API
+    // Example shape for a generic keyword-volume API
+    // Replace URL and headers with your chosen provider (Semrush, kwrds.ai, etc.)
+    let seoVolumes = {};
+    try {
+      const seoResp = await axios.post(
+        'https://YOUR_KEYWORD_API/search-volume',
+        {
+          keywords: prompts.map((p) => p.prompt),
+          search_country: 'en-US', // adjust per your target
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-KEY': process.env.KEYWORD_API_KEY,
+          },
+        }
+      );
+
+      // Convert provider response into { keyword: volume }
+      // Adjust according to their docs. For example, kwrds.ai returns
+      // { keyword: {...}, volume: {...} } with parallel indexes. [web:291]
+      if (seoResp.data && seoResp.data.keyword && seoResp.data.volume) {
+        const { keyword, volume } = seoResp.data;
+        Object.keys(keyword).forEach((idx) => {
+          const kw = keyword[idx];
+          const vol = volume[idx];
+          seoVolumes[kw.toLowerCase()] = Number(vol) || 0;
+        });
+      }
+    } catch (e) {
+      console.error('SEO volume API failed, continuing without it:', e.message);
+    }
+
+    // 2) Simple heuristic "LLM volume" estimate:
+    // for now, derive a relative score from SEO volume.
+    // Later you can replace this with a real LLM analytics API
+    // such as an LLM search-volume tracker. [web:276][web:279]
+    const enriched = prompts.map((p) => {
+      const key = p.prompt.toLowerCase();
+      const seoVolume = seoVolumes[key] || 0;
+
+      // crude heuristic: log-scale SEO volume into 0–100 range
+      const llmVolumeEstimate = seoVolume
+        ? Math.min(100, Math.round(Math.log10(seoVolume + 10) * 25))
+        : 10; // small base if 0
+
+      return {
+        ...p,
+        seoVolume,
+        llmVolumeEstimate,
+      };
+    });
+
+    return res.json({ prompts: enriched });
+  } catch (err) {
+    console.error('❌ Prompt volume error:', err.message || err);
+    return res.status(500).json({ error: 'Failed to estimate prompt volumes' });
+  }
+});
+
+
 
 // --- CONTENT GENERATION (WITH PERPLEXITY) ---
 app.post('/api/content/generate', authenticateToken, async (req, res) => {
