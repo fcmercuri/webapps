@@ -753,74 +753,53 @@ Return JSON ONLY, for example:
 });
 
     
-// --- ESTIMATE SEARCH & LLM VOLUME FOR PROMPTS ---
+// --- EXTRACT FOCUS KEYWORD FOR PROMPTS ---
 app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
   try {
-    const { prompts } = req.body; // [{ prompt: string }, ...]
+    const { prompts } = req.body; // [{ prompt }]
     if (!Array.isArray(prompts) || prompts.length === 0) {
       return res.status(400).json({ error: 'prompts array is required' });
     }
 
-    // 1) Traditional search volume via external SEO API
-    // Example shape for a generic keyword-volume API
-    // Replace URL and headers with your chosen provider (Semrush, kwrds.ai, etc.)
-    let seoVolumes = {};
-    try {
-      const seoResp = await axios.post(
-        'https://YOUR_KEYWORD_API/search-volume',
-        {
-          keywords: prompts.map((p) => p.prompt),
-          search_country: 'en-US', // adjust per your target
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-API-KEY': process.env.KEYWORD_API_KEY,
-          },
-        }
-      );
+    // Very simple heuristic: take the longest non‑stopword phrase
+    const STOPWORDS = new Set([
+      'the','a','an','and','or','but','for','to','of','in','on','with','about',
+      'how','what','why','when','where','who','is','are','do','does','can',
+      'i','you','we','they','my','your','their','our','for','from','into'
+    ]);
 
-      // Convert provider response into { keyword: volume }
-      // Adjust according to their docs. For example, kwrds.ai returns
-      // { keyword: {...}, volume: {...} } with parallel indexes. [web:291]
-      if (seoResp.data && seoResp.data.keyword && seoResp.data.volume) {
-        const { keyword, volume } = seoResp.data;
-        Object.keys(keyword).forEach((idx) => {
-          const kw = keyword[idx];
-          const vol = volume[idx];
-          seoVolumes[kw.toLowerCase()] = Number(vol) || 0;
-        });
-      }
-    } catch (e) {
-      console.error('SEO volume API failed, continuing without it:', e.message);
-    }
+    const enriched = prompts.map(p => {
+      const text = (p.prompt || '').toLowerCase();
 
-    // 2) Simple heuristic "LLM volume" estimate:
-    // for now, derive a relative score from SEO volume.
-    // Later you can replace this with a real LLM analytics API
-    // such as an LLM search-volume tracker. [web:276][web:279]
-    const enriched = prompts.map((p) => {
-      const key = p.prompt.toLowerCase();
-      const seoVolume = seoVolumes[key] || 0;
+      // Split on punctuation, then words
+      const phrases = text.split(/[?.!]/).map(s => s.trim()).filter(Boolean);
 
-      // crude heuristic: log-scale SEO volume into 0–100 range
-      const llmVolumeEstimate = seoVolume
-        ? Math.min(100, Math.round(Math.log10(seoVolume + 10) * 25))
-        : 10; // small base if 0
+      let best = '';
+      phrases.forEach(phrase => {
+        const words = phrase
+          .split(/\s+/)
+          .filter(w => w && !STOPWORDS.has(w.replace(/[^a-z0-9]/g, '')));
+        const candidate = words.join(' ');
+        if (candidate.length > best.length) best = candidate;
+      });
+
+      const focusKeyword = best || p.prompt; // fallback to full prompt
 
       return {
         ...p,
-        seoVolume,
-        llmVolumeEstimate,
+        focusKeyword,
       };
     });
 
     return res.json({ prompts: enriched });
   } catch (err) {
-    console.error('❌ Prompt volume error:', err.message || err);
-    return res.status(500).json({ error: 'Failed to estimate prompt volumes' });
+    console.error('❌ Prompt keyword error:', err.message || err);
+    return res.status(500).json({ error: 'Failed to extract focus keywords' });
   }
 });
+
+      
+
 
 
 
