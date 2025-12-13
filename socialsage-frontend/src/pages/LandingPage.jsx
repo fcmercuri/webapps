@@ -1202,7 +1202,7 @@ dozens of questions that reflect realistic, synthetic persona queries
         <li style={{ marginBottom: "10px" }}>✓ Unlimited Personas</li>
         <li style={{ marginBottom: "10px" }}>✓ Unlimited Content</li>
         <li style={{ marginBottom: "10px" }}>✓ Priority Support</li>
-        <li style={{ marginBottom: "10px" }}>✓ Main Prompt Keyword Volumes</li>
+        <li style={{ marginBottom: "10px" }}>✓ Promts Analytics</li>
       </ul>
       <button
         onClick={(e) => {
