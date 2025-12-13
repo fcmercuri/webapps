@@ -982,6 +982,7 @@ dozens of questions that reflect realistic, synthetic persona queries
       >
         <li style={{ marginBottom: "10px" }}>✓ 1 Persona</li>
         <li style={{ marginBottom: "10px" }}>✓ 1 Content Idea</li>
+        <li style={{ marginBottom: "10px" }}>✓ 10 Prompts</li>
         <li style={{ marginBottom: "10px" }}>✓ Basic Analytics</li>
         <li style={{ marginBottom: "10px" }}>✓ Community Support</li>
       </ul>
@@ -1079,6 +1080,7 @@ dozens of questions that reflect realistic, synthetic persona queries
       >
         <li style={{ marginBottom: "10px" }}>✓ 5 Personas</li>
         <li style={{ marginBottom: "10px" }}>✓ 50 Content Ideas/mo</li>
+        <li style={{ marginBottom: "10px" }}>✓ 10 Prompts Per Personas</li>
         <li style={{ marginBottom: "10px" }}>✓ Advanced Analytics</li>
         <li style={{ marginBottom: "10px" }}>✓ Email Support</li>
       </ul>
@@ -1201,8 +1203,9 @@ dozens of questions that reflect realistic, synthetic persona queries
       >
         <li style={{ marginBottom: "10px" }}>✓ Unlimited Personas</li>
         <li style={{ marginBottom: "10px" }}>✓ Unlimited Content</li>
+        <li style={{ marginBottom: "10px" }}>✓ Unlimited Promts</li>
         <li style={{ marginBottom: "10px" }}>✓ Priority Support</li>
-        <li style={{ marginBottom: "10px" }}>✓ Promts Analytics</li>
+        <li style={{ marginBottom: "10px" }}>✓ Visual Analytics</li>
       </ul>
       <button
         onClick={(e) => {
