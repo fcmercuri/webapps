@@ -755,6 +755,8 @@ Return JSON ONLY, for example:
 
     
 // --- EXTRACT FOCUS KEYWORD FOR PROMPTS ---
+
+// --- EXTRACT FOCUS KEYWORD FOR PROMPTS ---
 app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
   try {
     const { prompts } = req.body; // [{ prompt }]
@@ -762,29 +764,41 @@ app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
       return res.status(400).json({ error: 'prompts array is required' });
     }
 
-    // Very simple heuristic: take the longest non‑stopword phrase
     const STOPWORDS = new Set([
       'the','a','an','and','or','but','for','to','of','in','on','with','about',
       'how','what','why','when','where','who','is','are','do','does','can',
-      'i','you','we','they','my','your','their','our','for','from','into'
+      'could','should','would','i','you','we','they','my','your','their','our',
+      'this','that','these','those','into','from','at','as','by','be','been',
+      'being','it','its','if','so'
     ]);
 
-    const enriched = prompts.map(p => {
+    const enriched = prompts.map((p) => {
       const text = (p.prompt || '').toLowerCase();
 
-      // Split on punctuation, then words
-      const phrases = text.split(/[?.!]/).map(s => s.trim()).filter(Boolean);
+      // take the longest sentence (often holds the core topic)
+      const sentences = text
+        .split(/[?.!]/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .sort((a, b) => b.length - a.length);
+      const mainSentence = sentences[0] || text;
 
-      let best = '';
-      phrases.forEach(phrase => {
-        const words = phrase
-          .split(/\s+/)
-          .filter(w => w && !STOPWORDS.has(w.replace(/[^a-z0-9]/g, '')));
-        const candidate = words.join(' ');
-        if (candidate.length > best.length) best = candidate;
-      });
+      const words = mainSentence
+        .split(/[^a-z0-9+]+/)
+        .filter(Boolean)
+        .filter((w) => !STOPWORDS.has(w));
 
-      const focusKeyword = best || p.prompt; // fallback to full prompt
+      // build 2–3 word keyword where possible (e.g. "email onboarding sequence")
+      let focusKeyword = '';
+      if (words.length >= 3) {
+        focusKeyword = `${words[0]} ${words[1]} ${words[2]}`;
+      } else if (words.length === 2) {
+        focusKeyword = `${words[0]} ${words[1]}`;
+      } else if (words.length === 1) {
+        focusKeyword = words[0];
+      } else {
+        focusKeyword = p.prompt || '';
+      }
 
       return {
         ...p,
@@ -798,6 +812,8 @@ app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
     return res.status(500).json({ error: 'Failed to extract focus keywords' });
   }
 });
+
+      
 
       
 
