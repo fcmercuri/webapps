@@ -683,6 +683,71 @@ app.get('/api/prompts', authenticateToken, async (req, res) => {
   }
 });
 
+// --- for prompts BEST-PERSONA PROMPTS (LLM ONLY, NOT STORED) ---
+app.get('/api/prompts/best-persona', authenticateToken, async (req, res) => {
+  try {
+    const persona = await Persona.findOne({ userId: req.userId })
+      .sort({ conversionScore: -1 });
+
+    if (!persona) {
+      return res.status(404).json({ error: 'No personas found' });
+    }
+
+    const goals = Array.isArray(persona.goals)
+      ? persona.goals.join(', ')
+      : (persona.goals || '');
+    const pains = Array.isArray(persona.painPoints)
+      ? persona.painPoints.join(', ')
+      : (persona.painPoints || '');
+
+    const systemPrompt =
+      'You are a senior performance marketer. Respond ONLY with valid JSON array, no markdown, no explanations.';
+
+    const userPrompt = `
+Persona:
+Name: ${persona.name}
+Bio: ${persona.bio}
+Goals: ${goals}
+Pains: ${pains}
+
+Generate 10 high-intent prompts this persona would type into Google or an AI assistant
+right before buying a solution like ours.
+
+For each prompt include:
+- "prompt": exact search / LLM query
+- "intent": "problem-aware" | "solution-aware" | "comparison" | "purchase"
+- "channel": "search-engine" | "llm-assistant"
+
+Return JSON like:
+[
+  { "prompt": "...", "intent": "...", "channel": "..." }
+]`;
+
+    const raw = await callPerplexity(systemPrompt, userPrompt, 'sonar');
+
+    let prompts;
+    try {
+      prompts = JSON.parse(raw);
+    } catch (e1) {
+      const arrayMatch = raw.match(/\[\s*\{[\s\S]*\}\s*\]/);
+      if (!arrayMatch) {
+        throw new Error('Failed to parse LLM response as JSON');
+      }
+      prompts = JSON.parse(arrayMatch[0]);
+    }
+
+    if (!Array.isArray(prompts) || prompts.length === 0) {
+      return res.status(500).json({ error: 'LLM returned no prompts' });
+    }
+
+    return res.json({ persona, prompts });
+  } catch (err) {
+    console.error('❌ Best-persona prompts error:', err.message || err);
+    return res.status(500).json({ error: 'Failed to generate prompts' });
+  }
+});
+
+
 // --- CONTENT GENERATION (WITH PERPLEXITY) ---
 app.post('/api/content/generate', authenticateToken, async (req, res) => {
   try {
