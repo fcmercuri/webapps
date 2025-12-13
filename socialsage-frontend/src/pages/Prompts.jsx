@@ -179,7 +179,7 @@ export default function Prompts() {
                         color: "#9ca3af",
                       }}
                     >
-                      Focus keyword:{" "}
+                      Focus Area:{" "}
                       <span style={{ color: "#ffd945" }}>
                         {p.focusKeyword}
                       </span>
