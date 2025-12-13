@@ -1,3 +1,4 @@
+// src/pages/Prompts.jsx
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import api from "../api/axios";
@@ -7,7 +8,7 @@ export default function Prompts() {
   const [persona, setPersona] = useState(null);
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [volumeLoading, setVolumeLoading] = useState(false);
+  const [keywordLoading, setKeywordLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -15,31 +16,32 @@ export default function Prompts() {
       try {
         setLoading(true);
         setError("");
+        // 1) Get best persona + raw prompts from backend
         const res = await api.get("/api/prompts/best-persona");
-        setPersona(res.data.persona);
+        const personaData = res.data.persona;
         const basePrompts = res.data.prompts || [];
+        setPersona(personaData);
         setPrompts(basePrompts);
 
-        // kick off volume estimation
+        // 2) Ask backend to extract focus keywords for each prompt
         if (basePrompts.length) {
-          setVolumeLoading(true);
+          setKeywordLoading(true);
           try {
-            const volRes = await api.post("/api/prompts/volume", {
+            const kwRes = await api.post("/api/prompts/volume", {
               prompts: basePrompts.map((p) => ({ prompt: p.prompt })),
             });
-            const enriched = volRes.data.prompts || [];
-            // merge volumes back by prompt text
+            const enriched = kwRes.data.prompts || [];
             const byPrompt = {};
-            enriched.forEach((e) => {
-              byPrompt[e.prompt] = e;
+            enriched.forEach((p) => {
+              byPrompt[p.prompt] = p;
             });
             setPrompts(
               basePrompts.map((p) => byPrompt[p.prompt] || p)
             );
-          } catch (volErr) {
-            console.error("Volume estimation failed", volErr);
+          } catch (kwErr) {
+            console.error("Focus keyword extraction failed", kwErr);
           } finally {
-            setVolumeLoading(false);
+            setKeywordLoading(false);
           }
         }
       } catch (err) {
@@ -51,6 +53,7 @@ export default function Prompts() {
         setLoading(false);
       }
     }
+
     loadBestPersonaPrompts();
   }, []);
 
@@ -70,6 +73,7 @@ export default function Prompts() {
       />
 
       <div className="dashboard-main">
+        {/* Mobile header */}
         <div
           className="dashboard-mobile-header"
           style={{ padding: "10px 10px 0" }}
@@ -116,7 +120,7 @@ export default function Prompts() {
                 {persona.name}
               </span>
               . Copy any of them into your favourite LLM or search engine.
-              {volumeLoading && " Estimating search volume…"}
+              {keywordLoading && " Extracting focus keywords…"}
             </p>
           )}
 
@@ -167,7 +171,7 @@ export default function Prompts() {
                     {p.prompt}
                   </p>
 
-                  {(p.seoVolume != null || p.llmVolumeEstimate != null) && (
+                  {p.focusKeyword && (
                     <div
                       style={{
                         marginTop: 6,
@@ -175,14 +179,10 @@ export default function Prompts() {
                         color: "#9ca3af",
                       }}
                     >
-                      {p.seoVolume != null && (
-                        <div>SEO monthly searches: ~{p.seoVolume}</div>
-                      )}
-                      {p.llmVolumeEstimate != null && (
-                        <div>
-                          LLM popularity score (0–100): {p.llmVolumeEstimate}
-                        </div>
-                      )}
+                      Focus keyword:{" "}
+                      <span style={{ color: "#ffd945" }}>
+                        {p.focusKeyword}
+                      </span>
                     </div>
                   )}
                 </div>
