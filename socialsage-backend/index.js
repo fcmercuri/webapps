@@ -684,6 +684,8 @@ app.get('/api/prompts', authenticateToken, async (req, res) => {
 });
 
 // --- BEST-PERSONA PROMPTS (LLM ONLY, NOT STORED) ---
+
+// --- BEST-PERSONA PROMPTS (QUESTION STYLE, NO NAME IN TEXT) ---
 app.get('/api/prompts/best-persona', authenticateToken, async (req, res) => {
   try {
     const persona = await Persona.findOne({ userId: req.userId })
@@ -700,32 +702,30 @@ app.get('/api/prompts/best-persona', authenticateToken, async (req, res) => {
       ? persona.painPoints.join(', ')
       : (persona.painPoints || '');
 
-    // If you later add firstName/lastName fields, build from those instead
-    const fullName = `${persona.name}`.trim();
-
     const systemPrompt =
       'You are a senior performance marketer. Respond ONLY with a valid JSON array, no markdown, no explanations.';
 
     const userPrompt = `
-Persona:
-Name: ${fullName}
-Bio: ${persona.bio}
-Goals: ${goals}
-Pains: ${pains}
+You are designing research and copywriting prompts for an AI assistant.
+The target customer persona has:
+- Bio: ${persona.bio}
+- Goals: ${goals}
+- Pains: ${pains}
 
-Generate 10 high-intent prompts that ${fullName} would type into Google or an AI assistant
-right before buying a solution like ours.
+Generate 10 high‑intent QUESTIONS that a marketer, founder or copywriter
+should ask an AI assistant in order to better understand, persuade, or convert
+this persona. Do NOT mention the persona's name inside the questions.
+Write each question as if you are talking about "this customer" or "this person",
+not by name.
 
-For each prompt, you MUST:
-- Use the full name "${fullName}" exactly (not just the first name).
-- Include fields:
-  - "prompt": exact search / LLM query text, containing the full name "${fullName}"
-  - "intent": "problem-aware" | "solution-aware" | "comparison" | "purchase"
-  - "channel": "search-engine" | "llm-assistant"
+For each item, return:
+- "prompt": the full question to ask the AI (no persona name)
+- "intent": "research" | "message" | "offer" | "objection" | "funnel"
+- "channel": "llm-assistant"
 
 Return JSON ONLY, for example:
 [
-  { "prompt": "...", "intent": "problem-aware", "channel": "search-engine" }
+  { "prompt": "What are the deepest fears this customer has about switching tools?", "intent": "research", "channel": "llm-assistant" }
 ]`;
 
     const raw = await callPerplexity(systemPrompt, userPrompt, 'sonar');
@@ -751,6 +751,7 @@ Return JSON ONLY, for example:
     return res.status(500).json({ error: 'Failed to generate prompts' });
   }
 });
+
 
     
 // --- EXTRACT FOCUS KEYWORD FOR PROMPTS ---
