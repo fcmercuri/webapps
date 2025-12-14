@@ -359,7 +359,8 @@ const cards = [
         color: "#ccc",
         lineHeight: 1.55,
         marginBottom: 6,
-        maxWidth: '34rem',
+        maxWidth: '30rem',
+        alignItems: "center",
       }}
     >
       <strong style={{ color: "#fff" }}>Goals:</strong> Launch a landing page
