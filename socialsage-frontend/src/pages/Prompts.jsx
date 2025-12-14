@@ -131,14 +131,13 @@ export default function Prompts() {
             </p>
           )}
 
-                {persona && prompts.length > 0 && (
+          {persona && prompts.length > 0 && (
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns:
                   "repeat(auto-fit, minmax(260px, 1fr))",
                 gap: 18,
-                marginBottom: 24,
               }}
             >
               {prompts.map((p, idx) => (
@@ -190,59 +189,8 @@ export default function Prompts() {
               ))}
             </div>
           )}
-
-          {/* CTA: Upgrade for more prompts */}
-          <div
-            style={{
-              marginTop: 16,
-              padding: "14px 16px",
-              borderRadius: 12,
-              background: "rgba(250, 204, 21, 0.07)",
-              border: "1px solid rgba(250, 204, 21, 0.4)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              maxWidth: 480,
-            }}
-          >
-            <p
-              style={{
-                margin: 0,
-                color: "#e5e7eb",
-                fontSize: 14,
-                lineHeight: 1.4,
-              }}
-            >
-              Want more high‑intent prompts every week for this persona?
-              Upgrade to the <strong>Starter plan</strong> to unlock larger
-              prompt packs and more generations.
-            </p>
-            <button
-              type="button"
-              onClick={handleUpgradeStarter}
-              disabled={upgradeLoading}
-              style={{
-                alignSelf: "flex-start",
-                marginTop: 4,
-                background: "#facc15",
-                color: "#111827",
-                padding: "8px 16px",
-                borderRadius: 999,
-                fontWeight: 700,
-                fontSize: 13,
-                border: "none",
-                cursor: upgradeLoading ? "default" : "pointer",
-                opacity: upgradeLoading ? 0.7 : 1,
-                boxShadow: "0 4px 12px rgba(250, 204, 21, 0.35)",
-              }}
-            >
-              {upgradeLoading ? "Starting checkout…" : "Upgrade to Starter"}
-            </button>
-          </div>
         </div>
       </div>
     </div>
-  );
-}
   );
 }
