@@ -873,7 +873,7 @@ dozens of questions that reflect realistic, synthetic persona queries
         }}
       >
         One click generates 1.000–1.500 words of conversion-ready copy that speaks directly to your
-        customers&apos; needs. Edit, save, and ship
+        customers&apos; needs. Understand your persona, edit, save, and ship
       </p>
     </motion.div>
   </div>
