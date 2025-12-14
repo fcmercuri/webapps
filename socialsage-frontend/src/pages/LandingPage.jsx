@@ -409,8 +409,6 @@ const cards = [
     </div>
   </motion.div>
 </section>
-
-
 </header>
 
 
