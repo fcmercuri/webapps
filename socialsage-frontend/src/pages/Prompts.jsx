@@ -67,7 +67,7 @@ export default function Prompts() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          priceId: "price_1SdH1fPwyyuQCEbaZt41оxPH",
+          priceId: "price_1SdH1fPwyyuQCEbaZt4loxPH",
           // backend already knows the user from the JWT,
           // so it can attach the correct customer/email
         }),
