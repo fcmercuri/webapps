@@ -1034,7 +1034,7 @@ try {
     to: email,
     subject: 'Reset your sAInthetic password',
     template: {
-      id: process.env.RESEND_RESET_TEMPLATE_ID,
+      id: process.env.untitled-template-1,
       variables: {
         userEmail: email,
         resetLink,
