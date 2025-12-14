@@ -33,14 +33,16 @@ export default function Sidebar({ isOpen, onItemClick }) {
         flexDirection: 'column',
       }}
     >
-      {/* Logo Section */}
+            {/* Logo Section */}
       <div
+        onClick={onItemClick} // close sidebar on mobile when logo is clicked
         style={{
           padding: '30px 20px',
           borderBottom: '1px solid rgba(255, 217, 69, 0.1)',
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
+          cursor: 'pointer', // show it's clickable
         }}
       >
         <img
@@ -67,6 +69,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
           sAInthetic
         </h1>
       </div>
+
 
       {/* Menu Items */}
       <nav
