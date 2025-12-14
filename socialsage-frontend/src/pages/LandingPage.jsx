@@ -411,6 +411,7 @@ const cards = [
     </div> {/* important: closes the maxWidth:520 div */}
   </motion.div>
 </section>
+</header>
 
 
 
