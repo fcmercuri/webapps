@@ -365,9 +365,9 @@ const cards = [
     >
       <div
         style={{
-          fontSize: "0.82rem",
+          fontSize: "0.80rem",
           color: "#ccc",
-          lineHeight: 1.45,
+          lineHeight: 1.40,
           marginBottom: 8,
           maxWidth: "36rem",
         }}
@@ -379,9 +379,9 @@ const cards = [
 
       <div
         style={{
-          fontSize: "0.82rem",
+          fontSize: "0.80rem",
           color: "#ccc",
-          lineHeight: 1.45,
+          lineHeight: 1.40,
           marginBottom: 10,
           maxWidth: "36rem",
         }}
