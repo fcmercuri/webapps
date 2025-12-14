@@ -407,6 +407,7 @@ const cards = [
         week”
       </span>
     </div>
+    </div>
   </motion.div>
 </section>
 </header>
