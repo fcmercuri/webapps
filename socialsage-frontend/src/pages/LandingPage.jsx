@@ -284,12 +284,12 @@ const cards = [
 
 
   
- {/* Right: AI persona banner */}
+{/* Right: AI persona banner */}
 <section
   style={{
     width: "100%",
-    maxWidth: 700,
-    margin: "0 auto",
+    maxWidth: 720,
+    margin: "18px auto 0 auto",
     padding: "0 16px 24px 16px",
     boxSizing: "border-box",
   }}
@@ -302,25 +302,26 @@ const cards = [
       background:
         "radial-gradient(circle at 0% 0%, #ffd94522, transparent 60%), #14141f",
       borderRadius: 20,
-      padding: "1.6rem 1.4rem",
+      padding: "1.6rem 1.8rem",
       boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
       border: "1px solid rgba(255, 217, 69, 0.3)",
       position: "relative",
       overflow: "hidden",
     }}
   >
+    {/* Top row: icon + name */}
     <div
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 12,
-        marginBottom: 4,
+        gap: 14,
+        marginBottom: 10,
       }}
     >
       <div
         style={{
-          width: 52,
-          height: 52,
+          width: 54,
+          height: 54,
           borderRadius: "999px",
           background:
             "radial-gradient(circle at 30% 20%, #ffd945, #ffb347 45%, #23243a 100%)",
@@ -349,63 +350,55 @@ const cards = [
             fontWeight: 600,
           }}
         >
-          AI‑generated ideal customer persona
+          AI-generated ideal customer persona
         </div>
       </div>
     </div>
 
-    {/* Content block */}
+    {/* Body copy */}
     <div
       style={{
-        maxWidth: 520, /* or 480–520 */
+        maxWidth: 600,
         margin: "0 auto",
         textAlign: "left",
       }}
     >
-    <div
-  style={{
-    fontSize: "0.82rem",           // slightly smaller
-    color: "#ccc",
-    lineHeight: 1.45,              // tighter lines
-    marginBottom: 6,
-    maxWidth: "36rem",             // allow more width inside card
-  }}
->
-  <strong style={{ color: "#fff" }}>Goals:</strong>{" "}
-  Launch a landing page that drives organic trial sign‑ups and upgrades
-  without increasing paid acquisitions spend
-</div>
-
-
-       <div
-      style={{
-        maxWidth: 520, /* or 480–520 */
-        margin: "0 auto",
-        textAlign: "left",
-      }}
-    >
-    <div
-  style={{
-    fontSize: "0.82rem",           // slightly smaller
-    color: "#ccc",
-    lineHeight: 1.45,              // tighter lines
-    marginBottom: 6,
-    maxWidth: "36rem",             // allow more width inside card
-  }}
+      <div
+        style={{
+          fontSize: "0.82rem",
+          color: "#ccc",
+          lineHeight: 1.45,
+          marginBottom: 8,
+          maxWidth: "36rem",
+        }}
       >
-        <strong style={{ color: "#fff" }}>Pain points:</strong> Unclear
-        messaging, low engagement on social posts, and guesswork about what
-        prospects ask LLMs
+        <strong style={{ color: "#fff" }}>Goals:</strong>{" "}
+        Launch a landing page that drives organic trial sign-ups and upgrades
+        without increasing paid acquisitions spend
       </div>
 
       <div
         style={{
-          marginTop: 10,
+          fontSize: "0.82rem",
+          color: "#ccc",
+          lineHeight: 1.45,
+          marginBottom: 10,
+          maxWidth: "36rem",
+        }}
+      >
+        <strong style={{ color: "#fff" }}>Pain points:</strong>{" "}
+        Unclear messaging, low engagement on social posts, and guesswork about
+        what prospects ask LLMs
+      </div>
+
+      <div
+        style={{
+          marginTop: 6,
           padding: "0.65rem 0.9rem",
-          borderRadius: 12,
+          borderRadius: 14,
           background: "rgba(12, 180, 120, 0.14)",
           border: "1px solid rgba(12, 180, 120, 0.4)",
-          fontSize: "0.82rem",
+          fontSize: "0.84rem",
           color: "#a5ffcf",
           display: "flex",
           alignItems: "center",
@@ -418,7 +411,7 @@ const cards = [
           questions this week”
         </span>
       </div>
-    </div> {/* important: closes the maxWidth:520 div */}
+    </div>
   </motion.div>
 </section>
 </header>
