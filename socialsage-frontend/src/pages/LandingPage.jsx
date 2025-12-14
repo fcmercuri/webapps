@@ -283,14 +283,15 @@ const cards = [
 
 
 
-  {/* Right: AI persona banner */}
-  <section
+  
+ {/* Right: AI persona banner */}
+<section
   style={{
-    width: "100%",
+    width: '100%',
     maxWidth: 700,
-    margin: "0 auto",
-    padding: "0 16px 24px 16px",
-    boxSizing: "border-box",
+    margin: '0 auto',
+    padding: '0 16px 24px 16px',
+    boxSizing: 'border-box',
   }}
 >
   <motion.div
@@ -299,108 +300,53 @@ const cards = [
     transition={{ duration: 0.7, delay: 0.25 }}
     style={{
       background:
-        "radial-gradient(circle at 0% 0%, #ffd94522, transparent 60%), #14141f",
+        'radial-gradient(circle at 0% 0%, #ffd94522, transparent 60%), #14141f',
       borderRadius: 20,
-      padding: "1.6rem 1.4rem",
-      boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
-      border: "1px solid rgba(255, 217, 69, 0.3)",
-      position: "relative",
-      overflow: "hidden",
+      padding: '1.6rem 1.4rem',
+      boxShadow: '0 24px 80px rgba(0,0,0,0.7)',
+      border: '1px solid rgba(255, 217, 69, 0.3)',
+      position: 'relative',
+      overflow: 'hidden',
     }}
   >
+    {/* header unchanged ... */}
+
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 12,
-        marginBottom: 4,
+        maxWidth: 520,        // limit paragraph width
+        textAlign: 'left',
       }}
     >
       <div
         style={{
-          width: 52,
-          height: 52,
-          borderRadius: "999px",
-          background:
-            "radial-gradient(circle at 30% 20%, #ffd945, #ffb347 45%, #23243a 100%)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxShadow: "0 0 0 3px rgba(255, 217, 69, 0.25)",
+          fontSize: '0.9rem',
+          color: '#ccc',
+          lineHeight: 1.55,
+          marginBottom: 6,
         }}
       >
-        <span style={{ fontSize: 26 }}>🧠</span>
+        <strong style={{ color: '#fff' }}>Goals:</strong>{' '}
+        Launch a landing page that drives organic trial sign‑ups and upgrades
+        without increasing paid acquisitions spend.
       </div>
-      <div>
-        <div
-          style={{
-            fontWeight: 800,
-            fontSize: "0.98rem",
-            color: "#fff",
-          }}
-        >
-          Sofia, SaaS Marketing Lead
-        </div>
-        <div
-          style={{
-            fontSize: "0.86rem",
-            color: "#ffd945",
-            fontWeight: 600,
-          }}
-        >
-          AI‑generated ideal customer persona
-        </div>
+
+      <div
+        style={{
+          fontSize: '0.9rem',
+          color: '#ccc',
+          lineHeight: 1.55,
+        }}
+      >
+        <strong style={{ color: '#fff' }}>Pain points:</strong>{' '}
+        Unclear messaging, low engagement on social posts, and guesswork about
+        what prospects ask LLMs.
       </div>
     </div>
 
-    <div
-      style={{
-        fontSize: "0.9rem",
-        color: "#ccc",
-        lineHeight: 1.55,
-        marginBottom: 6,
-        maxWidth: '30rem',
-        alignItems: "center",
-      }}
-    >
-      <strong style={{ color: "#fff" }}>Goals:</strong> Launch a landing page
-      that drives organic trial sign‑ups and upgrades without increasing paid acquisitions spend
-    </div>
-
-    <div
-      style={{
-        fontSize: "0.9rem",
-        color: "#ccc",
-        lineHeight: 1.55,
-      }}
-    >
-      <strong style={{ color: "#fff" }}>Pain points:</strong> Unclear
-      messaging, low engagement on social posts, and guesswork about what
-      prospects ask LLMs
-    </div>
-
-    <div
-      style={{
-        marginTop: 10,
-        padding: "0.65rem 0.9rem",
-        borderRadius: 12,
-        background: "rgba(12, 180, 120, 0.14)",
-        border: "1px solid rgba(12, 180, 120, 0.4)",
-        fontSize: "0.86rem",
-        color: "#a5ffcf",
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-      }}
-    >
-      <span>✨</span>
-      <span>
-        “Show me 5 content ideas that answer Sofia&apos;s top synthetic questions this
-        week”
-      </span>
-    </div>
+    {/* CTA block unchanged */}
   </motion.div>
 </section>
+
 
 </header>
 
