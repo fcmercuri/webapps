@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import api from "../api/axios";
+import { useAuth } from "../auth/AuthContext";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -13,6 +14,8 @@ export default function Prompts() {
   const [keywordLoading, setKeywordLoading] = useState(false);
   const [error, setError] = useState("");
   const [upgradeLoading, setUpgradeLoading] = useState(false);
+
+  const { user } = useAuth(); // get current user (with plan)
 
   useEffect(() => {
     async function loadBestPersonaPrompts() {
@@ -68,8 +71,6 @@ export default function Prompts() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           priceId: "price_1SdH1fPwyyuQCEbaZt4loxPH",
-          // backend already knows the user from the JWT,
-          // so it can attach the correct customer/email
         }),
       });
 
@@ -85,6 +86,8 @@ export default function Prompts() {
       setUpgradeLoading(false);
     }
   }
+
+  const isFreePlan = !user || !user.plan || user.plan === "free";
 
   return (
     <div
@@ -220,54 +223,56 @@ export default function Prompts() {
             </div>
           )}
 
-          {/* CTA: Upgrade for more prompts */}
-          <div
-            style={{
-              marginTop: 16,
-              padding: "14px 16px",
-              borderRadius: 12,
-              background: "rgba(250, 204, 21, 0.07)",
-              border: "1px solid rgba(250, 204, 21, 0.4)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              maxWidth: 480,
-            }}
-          >
-            <p
+          {/* CTA: Upgrade for more prompts – only for free plan users */}
+          {isFreePlan && (
+            <div
               style={{
-                margin: 0,
-                color: "#e5e7eb",
-                fontSize: 14,
-                lineHeight: 1.4,
+                marginTop: 16,
+                padding: "14px 16px",
+                borderRadius: 12,
+                background: "rgba(250, 204, 21, 0.07)",
+                border: "1px solid rgba(250, 204, 21, 0.4)",
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+                maxWidth: 480,
               }}
             >
-              Want more high‑intent prompts every week for this persona?
-              Upgrade to the <strong>Starter plan</strong> to unlock larger
-              prompt packs and more generations.
-            </p>
-            <button
-              type="button"
-              onClick={handleUpgradeStarter}
-              disabled={upgradeLoading}
-              style={{
-                alignSelf: "flex-start",
-                marginTop: 4,
-                background: "#facc15",
-                color: "#111827",
-                padding: "8px 16px",
-                borderRadius: 999,
-                fontWeight: 700,
-                fontSize: 13,
-                border: "none",
-                cursor: upgradeLoading ? "default" : "pointer",
-                opacity: upgradeLoading ? 0.7 : 1,
-                boxShadow: "0 4px 12px rgba(250, 204, 21, 0.35)",
-              }}
-            >
-              {upgradeLoading ? "Starting checkout…" : "Upgrade to Starter"}
-            </button>
-          </div>
+              <p
+                style={{
+                  margin: 0,
+                  color: "#e5e7eb",
+                  fontSize: 14,
+                  lineHeight: 1.4,
+                }}
+              >
+                Want more high‑intent prompts every week for this persona?
+                Upgrade to the <strong>Starter plan</strong> to unlock larger
+                prompt packs and more generations.
+              </p>
+              <button
+                type="button"
+                onClick={handleUpgradeStarter}
+                disabled={upgradeLoading}
+                style={{
+                  alignSelf: "flex-start",
+                  marginTop: 4,
+                  background: "#facc15",
+                  color: "#111827",
+                  padding: "8px 16px",
+                  borderRadius: 999,
+                  fontWeight: 700,
+                  fontSize: 13,
+                  border: "none",
+                  cursor: upgradeLoading ? "default" : "pointer",
+                  opacity: upgradeLoading ? 0.7 : 1,
+                  boxShadow: "0 4px 12px rgba(250, 204, 21, 0.35)",
+                }}
+              >
+                {upgradeLoading ? "Starting checkout…" : "Upgrade to Starter"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
