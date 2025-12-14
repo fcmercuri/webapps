@@ -396,7 +396,7 @@ const cards = [
           borderRadius: 12,
           background: "rgba(12, 180, 120, 0.14)",
           border: "1px solid rgba(12, 180, 120, 0.4)",
-          fontSize: "0.86rem",
+          fontSize: "0.82rem",
           color: "#a5ffcf",
           display: "flex",
           alignItems: "center",
