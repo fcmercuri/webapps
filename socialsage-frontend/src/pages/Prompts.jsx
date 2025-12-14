@@ -131,7 +131,7 @@ export default function Prompts() {
             </p>
           )}
 
-               {persona && prompts.length > 0 && (
+                {persona && prompts.length > 0 && (
             <div
               style={{
                 display: "grid",
@@ -214,11 +214,13 @@ export default function Prompts() {
               }}
             >
               Want more high‑intent prompts every week for this persona?
-              Upgrade to the <strong>Starter plan</strong> to unlock advanced
+              Upgrade to the <strong>Starter plan</strong> to unlock larger
               prompt packs and more generations.
             </p>
-            <a
-              href="https://buy.stripe.com/your-starter-plan-link" // <-- replace with your real Starter checkout/portal URL
+            <button
+              type="button"
+              onClick={handleUpgradeStarter}
+              disabled={upgradeLoading}
               style={{
                 alignSelf: "flex-start",
                 marginTop: 4,
@@ -228,13 +230,19 @@ export default function Prompts() {
                 borderRadius: 999,
                 fontWeight: 700,
                 fontSize: 13,
-                textDecoration: "none",
+                border: "none",
+                cursor: upgradeLoading ? "default" : "pointer",
+                opacity: upgradeLoading ? 0.7 : 1,
                 boxShadow: "0 4px 12px rgba(250, 204, 21, 0.35)",
               }}
             >
-              Upgrade to Starter
-            </a>
+              {upgradeLoading ? "Starting checkout…" : "Upgrade to Starter"}
+            </button>
           </div>
-
+        </div>
+      </div>
+    </div>
+  );
+}
   );
 }
