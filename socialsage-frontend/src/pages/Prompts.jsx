@@ -246,7 +246,7 @@ export default function Prompts() {
                   lineHeight: 1.4,
                 }}
               >
-                Want more high‑intent prompts every week for this persona?
+                Want more high‑intent prompts every week for your personas?
                 Upgrade to the <strong>Starter plan</strong> to unlock larger
                 prompt packs and more generations.
               </p>
