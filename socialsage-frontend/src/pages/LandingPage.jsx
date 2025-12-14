@@ -285,7 +285,7 @@ const cards = [
 
   
  {/* Right: AI persona banner */}
-  <section
+<section
   style={{
     width: "100%",
     maxWidth: 700,
@@ -354,63 +354,64 @@ const cards = [
       </div>
     </div>
 
-  <div
-  style={{
-    maxWidth: 520,        // or 480–520
-    margin: '0 auto',
-    textAlign: 'left',
-  }}
->
+    {/* Content block */}
     <div
       style={{
-        fontSize: "0.9rem",
-        color: "#ccc",
-        lineHeight: 1.55,
-        marginBottom: 6,
-        maxWidth: '30rem',
-        alignItems: "center",
+        maxWidth: 520, /* or 480–520 */
+        margin: "0 auto",
+        textAlign: "left",
       }}
     >
-      <strong style={{ color: "#fff" }}>Goals:</strong> Launch a landing page
-      that drives organic trial sign‑ups and upgrades without increasing paid acquisitions spend
-    </div>
+      <div
+        style={{
+          fontSize: "0.9rem",
+          color: "#ccc",
+          lineHeight: 1.55,
+          marginBottom: 6,
+          maxWidth: "30rem",
+        }}
+      >
+        <strong style={{ color: "#fff" }}>Goals:</strong> Launch a landing page
+        that drives organic trial sign‑ups and upgrades without increasing paid
+        acquisitions spend
+      </div>
 
-    <div
-      style={{
-        fontSize: "0.9rem",
-        color: "#ccc",
-        lineHeight: 1.55,
-      }}
-    >
-      <strong style={{ color: "#fff" }}>Pain points:</strong> Unclear
-      messaging, low engagement on social posts, and guesswork about what
-      prospects ask LLMs
-    </div>
+      <div
+        style={{
+          fontSize: "0.9rem",
+          color: "#ccc",
+          lineHeight: 1.55,
+        }}
+      >
+        <strong style={{ color: "#fff" }}>Pain points:</strong> Unclear
+        messaging, low engagement on social posts, and guesswork about what
+        prospects ask LLMs
+      </div>
 
-    <div
-      style={{
-        marginTop: 10,
-        padding: "0.65rem 0.9rem",
-        borderRadius: 12,
-        background: "rgba(12, 180, 120, 0.14)",
-        border: "1px solid rgba(12, 180, 120, 0.4)",
-        fontSize: "0.86rem",
-        color: "#a5ffcf",
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-      }}
-    >
-      <span>✨</span>
-      <span>
-        “Show me 5 content ideas that answer Sofia&apos;s top synthetic questions this
-        week”
-      </span>
-    </div>
-    </div>
+      <div
+        style={{
+          marginTop: 10,
+          padding: "0.65rem 0.9rem",
+          borderRadius: 12,
+          background: "rgba(12, 180, 120, 0.14)",
+          border: "1px solid rgba(12, 180, 120, 0.4)",
+          fontSize: "0.86rem",
+          color: "#a5ffcf",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
+        <span>✨</span>
+        <span>
+          “Show me 5 content ideas that answer Sofia&apos;s top synthetic
+          questions this week”
+        </span>
+      </div>
+    </div> {/* important: closes the maxWidth:520 div */}
   </motion.div>
 </section>
-</header>
+
 
 
 
