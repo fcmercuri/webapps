@@ -361,8 +361,8 @@ const cards = [
         marginBottom: 6,
       }}
     >
-      <strong style={{ color: "#fff" }}>Goals:</strong> Launch a content engine
-      that drives trial sign‑ups and upgrades without increasing ad spend
+      <strong style={{ color: "#fff" }}>Goals:</strong> Launch a landing page
+      that drives organic trial sign‑ups and upgrades without increasing paid acquisitions spend
     </div>
 
     <div
