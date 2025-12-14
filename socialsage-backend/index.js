@@ -812,12 +812,6 @@ app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
   }
 });
 
-      
-
-      
-
-
-
 
 // --- CONTENT GENERATION (WITH PERPLEXITY) ---
 app.post('/api/content/generate', authenticateToken, async (req, res) => {
@@ -835,13 +829,21 @@ app.post('/api/content/generate', authenticateToken, async (req, res) => {
 
     const user = await User.findById(req.userId);
     const contentCount = await Content.countDocuments({ userId: req.userId });
+
+    // NEW: limit free users to 5 content items total
+    if ((user.plan === 'free' || !user.plan) && contentCount >= 5) {
+      return res.status(403).json({
+        error:
+          'Free plan allows up to 5 content items. Upgrade to Starter or Pro for more.',
+      });
+    }
+
+    // Existing limit: Starter users up to 50 items
     if (user.plan === 'starter' && contentCount >= 50) {
-      return res
-        .status(403)
-        .json({
-          error:
-            'Starter plan allows up to 50 content items. Upgrade to Pro for unlimited content.',
-        });
+      return res.status(403).json({
+        error:
+          'Starter plan allows up to 50 content items. Upgrade to Pro for unlimited content.',
+      });
     }
 
     const persona = prompt.personaId;
@@ -856,9 +858,13 @@ Description: ${prompt.description}
 Category: ${prompt.category}
 
 Target Persona:
-- Name: ${persona.name}
-- Goals: ${persona.goals.join(', ')}
-- Pain Points: ${persona.painPoints.join(', ')}
+- Bio: ${persona.bio}
+- Goals: ${Array.isArray(persona.goals) ? persona.goals.join(', ') : persona.goals}
+- Pain Points: ${
+      Array.isArray(persona.painPoints)
+        ? persona.painPoints.join(', ')
+        : persona.painPoints
+    }
 
 Act as the best content writer and write 1300-1500 words of compelling copy that:
 1. Addresses their pain points
@@ -892,6 +898,7 @@ Return ONLY the content text (no JSON, no markdown formatting).`;
     });
   }
 });
+
 
 // GET billing summary – REAL
 app.get('/api/billing', authenticateToken, async (req, res) => {
