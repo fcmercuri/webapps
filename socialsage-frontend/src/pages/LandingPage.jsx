@@ -377,14 +377,12 @@ const cards = [
 </div>
 
 
-      <div
-  style={{
-    fontSize: "0.82rem",           // slightly smaller
-    color: "#ccc",
-    lineHeight: 1.45,              // tighter lines
-    marginBottom: 6,
-    maxWidth: "36rem",             // allow more width inside card
-  }}
+       <div
+      style={{
+        maxWidth: 520, /* or 480–520 */
+        margin: "0 auto",
+        textAlign: "left",
+      }}
       >
         <strong style={{ color: "#fff" }}>Pain points:</strong> Unclear
         messaging, low engagement on social posts, and guesswork about what
