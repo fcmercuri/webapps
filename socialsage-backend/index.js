@@ -335,18 +335,24 @@ app.post('/api/auth/register', async (req, res) => {
     console.log('✅ User registered:', email);
 
     // Send welcome email (non-blocking for user)
-    try {
-      await resend.emails.send({
-        from: process.env.FROM_EMAIL,
-        to: email,
-        subject: 'Welcome to sAInthetic',
-        text: 'Your account has been created successfully. You can now log in and start using sAInthetic.',
-      });
-      console.log('Sent welcome email to', email);
-    } catch (err) {
-      console.error('Welcome email error:', err);
-      // Do not fail registration if email sending fails
-    }
+try {
+  await resend.emails.send({
+    from: process.env.FROM_EMAIL,
+    to: email,
+    subject: 'Welcome to sAInthetic',
+    template: {
+      id: process.env.RESEND_WELCOME_TEMPLATE_ID,
+      variables: {
+        userEmail: email,
+        year: new Date().getFullYear(),
+      },
+    },
+  });
+  console.log('Sent welcome email to', email);
+} catch (err) {
+  console.error('Welcome email error:', err);
+}
+
 
     res.status(201).json({ message: 'User registered' });
   } catch (err) {
@@ -1024,15 +1030,23 @@ app.post('/api/auth/forgot-password', async (req, res) => {
 
 try {
   await resend.emails.send({
-    from: process.env.FROM_EMAIL,   // set this in env to a verified sender
+    from: process.env.FROM_EMAIL,
     to: email,
-    subject: 'Reset your SocialSage password',
-    text: `Click this link to reset your password: ${resetLink}`,
+    subject: 'Reset your sAInthetic password',
+    template: {
+      id: process.env.RESEND_RESET_TEMPLATE_ID,
+      variables: {
+        userEmail: email,
+        resetLink,
+        year: new Date().getFullYear(),
+      },
+    },
   });
   console.log('Sent reset email to', email, resetLink);
 } catch (err) {
   console.error('Email send error:', err);
 }
+
 
 // Always respond to frontend
 res.json({ message: 'If the account exists, an email was sent.' });     
