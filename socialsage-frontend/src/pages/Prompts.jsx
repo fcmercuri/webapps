@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import api from "../api/axios";
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 export default function Prompts() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [persona, setPersona] = useState(null);
@@ -10,6 +12,7 @@ export default function Prompts() {
   const [loading, setLoading] = useState(true);
   const [keywordLoading, setKeywordLoading] = useState(false);
   const [error, setError] = useState("");
+  const [upgradeLoading, setUpgradeLoading] = useState(false);
 
   useEffect(() => {
     async function loadBestPersonaPrompts() {
@@ -35,9 +38,7 @@ export default function Prompts() {
             enriched.forEach((p) => {
               byPrompt[p.prompt] = p;
             });
-            setPrompts(
-              basePrompts.map((p) => byPrompt[p.prompt] || p)
-            );
+            setPrompts(basePrompts.map((p) => byPrompt[p.prompt] || p));
           } catch (kwErr) {
             console.error("Focus keyword extraction failed", kwErr);
           } finally {
@@ -56,6 +57,34 @@ export default function Prompts() {
 
     loadBestPersonaPrompts();
   }, []);
+
+  async function handleUpgradeStarter() {
+    try {
+      setUpgradeLoading(true);
+      setError("");
+
+      const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          priceId: "price_1SdH1fPwyyuQCEbaZt41оxPH",
+          // backend already knows the user from the JWT,
+          // so it can attach the correct customer/email
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Failed to start upgrade checkout");
+      }
+      window.location = data.url;
+    } catch (err) {
+      console.error("Upgrade error:", err);
+      setError(err.message || "Failed to start upgrade checkout");
+    } finally {
+      setUpgradeLoading(false);
+    }
+  }
 
   return (
     <div
@@ -138,6 +167,7 @@ export default function Prompts() {
                 gridTemplateColumns:
                   "repeat(auto-fit, minmax(260px, 1fr))",
                 gap: 18,
+                marginBottom: 24,
               }}
             >
               {prompts.map((p, idx) => (
@@ -189,6 +219,55 @@ export default function Prompts() {
               ))}
             </div>
           )}
+
+          {/* CTA: Upgrade for more prompts */}
+          <div
+            style={{
+              marginTop: 16,
+              padding: "14px 16px",
+              borderRadius: 12,
+              background: "rgba(250, 204, 21, 0.07)",
+              border: "1px solid rgba(250, 204, 21, 0.4)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              maxWidth: 480,
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                color: "#e5e7eb",
+                fontSize: 14,
+                lineHeight: 1.4,
+              }}
+            >
+              Want more high‑intent prompts every week for this persona?
+              Upgrade to the <strong>Starter plan</strong> to unlock larger
+              prompt packs and more generations.
+            </p>
+            <button
+              type="button"
+              onClick={handleUpgradeStarter}
+              disabled={upgradeLoading}
+              style={{
+                alignSelf: "flex-start",
+                marginTop: 4,
+                background: "#facc15",
+                color: "#111827",
+                padding: "8px 16px",
+                borderRadius: 999,
+                fontWeight: 700,
+                fontSize: 13,
+                border: "none",
+                cursor: upgradeLoading ? "default" : "pointer",
+                opacity: upgradeLoading ? 0.7 : 1,
+                boxShadow: "0 4px 12px rgba(250, 204, 21, 0.35)",
+              }}
+            >
+              {upgradeLoading ? "Starting checkout…" : "Upgrade to Starter"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
