@@ -361,32 +361,31 @@ const cards = [
     textAlign: 'left',
   }}
 >
-  <div
-    style={{
-      fontSize: '0.9rem',
-      color: '#ccc',
-      lineHeight: 1.55,
-      marginBottom: 6,
-    }}
-  >
-    <strong style={{ color: '#fff' }}>Goals:</strong>{' '}
-    Launch a landing page that drives organic trial sign‑ups and upgrades
-    without increasing paid acquisitions spend.
-  </div>
+    <div
+      style={{
+        fontSize: "0.9rem",
+        color: "#ccc",
+        lineHeight: 1.55,
+        marginBottom: 6,
+        maxWidth: '30rem',
+        alignItems: "center",
+      }}
+    >
+      <strong style={{ color: "#fff" }}>Goals:</strong> Launch a landing page
+      that drives organic trial sign‑ups and upgrades without increasing paid acquisitions spend
+    </div>
 
-  <div
-    style={{
-      fontSize: '0.9rem',
-      color: '#ccc',
-      lineHeight: 1.55,
-    }}
-  >
-    <strong style={{ color: '#fff' }}>Pain points:</strong>{' '}
-    Unclear messaging, low engagement on social posts, and guesswork about what
-    prospects ask LLMs.
-  </div>
-</div>
-
+    <div
+      style={{
+        fontSize: "0.9rem",
+        color: "#ccc",
+        lineHeight: 1.55,
+      }}
+    >
+      <strong style={{ color: "#fff" }}>Pain points:</strong> Unclear
+      messaging, low engagement on social posts, and guesswork about what
+      prospects ask LLMs
+    </div>
 
     <div
       style={{
