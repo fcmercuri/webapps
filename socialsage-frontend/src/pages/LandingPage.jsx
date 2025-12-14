@@ -94,7 +94,7 @@ const cards = [
     ]
   },
   {
-    title: "Topic Trends Generator",
+    title: "Topic Prompts Generator",
     desc: "Get trending content ideas based on synthetic queries and LLM prompts",
     expandedContent: [
       "✓ Real-time trending topics from AI search queries",
