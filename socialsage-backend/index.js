@@ -1034,7 +1034,7 @@ try {
     to: email,
     subject: 'Reset your sAInthetic password',
     template: {
-      id: process.env.untitled-template-1,
+      id: process.env.RESEND_RESET_TEMPLATE_ID,   // <– env var name
       variables: {
         userEmail: email,
         resetLink,
@@ -1046,6 +1046,7 @@ try {
 } catch (err) {
   console.error('Email send error:', err);
 }
+
 
 
 // Always respond to frontend
