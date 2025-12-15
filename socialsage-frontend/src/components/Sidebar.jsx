@@ -33,7 +33,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
         flexDirection: 'column',
       }}
     >
-            {/* Logo Section */}
+      {/* Logo Section */}
       <div
         onClick={onItemClick} // close sidebar on mobile when logo is clicked
         style={{
@@ -70,11 +70,10 @@ export default function Sidebar({ isOpen, onItemClick }) {
         </h1>
       </div>
 
-
       {/* Menu Items */}
       <nav
         style={{
-          padding: '20px 10px',
+          padding: '20px 10px 8px 10px',
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -83,7 +82,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
           <Link
             key={i}
             to={item.path}
-            onClick={onItemClick}  // close sidebar on mobile after click
+            onClick={onItemClick} // close sidebar on mobile after click
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -110,6 +109,69 @@ export default function Sidebar({ isOpen, onItemClick }) {
           </Link>
         ))}
       </nav>
+
+      {/* Premium: Schema FAQs (blurred, locked) */}
+      <div
+        style={{
+          padding: '0 10px 12px 10px',
+        }}
+      >
+        <div
+          style={{
+            position: 'relative',
+            margin: '4px 0',
+            borderRadius: '10px',
+            overflow: 'hidden',
+            cursor: 'default',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '10px 16px',
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 217, 69, 0.25)',
+              backdropFilter: 'blur(4px)',
+              WebkitBackdropFilter: 'blur(4px)',
+            }}
+          >
+            <span
+              style={{
+                color: '#777',
+                fontWeight: 600,
+                fontSize: '0.95rem',
+                lineHeight: 1.2,
+              }}
+            >
+              Schema FAQs
+            </span>
+            <span
+              style={{
+                marginTop: 4,
+                fontSize: '0.7rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                color: '#ffd945',
+                opacity: 0.8,
+              }}
+            >
+              premium
+            </span>
+          </div>
+
+          {/* Dark / blur overlay to make it feel locked */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background:
+                'linear-gradient(90deg, rgba(11,11,11,0.0) 0%, rgba(11,11,11,0.7) 40%, rgba(11,11,11,0.9) 100%)',
+              pointerEvents: 'none',
+            }}
+          />
+        </div>
+      </div>
 
       {/* Logout Button */}
       <div style={{ padding: '20px' }}>
