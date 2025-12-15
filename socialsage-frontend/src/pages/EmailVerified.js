@@ -1,13 +1,3 @@
-
-
-
-
-
-
-fvfra152@gmail.com
-
-
-
 // src/pages/EmailVerified.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
