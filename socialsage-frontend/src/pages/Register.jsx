@@ -13,6 +13,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState(""); // NEW: success message
   const [loading, setLoading] = useState(false);
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -33,6 +34,7 @@ export default function Register() {
     onSuccess: async (tokenResponse) => {
       try {
         setError("");
+        setSuccessMsg(""); // Clear success
 
         const res = await fetch(`${BASE_URL}/api/auth/google-login`, {
           method: "POST",
@@ -57,6 +59,7 @@ export default function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
+    setSuccessMsg(""); // Clear previous messages
 
     if (!email || !password || !confirmPassword) {
       setError("All fields are required");
@@ -95,9 +98,17 @@ export default function Register() {
         throw new Error(registerData?.error || "Registration failed");
       }
 
+      // ✅ NEW: Show email confirmation message - NO AUTO LOGIN
+      setSuccessMsg("✅ Check your email to confirm your account!");
+      
+      // Clear form for better UX
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+
       const upgradePriceId = localStorage.getItem("upgradePriceId");
       if (upgradePriceId) {
-        // PREMIUM FLOW – go to Stripe
+        // PREMIUM FLOW – go to Stripe (still works)
         localStorage.removeItem("upgradePriceId");
 
         const res = await fetch(`${BASE_URL}/api/create-checkout-session`, {
@@ -123,12 +134,8 @@ export default function Register() {
         const url = data?.url;
         if (url) window.location = url;
         else setError("Failed to retrieve payment URL.");
-      } else {
-        // FREE FLOW: user registered — auto-login and go to welcome
-        localStorage.setItem("firstLogin", "true");
-        loginSuccess(registerData.token, registerData.user);
-        navigate("/welcome");
       }
+      // FREE FLOW: No auto-login, just show success message
     } catch (err) {
       setError(err.message || "Registration failed");
     } finally {
@@ -269,6 +276,23 @@ export default function Register() {
             />
           </div>
 
+          {/* NEW: Success message */}
+          {successMsg && (
+            <div
+              style={{
+                background: "rgba(34, 197, 94, 0.1)",
+                border: "1px solid rgba(34, 197, 94, 0.3)",
+                color: "#10b981",
+                padding: "12px 14px",
+                borderRadius: "8px",
+                fontSize: "0.9rem",
+              }}
+            >
+              {successMsg}
+            </div>
+          )}
+
+          {/* Error message */}
           {error && (
             <div
               style={{
@@ -286,23 +310,23 @@ export default function Register() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !!successMsg} // Disable when success
             style={{
               width: "100%",
-              background: "#ffd945",
+              background: successMsg ? "#6b7280" : "#ffd945", // Gray when success
               color: "#191919",
               border: "none",
               padding: "13px 20px",
               borderRadius: "10px",
               fontWeight: 700,
               fontSize: "1rem",
-              cursor: "pointer",
+              cursor: successMsg ? "not-allowed" : "pointer",
               opacity: loading ? 0.6 : 1,
               marginTop: "10px",
               boxShadow: "0 8px 20px rgba(255, 217, 69, 0.2)",
             }}
           >
-            {loading ? "Creating Account..." : "Create Account"}
+            {loading ? "Creating Account..." : successMsg ? "Account Created!" : "Create Account"}
           </button>
         </form>
 
