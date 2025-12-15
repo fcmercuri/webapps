@@ -370,6 +370,13 @@ app.post('/api/auth/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
+    // NEW: block unverified users
+    if (!user.emailVerified) {
+      return res
+        .status(403)
+        .json({ error: 'Please confirm your email before logging in.' });
+    }
+
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(400).json({ error: 'Invalid credentials' });
 
