@@ -358,23 +358,45 @@ app.post('/api/auth/register', async (req, res) => {
 });
 
 // --- AUTH: VERIFY EMAIL ---
+
 app.get('/api/auth/verify-email/:token', async (req, res) => {
   try {
     const { token } = req.params;
+    console.log('🔐 Verify hit with token:', token);
 
-    const user = await User.findOne({
+    // 1) Try to find user with matching token and valid expiry
+    let user = await User.findOne({
       emailVerifyToken: token,
       emailVerifyExpires: { $gt: Date.now() },
     });
 
     if (!user) {
+      // 2) Maybe user is already verified and token cleared (link reused)
+      const already = await User.findOne({
+        emailVerified: true,
+        emailVerifyToken: { $in: [null, undefined] },
+      });
+
+      if (already) {
+        console.log('✅ Link reused, user already verified:', already.email);
+        const baseUrl =
+          process.env.NODE_ENV === 'production'
+            ? 'https://socialsage-frontend.onrender.com'
+            : 'http://localhost:3000';
+
+        return res.redirect(`${baseUrl}/email-verified`);
+      }
+
+      console.log('❌ No user for verify token or token expired');
       return res.status(400).send('Verification link is invalid or expired.');
     }
 
+    // 3) First-time valid verification
     user.emailVerified = true;
     user.emailVerifyToken = undefined;
     user.emailVerifyExpires = undefined;
     await user.save();
+    console.log('✅ Email verified for:', user.email);
 
     const baseUrl =
       process.env.NODE_ENV === 'production'
@@ -387,6 +409,7 @@ app.get('/api/auth/verify-email/:token', async (req, res) => {
     res.status(500).send('Failed to verify email.');
   }
 });
+
 
 // --- AUTH: LOGIN ---
 app.post('/api/auth/login', async (req, res) => {
