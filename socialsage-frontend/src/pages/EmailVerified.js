@@ -6,8 +6,7 @@ export default function EmailVerified() {
   const navigate = useNavigate();
 
   const handleContinue = () => {
-    // user still needs to log in after confirming email
-    navigate("/login");
+    navigate("/dashboard");
   };
 
   return (
@@ -37,8 +36,8 @@ export default function EmailVerified() {
           Email confirmed 🎉
         </h1>
         <p style={{ color: "#ddd", marginBottom: 24 }}>
-          Your email address has been verified. You can now log in to your
-          sAInthetic account.
+          Your email address has been verified. You can now access your
+          sAInthetic workspace.
         </p>
 
         {/* Next steps box */}
@@ -76,7 +75,7 @@ export default function EmailVerified() {
           </ul>
         </div>
 
-        {/* CTA button styled like login primary button */}
+        {/* CTA button */}
         <button
           type="button"
           onClick={handleContinue}
@@ -93,7 +92,7 @@ export default function EmailVerified() {
             boxShadow: "0 8px 20px rgba(255, 217, 69, 0.25)",
           }}
         >
-          Go to login
+          Go to your dashboard
         </button>
       </div>
     </div>
