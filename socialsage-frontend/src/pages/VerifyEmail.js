@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function VerifyEmail() {
   const { token } = useParams(); // from /verify-email/:token
   const navigate = useNavigate();
-  const [status, setStatus] = useState<"loading" | "error">("loading");
+  const [status, setStatus] = useState("loading"); // plain JS, no <...>
 
   useEffect(() => {
     async function verify() {
@@ -22,7 +22,7 @@ export default function VerifyEmail() {
 
         console.log("verify status", res.status, res.redirected, res.url);
 
-        // If backend redirects (302) straight to /email-verified
+        // If backend redirects to /email-verified
         if (res.redirected) {
           window.location.href = res.url;
           return;
@@ -34,7 +34,6 @@ export default function VerifyEmail() {
           return;
         }
 
-        // Only here is it really an invalid link
         setStatus("error");
       } catch (err) {
         setStatus("error");
@@ -90,7 +89,7 @@ export default function VerifyEmail() {
     );
   }
 
-  // Loading state
+  // loading
   return (
     <div
       style={{
