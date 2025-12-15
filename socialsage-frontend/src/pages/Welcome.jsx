@@ -1,4 +1,3 @@
-// src/pages/Welcome.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -9,11 +8,11 @@ export default function Welcome() {
   const { user } = useAuth();
 
   const handleContinue = () => {
-    localStorage.setItem("firstLogin", "false");
+    const key = `firstLogin:${user?.email || "unknown"}`;
+    localStorage.setItem(key, "false");
     navigate("/dashboard", { replace: true });
   };
 
-  // Reuse same Safari blur detection as Login
   const isSafari = /^((?!chrome|android).)*safari/i.test(
     navigator.userAgent
   );
@@ -30,7 +29,6 @@ export default function Welcome() {
         overflow: "hidden",
       }}
     >
-      {/* same glow as login */}
       <div
         style={{
           position: "absolute",
@@ -66,7 +64,6 @@ export default function Welcome() {
           color: "#fff",
         }}
       >
-        {/* Header with same logo + title as login */}
         <div style={{ textAlign: "center", marginBottom: "30px" }}>
           <img
             src="/logo.jpg"
@@ -97,7 +94,6 @@ export default function Welcome() {
           </p>
         </div>
 
-        {/* Main welcome copy */}
         <div style={{ marginBottom: 24 }}>
           <p
             style={{
@@ -147,7 +143,6 @@ export default function Welcome() {
           </ul>
         </div>
 
-        {/* CTA button styled like login primary button */}
         <button
           type="button"
           onClick={handleContinue}
