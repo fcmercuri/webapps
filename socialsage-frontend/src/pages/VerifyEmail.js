@@ -3,42 +3,45 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function VerifyEmail() {
-  const { token } = useParams(); // gets b65122e6... from /verify-email/:token
+  const { token } = useParams(); // from /verify-email/:token
   const navigate = useNavigate();
-  const [status, setStatus] = useState("loading"); // "loading" | "error"
+  const [status, setStatus] = useState<"loading" | "error">("loading");
 
   useEffect(() => {
     async function verify() {
       try {
-        // IMPORTANT: use GET to match backend `app.get('/api/auth/verify-email/:token')`
+        if (!token) {
+          setStatus("error");
+          return;
+        }
+
         const res = await fetch(
           `${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-email/${token}`,
           { method: "GET" }
         );
 
-        // backend redirects directly to /email-verified on success
+        console.log("verify status", res.status, res.redirected, res.url);
+
+        // If backend redirects (302) straight to /email-verified
         if (res.redirected) {
-          window.location.href = res.url; // follow redirect if needed
+          window.location.href = res.url;
           return;
         }
 
-        if (!res.ok) {
-          setStatus("error");
+        // Treat any 2xx/3xx as success
+        if (res.ok || (res.status >= 200 && res.status < 400)) {
+          navigate("/email-verified");
           return;
         }
 
-        // if backend ever returns 200 without redirect:
-        navigate("/email-verified");
+        // Only here is it really an invalid link
+        setStatus("error");
       } catch (err) {
         setStatus("error");
       }
     }
 
-    if (token) {
-      verify();
-    } else {
-      setStatus("error");
-    }
+    verify();
   }, [token, navigate]);
 
   if (status === "error") {
@@ -87,7 +90,7 @@ export default function VerifyEmail() {
     );
   }
 
-  // loading state while verifying
+  // Loading state
   return (
     <div
       style={{
