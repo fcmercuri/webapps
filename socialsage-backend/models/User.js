@@ -24,14 +24,26 @@ const userSchema = new mongoose.Schema({
   },
 
   // Stripe billing fields
-  stripeSubscriptionId: { type: String },   // ← add this
-  stripeCustomerId: { type: String },       // ← and this
+  stripeSubscriptionId: { type: String },
+  stripeCustomerId: { type: String },
 
-  // password reset fields
+  // Password reset fields
   resetPasswordToken: {
     type: String,
   },
   resetPasswordExpires: {
+    type: Date,
+  },
+
+  // Email verification fields
+  emailVerified: {
+    type: Boolean,
+    default: false,
+  },
+  emailVerifyToken: {
+    type: String,
+  },
+  emailVerifyExpires: {
     type: Date,
   },
 });
