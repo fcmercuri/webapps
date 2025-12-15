@@ -8,13 +8,9 @@ export default function VerifyEmail() {
   useEffect(() => {
     if (!token) return;
 
-    // Just call the backend; browser will follow the redirect to /email-verified
-    fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-email/${token}`,
-      { method: "GET", mode: "no-cors" } // avoid CORS warning; we don't need the body
-    ).catch(() => {
-      // ignore errors; backend will show error page itself if needed
-    });
+    // Let the browser hit the backend endpoint directly.
+    // The backend will then redirect to /email-verified.
+    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-email/${token}`;
   }, [token]);
 
   return (
