@@ -1,4 +1,3 @@
-// src/pages/Register.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -43,7 +42,7 @@ export default function Register() {
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || "Google sign up failed");
 
-        // Google sign‑up logs in immediately, then goes to welcome
+        // Google signup logs in immediately, then goes to welcome
         loginSuccess(data.token, data.user);
         localStorage.setItem("firstLogin", "true");
         navigate("/welcome");
@@ -62,10 +61,12 @@ export default function Register() {
       setError("All fields are required");
       return;
     }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
+
     if (password.length < 6) {
       setError("Password must be at least 6 characters");
       return;
@@ -84,9 +85,10 @@ export default function Register() {
       if (!contentType.includes("application/json")) {
         const text = await registerRes.text();
         throw new Error(
-          `Unexpected response from server (status ${
-            registerRes.status
-          }). ${text.slice(0, 150)}`
+          `Unexpected response from server (status ${registerRes.status}). ${text.slice(
+            0,
+            150
+          )}`
         );
       }
 
@@ -96,6 +98,7 @@ export default function Register() {
       }
 
       const upgradePriceId = localStorage.getItem("upgradePriceId");
+
       if (upgradePriceId) {
         // PREMIUM FLOW – go to Stripe
         localStorage.removeItem("upgradePriceId");
@@ -113,21 +116,26 @@ export default function Register() {
         if (!sessionContentType.includes("application/json")) {
           const text = await res.text();
           throw new Error(
-            `Unexpected response from server (status ${
-              res.status
-            }). ${text.slice(0, 150)}`
+            `Unexpected response from server (status ${res.status}). ${text.slice(
+              0,
+              150
+            )}`
           );
         }
 
         const data = await res.json();
         const url = data?.url;
-        if (url) window.location = url;
-        else setError("Failed to retrieve payment URL.");
+
+        if (url) {
+          window.location = url;
+        } else {
+          setError("Failed to retrieve payment URL.");
+        }
       } else {
-        // FREE FLOW: user registered — auto-login and go to welcome
-        localStorage.setItem("firstLogin", "true");
-        loginSuccess(registerData.token, registerData.user);
-        navigate("/welcome");
+        // FREE FLOW – user registered
+        // Now you show a message / redirect to “check your email”
+        // Backend no longer returns token/user here
+        navigate("/success");
       }
     } catch (err) {
       setError(err.message || "Registration failed");
@@ -167,7 +175,7 @@ export default function Register() {
       >
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <img
-            src="logo.jpg"
+            src="/logo.jpg"
             alt="SocialSage Logo"
             style={{
               width: "40px",
@@ -202,7 +210,7 @@ export default function Register() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "20px",
+            gap: 20,
             width: "100%",
           }}
         >
@@ -213,7 +221,7 @@ export default function Register() {
                 color: "#ffd945",
                 fontSize: "0.9rem",
                 fontWeight: 600,
-                marginBottom: "8px",
+                marginBottom: 8,
               }}
             >
               Email Address
@@ -234,7 +242,7 @@ export default function Register() {
                 color: "#ffd945",
                 fontSize: "0.9rem",
                 fontWeight: 600,
-                marginBottom: "8px",
+                marginBottom: 8,
               }}
             >
               Password
@@ -243,7 +251,7 @@ export default function Register() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password (6 characters)"
+              placeholder="Enter password (6+ characters)"
               style={inputStyle}
             />
           </div>
@@ -255,7 +263,7 @@ export default function Register() {
                 color: "#ffd945",
                 fontSize: "0.9rem",
                 fontWeight: 600,
-                marginBottom: "8px",
+                marginBottom: 8,
               }}
             >
               Confirm Password
@@ -298,7 +306,7 @@ export default function Register() {
               fontSize: "1rem",
               cursor: "pointer",
               opacity: loading ? 0.6 : 1,
-              marginTop: "10px",
+              marginTop: 10,
               boxShadow: "0 8px 20px rgba(255, 217, 69, 0.2)",
             }}
           >
@@ -311,24 +319,16 @@ export default function Register() {
             display: "flex",
             alignItems: "center",
             gap: "10px",
-            marginTop: "22px",
-            marginBottom: "10px",
+            marginTop: 22,
+            marginBottom: 10,
           }}
         >
           <div
-            style={{
-              flex: 1,
-              height: 1,
-              background: "rgba(255,255,255,0.08)",
-            }}
+            style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
           />
           <span style={{ color: "#777", fontSize: "0.85rem" }}>or</span>
           <div
-            style={{
-              flex: 1,
-              height: 1,
-              background: "rgba(255,255,255,0.08)",
-            }}
+            style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
           />
         </div>
 
@@ -364,7 +364,7 @@ export default function Register() {
             textAlign: "center",
             color: "#bbb",
             fontSize: "0.9rem",
-            marginTop: "25px",
+            marginTop: 25,
           }}
         >
           Already have an account?{" "}
@@ -382,4 +382,3 @@ export default function Register() {
       </motion.div>
     </div>
   );
-}
