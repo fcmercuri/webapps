@@ -15,7 +15,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-
 const { Resend } = require('resend');
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -74,9 +73,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     const params = {
       payment_method_types: ['card'],
       mode: 'subscription',
-      line_items: [
-        { price: priceId, quantity: 1 },
-      ],
+      line_items: [{ price: priceId, quantity: 1 }],
       customer_email: customerEmail,
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}`,
@@ -91,9 +88,6 @@ app.post('/api/create-checkout-session', async (req, res) => {
       .json({ error: err.message });
   }
 });
-
-
-
 
 // >>> GOOGLE LOGIN ROUTE <<<
 app.post('/api/auth/google-login', async (req, res) => {
@@ -194,7 +188,6 @@ app.post('/api/stripe/verify-session', async (req, res) => {
       user.isPremium = true;
     }
 
-    // Store Stripe ids
     user.stripeSubscriptionId = session.subscription;
     user.stripeCustomerId =
       typeof session.customer === 'string'
@@ -216,11 +209,6 @@ app.post('/api/stripe/verify-session', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
-
-
-
 
 // --- AUTH MIDDLEWARE ---
 function authenticateToken(req, res, next) {
@@ -256,15 +244,11 @@ function calculateConversionScore(persona, industry) {
   const role = (persona.role || '').toLowerCase();
   const ind = (industry || persona.industry || '').toLowerCase();
 
-  // Industry fit
   if (hotIndustries.some((i) => ind.includes(i))) score += 20;
-
-  // Role seniority
   if (hotRolesHigh.some((r) => role.includes(r))) score += 25;
   else if (hotRolesMid.some((r) => role.includes(r))) score += 15;
-  else if (role) score += 5; // any defined role gets a bit
+  else if (role) score += 5;
 
-  // Goals & pains depth
   const goalsCount = (persona.goals || []).length;
   const painsCount = (persona.painPoints || []).length;
 
@@ -276,17 +260,14 @@ function calculateConversionScore(persona, industry) {
   else if (painsCount >= 2) score += 10;
   else if (painsCount >= 1) score += 4;
 
-  // Age band (core buyer 28–50 a bit higher)
   if (typeof persona.age === 'number') {
     if (persona.age >= 28 && persona.age <= 50) score += 6;
     else if (persona.age >= 22 && persona.age < 28) score += 3;
   }
 
-  // Small random jitter so scores are not identical
-  const jitter = Math.floor(Math.random() * 7) - 3; // -3..+3
+  const jitter = Math.floor(Math.random() * 7) - 3;
   score += jitter;
 
-  // Base fit if anything is defined
   if ((persona.goals && goalsCount) || (persona.painPoints && painsCount)) {
     score += 5;
   }
@@ -314,7 +295,7 @@ app.get('/', (req, res) => {
   res.send('sAInthetic API is running with Perplexity AI');
 });
 
-// --- AUTH ---
+// --- AUTH: REGISTER ---
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -334,25 +315,38 @@ app.post('/api/auth/register', async (req, res) => {
 
     console.log('✅ User registered:', email);
 
-    // Send welcome email (non-blocking for user)
-try {
-  await resend.emails.send({
-    from: process.env.FROM_EMAIL,
-    to: email,
-    subject: 'Welcome to sAInthetic',
-    template: {
-      id: process.env.RESEND_WELCOME_TEMPLATE_ID,
-      variables: {
-        userEmail: email,
-        year: new Date().getFullYear(),
-      },
-    },
-  });
-  console.log('Sent welcome email to', email);
-} catch (err) {
-  console.error('Welcome email error:', err);
-}
+    // create email verification token
+    const verifyToken = crypto.randomBytes(32).toString('hex');
+    user.emailVerifyToken = verifyToken;
+    user.emailVerifyExpires = Date.now() + 1000 * 60 * 60 * 24; // 24h
+    await user.save();
 
+    const baseUrl =
+      process.env.NODE_ENV === 'production'
+        ? 'https://socialsage-frontend.onrender.com'
+        : 'http://localhost:3000';
+
+    const verifyLink = `${baseUrl}/verify-email/${verifyToken}`;
+
+    // send welcome + confirm email
+    try {
+      await resend.emails.send({
+        from: process.env.FROM_EMAIL,
+        to: email,
+        subject: 'Welcome to sAInthetic – confirm your email',
+        template: {
+          id: process.env.RESEND_WELCOME_TEMPLATE_ID,
+          variables: {
+            userEmail: email,
+            verifyLink,
+            year: new Date().getFullYear(),
+          },
+        },
+      });
+      console.log('Sent welcome/verify email to', email, verifyLink);
+    } catch (err) {
+      console.error('Welcome email error:', err);
+    }
 
     res.status(201).json({ message: 'User registered' });
   } catch (err) {
@@ -363,6 +357,38 @@ try {
   }
 });
 
+// --- AUTH: VERIFY EMAIL ---
+app.get('/api/auth/verify-email/:token', async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    const user = await User.findOne({
+      emailVerifyToken: token,
+      emailVerifyExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).send('Verification link is invalid or expired.');
+    }
+
+    user.emailVerified = true;
+    user.emailVerifyToken = undefined;
+    user.emailVerifyExpires = undefined;
+    await user.save();
+
+    const baseUrl =
+      process.env.NODE_ENV === 'production'
+        ? 'https://socialsage-frontend.onrender.com'
+        : 'http://localhost:3000';
+
+    return res.redirect(`${baseUrl}/email-verified`);
+  } catch (err) {
+    console.error('❌ Verify-email error:', err);
+    res.status(500).send('Failed to verify email.');
+  }
+});
+
+// --- AUTH: LOGIN ---
 app.post('/api/auth/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -370,7 +396,6 @@ app.post('/api/auth/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
-    // NEW: block unverified users
     if (!user.emailVerified) {
       return res
         .status(403)
@@ -403,7 +428,6 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
-
 // Get best-converting persona for current user
 app.get('/api/personas/best', authenticateToken, async (req, res) => {
   try {
@@ -431,10 +455,6 @@ app.get('/api/personas/best', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch best persona' });
   }
 });
-
-
-
-
 
 // --- USER PROFILE ---
 app.get('/api/user/profile', authenticateToken, async (req, res) => {
@@ -697,8 +717,6 @@ app.get('/api/prompts', authenticateToken, async (req, res) => {
 });
 
 // --- BEST-PERSONA PROMPTS (LLM ONLY, NOT STORED) ---
-
-// --- BEST-PERSONA PROMPTS (QUESTION STYLE, NO NAME IN TEXT) ---
 app.get('/api/prompts/best-persona', authenticateToken, async (req, res) => {
   try {
     const persona = await Persona.findOne({ userId: req.userId })
@@ -765,13 +783,10 @@ Return JSON ONLY, for example:
   }
 });
 
-
-    
-
 // --- EXTRACT FOCUS KEYWORD FOR PROMPTS ---
 app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
   try {
-    const { prompts } = req.body; // [{ prompt }]
+    const { prompts } = req.body;
     if (!Array.isArray(prompts) || prompts.length === 0) {
       return res.status(400).json({ error: 'prompts array is required' });
     }
@@ -787,7 +802,6 @@ app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
     const enriched = prompts.map((p) => {
       const text = (p.prompt || '').toLowerCase();
 
-      // take the longest sentence (often holds the core topic)
       const sentences = text
         .split(/[?.!]/)
         .map((s) => s.trim())
@@ -800,7 +814,6 @@ app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
         .filter(Boolean)
         .filter((w) => !STOPWORDS.has(w));
 
-      // build 2–3 word keyword where possible (e.g. "email onboarding sequence")
       let focusKeyword = '';
       if (words.length >= 3) {
         focusKeyword = `${words[0]} ${words[1]} ${words[2]}`;
@@ -825,7 +838,6 @@ app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
   }
 });
 
-
 // --- CONTENT GENERATION (WITH PERPLEXITY) ---
 app.post('/api/content/generate', authenticateToken, async (req, res) => {
   try {
@@ -843,7 +855,6 @@ app.post('/api/content/generate', authenticateToken, async (req, res) => {
     const user = await User.findById(req.userId);
     const contentCount = await Content.countDocuments({ userId: req.userId });
 
-    // NEW: limit free users to 5 content items total
     if ((user.plan === 'free' || !user.plan) && contentCount >= 5) {
       return res.status(403).json({
         error:
@@ -851,7 +862,6 @@ app.post('/api/content/generate', authenticateToken, async (req, res) => {
       });
     }
 
-    // Existing limit: Starter users up to 50 items
     if (user.plan === 'starter' && contentCount >= 50) {
       return res.status(403).json({
         error:
@@ -912,7 +922,6 @@ Return ONLY the content text (no JSON, no markdown formatting).`;
   }
 });
 
-
 // GET billing summary – REAL
 app.get('/api/billing', authenticateToken, async (req, res) => {
   try {
@@ -923,7 +932,6 @@ app.get('/api/billing', authenticateToken, async (req, res) => {
     }
 
     if (!user.stripeSubscriptionId) {
-      // No Stripe subscription stored – treat as free/plan-only
       return res.json({
         plan: user.plan || 'free',
         planLabel: (user.plan || 'free').toUpperCase(),
@@ -936,12 +944,12 @@ app.get('/api/billing', authenticateToken, async (req, res) => {
     const sub = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);
 
     res.json({
-    plan: user.plan || 'free',
-    planLabel: (user.plan || 'free').toUpperCase(),
-    status: sub.cancel_at_period_end ? 'cancelled' : 'active',
-    renewsAt: sub.current_period_end,      // seconds
-    cancelledAt: sub.cancel_at || null,    // seconds
-  });
+      plan: user.plan || 'free',
+      planLabel: (user.plan || 'free').toUpperCase(),
+      status: sub.cancel_at_period_end ? 'cancelled' : 'active',
+      renewsAt: sub.current_period_end,
+      cancelledAt: sub.cancel_at || null,
+    });
   } catch (err) {
     console.error('❌ Billing load error:', err);
     res.status(500).json({ error: 'Failed to load billing info' });
@@ -1011,8 +1019,6 @@ app.post('/api/billing/portal', authenticateToken, async (req, res) => {
   }
 });
 
-
-
 // Request password reset
 app.post('/api/auth/forgot-password', async (req, res) => {
   try {
@@ -1020,12 +1026,11 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     if (!email) return res.status(400).json({ error: 'Email is required' });
 
     const user = await User.findOne({ email });
-    // Always respond success to avoid leaking which emails exist
     if (!user) return res.json({ message: 'If the account exists, an email was sent.' });
 
     const token = crypto.randomBytes(32).toString('hex');
     user.resetPasswordToken = token;
-    user.resetPasswordExpires = Date.now() + 1000 * 60 * 30; // 30 minutes
+    user.resetPasswordExpires = Date.now() + 1000 * 60 * 30;
     await user.save();
 
     const baseUrl =
@@ -1033,31 +1038,28 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         ? 'https://socialsage-frontend.onrender.com'
         : 'http://localhost:3000';
 
-        const resetLink = `${baseUrl}/reset-password/${token}`;
+    const resetLink = `${baseUrl}/reset-password/${token}`;
 
-try {
-  await resend.emails.send({
-    from: process.env.FROM_EMAIL,
-    to: email,
-    subject: 'Reset your sAInthetic password',
-    template: {
-      id: process.env.RESEND_RESET_TEMPLATE_ID,   // <– env var name
-      variables: {
-        userEmail: email,
-        resetLink,
-        year: new Date().getFullYear(),
-      },
-    },
-  });
-  console.log('Sent reset email to', email, resetLink);
-} catch (err) {
-  console.error('Email send error:', err);
-}
+    try {
+      await resend.emails.send({
+        from: process.env.FROM_EMAIL,
+        to: email,
+        subject: 'Reset your sAInthetic password',
+        template: {
+          id: process.env.RESEND_RESET_TEMPLATE_ID,
+          variables: {
+            userEmail: email,
+            resetLink,
+            year: new Date().getFullYear(),
+          },
+        },
+      });
+      console.log('Sent reset email to', email, resetLink);
+    } catch (err) {
+      console.error('Email send error:', err);
+    }
 
-
-
-// Always respond to frontend
-res.json({ message: 'If the account exists, an email was sent.' });     
+    res.json({ message: 'If the account exists, an email was sent.' });
   } catch (err) {
     console.error('❌ Forgot-password error:', err);
     res.status(500).json({ error: 'Failed to start reset' });
@@ -1093,9 +1095,6 @@ app.post('/api/auth/reset-password', async (req, res) => {
     res.status(500).json({ error: 'Failed to reset password' });
   }
 });
-
-
-
 
 app.get('/api/content', authenticateToken, async (req, res) => {
   try {
