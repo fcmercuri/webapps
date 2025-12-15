@@ -1,95 +1,22 @@
-// src/pages/VerifyEmail.jsx
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+// src/pages/VerifyEmail.js
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function VerifyEmail() {
   const { token } = useParams(); // from /verify-email/:token
-  const navigate = useNavigate();
-  const [status, setStatus] = useState("loading"); // plain JS, no <...>
 
   useEffect(() => {
-    async function verify() {
-      try {
-        if (!token) {
-          setStatus("error");
-          return;
-        }
+    if (!token) return;
 
-        const res = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-email/${token}`,
-          { method: "GET" }
-        );
+    // Just call the backend; browser will follow the redirect to /email-verified
+    fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-email/${token}`,
+      { method: "GET", mode: "no-cors" } // avoid CORS warning; we don't need the body
+    ).catch(() => {
+      // ignore errors; backend will show error page itself if needed
+    });
+  }, [token]);
 
-        console.log("verify status", res.status, res.redirected, res.url);
-
-        // If backend redirects to /email-verified
-        if (res.redirected) {
-          window.location.href = res.url;
-          return;
-        }
-
-        // Treat any 2xx/3xx as success
-        if (res.ok || (res.status >= 200 && res.status < 400)) {
-          navigate("/email-verified");
-          return;
-        }
-
-        setStatus("error");
-      } catch (err) {
-        setStatus("error");
-      }
-    }
-
-    verify();
-  }, [token, navigate]);
-
-  if (status === "error") {
-    return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
-        }}
-      >
-        <div
-          style={{
-            background: "#141416",
-            padding: "40px 32px",
-            borderRadius: 16,
-            maxWidth: 420,
-            width: "90%",
-            textAlign: "center",
-            border: "1px solid rgba(248,113,113,0.3)",
-          }}
-        >
-          <h1 style={{ color: "#f87171", marginBottom: 12 }}>Link not valid</h1>
-          <p style={{ color: "#ddd", marginBottom: 24 }}>
-            The verification link is invalid or has expired. Try signing in
-            again to request a new email.
-          </p>
-          <button
-            onClick={() => navigate("/login")}
-            style={{
-              padding: "12px 20px",
-              borderRadius: 10,
-              border: "none",
-              background: "#ffd945",
-              color: "#191919",
-              fontWeight: 700,
-              cursor: "pointer",
-            }}
-          >
-            Go to login
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // loading
   return (
     <div
       style={{
