@@ -1,3 +1,13 @@
+
+
+
+
+
+
+fvfra152@gmail.com
+
+
+
 // src/pages/EmailVerified.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +16,8 @@ export default function EmailVerified() {
   const navigate = useNavigate();
 
   const handleContinue = () => {
-    navigate("/dashboard");
+    // user still needs to log in after confirming email
+    navigate("/login");
   };
 
   return (
@@ -36,8 +47,8 @@ export default function EmailVerified() {
           Email confirmed 🎉
         </h1>
         <p style={{ color: "#ddd", marginBottom: 24 }}>
-          Your email address has been verified. You can now access your
-          sAInthetic workspace.
+          Your email address has been verified. You can now log in to your
+          sAInthetic account.
         </p>
 
         {/* Next steps box */}
@@ -75,7 +86,7 @@ export default function EmailVerified() {
           </ul>
         </div>
 
-        {/* CTA button */}
+        {/* CTA button styled like login primary button */}
         <button
           type="button"
           onClick={handleContinue}
@@ -92,7 +103,7 @@ export default function EmailVerified() {
             boxShadow: "0 8px 20px rgba(255, 217, 69, 0.25)",
           }}
         >
-          Go to your dashboard
+          Go to login
         </button>
       </div>
     </div>
