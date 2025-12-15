@@ -16,6 +16,10 @@ import Analytics from "./pages/analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import Success from "./pages/Success";
 
+// NEW
+import EmailVerified from "./pages/EmailVerified";
+import VerifyEmail from "./pages/VerifyEmail";
+
 function PrivateRoute({ children }) {
   const { token } = useAuth();
   if (!token) return <Navigate to="/login" replace />;
@@ -43,18 +47,111 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+
+          <Route
+            path="/forgot-password"
+            element={
+              <PublicRoute>
+                <ForgotPassword />
+              </PublicRoute>
+            }
+          />
+
           <Route path="/success" element={<Success />} />
-          <Route path="/welcome" element={<PrivateRoute><Welcome /></PrivateRoute>} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/personas" element={<PrivateRoute><Personas /></PrivateRoute>} />
-          <Route path="/prompts" element={<PrivateRoute><Prompts /></PrivateRoute>} />
-          <Route path="/content" element={<PrivateRoute><Content /></PrivateRoute>} />
-          <Route path="/saved" element={<PrivateRoute><Saved /></PrivateRoute>} />
-          <Route path="/analytics" element={<PrivateRoute><Analytics /></PrivateRoute>} />
-          <Route path="/account" element={<PrivateRoute><Account /></PrivateRoute>} />
+
+          {/* NEW public email verification routes */}
+          <Route path="/email-verified" element={<EmailVerified />} />
+          <Route path="/verify-email/:token" element={<VerifyEmail />} />
+
+          <Route
+            path="/welcome"
+            element={
+              <PrivateRoute>
+                <Welcome />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/personas"
+            element={
+              <PrivateRoute>
+                <Personas />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/prompts"
+            element={
+              <PrivateRoute>
+                <Prompts />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/content"
+            element={
+              <PrivateRoute>
+                <Content />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/saved"
+            element={
+              <PrivateRoute>
+                <Saved />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/analytics"
+            element={
+              <PrivateRoute>
+                <Analytics />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/account"
+            element={
+              <PrivateRoute>
+                <Account />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
