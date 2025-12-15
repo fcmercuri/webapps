@@ -68,7 +68,16 @@ export default function Login() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login failed");
+
+      if (!res.ok) {
+        if (res.status === 403 && data.error) {
+          setError(
+            "Please confirm your email before logging in. Check your inbox for the verification link."
+          );
+          return;
+        }
+        throw new Error(data.error || "Login failed");
+      }
 
       loginSuccess(data.token, data.user);
       goAfterLogin();
@@ -297,7 +306,14 @@ export default function Login() {
           Continue with Google
         </button>
 
-        <p style={{ textAlign: "center", color: "#bbb", fontSize: "0.9rem", marginTop: 25 }}>
+        <p
+          style={{
+            textAlign: "center",
+            color: "#bbb",
+            fontSize: "0.9rem",
+            marginTop: 25,
+          }}
+        >
           Don’t have an account?{" "}
           <Link
             to="/register"
