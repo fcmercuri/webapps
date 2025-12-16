@@ -42,7 +42,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
-          cursor: 'pointer',
+          cursor: 'pointer', // show it's clickable
         }}
       >
         <img
@@ -70,13 +70,12 @@ export default function Sidebar({ isOpen, onItemClick }) {
         </h1>
       </div>
 
-      {/* Menu Items + Premium item */}
+      {/* Menu Items */}
       <nav
         style={{
-          padding: '20px 10px',
+          padding: '20px 10px 8px 10px',
           display: 'flex',
           flexDirection: 'column',
-          flexGrow: 1,
         }}
       >
         {menuItems.map((item, i) => (
@@ -109,43 +108,70 @@ export default function Sidebar({ isOpen, onItemClick }) {
             <span style={{ lineHeight: 1.2 }}>{item.label}</span>
           </Link>
         ))}
+      </nav>
 
-        {/* Embedded Premium: Schema FAQs */}
+      {/* Premium: Schema FAQs (blurred, locked) */}
+      <div
+        style={{
+          padding: '0 10px 12px 10px',
+        }}
+      >
         <div
           style={{
-            marginTop: 16,
+            position: 'relative',
+            margin: '4px 0',
             borderRadius: '10px',
-            padding: '10px 16px',
-            background: 'rgba(255, 255, 255, 0.02)',
-            border: '1px solid rgba(255, 217, 69, 0.25)',
-            display: 'flex',
-            flexDirection: 'column',
+            overflow: 'hidden',
+            cursor: 'default',
           }}
         >
-          <span
+          <div
             style={{
-              color: '#555',
-              fontWeight: 600,
-              fontSize: '0.95rem',
-              lineHeight: 1.2,
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '10px 16px',
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 217, 69, 0.25)',
+              backdropFilter: 'blur(4px)',
+              WebkitBackdropFilter: 'blur(4px)',
             }}
           >
-            Schema FAQs
-          </span>
-          <span
+            <span
+              style={{
+                color: '#777',
+                fontWeight: 600,
+                fontSize: '0.95rem',
+                lineHeight: 1.2,
+              }}
+            >
+              Schema FAQs
+            </span>
+            <span
+              style={{
+                marginTop: 4,
+                fontSize: '0.7rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                color: '#ffd945',
+                opacity: 0.8,
+              }}
+            >
+              premium
+            </span>
+          </div>
+
+          {/* Dark / blur overlay to make it feel locked */}
+          <div
             style={{
-              marginTop: 4,
-              fontSize: '0.7rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: '#ffd945',
-              opacity: 0.9,
+              position: 'absolute',
+              inset: 0,
+              background:
+                'linear-gradient(90deg, rgba(11,11,11,0.0) 0%, rgba(11,11,11,0.7) 40%, rgba(11,11,11,0.9) 100%)',
+              pointerEvents: 'none',
             }}
-          >
-            premium
-          </span>
+          />
         </div>
-      </nav>
+      </div>
 
       {/* Logout Button */}
       <div style={{ padding: '20px' }}>
