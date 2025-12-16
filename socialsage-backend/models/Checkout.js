@@ -22,8 +22,8 @@ router.post('/api/create-checkout-session', async (req, res) => {
       ],
       customer_email: customerEmail,
       // Redirect to your dashboard after success
-      success_url: 'https://socialsage.ai/dashboard?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://socialsage.ai/upgrade',
+      success_url: 'https://sainthetic.com/dashboard?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://sainthetic.com/upgrade',
     });
 
     res.json({ url: session.url });
