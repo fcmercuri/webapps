@@ -47,7 +47,7 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
         margin: '0 0 10px 0',
         letterSpacing: '-0.5px'
       }}>
-        {currentIndustry ? 'Change Your Industry' : 'Select Your Industry'}
+        {currentIndustry ? 'Select Your Industry' : 'Select Your Industry'}
       </h2>
       <p style={{ color: '#bbb', margin: '0 0 30px 0', fontSize: '1rem' }}>
         We'll generate AI-powered customer personas and prompts tailored to your market
