@@ -25,6 +25,19 @@ export default function Prompts() {
       : "en"
   );
 
+  // How many times prompts have been generated (persona selections) on this device
+  const [promptGenerationsUsed, setPromptGenerationsUsed] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    const raw = localStorage.getItem("promptGenerationsUsed") || "0";
+    const n = Number(raw);
+    return Number.isNaN(n) ? 0 : n;
+  });
+
+  const MAX_FREE_GENERATIONS = 5;
+
+  const isFreePlan = !user || !user.plan || user.plan === "free";
+  const selectedPersona = personas.find((p) => p._id === selectedPersonaId);
+
   // Load all personas first
   useEffect(() => {
     async function loadPersonas() {
@@ -50,6 +63,16 @@ export default function Prompts() {
     if (!selectedPersonaId) return;
 
     async function generatePromptsForPersona() {
+      // Hard gate for free plan after 5 persona selections
+      if (isFreePlan && promptGenerationsUsed >= MAX_FREE_GENERATIONS) {
+        setLoading(false);
+        setPrompts([]);
+        setError(
+          "You have used your 5 free persona prompt generations. Upgrade to unlock prompts for all personas."
+        );
+        return;
+      }
+
       try {
         setLoading(true);
         setError("");
@@ -60,6 +83,15 @@ export default function Prompts() {
           personaId: selectedPersonaId,
           language,
         });
+
+        // increment usage on successful generation for free users
+        if (isFreePlan) {
+          const next = promptGenerationsUsed + 1;
+          setPromptGenerationsUsed(next);
+          if (typeof window !== "undefined") {
+            localStorage.setItem("promptGenerationsUsed", String(next));
+          }
+        }
 
         const basePrompts = Array.isArray(res.data) ? res.data : [];
         setPrompts(basePrompts);
@@ -107,7 +139,7 @@ export default function Prompts() {
     }
 
     generatePromptsForPersona();
-  }, [selectedPersonaId, language]);
+  }, [selectedPersonaId, language, isFreePlan, promptGenerationsUsed]);
 
   async function handleUpgradeStarter() {
     try {
@@ -134,9 +166,6 @@ export default function Prompts() {
       setUpgradeLoading(false);
     }
   }
-
-  const isFreePlan = !user || !user.plan || user.plan === "free";
-  const selectedPersona = personas.find((p) => p._id === selectedPersonaId);
 
   return (
     <div
@@ -226,6 +255,12 @@ export default function Prompts() {
               <span style={{ color: "#9ca3af", fontSize: 12 }}>
                 Language: {language === "en" ? "English" : "Italiano"}
               </span>
+              {isFreePlan && (
+                <span style={{ color: "#facc15", fontSize: 12 }}>
+                  Used {promptGenerationsUsed} / {MAX_FREE_GENERATIONS} free
+                  persona prompts
+                </span>
+              )}
             </div>
           ) : (
             !error && (
@@ -242,7 +277,7 @@ export default function Prompts() {
             </p>
           )}
 
-          {selectedPersona && !loading && (
+          {selectedPersona && !loading && prompts.length > 0 && (
             <p style={{ color: "#bbb", maxWidth: 640, marginBottom: 24 }}>
               These prompts are generated from:{" "}
               <span style={{ color: "#ffd945", fontWeight: 600 }}>
@@ -338,7 +373,7 @@ export default function Prompts() {
                 display: "flex",
                 flexDirection: "column",
                 gap: 8,
-                maxWidth: 480,
+                maxWidth: 520,
               }}
             >
               <p
@@ -349,9 +384,13 @@ export default function Prompts() {
                   lineHeight: 1.4,
                 }}
               >
-                Want more high‑intent prompts every week for your personas?
-                Upgrade to the <strong>Starter plan</strong> to unlock larger
-                prompt packs and more generations.
+                You have used{" "}
+                <strong>
+                  {promptGenerationsUsed} / {MAX_FREE_GENERATIONS}
+                </strong>{" "}
+                free persona prompt generations. Upgrade to unlock unlimited
+                prompt generations and full access to all prompts for every
+                persona.
               </p>
               <button
                 type="button"
@@ -372,7 +411,7 @@ export default function Prompts() {
                   boxShadow: "0 4px 12px rgba(250, 204, 21, 0.35)",
                 }}
               >
-                {upgradeLoading ? "Starting checkout…" : "Upgrade to Starter"}
+                {upgradeLoading ? "Starting checkout…" : "Unlock all prompts"}
               </button>
             </div>
           )}
