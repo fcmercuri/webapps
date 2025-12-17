@@ -70,7 +70,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
     const baseUrl =
       process.env.NODE_ENV === 'production'
-        ? 'https://socialsage-frontend.onrender.com'
+        ? 'https://sainthetic.com'
         : 'http://localhost:3000';
 
     const params = {
