@@ -16,6 +16,7 @@ import Analytics from "./pages/analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import Success from "./pages/Success";
 import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
+import ResetPasswordForm from "./pages/ResetPasswordForm";
 
 // NEW
 import EmailVerified from "./pages/EmailVerified";
