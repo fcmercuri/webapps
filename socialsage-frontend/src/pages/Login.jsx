@@ -15,13 +15,11 @@ export default function Login() {
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-  // NEW: per‑user firstLogin flag, keyed by email
-  const goAfterLogin = (userEmail) => {
-    const key = `firstLogin:${userEmail}`;
-    const firstLogin = localStorage.getItem(key);
+  const goAfterLogin = () => {
+    const firstLogin = localStorage.getItem("firstLogin");
 
     if (!firstLogin || firstLogin === "true") {
-      localStorage.setItem(key, "true");
+      localStorage.setItem("firstLogin", "true");
       navigate("/welcome", { replace: true });
     } else {
       navigate("/dashboard", { replace: true });
@@ -43,7 +41,7 @@ export default function Login() {
         if (!res.ok) throw new Error(data.error || "Google login failed");
 
         loginSuccess(data.token, data.user);
-        goAfterLogin(data.user.email); // NEW
+        goAfterLogin();
       } catch (err) {
         setError(err.message || "Google login failed");
       }
@@ -82,7 +80,7 @@ export default function Login() {
       }
 
       loginSuccess(data.token, data.user);
-      goAfterLogin(data.user.email); // NEW
+      goAfterLogin();
     } catch (err) {
       setError(err.message || "Login failed");
     } finally {
