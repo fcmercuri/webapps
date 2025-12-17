@@ -33,7 +33,6 @@ app.use(
   })
 );
 
-
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 const PERPLEXITY_API_KEY = process.env.PERPLEXITY_API_KEY;
@@ -360,20 +359,17 @@ app.post('/api/auth/register', async (req, res) => {
 });
 
 // --- AUTH: VERIFY EMAIL ---
-
 app.get('/api/auth/verify-email/:token', async (req, res) => {
   try {
     const { token } = req.params;
     console.log('🔐 Verify hit with token:', token);
 
-    // 1) Try to find user with matching token and valid expiry
     let user = await User.findOne({
       emailVerifyToken: token,
       emailVerifyExpires: { $gt: Date.now() },
     });
 
     if (!user) {
-      // 2) Maybe user is already verified and token cleared (link reused)
       const already = await User.findOne({
         emailVerified: true,
         emailVerifyToken: { $in: [null, undefined] },
@@ -393,7 +389,6 @@ app.get('/api/auth/verify-email/:token', async (req, res) => {
       return res.status(400).send('Verification link is invalid or expired.');
     }
 
-    // 3) First-time valid verification
     user.emailVerified = true;
     user.emailVerifyToken = undefined;
     user.emailVerifyExpires = undefined;
@@ -411,7 +406,6 @@ app.get('/api/auth/verify-email/:token', async (req, res) => {
     res.status(500).send('Failed to verify email.');
   }
 });
-
 
 // --- AUTH: LOGIN ---
 app.post('/api/auth/login', async (req, res) => {
@@ -506,10 +500,10 @@ app.put('/api/user/industry', authenticateToken, async (req, res) => {
   }
 });
 
-// --- PERSONAS (WITH PERPLEXITY) ---
+// --- PERSONAS (WITH PERPLEXITY, LANGUAGE-AWARE) ---
 app.post('/api/personas/generate', authenticateToken, async (req, res) => {
   try {
-    const { industry } = req.body;
+    const { industry, language = 'en' } = req.body;
 
     if (!industry) {
       return res.status(400).json({ error: 'Industry is required' });
@@ -536,8 +530,15 @@ app.post('/api/personas/generate', authenticateToken, async (req, res) => {
         });
     }
 
+    const langInstruction =
+      language === 'it'
+        ? 'All output must be in Italian.'
+        : 'All output must be in natural English.';
+
     const systemPrompt =
-      'You are a marketing strategist expert. You MUST respond with ONLY valid JSON - no markdown, no explanations, no code blocks. Just pure JSON array.';
+      'You are a marketing strategist expert. ' +
+      langInstruction +
+      ' You MUST respond with ONLY valid JSON - no markdown, no explanations, no code blocks. Just pure JSON array.';
 
     const userPrompt = `Generate exactly 4 customer personas for the ${industry} industry.
 
@@ -555,7 +556,7 @@ Return ONLY a JSON array (no markdown, no code blocks, no explanations) with thi
 
 Make personas diverse, realistic, and specific to ${industry}.`;
 
-    console.log('🔄 Generating personas for industry:', industry);
+    console.log('🔄 Generating personas for industry:', industry, 'lang:', language);
 
     const content = await callPerplexity(systemPrompt, userPrompt, 'sonar');
 
@@ -641,10 +642,10 @@ app.get('/api/personas', authenticateToken, async (req, res) => {
   }
 });
 
-// --- PROMPTS (WITH PERPLEXITY) ---
+// --- PROMPTS (WITH PERPLEXITY, LANGUAGE-AWARE) ---
 app.post('/api/prompts/generate', authenticateToken, async (req, res) => {
   try {
-    const { personaId } = req.body;
+    const { personaId, language = 'en' } = req.body;
 
     if (!personaId) {
       return res.status(400).json({ error: 'Persona ID is required' });
@@ -655,8 +656,15 @@ app.post('/api/prompts/generate', authenticateToken, async (req, res) => {
       return res.status(404).json({ error: 'Persona not found' });
     }
 
+    const langInstruction =
+      language === 'it'
+        ? 'All prompts and text must be written in Italian.'
+        : 'All prompts and text must be written in natural English.';
+
     const systemPrompt =
-      'You are a content strategist. You MUST respond with ONLY valid JSON - no markdown, no explanations, no code blocks. Just pure JSON array.';
+      'You are a content strategist. ' +
+      langInstruction +
+      ' You MUST respond with ONLY valid JSON - no markdown, no explanations, no code blocks. Just pure JSON array.';
 
     const userPrompt = `Based on this customer persona:
 Name: ${persona.name}
@@ -674,9 +682,9 @@ Generate exactly 5 content prompts. Return ONLY a JSON array (no markdown, no co
   }
 ]
 
-Category must be one of: SEO, Social, Blog, Website, Email`;
+Category must be one of: SEO, Social, Blog, Website, Email.`;
 
-    console.log('🔄 Generating prompts for persona:', persona.name);
+    console.log('🔄 Generating prompts for persona:', persona.name, 'lang:', language);
 
     const content = await callPerplexity(systemPrompt, userPrompt, 'sonar');
 
@@ -863,10 +871,10 @@ app.post('/api/prompts/volume', authenticateToken, async (req, res) => {
   }
 });
 
-// --- CONTENT GENERATION (WITH PERPLEXITY) ---
+// --- CONTENT GENERATION (WITH PERPLEXITY, LANGUAGE-AWARE) ---
 app.post('/api/content/generate', authenticateToken, async (req, res) => {
   try {
-    const { promptId, type } = req.body;
+    const { promptId, type, language = 'en' } = req.body;
 
     if (!promptId) {
       return res.status(400).json({ error: 'Prompt ID is required' });
@@ -896,8 +904,15 @@ app.post('/api/content/generate', authenticateToken, async (req, res) => {
 
     const persona = prompt.personaId;
 
+    const langInstruction =
+      language === 'it'
+        ? 'Write the full copy in Italian.'
+        : 'Write the full copy in natural English.';
+
     const systemPrompt =
-      'You are a professional copywriter. Write compelling, conversion-focused content.';
+      'You are a professional copywriter. ' +
+      langInstruction +
+      ' Write compelling, conversion-focused content.';
 
     const userPrompt = `Write ${type || 'website'} content for:
 
@@ -922,7 +937,7 @@ Act as the best content writer and write 1300-1500 words of compelling copy that
 
 Return ONLY the content text (no JSON, no markdown formatting).`;
 
-    console.log('🔄 Generating content for prompt:', prompt.title);
+    console.log('🔄 Generating content for prompt:', prompt.title, 'lang:', language);
 
     const body = await callPerplexity(systemPrompt, userPrompt);
 
@@ -1133,3 +1148,5 @@ app.get('/api/content', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch content' });
   }
 });
+
+module.exports = app;
