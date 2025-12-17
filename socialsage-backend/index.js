@@ -1071,13 +1071,14 @@ app.post('/api/auth/forgot-password', async (req, res) => {
       return res.json({ message: 'If the account exists, an email was sent.' });
     }
 
-    // NEW: block reset for Google-only accounts
-    if (user.authProvider === 'google' && !user.password) {
-      return res.json({
-        message:
-          'You registered using Google. No password reset is needed—just sign in with "Continue with Google".',
-      });
-    }
+   // NEW: block reset for Google-only accounts
+if (user.authProvider === 'google' && !user.password) {
+  console.log('Google-only account requested reset:', user.email);
+  return res.json({
+    message:
+      'You registered using Google. No password reset is needed—just sign in with "Continue with Google".',
+  });
+}
 
     const token = crypto.randomBytes(32).toString('hex');
     user.resetPasswordToken = token;
