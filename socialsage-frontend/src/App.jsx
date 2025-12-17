@@ -15,10 +15,14 @@ import Saved from "./pages/Saved";
 import Analytics from "./pages/analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import Success from "./pages/Success";
+import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
+
 
 // NEW
 import EmailVerified from "./pages/EmailVerified";
 import VerifyEmail from "./pages/VerifyEmail";
+import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
+
 
 function PrivateRoute({ children }) {
   const { token } = useAuth();
