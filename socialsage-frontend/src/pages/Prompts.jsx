@@ -34,7 +34,7 @@ export default function Prompts() {
         const list = Array.isArray(res.data) ? res.data : [];
         setPersonas(list);
         if (list.length > 0) {
-          setSelectedPersonaId(list[0]._id); // default to first
+          setSelectedPersonaId(list[0]._id); // default first persona
         }
       } catch (err) {
         setError(
@@ -45,7 +45,7 @@ export default function Prompts() {
     loadPersonas();
   }, []);
 
-  // Whenever selected persona changes, generate prompts for it
+  // Generate prompts when selected persona changes
   useEffect(() => {
     if (!selectedPersonaId) return;
 
@@ -61,7 +61,7 @@ export default function Prompts() {
           language,
         });
 
-        const basePrompts = res.data || [];
+        const basePrompts = Array.isArray(res.data) ? res.data : [];
         setPrompts(basePrompts);
 
         // 2) enrich with focus keywords
@@ -69,14 +69,27 @@ export default function Prompts() {
           setKeywordLoading(true);
           try {
             const kwRes = await api.post("/api/prompts/volume", {
-              prompts: basePrompts.map((p) => ({ prompt: p.prompt })),
+              prompts: basePrompts.map((p) => ({
+                // send some stable text to keyword API
+                prompt: p.title || p.description || "",
+              })),
             });
+
             const enriched = kwRes.data.prompts || [];
             const byPrompt = {};
             enriched.forEach((p) => {
-              byPrompt[p.prompt] = p;
+              byPrompt[p.prompt] = p; // key is the text we sent above
             });
-            setPrompts(basePrompts.map((p) => byPrompt[p.prompt] || p));
+
+            setPrompts(
+              basePrompts.map((p) => {
+                const key = p.title || p.description || "";
+                const match = byPrompt[key];
+                return match
+                  ? { ...p, focusKeyword: match.focusKeyword }
+                  : p;
+              })
+            );
           } catch (kwErr) {
             console.error("Focus keyword extraction failed", kwErr);
           } finally {
@@ -190,9 +203,7 @@ export default function Prompts() {
                 flexWrap: "wrap",
               }}
             >
-              <span style={{ color: "#bbb", fontSize: 14 }}>
-                Persona:
-              </span>
+              <span style={{ color: "#bbb", fontSize: 14 }}>Persona:</span>
               <select
                 value={selectedPersonaId}
                 onChange={(e) => setSelectedPersonaId(e.target.value)}
@@ -254,7 +265,7 @@ export default function Prompts() {
             >
               {prompts.map((p, idx) => (
                 <div
-                  key={idx}
+                  key={p._id || idx}
                   style={{
                     background: "#15151f",
                     borderRadius: 18,
@@ -270,18 +281,32 @@ export default function Prompts() {
                       marginBottom: 6,
                     }}
                   >
-                    Prompt #{idx + 1} · {p.intent} · {p.channel}
+                    Prompt #{idx + 1} · {p.category || "Prompt"}
                   </div>
+
                   <p
                     style={{
                       fontSize: 13,
                       color: "#ddd",
-                      margin: "0 0 8px 0",
+                      margin: "0 0 4px 0",
                       lineHeight: 1.5,
                     }}
                   >
-                    {p.prompt}
+                    {p.title || p.prompt}
                   </p>
+
+                  {p.description && (
+                    <p
+                      style={{
+                        fontSize: 12,
+                        color: "#9ca3af",
+                        margin: 0,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {p.description}
+                    </p>
+                  )}
 
                   {p.focusKeyword && (
                     <div
