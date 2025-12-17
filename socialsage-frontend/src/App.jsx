@@ -16,7 +16,7 @@ import Analytics from "./pages/analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import Success from "./pages/Success";
 import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
-import ResetPasswordForm from "./pages/ResetPasswordForm";
+import ResetPasswordForm from "./pages/ResetPasswordForm"; // NEW
 
 // NEW
 import EmailVerified from "./pages/EmailVerified";
@@ -86,6 +86,10 @@ function App() {
           <Route
             path="/reset-password/:token"
             element={<ResetPasswordRedirect />}
+          />
+          <Route
+            path="/reset-password-form/:token"
+            element={<ResetPasswordForm />}
           />
 
           <Route
