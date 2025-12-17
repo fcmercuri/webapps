@@ -1061,60 +1061,62 @@ return res
 
 // Request password reset
 app.post('/api/auth/forgot-password', async (req, res) => {
-try {
-const { email } = req.body;
-if (!email) return res.status(400).json({ error: 'Email is required' });
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required' });
 
-const user = await User.findOne({ email });
-if (!user) {
-return res.json({ message: 'If the account exists, an email was sent.' });
-}
+    const user = await User.findOne({ email });
+    if (!user) {
+      // privacy-safe generic message
+      return res.json({ message: 'If the account exists, an email was sent.' });
+    }
 
-// SIMPLE: if user has a googleId, tell them to use Google sign-in
-if (user.googleId) {
-return res.json({
-message:
-'You registered using Google. No password reset is needed—please sign in with "Continue with Google".',
+    // DB-based check: user registered with Google
+    if (user.authProvider === 'google' || user.googleId) {
+      return res.json({
+        message:
+          'You registered using Google. No password reset is needed—please sign in with "Continue with Google".',
+      });
+    }
+
+    // normal reset flow for email/password users
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 1000 * 60 * 30;
+    await user.save();
+
+    const baseUrl =
+      process.env.NODE_ENV === 'production'
+        ? 'https://sainthetic.com'
+        : 'http://localhost:3000';
+
+    const resetLink = `${baseUrl}/reset-password/${token}`;
+
+    try {
+      await resend.emails.send({
+        from: process.env.FROM_EMAIL,
+        to: email,
+        subject: 'Reset your sAInthetic password',
+        template: {
+          id: process.env.RESEND_RESET_TEMPLATE_ID,
+          variables: {
+            userEmail: email,
+            resetLink,
+            year: new Date().getFullYear(),
+          },
+        },
+      });
+    } catch (err) {
+      console.error('Email send error:', err);
+    }
+
+    res.json({ message: 'If the account exists, an email was sent.' });
+  } catch (err) {
+    console.error('❌ Forgot-password error:', err);
+    res.status(500).json({ error: 'Failed to start reset' });
+  }
 });
-}
 
-// normal reset flow
-const token = crypto.randomBytes(32).toString('hex');
-user.resetPasswordToken = token;
-user.resetPasswordExpires = Date.now() + 1000 * 60 * 30;
-await user.save();
-
-const baseUrl =
-process.env.NODE_ENV === 'production'
-? 'https://sainthetic.com'
-: 'http://localhost:3000';
-
-const resetLink = `${baseUrl}/reset-password/${token}`;
-
-try {
-await resend.emails.send({
-from: process.env.FROM_EMAIL,
-to: email,
-subject: 'Reset your sAInthetic password',
-template: {
-id: process.env.RESEND_RESET_TEMPLATE_ID,
-variables: {
-userEmail: email,
-resetLink,
-year: new Date().getFullYear(),
-},
-},
-});
-} catch (err) {
-console.error('Email send error:', err);
-}
-
-res.json({ message: 'If the account exists, an email was sent.' });
-} catch (err) {
-console.error('❌ Forgot-password error:', err);
-res.status(500).json({ error: 'Failed to start reset' });
-}
-});
 
 // Complete password reset
 app.post('/api/auth/reset-password', async (req, res) => {
