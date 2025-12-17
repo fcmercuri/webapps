@@ -17,12 +17,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Success from "./pages/Success";
 import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
 
-
 // NEW
 import EmailVerified from "./pages/EmailVerified";
 import VerifyEmail from "./pages/VerifyEmail";
-
-
 
 function PrivateRoute({ children }) {
   const { token } = useAuth();
@@ -45,7 +42,6 @@ function PublicRoute({ children }) {
 
   return <Navigate to="/dashboard" replace />;
 }
-
 
 function App() {
   return (
@@ -83,9 +79,13 @@ function App() {
 
           <Route path="/success" element={<Success />} />
 
-          {/* NEW public email verification routes */}
+          {/* NEW public email + reset routes */}
           <Route path="/email-verified" element={<EmailVerified />} />
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPasswordRedirect />}
+          />
 
           <Route
             path="/welcome"
