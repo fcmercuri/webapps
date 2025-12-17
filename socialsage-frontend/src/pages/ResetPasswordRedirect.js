@@ -1,14 +1,13 @@
+// src/pages/ResetPasswordRedirect.jsx
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function ResetPasswordRedirect() {
-  const { token } = useParams(); // from /reset-password/:token
+  const { token } = useParams(); // /reset-password/:token
 
   useEffect(() => {
     if (!token) return;
 
-    // Frontend just bounces the user to the backend,
-    // backend validates token and shows actual reset UI / redirect.
     window.location.href = `${process.env.REACT_APP_API_BASE_URL}/api/auth/reset-password/${token}`;
   }, [token]);
 
@@ -33,7 +32,7 @@ export default function ResetPasswordRedirect() {
           border: "1px solid rgba(255,217,69,0.2)",
         }}
       >
-        <h1 style={{ color: "#ffd945", marginBottom: 12 }}>Checking link…</h1>
+        <h1 style={{ color: "#ffd945", marginBottom: 12 }}>Checking link...</h1>
         <p style={{ color: "#ddd" }}>
           Please wait while we verify your password reset link.
         </p>
