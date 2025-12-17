@@ -99,7 +99,7 @@ export default function Register() {
       }
 
       // ✅ NEW: Show email confirmation message - NO AUTO LOGIN
-      setSuccessMsg("Check your email to confirm your account!");
+      setSuccessMsg("✅ Check your email to confirm your account!");
       
       // Clear form for better UX
       setEmail("");
