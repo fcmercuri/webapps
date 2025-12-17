@@ -17,8 +17,11 @@ export default function ForgotPassword() {
 
     try {
       setLoading(true);
-      await api.post("/api/auth/forgot-password", { email });
-      setStatus("If the account exists, we sent a reset link to your email.");
+      const res = await api.post("/api/auth/forgot-password", { email });
+      setStatus(
+        res.data?.message ||
+          "If the account exists, we sent a reset link to your email."
+      );
     } catch (err) {
       setError(err.response?.data?.error || "Failed to start reset");
     } finally {
@@ -54,7 +57,9 @@ export default function ForgotPassword() {
         </p>
 
         <form onSubmit={handleSubmit}>
-          <label style={{ color: "#ffd945", marginBottom: 6, display: "block" }}>
+          <label
+            style={{ color: "#ffd945", marginBottom: 6, display: "block" }}
+          >
             Email address
           </label>
           <input
