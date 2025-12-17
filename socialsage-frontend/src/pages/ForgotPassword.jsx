@@ -15,18 +15,21 @@ export default function ForgotPassword() {
     setError("");
     if (!email) return setError("Email is required");
 
-    try {
-      setLoading(true);
-      const res = await api.post("/api/auth/forgot-password", { email });
-      setStatus(
-        res.data?.message ||
-          "If the account exists, we sent a reset link to your email."
-      );
-    } catch (err) {
-      setError(err.response?.data?.error || "Failed to start reset");
-    } finally {
-      setLoading(false);
-    }
+try {
+  setLoading(true);
+  const res = await api.post("/api/auth/forgot-password", { email });
+  console.log("forgot-password response:", res.data);
+  setStatus(
+    res.data?.message ||
+      "If the account exists, we sent a reset link to your email."
+  );
+} catch (err) {
+  console.log("forgot-password error:", err.response?.data || err.message);
+  setError(err.response?.data?.error || "Failed to start reset");
+} finally {
+  setLoading(false);
+}
+
   }
 
   return (
