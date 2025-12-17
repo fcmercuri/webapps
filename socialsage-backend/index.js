@@ -1066,7 +1066,18 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     if (!email) return res.status(400).json({ error: 'Email is required' });
 
     const user = await User.findOne({ email });
-    if (!user) return res.json({ message: 'If the account exists, an email was sent.' });
+    if (!user) {
+      // Preserve privacy: same message even if user doesn't exist
+      return res.json({ message: 'If the account exists, an email was sent.' });
+    }
+
+    // NEW: block reset for Google-only accounts
+    if (user.authProvider === 'google' && !user.password) {
+      return res.json({
+        message:
+          'You registered using Google. No password reset is needed—just sign in with "Continue with Google".',
+      });
+    }
 
     const token = crypto.randomBytes(32).toString('hex');
     user.resetPasswordToken = token;
