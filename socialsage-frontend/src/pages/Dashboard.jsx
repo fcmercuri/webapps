@@ -19,6 +19,20 @@ export default function Dashboard() {
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // Language state
+  const [language, setLanguage] = useState('en'); // "en" or "it"
+
+  // Load saved language
+  useEffect(() => {
+    const saved = localStorage.getItem('language') || 'en';
+    setLanguage(saved);
+  }, []);
+
+  // Persist on change
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
+
   console.log('Dashboard user:', user);
 
   useEffect(() => {
@@ -56,8 +70,13 @@ export default function Dashboard() {
         return;
       }
 
-      await api.put('/api/user/industry', { industry });
-      const res = await api.post('/api/personas/generate', { industry });
+      // Optionally store language with industry
+      await api.put('/api/user/industry', { industry, language });
+
+      const res = await api.post('/api/personas/generate', {
+        industry,
+        language, // tell backend which language to use
+      });
       setPersonas(res.data);
       setUser({ ...user, industry });
     } catch (err) {
@@ -76,7 +95,10 @@ export default function Dashboard() {
     setGeneratedContent(null);
     try {
       setLoading(true);
-      const res = await api.post('/api/prompts/generate', { personaId: persona._id });
+      const res = await api.post('/api/prompts/generate', {
+        personaId: persona._id,
+        language, // generate prompts in current language
+      });
       setPrompts(res.data);
     } catch (err) {
       setError('Failed to generate prompts');
@@ -90,7 +112,11 @@ export default function Dashboard() {
       setLoading(true);
       setError('');
       setGeneratedContent(null);
-      const res = await api.post('/api/content/generate', { promptId, type: 'website' });
+      const res = await api.post('/api/content/generate', {
+        promptId,
+        type: 'website',
+        language, // generate content in current language
+      });
       setGeneratedContent(res.data);
       setTimeout(() => {
         const editor = document.getElementById('content-editor');
@@ -146,35 +172,34 @@ export default function Dashboard() {
 
       <div className="dashboard-main">
         {/* Mobile header */}
-<div
-  className="dashboard-mobile-header"
-  style={{ padding: '10px 10px 0' }}   // add this inline style
->
-  <button
-    type="button"
-    onClick={() => setIsSidebarOpen(v => !v)}
-    style={{
-      background: 'transparent',
-      border: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      gap: 8,
-      cursor: 'pointer',
-      padding: 0,
-    }}
-  >
-    <img
-      src="/logo.jpg"
-      alt="sainthetic"
-      style={{ width: 32, height: 32, borderRadius: 10 }}
-    />
-    <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
-  </button>
-</div>
-
+        <div
+          className="dashboard-mobile-header"
+          style={{ padding: '10px 10px 0' }}
+        >
+          <button
+            type="button"
+            onClick={() => setIsSidebarOpen(v => !v)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              cursor: 'pointer',
+              padding: 0,
+            }}
+          >
+            <img
+              src="/logo.jpg"
+              alt="sainthetic"
+              style={{ width: 32, height: 32, borderRadius: 10 }}
+            />
+            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+          </button>
+        </div>
 
         <div className="dashboard-content">
-          {/* Top row: title + user info */}
+          {/* Top row: title + language toggle + user info */}
           <div
             style={{
               display: 'flex',
@@ -186,6 +211,28 @@ export default function Dashboard() {
           >
             <h1 style={{ margin: 0 }}>Dashboard</h1>
 
+            {/* Language toggle */}
+            <button
+              type="button"
+              onClick={() =>
+                setLanguage(prev => (prev === 'en' ? 'it' : 'en'))
+              }
+              style={{
+                padding: '6px 12px',
+                borderRadius: 999,
+                border: '1px solid #4b5563',
+                background: '#020617',
+                color: '#e5e7eb',
+                fontSize: '0.8rem',
+                cursor: 'pointer',
+                marginLeft: 'auto',
+                marginRight: 12,
+              }}
+              title="Switch content language"
+            >
+              Language: {language === 'en' ? 'English' : 'Italiano'}
+            </button>
+
             {user && (
               <div
                 style={{
@@ -195,22 +242,33 @@ export default function Dashboard() {
                   flexShrink: 0,
                 }}
               >
-                <div style={{ textAlign: 'right', marginRight: 12, maxWidth: 170 }}>
-  <div
-    style={{
-      color: '#e5e7eb',
-      fontWeight: 600,
-      fontSize: '1.0rem',       // smaller font
-      lineHeight: 1.2,
-      wordBreak: 'break-all',   // allow breaking long emails
-    }}
-  >
-    {user.email?.split('@')[0] || ''}
-  </div>
-  <div style={{ color: '#9ca3af', fontSize: '0.75rem' }}>
-    Account type
-  </div>
-</div>
+                <div
+                  style={{
+                    textAlign: 'right',
+                    marginRight: 12,
+                    maxWidth: 170,
+                  }}
+                >
+                  <div
+                    style={{
+                      color: '#e5e7eb',
+                      fontWeight: 600,
+                      fontSize: '1.0rem',
+                      lineHeight: 1.2,
+                      wordBreak: 'break-all',
+                    }}
+                  >
+                    {user.email?.split('@')[0] || ''}
+                  </div>
+                  <div
+                    style={{
+                      color: '#9ca3af',
+                      fontSize: '0.75rem',
+                    }}
+                  >
+                    Account type
+                  </div>
+                </div>
 
                 <span
                   style={{
