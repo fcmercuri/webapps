@@ -27,19 +27,21 @@ function PrivateRoute({ children }) {
 }
 
 function PublicRoute({ children }) {
-  const { token } = useAuth();
-  const firstLogin = localStorage.getItem("firstLogin");
+  const { token, user } = useAuth();
 
-  if (token && firstLogin === "true") {
+  if (!token) return children;
+
+  const email = user?.email;
+  const key = email ? `firstLogin:${email}` : null;
+  const firstLogin = key ? localStorage.getItem(key) : null;
+
+  if (!firstLogin || firstLogin === "true") {
     return <Navigate to="/welcome" replace />;
   }
 
-  if (token && firstLogin === "false") {
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return children;
+  return <Navigate to="/dashboard" replace />;
 }
+
 
 function App() {
   return (
