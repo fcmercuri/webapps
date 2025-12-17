@@ -70,12 +70,12 @@ export default function Dashboard() {
         return;
       }
 
-      // Optionally store language with industry
+      // optionally store language with industry
       await api.put('/api/user/industry', { industry, language });
 
       const res = await api.post('/api/personas/generate', {
         industry,
-        language, // tell backend which language to use
+        language, // generate personas in selected language
       });
       setPersonas(res.data);
       setUser({ ...user, industry });
@@ -97,7 +97,7 @@ export default function Dashboard() {
       setLoading(true);
       const res = await api.post('/api/prompts/generate', {
         personaId: persona._id,
-        language, // generate prompts in current language
+        language, // prompts language
       });
       setPrompts(res.data);
     } catch (err) {
@@ -115,7 +115,7 @@ export default function Dashboard() {
       const res = await api.post('/api/content/generate', {
         promptId,
         type: 'website',
-        language, // generate content in current language
+        language, // content language
       });
       setGeneratedContent(res.data);
       setTimeout(() => {
@@ -199,7 +199,7 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-content">
-          {/* Top row: title + language toggle + user info */}
+          {/* Top row: title + user info (no language here) */}
           <div
             style={{
               display: 'flex',
@@ -210,28 +210,6 @@ export default function Dashboard() {
             }}
           >
             <h1 style={{ margin: 0 }}>Dashboard</h1>
-
-            {/* Language toggle */}
-            <button
-              type="button"
-              onClick={() =>
-                setLanguage(prev => (prev === 'en' ? 'it' : 'en'))
-              }
-              style={{
-                padding: '6px 12px',
-                borderRadius: 999,
-                border: '1px solid #4b5563',
-                background: '#020617',
-                color: '#e5e7eb',
-                fontSize: '0.8rem',
-                cursor: 'pointer',
-                marginLeft: 'auto',
-                marginRight: 12,
-              }}
-              title="Switch content language"
-            >
-              Language: {language === 'en' ? 'English' : 'Italiano'}
-            </button>
 
             {user && (
               <div
@@ -367,6 +345,52 @@ export default function Dashboard() {
               {error}
             </div>
           )}
+
+          {/* Industry section header + language switcher */}
+          <div
+            style={{
+              marginTop: 24,
+              marginBottom: 8,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 12,
+            }}
+          >
+            <h2
+              style={{
+                fontSize: '1.4rem',
+                fontWeight: 800,
+                color: '#fff',
+                margin: 0,
+                letterSpacing: '-0.5px',
+              }}
+            >
+              Select Your Industry
+            </h2>
+
+            <button
+              type="button"
+              onClick={() =>
+                setLanguage(prev => (prev === 'en' ? 'it' : 'en'))
+              }
+              style={{
+                padding: '6px 16px',
+                borderRadius: 999,
+                border: '2px solid #2563eb',
+                background: '#020617',
+                color: '#e5e7eb',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                boxShadow: '0 0 0 1px rgba(15,23,42,0.9)',
+                whiteSpace: 'nowrap',
+              }}
+              title="Switch language for personas, prompts and content"
+            >
+              Language: {language === 'en' ? 'English' : 'Italiano'}
+            </button>
+          </div>
 
           {/* Industry selector */}
           <IndustrySelector
