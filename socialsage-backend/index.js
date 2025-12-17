@@ -26,11 +26,14 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://socialsage-frontend.onrender.com',
+      'https://socialsage-frontend.onrender.com', // keep if you still use it
+      'https://sainthetic.com',
+      'https://www.sainthetic.com',
     ],
     credentials: true,
   })
 );
+
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
