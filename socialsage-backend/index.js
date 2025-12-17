@@ -26,7 +26,6 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://socialsage-frontend.onrender.com', // keep if you still use it
       'https://sainthetic.com',
       'https://www.sainthetic.com',
     ],
@@ -326,7 +325,7 @@ app.post('/api/auth/register', async (req, res) => {
 
     const baseUrl =
       process.env.NODE_ENV === 'production'
-        ? 'https://socialsage-frontend.onrender.com'
+        ? 'https://sainthetic.com'
         : 'http://localhost:3000';
 
     const verifyLink = `${baseUrl}/verify-email/${verifyToken}`;
@@ -384,7 +383,7 @@ app.get('/api/auth/verify-email/:token', async (req, res) => {
         console.log('✅ Link reused, user already verified:', already.email);
         const baseUrl =
           process.env.NODE_ENV === 'production'
-            ? 'https://socialsage-frontend.onrender.com'
+            ? 'https://sainthetic.com'
             : 'http://localhost:3000';
 
         return res.redirect(`${baseUrl}/email-verified`);
@@ -403,7 +402,7 @@ app.get('/api/auth/verify-email/:token', async (req, res) => {
 
     const baseUrl =
       process.env.NODE_ENV === 'production'
-        ? 'https://socialsage-frontend.onrender.com'
+        ? 'https://sainthetic.com'
         : 'http://localhost:3000';
 
     return res.redirect(`${baseUrl}/email-verified`);
@@ -1028,7 +1027,7 @@ app.post('/api/billing/portal', authenticateToken, async (req, res) => {
 
     const origin =
       process.env.NODE_ENV === 'production'
-        ? 'https://socialsage-frontend.onrender.com'
+        ? 'https://sainthetic.com'
         : 'http://localhost:3000';
 
     const session = await stripe.billingPortal.sessions.create({
@@ -1061,7 +1060,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
 
     const baseUrl =
       process.env.NODE_ENV === 'production'
-        ? 'https://socialsage-frontend.onrender.com'
+        ? 'https://sainthetic.com'
         : 'http://localhost:3000';
 
     const resetLink = `${baseUrl}/reset-password/${token}`;
