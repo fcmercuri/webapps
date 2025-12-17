@@ -15,16 +15,17 @@ export default function Login() {
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-  const goAfterLogin = () => {
-    const firstLogin = localStorage.getItem("firstLogin");
+  const goAfterLogin = (userEmail) => {
+  const key = `firstLogin:${userEmail}`;
+  const firstLogin = localStorage.getItem(key);
 
-    if (!firstLogin || firstLogin === "true") {
-      localStorage.setItem("firstLogin", "true");
-      navigate("/welcome", { replace: true });
-    } else {
-      navigate("/dashboard", { replace: true });
-    }
-  };
+  if (!firstLogin || firstLogin === "true") {
+    localStorage.setItem(key, "true");
+    navigate("/welcome", { replace: true });
+  } else {
+    navigate("/dashboard", { replace: true });
+  }
+};
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
