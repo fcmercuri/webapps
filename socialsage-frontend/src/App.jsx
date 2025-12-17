@@ -21,7 +21,7 @@ import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
 // NEW
 import EmailVerified from "./pages/EmailVerified";
 import VerifyEmail from "./pages/VerifyEmail";
-import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
+
 
 
 function PrivateRoute({ children }) {
