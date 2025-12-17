@@ -8,28 +8,63 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function Prompts() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [persona, setPersona] = useState(null);
+  const [personas, setPersonas] = useState([]);
+  const [selectedPersonaId, setSelectedPersonaId] = useState("");
   const [prompts, setPrompts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [keywordLoading, setKeywordLoading] = useState(false);
   const [error, setError] = useState("");
   const [upgradeLoading, setUpgradeLoading] = useState(false);
 
-  const { user } = useAuth(); // get current user (with plan)
+  const { user } = useAuth();
 
+  // Language inherited from dashboard
+  const [language] = useState(
+    typeof window !== "undefined"
+      ? localStorage.getItem("language") || "en"
+      : "en"
+  );
+
+  // Load all personas first
   useEffect(() => {
-    async function loadBestPersonaPrompts() {
+    async function loadPersonas() {
+      try {
+        setError("");
+        const res = await api.get("/api/personas");
+        const list = Array.isArray(res.data) ? res.data : [];
+        setPersonas(list);
+        if (list.length > 0) {
+          setSelectedPersonaId(list[0]._id); // default to first
+        }
+      } catch (err) {
+        setError(
+          err.response?.data?.error || "Failed to load your personas"
+        );
+      }
+    }
+    loadPersonas();
+  }, []);
+
+  // Whenever selected persona changes, generate prompts for it
+  useEffect(() => {
+    if (!selectedPersonaId) return;
+
+    async function generatePromptsForPersona() {
       try {
         setLoading(true);
         setError("");
-        // 1) Get best persona + raw prompts from backend
-        const res = await api.get("/api/prompts/best-persona");
-        const personaData = res.data.persona;
-        const basePrompts = res.data.prompts || [];
-        setPersona(personaData);
+        setPrompts([]);
+
+        // 1) generate prompts for that persona, with language
+        const res = await api.post("/api/prompts/generate", {
+          personaId: selectedPersonaId,
+          language,
+        });
+
+        const basePrompts = res.data || [];
         setPrompts(basePrompts);
 
-        // 2) Ask backend to extract focus keywords for each prompt
+        // 2) enrich with focus keywords
         if (basePrompts.length) {
           setKeywordLoading(true);
           try {
@@ -51,15 +86,15 @@ export default function Prompts() {
       } catch (err) {
         setError(
           err.response?.data?.error ||
-            "Failed to load prompts for your best persona"
+            "Failed to generate prompts for this persona"
         );
       } finally {
         setLoading(false);
       }
     }
 
-    loadBestPersonaPrompts();
-  }, []);
+    generatePromptsForPersona();
+  }, [selectedPersonaId, language]);
 
   async function handleUpgradeStarter() {
     try {
@@ -88,6 +123,7 @@ export default function Prompts() {
   }
 
   const isFreePlan = !user || !user.plan || user.plan === "free";
+  const selectedPersona = personas.find((p) => p._id === selectedPersonaId);
 
   return (
     <div
@@ -125,7 +161,7 @@ export default function Prompts() {
           >
             <img
               src="/logo.jpg"
-              alt="SocialSage"
+              alt="sAInthetic"
               style={{ width: 32, height: 32, borderRadius: 10 }}
             />
             <span style={{ color: "#fff", fontWeight: 700 }}>Menu</span>
@@ -139,31 +175,74 @@ export default function Prompts() {
             Persona prompts for LLMs
           </h1>
 
-          {loading && <p style={{ color: "#bbb" }}>Loading best persona…</p>}
-
           {error && (
             <p style={{ color: "#fca5a5", marginBottom: 16 }}>{error}</p>
           )}
 
-          {persona && (
+          {/* Persona dropdown */}
+          {personas.length > 0 ? (
+            <div
+              style={{
+                marginBottom: 20,
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                flexWrap: "wrap",
+              }}
+            >
+              <span style={{ color: "#bbb", fontSize: 14 }}>
+                Persona:
+              </span>
+              <select
+                value={selectedPersonaId}
+                onChange={(e) => setSelectedPersonaId(e.target.value)}
+                style={{
+                  background: "#020617",
+                  color: "#e5e7eb",
+                  borderRadius: 999,
+                  border: "1px solid #4b5563",
+                  padding: "6px 12px",
+                  fontSize: 14,
+                  cursor: "pointer",
+                }}
+              >
+                {personas.map((p) => (
+                  <option key={p._id} value={p._id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+              <span style={{ color: "#9ca3af", fontSize: 12 }}>
+                Language: {language === "en" ? "English" : "Italiano"}
+              </span>
+            </div>
+          ) : (
+            !error && (
+              <p style={{ color: "#bbb", marginBottom: 16 }}>
+                You do not have any personas yet. Go to the Dashboard and
+                generate personas first.
+              </p>
+            )
+          )}
+
+          {loading && (
+            <p style={{ color: "#bbb" }}>
+              Generating prompts for this persona…
+            </p>
+          )}
+
+          {selectedPersona && !loading && (
             <p style={{ color: "#bbb", maxWidth: 640, marginBottom: 24 }}>
-              These prompts are generated from your highest‑converting persona:{" "}
+              These prompts are generated from:{" "}
               <span style={{ color: "#ffd945", fontWeight: 600 }}>
-                {persona.name}
+                {selectedPersona.name}
               </span>
               . Copy any of them into your favourite LLM or search engine.
               {keywordLoading && " Extracting focus keywords…"}
             </p>
           )}
 
-          {!loading && !error && !persona && (
-            <p style={{ color: "#bbb" }}>
-              You do not have any personas yet. Go to the Dashboard and
-              generate personas first.
-            </p>
-          )}
-
-          {persona && prompts.length > 0 && (
+          {selectedPersona && prompts.length > 0 && (
             <div
               style={{
                 display: "grid",
@@ -223,7 +302,6 @@ export default function Prompts() {
             </div>
           )}
 
-          {/* CTA: Upgrade for more prompts – only for free plan users */}
           {isFreePlan && (
             <div
               style={{
