@@ -252,9 +252,7 @@ export default function Prompts() {
                   </option>
                 ))}
               </select>
-              <span style={{ color: "#9ca3af", fontSize: 12 }}>
-                Language: {language === "en" ? "English" : "Italiano"}
-              </span>
+             
               {isFreePlan && (
                 <span style={{ color: "#facc15", fontSize: 12 }}>
                   Used {promptGenerationsUsed} / {MAX_FREE_GENERATIONS} free
