@@ -1,16 +1,18 @@
-// src/pages/ResetPasswordRedirect.jsx
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function ResetPasswordRedirect() {
   const { token } = useParams(); // /reset-password/:token
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) return;
 
-    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/api/auth/reset-password/${token}`;
-  }, [token]);
+    // Send the user to the actual reset form page on the frontend
+    navigate(`/reset-password-form/${token}`, { replace: true });
+  }, [token, navigate]);
 
+  // Optional tiny loader while redirecting
   return (
     <div
       style={{
