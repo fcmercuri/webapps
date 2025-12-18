@@ -70,9 +70,9 @@ export default function EmailVerified() {
               fontSize: "0.9rem",
             }}
           >
-            <li>Select your industry to generate your first AI persona.</li>
-            <li>Explore the ready‑made prompts attached to that persona.</li>
-            <li>Turn those prompts into tailored website content and offers.</li>
+           <li>Sign in to validate your account information.</li>
+<li>Land on the sAInthetic dashboard.</li>
+<li>Enjoy one of the best AI tools for generating personas and prompts.</li>
           </ul>
         </div>
 
