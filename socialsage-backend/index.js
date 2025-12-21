@@ -672,14 +672,22 @@ Bio: ${persona.bio}
 Goals: ${persona.goals.join(', ')}
 Pain Points: ${persona.painPoints.join(', ')}
 
-Generate exactly 5 content prompts. Return ONLY a JSON array (no markdown, no code blocks) with this structure:
+Generate exactly 5 content prompts that this persona would personally type into an AI assistant (like ChatGPT).
+
+Each prompt must:
+- Be written in first person ("I", "my")
+- Be copy-paste ready for an LLM
+- Directly help the persona achieve their goals or solve pain points
+- NOT describe a content idea, but be the exact wording the persona would type
+
+Return ONLY a JSON array (no markdown, no code blocks) with this structure:
 
 [
-{
-"title": "Short actionable title (max 8 words)",
-"description": "One clear sentence",
-"category": "SEO"
-}
+  {
+    "title": "Short actionable title (max 8 words)",
+    "description": "The exact prompt the persona would type into an LLM",
+    "category": "SEO | Social | Blog | Website | Email"
+  }
 ]
 
 Category must be one of: SEO, Social, Blog, Website, Email.`;
