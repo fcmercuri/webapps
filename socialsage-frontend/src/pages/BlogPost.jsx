@@ -31,7 +31,7 @@ const posts = {
 
 
     `
-  }
+
 
 },
   "how-to-create-buyer-personas-step-by-step": {  // <-- NEW POST ADDED HERE
