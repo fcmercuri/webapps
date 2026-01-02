@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function NavigationBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -9,6 +10,10 @@ export default function NavigationBar() {
     setLogoSpin(true);
     setMobileOpen((open) => !open);
     setTimeout(() => setLogoSpin(false), 600); // reset after spin
+  };
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
   };
 
   return (
@@ -36,6 +41,7 @@ export default function NavigationBar() {
         <div className="nav-right desktop-nav">
           <a href="#how-it-works">How It Works</a>
           <a href="#pricing">Pricing</a>
+          <Link to="/blog" className="nav-link">Blog</Link>
           <a href="/login">Sign In</a>
           <a href="/register" className="cta">Get Started</a>
         </div>
@@ -50,10 +56,11 @@ export default function NavigationBar() {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.33 }}
             >
-              <a href="#how-it-works" onClick={() => setMobileOpen(false)}>How It Works</a>
-              <a href="#pricing" onClick={() => setMobileOpen(false)}>Pricing</a>
-              <a href="/login" onClick={() => setMobileOpen(false)}>Sign In</a>
-              <a href="/register" className="cta" onClick={() => setMobileOpen(false)}>Get Started</a>
+              <a href="#how-it-works" onClick={closeMobileMenu}>How It Works</a>
+              <a href="#pricing" onClick={closeMobileMenu}>Pricing</a>
+              <Link to="/blog" onClick={closeMobileMenu} className="mobile-nav-link">Blog</Link>
+              <a href="/login" onClick={closeMobileMenu}>Sign In</a>
+              <a href="/register" className="cta" onClick={closeMobileMenu}>Get Started</a>
             </motion.div>
           )}
         </AnimatePresence>
@@ -77,7 +84,9 @@ export default function NavigationBar() {
             margin: 0;
             box-sizing: border-box;
           }
-          .mobile-dropdown.nav-right a, .mobile-dropdown .cta {
+          .mobile-dropdown.nav-right a, 
+          .mobile-dropdown .mobile-nav-link,
+          .mobile-dropdown .cta {
             margin: 2px 0;
             width: 100%;
             text-align: center;
@@ -93,7 +102,9 @@ export default function NavigationBar() {
             position: relative;
             overflow: hidden;
           }
-          .mobile-dropdown a:hover, .mobile-dropdown a:focus {
+          .mobile-dropdown a:hover, 
+          .mobile-dropdown .mobile-nav-link:hover,
+          .mobile-dropdown a:focus {
             background: #171717;
             color: #ffd945;
           }
@@ -105,7 +116,8 @@ export default function NavigationBar() {
             padding: 0.8rem 2rem !important;
             text-align: center;
           }
-          .mobile-dropdown a::after {
+          .mobile-dropdown a::after,
+          .mobile-dropdown .mobile-nav-link::after {
             content: '';
             position: absolute;
             left: 0; bottom: 0;
@@ -118,13 +130,28 @@ export default function NavigationBar() {
           }
           .mobile-dropdown a:active::after,
           .mobile-dropdown a:focus::after,
-          .mobile-dropdown a:hover::after {
+          .mobile-dropdown a:hover::after,
+          .mobile-dropdown .mobile-nav-link:active::after,
+          .mobile-dropdown .mobile-nav-link:focus::after,
+          .mobile-dropdown .mobile-nav-link:hover::after {
             transform: scaleX(1);
           }
         }
         @media (min-width:801px) {
           .mobile-dropdown { display: none !important; }
           .desktop-nav { display: flex !important; }
+          .desktop-nav .nav-link {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+          }
+          .desktop-nav .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: #ffd945;
+          }
         }
       `}</style>
     </>
