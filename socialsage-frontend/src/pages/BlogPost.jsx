@@ -195,10 +195,11 @@ export default function BlogPost() {
         }
         .post-content p {
           font-size: 1.15rem;
+          max-width: 72ch;
           color: #e5e7eb;
           margin-bottom: 1.75rem;
           line-height: 1.8;
-          text-align: justify;
+          text-align: left;
         }
         .post-content a {
           color: #ffd945;
