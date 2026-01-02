@@ -352,7 +352,7 @@ export default function BlogPost() {
         <footer className="post-footer">
           <div className="post-footer-content">
             <h3>Ready to transform your marketing?</h3>
-            <p>Generate AI-powered buyer personas in seconds.</p>
+            <p>Generate AI-powered buyer personas in seconds</p>
             <div className="cta-grid">
               <a href="https://sainthetic.com/register" className="cta-primary">
                 Start Free Trial
