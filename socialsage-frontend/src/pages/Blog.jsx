@@ -8,113 +8,52 @@ const firstArticle = {
   path: "/blog/why-buyer-personas-transform-marketing"
 };
 
-const styles = {
-  container: { minHeight: '100vh', backgroundColor: '#f9fafb' },
-  header: { backgroundColor: 'white', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06)', borderBottom: '1px solid #e5e7eb' },
-  headerContent: { maxWidth: '1152px', margin: '0 auto', padding: '0 16px', paddingTop: '24px', paddingBottom: '24px' },
-  h1: { fontSize: '2.25rem', fontWeight: '800', color: '#111827', lineHeight: '1.25' },
-  subtitle: { marginTop: '12px', fontSize: '1.25rem', color: '#4b5563' },
-  section: { maxWidth: '1152px', margin: '0 auto', padding: '0 16px' },
-  heroSection: { paddingTop: '80px', paddingBottom: '80px' },
-  grid: { display: 'grid', gridTemplateColumns: '1fr', gap: '48px', alignItems: 'center' },
-  lgGrid: { gridTemplateColumns: '1fr 1fr' },
-  featuredBadge: { display: 'inline-block', backgroundColor: '#dbeafe', color: '#1e40af', fontSize: '0.875rem', fontWeight: '500', padding: '4px 12px', borderRadius: '9999px', marginBottom: '16px' },
-  heroTitle: { fontSize: '2.25rem', fontWeight: '800', color: '#111827', marginBottom: '24px', lineHeight: '1.25' },
-  mdHeroTitle: { fontSize: '3rem' },
-  excerpt: { fontSize: '1.125rem', color: '#4b5563', marginBottom: '32px', lineHeight: '1.625' },
-  ctaButton: { display: 'inline-flex', alignItems: 'center', padding: '12px 24px', background: 'linear-gradient(to right, #3b82f6, #2563eb)', color: 'white', fontWeight: '500', borderRadius: '8px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)', fontSize: '1rem', textDecoration: 'none', transition: 'all 0.2s' },
-  ctaHover: { boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)', transform: 'translateY(-2px)' },
-  sidebar: { background: 'linear-gradient(to bottom right, rgba(168,85,247,0.2), rgba(59,130,246,0.2))', borderRadius: '16px', padding: '32px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.3)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' },
-  sidebarIcon: { width: '96px', height: '96px', background: 'linear-gradient(to right, #3b82f6, #9333ea)', borderRadius: '9999px', margin: '0 auto 24px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  recentSection: { paddingTop: '80px', paddingBottom: '80px' },
-  sectionTitle: { fontSize: '1.875rem', fontWeight: '800', color: '#111827', marginBottom: '16px', textAlign: 'center' },
-  lgSectionTitle: { fontSize: '2.25rem' },
-  sectionSubtitle: { fontSize: '1.25rem', color: '#4b5563', maxWidth: '672px', margin: '0 auto' },
-  articlesGrid: { display: 'grid', gridTemplateColumns: '1fr', gap: '32px', marginTop: '64px' },
-  mdArticlesGrid: { gridTemplateColumns: '1fr 1fr' },
-  lgArticlesGrid: { gridTemplateColumns: 'repeat(3, 1fr)' },
-  articleCard: { backgroundColor: 'white', borderRadius: '16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)', overflow: 'hidden', transition: 'all 0.3s' },
-  cardHover: { boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', transform: 'translateY(-8px)' },
-  cardContent: { padding: '32px' },
-  latestBadge: { background: 'linear-gradient(to right, #3b82f6, #2563eb)', color: 'white', fontSize: '0.75rem', fontWeight: '500', padding: '4px 12px', borderRadius: '9999px', marginBottom: '16px' },
-  ctaSection: { background: 'linear-gradient(to right, #2563eb, #9333ea)', color: 'white', paddingTop: '80px', paddingBottom: '80px' },
-  ctaContent: { maxWidth: '896px', margin: '0 auto', padding: '0 16px', textAlign: 'center' },
-  ctaTitle: { fontSize: '1.875rem', fontWeight: '800', marginBottom: '24px' },
-  lgCtaTitle: { fontSize: '2.25rem' },
-  ctaSubtitle: { fontSize: '1.25rem', marginBottom: '32px', opacity: '0.9' },
-  ctaButtons: { display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center', alignItems: 'center' },
-  smCtaButtons: { flexDirection: 'row' }
-};
-
 export default function Blog() {
   return (
-    <div style={styles.container}>
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header style={styles.header}>
-        <div style={styles.headerContent}>
-          <h1 style={styles.h1}>sAInthetic Blog</h1>
-          <p style={styles.subtitle}>
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <h1 className="text-4xl font-bold text-gray-900">sAInthetic Blog</h1>
+          <p className="mt-3 text-xl text-gray-600">
             Insights on AI-generated personas, marketing strategies, and tools that resonate with your audience.
           </p>
         </div>
       </header>
 
       {/* Hero Featured Article */}
-      <section style={{ ...styles.section, ...styles.heroSection }}>
-        <div style={{ ...styles.grid, ...(window.innerWidth >= 1024 ? styles.lgGrid : {}) }}>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span style={styles.featuredBadge}>Featured</span>
-            <h2 
-              style={{ 
-                ...styles.heroTitle, 
-                ...(window.innerWidth >= 768 ? styles.mdHeroTitle : {}) 
-              }}
-            >
+            <span className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full mb-4">
+              Featured
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               {firstArticle.title}
             </h2>
-            <p style={styles.excerpt}>{firstArticle.excerpt}</p>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              {firstArticle.excerpt}
+            </p>
             <Link
               to={firstArticle.path}
-              style={styles.ctaButton}
-              onMouseEnter={(e) => {
-                Object.assign(e.target.style, styles.ctaHover);
-              }}
-              onMouseLeave={(e) => {
-                Object.assign(e.target.style, {
-                  ...styles.ctaButton,
-                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
-                  transform: 'none'
-                });
-              }}
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
             >
               Read the Article
-              <svg style={{ width: '20px', height: '20px', marginLeft: '8px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
           </div>
-          <div style={styles.sidebar}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={styles.sidebarIcon}>
-                <svg style={{ width: '48px', height: '48px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-gradient-to-br from-purple-400/20 to-blue-400/20 rounded-2xl p-8 md:p-12 backdrop-blur-sm border border-white/30 shadow-2xl">
+            <div className="text-center">
+              <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>AI-Powered Personas</h3>
-              <p style={{ color: '#4b5563', fontSize: '1rem' }}>Generated instantly for targeted marketing</p>
-              <a 
-                href="https://sainthetic.com/" 
-                style={{ 
-                  marginTop: '16px', 
-                  display: 'inline-block', 
-                  color: '#2563eb', 
-                  fontWeight: '500', 
-                  textDecoration: 'none',
-                  fontSize: '1rem'
-                }}
-                onMouseEnter={(e) => e.target.style.color = '#1d4ed8'}
-                onMouseLeave={(e) => e.target.style.color = '#2563eb'}
-              >
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">AI-Powered Personas</h3>
+              <p className="text-gray-600">Generated instantly for targeted marketing</p>
+              <a href="https://sainthetic.com/" className="mt-4 inline-block text-blue-600 hover:text-blue-800 font-medium">
                 Try sAInthetic →
               </a>
             </div>
@@ -123,164 +62,84 @@ export default function Blog() {
       </section>
 
       {/* Recent Articles Preview */}
-      <section style={{ ...styles.section, ...styles.recentSection }}>
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <h2 
-            style={{ 
-              ...styles.sectionTitle, 
-              ...(window.innerWidth >= 1024 ? styles.lgSectionTitle : {}) 
-            }}
-          >
-            Recent Articles
-          </h2>
-          <p style={styles.sectionSubtitle}>
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Recent Articles</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Dive deeper into strategies that transform how you connect with customers.
           </p>
         </div>
-        <div 
-          style={{ 
-            ...styles.articlesGrid, 
-            ...(window.innerWidth >= 768 ? styles.mdArticlesGrid : {}),
-            ...(window.innerWidth >= 1024 ? styles.lgArticlesGrid : {})
-          }}
-        >
-          {/* Featured article card */}
-          <article 
-            style={styles.articleCard}
-            onMouseEnter={(e) => Object.assign(e.currentTarget.style, styles.cardHover)}
-            onMouseLeave={(e) => {
-              Object.assign(e.currentTarget.style, {
-                ...styles.articleCard,
-                boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
-                transform: 'none'
-              });
-            }}
-          >
-            <div style={styles.cardContent}>
-              <span style={styles.latestBadge}>Latest</span>
-              <h3 style={{ 
-                fontSize: '1.5rem', 
-                fontWeight: '800', 
-                color: '#111827', 
-                marginBottom: '16px',
-                lineHeight: '1.25',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden'
-              }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Featured article card again for preview */}
+          <article className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+            <div className="p-8">
+              <span className="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-medium px-3 py-1 rounded-full mb-4">
+                Latest
+              </span>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight">
                 {firstArticle.title}
               </h3>
-              <p style={{ 
-                color: '#4b5563', 
-                marginBottom: '24px',
-                display: '-webkit-box',
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-                lineHeight: '1.625'
-              }}>
+              <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
                 {firstArticle.excerpt}
               </p>
               <Link
                 to={firstArticle.path}
-                style={{ 
-                  color: '#2563eb', 
-                  fontWeight: '500', 
-                  display: 'flex', 
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  fontSize: '1rem'
-                }}
+                className="text-blue-600 hover:text-blue-800 font-medium flex items-center group-hover:underline"
               >
                 Read more
-                <svg style={{ width: '16px', height: '16px', marginLeft: '4px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
             </div>
           </article>
-          {/* Placeholder cards with pulse animation */}
-          {[1, 2].map((i) => (
-            <article key={i} style={styles.articleCard}>
-              <div style={{ height: '192px', background: 'linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)', backgroundSize: '200% 100%', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
-              <div style={styles.cardContent}>
-                <span style={{ display: 'inline-block', backgroundColor: '#e5e7eb', height: '20px', width: '80px', borderRadius: '9999px', marginBottom: '16px', animation: 'pulse 2s infinite' }} />
-                <div style={{ height: '32px', backgroundColor: '#e5e7eb', borderRadius: '6px', marginBottom: '16px', animation: 'pulse 2s infinite' }} />
-                <p style={{ height: '80px', backgroundColor: '#e5e7eb', borderRadius: '6px', marginBottom: '24px', animation: 'pulse 2s infinite' }} />
-                <div style={{ height: '24px', backgroundColor: '#e5e7eb', width: '96px', borderRadius: '6px', animation: 'pulse 2s infinite' }} />
-              </div>
-            </article>
-          ))}
+          {/* Placeholder cards */}
+          <article className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+            <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse"></div>
+            <div className="p-8">
+              <span className="inline-block bg-gray-200 h-5 w-20 rounded-full mb-4 animate-pulse"></span>
+              <div className="h-8 bg-gray-200 rounded mb-4 animate-pulse"></div>
+              <p className="h-20 bg-gray-200 rounded animate-pulse mb-6"></p>
+              <div className="h-6 bg-gray-200 w-24 rounded animate-pulse"></div>
+            </div>
+          </article>
+          <article className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+            <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse"></div>
+            <div className="p-8">
+              <span className="inline-block bg-gray-200 h-5 w-20 rounded-full mb-4 animate-pulse"></span>
+              <div className="h-8 bg-gray-200 rounded mb-4 animate-pulse"></div>
+              <p className="h-20 bg-gray-200 rounded animate-pulse mb-6"></p>
+              <div className="h-6 bg-gray-200 w-24 rounded animate-pulse"></div>
+            </div>
+          </article>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section style={styles.ctaSection}>
-        <div style={styles.ctaContent}>
-          <h2 
-            style={{ 
-              ...styles.ctaTitle, 
-              ...(window.innerWidth >= 1024 ? styles.lgCtaTitle : {}) 
-            }}
-          >
+      <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
             Ready to create personas that convert?
           </h2>
-          <p style={styles.ctaSubtitle}>
+          <p className="text-xl mb-8 opacity-90">
             Generate AI-powered buyer personas instantly with sAInthetic.
           </p>
-          <div style={{ ...styles.ctaButtons, ...(window.innerWidth >= 640 ? styles.smCtaButtons : {}) }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="https://sainthetic.com/"
-              style={{
-                padding: '16px 32px',
-                backgroundColor: 'white',
-                color: '#2563eb',
-                fontWeight: '700',
-                borderRadius: '12px',
-                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
-                fontSize: '1.125rem',
-                textDecoration: 'none',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.boxShadow = '0 35px 60px -12px rgba(0,0,0,0.3)';
-                e.target.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.boxShadow = '0 25px 50px -12px rgba(0,0,0,0.25)';
-                e.target.style.transform = 'none';
-              }}
+              className="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-200 text-lg"
             >
               Get Started Free
             </a>
             <Link
               to={firstArticle.path}
-              style={{
-                padding: '16px 32px',
-                border: '2px solid white',
-                color: 'white',
-                fontWeight: '700',
-                borderRadius: '12px',
-                fontSize: '1.125rem',
-                textDecoration: 'none',
-                transition: 'all 0.2s'
-              }}
+              className="px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-200 text-lg"
             >
               Read First Article
             </Link>
           </div>
         </div>
       </section>
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: .5; }
-        }
-        @media (min-width: 1024px) { .lg\:grid-cols-2 > * { grid-column: span 1 / span 1; } }
-        @media (min-width: 768px) { .md\:grid-cols-2 > * { grid-column: span 1 / span 1; } }
-      `}</style>
     </div>
   );
 }
