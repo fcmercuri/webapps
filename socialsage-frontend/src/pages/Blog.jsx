@@ -293,12 +293,16 @@ export default function Blog() {
       `}</style>
 
       {/* Simplified Navigation - Logo + Clickable Brand only */}
-      <nav className="blog-nav">
-        <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
-          <div className="nav-logo"></div>
-          <div className="nav-brand">sAInthetic</div>
-        </Link>
-      </nav>
+     <nav className="blog-nav">
+  <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
+    <img 
+      src="/logo.jpg" 
+      alt="sAInthetic Logo" 
+      className="nav-logo"
+      style={{ width: '36px', height: '36px', borderRadius: '8px' }}
+    />
+  </Link>
+</nav>
 
       <div className="blog-container">
         {/* Hero Section */}
