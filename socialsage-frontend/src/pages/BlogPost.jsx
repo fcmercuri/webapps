@@ -314,19 +314,15 @@ export default function BlogPost() {
 
       {/* Navigation - Exact match to Blog page */}
       <nav className="blog-nav">
-        <div className="nav-left">
-          <div className="nav-logo"></div>
-          <div className="nav-brand">sAInthetic</div>
-        </div>
-        <div className="nav-spacer"></div>
-        <div className="nav-right">
-          <Link to="/" style={{textDecoration: 'none'}}>Home</Link>
-          <Link to="/how-it-works" style={{textDecoration: 'none'}}>How it works</Link>
-          <a href="/pricing" style={{textDecoration: 'none'}}>Pricing</a>
-          <Link to="/blog" style={{textDecoration: 'none'}}>Blog</Link>
-          <a href="https://sainthetic.com/" className="cta">Get Started</a>
-        </div>
-      </nav>
+  <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
+    <img 
+      src="/logo.jpg" 
+      alt="sAInthetic Logo" 
+      className="nav-logo"
+      style={{ width: '36px', height: '36px', borderRadius: '8px' }}
+    />
+  </Link>
+</nav>
 
       <div className="post-container">
         {/* Header */}
