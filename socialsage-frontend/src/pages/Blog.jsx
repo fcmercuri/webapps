@@ -11,11 +11,87 @@ export default function Blog() {
   return (
     <>
       <style>{`
+        nav.blog-nav {
+          background: #0B0B0B;
+          padding: 1rem 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid #232323;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+        .nav-left {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .nav-logo {
+          width: 36px;
+          height: 36px;
+          background: linear-gradient(135deg, #ffd945, #34c759);
+          border-radius: 8px;
+        }
+        .nav-brand {
+          font-size: 1.35rem;
+          font-weight: 700;
+          color: #fff;
+          letter-spacing: -0.5px;
+          cursor: pointer;
+        }
+        .nav-spacer { flex: 1; }
+        .nav-right {
+          display: flex;
+          align-items: center;
+          gap: 36px;
+        }
+        .nav-right a {
+          color: #fff;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 1.12rem;
+          padding: 0.58rem 0.95rem;
+          border-radius: 8px;
+          transition: background 0.2s, color 0.2s;
+          position: relative;
+          overflow: hidden;
+        }
+        .nav-right a:hover {
+          background: #171717;
+          color: #ffd945;
+        }
+        .nav-right .cta {
+          background: #ffd945;
+          color: #191919 !important;
+          font-weight: 700;
+          border-radius: 8px;
+          box-shadow: 0 6px 28px #ffd94540;
+          padding: 0.65rem 2rem !important;
+          transition: background 0.25s, color 0.2s;
+        }
+        .nav-right .cta:hover {
+          background: #ffe267;
+          color: #191919 !important;
+        }
+        .nav-right a::after {
+          content: '';
+          position: absolute;
+          left: 0; bottom: 0;
+          width: 100%;
+          height: 2.5px;
+          background: #ffd945;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.22s cubic-bezier(.52, .24, .14, 1.36);
+        }
+        .nav-right a:hover::after { transform: scaleX(1); }
+
         .blog-container {
           padding: 4rem 2rem;
           max-width: 1200px;
           margin: 0 auto;
-          min-height: calc(100vh - 80px);
+          min-height: calc(100vh - 140px);
         }
         .blog-hero {
           display: grid;
@@ -226,8 +302,37 @@ export default function Blog() {
           .blog-container { padding: 2rem 1rem; }
           .blog-hero { grid-template-columns: 1fr; gap: 2.5rem; }
           .blog-articles-grid { grid-template-columns: 1fr; }
+          nav.blog-nav { padding: 1rem; }
+          .nav-right { gap: 1rem; }
+        }
+        @media (max-width: 600px) {
+          .nav-right {
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: stretch;
+          }
+          .nav-right a, .nav-right .cta {
+            width: 100%;
+            text-align: center;
+          }
         }
       `}</style>
+
+      {/* Navigation - Matches your exact nav design */}
+      <nav className="blog-nav">
+        <div className="nav-left">
+          <div className="nav-logo"></div>
+          <div className="nav-brand">sAInthetic</div>
+        </div>
+        <div className="nav-spacer"></div>
+        <div className="nav-right">
+          <Link to="/" style={{textDecoration: 'none'}}>Home</Link>
+          <Link to="/how-it-works" style={{textDecoration: 'none'}}>How it works</Link>
+          <a href="/pricing" style={{textDecoration: 'none'}}>Pricing</a>
+          <Link to="/blog" style={{textDecoration: 'none'}}>Blog</Link>
+          <a href="https://sainthetic.com/" className="cta">Get Started</a>
+        </div>
+      </nav>
 
       <div className="blog-container">
         {/* Hero Section */}
