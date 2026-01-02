@@ -22,6 +22,9 @@ import ResetPasswordForm from "./pages/ResetPasswordForm"; // NEW
 import EmailVerified from "./pages/EmailVerified";
 import VerifyEmail from "./pages/VerifyEmail";
 
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+
 function PrivateRoute({ children }) {
   const { token } = useAuth();
   if (!token) return <Navigate to="/login" replace />;
@@ -154,7 +157,8 @@ function App() {
               </PrivateRoute>
             }
           />
-
+<Route path="/blog" element={<Blog />} />
+<Route path="/blog/why-creating-buyer-personas" element={<BlogPost />} />
           <Route
             path="/account"
             element={
