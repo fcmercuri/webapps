@@ -16,7 +16,8 @@ export default function Blog() {
           padding: 1rem 2rem;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
+          gap: 14px;
           border-bottom: 1px solid #232323;
           position: sticky;
           top: 0;
@@ -32,6 +33,11 @@ export default function Blog() {
           height: 36px;
           background: linear-gradient(135deg, #ffd945, #34c759);
           border-radius: 8px;
+          cursor: pointer;
+          transition: transform 0.2s ease;
+        }
+        .nav-logo:hover {
+          transform: scale(1.05);
         }
         .nav-brand {
           font-size: 1.35rem;
@@ -39,59 +45,17 @@ export default function Blog() {
           color: #fff;
           letter-spacing: -0.5px;
           cursor: pointer;
+          transition: color 0.2s ease;
         }
-        .nav-spacer { flex: 1; }
-        .nav-right {
-          display: flex;
-          align-items: center;
-          gap: 36px;
-        }
-        .nav-right a {
-          color: #fff;
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 1.12rem;
-          padding: 0.58rem 0.95rem;
-          border-radius: 8px;
-          transition: background 0.2s, color 0.2s;
-          position: relative;
-          overflow: hidden;
-        }
-        .nav-right a:hover {
-          background: #171717;
+        .nav-brand:hover {
           color: #ffd945;
         }
-        .nav-right .cta {
-          background: #ffd945;
-          color: #191919 !important;
-          font-weight: 700;
-          border-radius: 8px;
-          box-shadow: 0 6px 28px #ffd94540;
-          padding: 0.65rem 2rem !important;
-          transition: background 0.25s, color 0.2s;
-        }
-        .nav-right .cta:hover {
-          background: #ffe267;
-          color: #191919 !important;
-        }
-        .nav-right a::after {
-          content: '';
-          position: absolute;
-          left: 0; bottom: 0;
-          width: 100%;
-          height: 2.5px;
-          background: #ffd945;
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.22s cubic-bezier(.52, .24, .14, 1.36);
-        }
-        .nav-right a:hover::after { transform: scaleX(1); }
 
         .blog-container {
           padding: 4rem 2rem;
           max-width: 1200px;
           margin: 0 auto;
-          min-height: calc(100vh - 140px);
+          min-height: calc(100vh - 100px);
         }
         .blog-hero {
           display: grid;
@@ -275,6 +239,24 @@ export default function Blog() {
             justify-content: center;
           }
         }
+        .cta {
+          padding: 1.1rem 2.8rem;
+          background: linear-gradient(135deg, #ffd945, #ff9f43);
+          color: #191919 !important;
+          font-weight: 700;
+          border-radius: 12px;
+          text-decoration: none;
+          font-size: 1.1rem;
+          box-shadow: 0 8px 32px rgba(255,217,69,0.4);
+          transition: all 0.25s ease;
+          display: inline-block;
+          text-align: center;
+        }
+        .cta:hover {
+          background: linear-gradient(135deg, #ffe267, #ffb347);
+          transform: translateY(-2px);
+          box-shadow: 0 16px 40px rgba(255,217,69,0.5);
+        }
         .blog-skeleton {
           background: linear-gradient(135deg, #151516 0%, #232835 100%);
           border-radius: 1.25rem;
@@ -298,40 +280,24 @@ export default function Blog() {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
         }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
         @media (max-width: 768px) {
           .blog-container { padding: 2rem 1rem; }
           .blog-hero { grid-template-columns: 1fr; gap: 2.5rem; }
           .blog-articles-grid { grid-template-columns: 1fr; }
           nav.blog-nav { padding: 1rem; }
-          .nav-right { gap: 1rem; }
-        }
-        @media (max-width: 600px) {
-          .nav-right {
-            flex-direction: column;
-            gap: 0.75rem;
-            align-items: stretch;
-          }
-          .nav-right a, .nav-right .cta {
-            width: 100%;
-            text-align: center;
-          }
         }
       `}</style>
 
-      {/* Navigation - Matches your exact nav design */}
+      {/* Simplified Navigation - Logo + Clickable Brand only */}
       <nav className="blog-nav">
-        <div className="nav-left">
+        <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
           <div className="nav-logo"></div>
           <div className="nav-brand">sAInthetic</div>
-        </div>
-        <div className="nav-spacer"></div>
-        <div className="nav-right">
-          <Link to="/" style={{textDecoration: 'none'}}>Home</Link>
-          <Link to="/how-it-works" style={{textDecoration: 'none'}}>How it works</Link>
-          <a href="/pricing" style={{textDecoration: 'none'}}>Pricing</a>
-          <Link to="/blog" style={{textDecoration: 'none'}}>Blog</Link>
-          <a href="https://sainthetic.com/" className="cta">Get Started</a>
-        </div>
+        </Link>
       </nav>
 
       <div className="blog-container">
@@ -341,7 +307,7 @@ export default function Blog() {
             <span className="blog-featured-badge">Featured Article</span>
             <h1>{firstArticle.title}</h1>
             <p className="blog-excerpt">{firstArticle.excerpt}</p>
-            <Link to={firstArticle.path} className="cta" style={{display: 'inline-block', padding: '1rem 2.5rem'}}>
+            <Link to={firstArticle.path} className="cta">
               Read Article →
             </Link>
           </div>
@@ -394,10 +360,10 @@ export default function Blog() {
           <h2 className="blog-cta-title">Ready to create personas that convert?</h2>
           <p className="blog-cta-desc">Generate AI-powered buyer personas instantly with sAInthetic</p>
           <div className="blog-cta-buttons">
-            <a href="https://sainthetic.com/" className="cta" style={{padding: '1.1rem 2.8rem'}}>
+            <a href="https://sainthetic.com/" className="cta">
               Get Started Free
             </a>
-            <Link to={firstArticle.path} className="cta" style={{background: '#fff', padding: '1.1rem 2.8rem'}}>
+            <Link to={firstArticle.path} className="cta" style={{background: 'linear-gradient(135deg, #fff 0%, #f3f4f6 100%)', color: '#191919 !important'}}>
               Read First Article
             </Link>
           </div>
