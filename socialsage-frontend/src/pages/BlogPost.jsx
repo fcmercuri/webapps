@@ -314,13 +314,13 @@ export default function BlogPost() {
 
       {/* Navigation - Exact match to Blog page */}
       <nav className="blog-nav">
-  <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
+  <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '14px'}}>
     <img 
       src="/logo.jpg" 
       alt="sAInthetic Logo" 
       className="nav-logo"
-      style={{ width: '36px', height: '36px', borderRadius: '8px' }}
     />
+    <div className="nav-brand">sAInthetic</div>
   </Link>
 </nav>
 
