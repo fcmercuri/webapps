@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const firstArticle = {
   title: "Why Creating Buyer Personas Transforms Marketing Strategies for Expert Marketers",
   excerpt: "In the complex world of modern marketing, where consumer behaviors shift rapidly and competition intensifies daily, creating detailed buyer personas stands out as a foundational strategy that separates thriving campaigns from mediocre ones.",
-  path: "/blog/why-buyer-personas-transform-marketing"
+  path: "/blog/why-buyer-personas-transform-marketing"  // Fixed to match App.jsx route
 };
 
 export default function Blog() {
@@ -126,7 +126,7 @@ export default function Blog() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="https://sainthetic.com/"
+                            href="https://sainthetic.com/"
               className="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-200 text-lg"
             >
               Get Started Free
@@ -143,3 +143,4 @@ export default function Blog() {
     </div>
   );
 }
+
