@@ -360,18 +360,22 @@ export default function Blog() {
         </section>
 
         {/* CTA Section */}
-        <section className="blog-cta-section">
-          <h2 className="blog-cta-title">Ready to create personas that convert?</h2>
-          <p className="blog-cta-desc">Generate AI-powered buyer personas instantly with sAInthetic</p>
-          <div className="blog-cta-buttons">
-            <a href="https://sainthetic.com/" className="cta">
-              Get Started Free
-            </a>
-            <Link to={firstArticle.path} className="cta" style={{background: 'linear-gradient(135deg, #fff 0%, #f3f4f6 100%)', color: '#191919 !important'}}>
-              Read First Article
-            </Link>
+        <footer className="post-footer">
+          <div className="post-footer-content">
+            <h3>Ready to create personas that convert?</h3>
+            <p>Generate AI-powered buyer personas instantly with sAInthetic</p>
+            <div className="cta-grid">
+              <a href="https://sainthetic.com/register" className="cta-primary">
+                Get Started Free
+              </a>
+              <Link to={firstArticle.path} className="cta-secondary">
+                Read First Article
+              </Link>
+            </div>
           </div>
-        </section>
+        </footer>
+        
+        
       </div>
     </>
   );
