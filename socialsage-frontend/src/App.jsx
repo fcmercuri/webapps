@@ -158,7 +158,8 @@ function App() {
             }
           />
 <Route path="/blog" element={<Blog />} />
-<Route path="/blog/why-creating-buyer-personas" element={<BlogPost />} />
+<Route path="/blog/why-buyer-personas-transform-marketing" element={<BlogPost />} />
+
           <Route
             path="/account"
             element={
