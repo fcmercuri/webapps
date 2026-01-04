@@ -130,9 +130,22 @@ const [openFaq, setOpenFaq] = useState(null);
     answer: "Most AI prompt generators create one-off or generic prompts. sAInthetic connects AI-generated customer personas to reusable prompt libraries, so every prompt stays consistent with your target audience and brand voice. This helps teams avoid rewriting prompts and fixing irrelevant AI output."
   },
   {
-    question: "How does sAInthetic generate customer personas?",
-    answer: "sAInthetic uses AI to synthesize personas based on:\n• Industry context\n• Role-specific goals and pain points\n• Common customer behaviors and intent patterns\n\nThese AI personas are designed to be practical for content and prompt generation, not static documents."
-  },
+  question: "How does sAInthetic generate customer personas?",
+  answer: (
+    <>
+      sAInthetic uses AI to synthesize personas based on:
+      <br /><br />
+      <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Industry context</span>
+      <br />
+      <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Role-specific goals and pain points</span>
+      <br />
+      <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Common customer behaviors and intent patterns</span>
+      <br /><br />
+      These AI personas are designed to be practical for content and prompt generation, not static documents.
+    </>
+  )
+}
+,
   {
     question: "Are these personas based on real customer data?",
     answer: "The personas are synthetic, meaning they are generated using AI models trained on broad patterns rather than individual user data. This allows you to explore realistic audience behavior without collecting or storing personal data. You can refine personas using your own insights if needed."
