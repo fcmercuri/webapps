@@ -222,7 +222,7 @@ const cards = [
       margin: "0 0 0.6rem 0",
     }}
   >
-    The First Mobile App That Instantly Generates Prompts
+    From customer insights to ready-to-use AI prompts
   </motion.h1>
 
   <motion.h2
@@ -236,7 +236,7 @@ const cards = [
       margin: "0 0 24px 0",
     }}
   >
-    Understand your AI personas' needs and pain points: turn insights into plug-and-play LLM prompts and high-converting content
+    Build persona-driven LLM prompts that produce relevant, on-brand content
   </motion.h2>
 
   <div
