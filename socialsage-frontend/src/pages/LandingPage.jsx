@@ -1261,7 +1261,7 @@ dozens of questions that reflect realistic, synthetic persona queries
     }}
   >
     <p style={{ color: "#bbb", marginBottom: "2.2rem", fontSize: "1.15rem" }}>
-      sAInthetic empowers you to build AI-powered personas, tap into real-time trends, and deliver content optimized for every major discovery channel
+      sAInthetic empowers you to build AI-powered personas, tap into real-time trends, and deliver content optimized for every major discovery channel. Used by teams who are tired of rewriting prompts and fixing generic AI output
     </p>
   </div>
 </section>
