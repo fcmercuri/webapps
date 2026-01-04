@@ -236,7 +236,7 @@ const cards = [
       margin: "0 0 24px 0",
     }}
   >
-    Build persona-driven LLM prompts that produce relevant, on-brand content
+    Build persona-driven LLM prompts that stop generic AI output and stay on-brand
   </motion.h2>
 
   <div
