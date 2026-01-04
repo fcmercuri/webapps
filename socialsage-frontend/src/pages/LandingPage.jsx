@@ -168,13 +168,14 @@ const [openFaq, setOpenFaq] = useState(null);
     answer: "No. sAInthetic is built for non-technical users. You select an industry, generate a persona, and start using prompts immediately: no prompt engineering or AI setup required."
   },
   {
-    question: "Is there a free plan?",
-    answer: "Yes. The free plan lets you:\n• Create 1 AI persona\n• Generate a limited number of prompts and content ideas\n• Explore how persona-driven prompts work\n\nYou can upgrade when you need more personas or content volume."
-  },
+  question: "Is there a free plan available?",
+  answer: "Yes.<br><br>The free plan lets you:<br>• Generate 1 AI persona<br>• Access a limited set of prompts and content ideas<br>• Test persona-driven prompt workflows<br><br>You can upgrade anytime to unlock more personas, prompts, and advanced features."
+},
   {
-    question: "How does this help with SEO and organic growth?",
-    answer: "sAInthetic helps you:\n• Identify persona-specific content topics\n• Create consistent, search-aligned content\n• Reduce guesswork around audience intent\n\nThis leads to more relevant content, better engagement, and stronger long-term organic performance."
-  },
+  question: "How does sAInthetic improve SEO and organic reach?",
+  answer: "sAInthetic helps you:<br>• Discover persona-based content topics<br>• Build consistent, search-friendly content<br>• Eliminate guesswork around audience intent<br><br>This approach drives more relevant traffic, deeper engagement, and stronger long-term organic growth."
+}
+,
   {
     question: "Can I use this for industries other than SaaS?",
     answer: "Yes. While SaaS is a strong use case, sAInthetic supports multiple industries including E-commerce, Healthcare, Fitness, and more. Each persona and prompt library adapts to the selected industry."
