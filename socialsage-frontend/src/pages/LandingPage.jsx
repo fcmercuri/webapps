@@ -123,40 +123,44 @@ const [openFaq, setOpenFaq] = useState(null);
   const faqItems = [
   {
     question: "What are persona-driven AI prompts?",
-    answer: "Persona-driven AI prompts are LLM prompts built around a specific customer persona's goals, pain points, and intent. Instead of using generic prompts, persona-driven prompts guide AI tools to produce content that matches how a real audience thinks, searches, and decides."
+    answer:
+      "Persona-driven AI prompts are LLM prompts built around a specific customer persona's goals, pain points, and intent. Instead of using generic prompts, persona-driven prompts guide AI tools to produce content that matches how a real audience thinks, searches, and decides."
   },
   {
     question: "How is this different from a regular AI prompt generator?",
-    answer: "Most AI prompt generators create one-off or generic prompts. sAInthetic connects AI-generated customer personas to reusable prompt libraries, so every prompt stays consistent with your target audience and brand voice. This helps teams avoid rewriting prompts and fixing irrelevant AI output."
+    answer:
+      "Most AI prompt generators create one-off or generic prompts. sAInthetic connects AI-generated customer personas to reusable prompt libraries, so every prompt stays consistent with your target audience and brand voice. This helps teams avoid rewriting prompts and fixing irrelevant AI output."
   },
   {
-  question: "How does sAInthetic generate customer personas?",
-  answer: (
-    <>
-      sAInthetic uses AI to synthesize personas based on:
-      <br /><br />
-      <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Industry context</span>
-      <br />
-      <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Role-specific goals and pain points</span>
-      <br />
-      <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Common customer behaviors and intent patterns</span>
-      <br /><br />
-      These AI personas are designed to be practical for content and prompt generation, not static documents.
-    </>
-  )
-}
-,
+    question: "How does sAInthetic generate customer personas?",
+    answer: (
+      <>
+        sAInthetic uses AI to synthesize personas based on:
+        <br /><br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Industry context</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Role-specific goals and pain points</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Common customer behaviors and intent patterns</span>
+        <br /><br />
+        These AI personas are designed to be practical for content and prompt generation, not static documents.
+      </>
+    )
+  },
   {
     question: "Are these personas based on real customer data?",
-    answer: "The personas are synthetic, meaning they are generated using AI models trained on broad patterns rather than individual user data. This allows you to explore realistic audience behavior without collecting or storing personal data. You can refine personas using your own insights if needed."
+    answer:
+      "The personas are synthetic, meaning they are generated using AI models trained on broad patterns rather than individual user data. This allows you to explore realistic audience behavior without collecting or storing personal data. You can refine personas using your own insights if needed."
   },
   {
     question: "What are synthetic customer questions?",
-    answer: "Synthetic customer questions are AI-generated questions that represent what a specific persona is likely to search for or ask AI tools. They help you uncover content opportunities and build prompts that align with real audience intent."
+    answer:
+      "Synthetic customer questions are AI-generated questions that represent what a specific persona is likely to search for or ask AI tools. They help you uncover content opportunities and build prompts that align with real audience intent."
   },
   {
     question: "Can I use sAInthetic with ChatGPT or other LLMs?",
-    answer: "Yes. sAInthetic generates ready-to-use prompts that work with popular LLMs like ChatGPT and similar AI tools. You can copy prompts directly or adapt them to your existing AI workflows."
+    answer:
+      "Yes. sAInthetic generates ready-to-use prompts that work with popular LLMs like ChatGPT and similar AI tools. You can copy prompts directly or adapt them to your existing AI workflows."
   },
   {
     question: "Who is sAInthetic built for?",
@@ -175,13 +179,14 @@ const [openFaq, setOpenFaq] = useState(null);
         It’s ideal for anyone using AI to create content who wants consistent, persona-aligned output.
       </>
     )
-  }
-,
+  },
   {
     question: "Do I need technical or AI experience to use it?",
-    answer: "No. sAInthetic is built for non-technical users. You select an industry, generate a persona, and start using prompts immediately: no prompt engineering or AI setup required."
+    answer:
+      "No. sAInthetic is built for non-technical users. You select an industry, generate a persona, and start using prompts immediately: no prompt engineering or AI setup required."
   },
-  question: "Is there a free plan available?",
+  {
+    question: "Is there a free plan available?",
     answer: (
       <>
         Yes. The free plan lets you:
@@ -195,9 +200,8 @@ const [openFaq, setOpenFaq] = useState(null);
         You can upgrade anytime to unlock more personas, prompts, and advanced features.
       </>
     )
-  }
-  ,
-    {
+  },
+  {
     question: "How does sAInthetic improve SEO and organic reach?",
     answer: (
       <>
@@ -212,15 +216,16 @@ const [openFaq, setOpenFaq] = useState(null);
         This drives more relevant traffic, deeper engagement, and long-term organic growth.
       </>
     )
-  }
-,
+  },
   {
     question: "Can I use this for industries other than SaaS?",
-    answer: "Yes. While SaaS is a strong use case, sAInthetic supports multiple industries including E-commerce, Healthcare, Fitness, and more. Each persona and prompt library adapts to the selected industry."
+    answer:
+      "Yes. While SaaS is a strong use case, sAInthetic supports multiple industries including E-commerce, Healthcare, Fitness, and more. Each persona and prompt library adapts to the selected industry."
   },
   {
     question: "Is my data safe?",
-    answer: "Yes. sAInthetic does not require sensitive customer data to generate personas or prompts. Any inputs you provide are used only to improve your experience and are not shared."
+    answer:
+      "Yes. sAInthetic does not require sensitive customer data to generate personas or prompts. Any inputs you provide are used only to improve your experience and are not shared."
   }
 ];
 
