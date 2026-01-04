@@ -236,7 +236,7 @@ const cards = [
       margin: "0 0 24px 0",
     }}
   >
-    Build persona-driven LLM prompts that stop generic AI output and stay on-brand
+    Build persona-driven LLM prompts that eliminate generic AI output and stay on-brand
   </motion.h2>
 
   <div
@@ -264,7 +264,7 @@ const cards = [
         textDecoration: "none",
       }}
     >
-      Try sAInthetic Free
+      Create your first persona-driven prompt
     </motion.a>
 
     <p
