@@ -117,7 +117,61 @@ const cards = [
   }
 ];
 
-  
+const [openFaq, setOpenFaq] = useState(null);
+
+
+  const faqItems = [
+  {
+    question: "What are persona-driven AI prompts?",
+    answer: "Persona-driven AI prompts are LLM prompts built around a specific customer persona's goals, pain points, and intent. Instead of using generic prompts, persona-driven prompts guide AI tools to produce content that matches how a real audience thinks, searches, and decides."
+  },
+  {
+    question: "How is this different from a regular AI prompt generator?",
+    answer: "Most AI prompt generators create one-off or generic prompts. sAInthetic connects AI-generated customer personas to reusable prompt libraries, so every prompt stays consistent with your target audience and brand voice. This helps teams avoid rewriting prompts and fixing irrelevant AI output."
+  },
+  {
+    question: "How does sAInthetic generate customer personas?",
+    answer: "sAInthetic uses AI to synthesize personas based on:\n• Industry context\n• Role-specific goals and pain points\n• Common customer behaviors and intent patterns\n\nThese AI personas are designed to be practical for content and prompt generation, not static documents."
+  },
+  {
+    question: "Are these personas based on real customer data?",
+    answer: "The personas are synthetic, meaning they are generated using AI models trained on broad patterns rather than individual user data. This allows you to explore realistic audience behavior without collecting or storing personal data. You can refine personas using your own insights if needed."
+  },
+  {
+    question: "What are synthetic customer questions?",
+    answer: "Synthetic customer questions are AI-generated questions that represent what a specific persona is likely to search for or ask AI tools. They help you uncover content opportunities and build prompts that align with real audience intent."
+  },
+  {
+    question: "Can I use sAInthetic with ChatGPT or other LLMs?",
+    answer: "Yes. sAInthetic generates ready-to-use prompts that work with popular LLMs like ChatGPT and similar AI tools. You can copy prompts directly or adapt them to your existing AI workflows."
+  },
+  {
+    question: "Who is sAInthetic best for?",
+    answer: "sAInthetic is designed for:\n• SaaS founders\n• Marketing teams\n• Content strategists\n• Product marketers\n\nIt's especially useful for teams using AI to create content and wanting more relevant, on-brand output."
+  },
+  {
+    question: "Do I need technical or AI experience to use it?",
+    answer: "No. sAInthetic is built for non-technical users. You select an industry, generate a persona, and start using prompts immediately — no prompt engineering or AI setup required."
+  },
+  {
+    question: "Is there a free plan?",
+    answer: "Yes. The free plan lets you:\n• Create 1 AI persona\n• Generate a limited number of prompts and content ideas\n• Explore how persona-driven prompts work\n\nYou can upgrade when you need more personas or content volume."
+  },
+  {
+    question: "How does this help with SEO and organic growth?",
+    answer: "sAInthetic helps you:\n• Identify persona-specific content topics\n• Create consistent, search-aligned content\n• Reduce guesswork around audience intent\n\nThis leads to more relevant content, better engagement, and stronger long-term organic performance."
+  },
+  {
+    question: "Can I use this for industries other than SaaS?",
+    answer: "Yes. While SaaS is a strong use case, sAInthetic supports multiple industries including E-commerce, Healthcare, Fitness, and more. Each persona and prompt library adapts to the selected industry."
+  },
+  {
+    question: "Is my data safe?",
+    answer: "Yes. sAInthetic does not require sensitive customer data to generate personas or prompts. Any inputs you provide are used only to improve your experience and are not shared."
+  }
+];
+
+
 
   // Use this handler on your Pro (and other paid) buttons
   async function handleUpgrade(priceId) {
@@ -1404,6 +1458,109 @@ dozens of questions that reflect realistic, synthetic persona queries
             
           </div>
         </section>
+        
+        {/* FAQ SECTION */}
+<section
+  id="faq"
+  style={{
+    margin: "8rem auto 0 auto",
+    maxWidth: 1000,
+    textAlign: "left",
+    position: "relative",
+    zIndex: 2,
+    padding: "0 20px"
+  }}
+>
+  <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+    <h2
+      style={{
+        color: "#ffd945",
+        fontWeight: 900,
+        fontSize: "2.3rem",
+        marginBottom: "0.8rem",
+        letterSpacing: "-1px",
+      }}
+    >
+      Frequently Asked Questions
+    </h2>
+    <p style={{ color: "#bbb", fontSize: "1.15rem", maxWidth: 600, margin: "0 auto" }}>
+      Everything you need to know about persona-driven AI content generation
+    </p>
+  </div>
+
+  <div style={{ maxWidth: 900, margin: "0 auto" }}>
+    {faqItems.map((item, index) => (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, height: 0 }}
+        whileInView={{ opacity: 1, height: "auto" }}
+        transition={{ duration: 0.5, delay: index * 0.05 }}
+        style={{
+          background: "linear-gradient(135deg, rgba(24,24,36,0.7) 0%, rgba(35,35,50,0.9) 100%)",
+          borderRadius: "1.2rem",
+          marginBottom: "1.2rem",
+          border: "1px solid rgba(255, 217, 69, 0.15)",
+          overflow: "hidden",
+          backdropFilter: "blur(10px)"
+        }}
+      >
+        <button
+          onClick={() => setOpenFaq(openFaq === index ? null : index)}
+          style={{
+            width: "100%",
+            padding: "1.6rem 2rem",
+            background: "transparent",
+            border: "none",
+            textAlign: "left",
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            fontSize: "1.1rem",
+            fontWeight: 700,
+            color: "#fff",
+            transition: "all 0.3s ease"
+          }}
+        >
+          <span>{item.question}</span>
+          <motion.span
+            animate={{ rotate: openFaq === index ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ fontSize: "1.4rem", color: "#ffd945" }}
+          >
+            ▼
+          </motion.span>
+        </button>
+        
+        <AnimatePresence>
+          {openFaq === index && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                padding: "0 2rem 1.6rem 2rem",
+                overflow: "hidden"
+              }}
+            >
+              <p style={{
+                color: "#ccc",
+                fontSize: "1rem",
+                lineHeight: 1.6,
+                margin: 0,
+                fontWeight: 400
+              }}>
+                {item.answer}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    ))}
+  </div>
+</section>
+
 
         {/* ============================================ */}
         {/* FINAL CTA - TRY FREE TRIAL */}
