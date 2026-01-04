@@ -172,7 +172,7 @@ It's especially useful for teams using AI to create content and wanting more rel
 ,
   {
     question: "Do I need technical or AI experience to use it?",
-    answer: "No. sAInthetic is built for non-technical users. You select an industry, generate a persona, and start using prompts immediately — no prompt engineering or AI setup required."
+    answer: "No. sAInthetic is built for non-technical users. You select an industry, generate a persona, and start using prompts immediately: no prompt engineering or AI setup required."
   },
   {
     question: "Is there a free plan?",
