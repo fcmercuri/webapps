@@ -159,15 +159,8 @@ const [openFaq, setOpenFaq] = useState(null);
     answer: "Yes. sAInthetic generates ready-to-use prompts that work with popular LLMs like ChatGPT and similar AI tools. You can copy prompts directly or adapt them to your existing AI workflows."
   },
   {
-  question: "Who is sAInthetic best for?",
-  answer: `sAInthetic is designed for:
-
-• SaaS founders
-• Marketing teams
-• Content strategists
-• Product marketers
-
-It's especially useful for teams using AI to create content and wanting more relevant, on-brand output.`
+  question: "Who is sAInthetic built for?",
+  answer: "sAInthetic is made for:<br>• SaaS founders<br>• Marketing teams<br>• Content strategists<br>• Product marketers<br><br>It’s ideal for anyone using AI to create content who wants consistent, persona-aligned output that reflects their brand’s voice and audience goals."
 }
 ,
   {
