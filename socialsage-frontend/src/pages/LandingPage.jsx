@@ -159,22 +159,60 @@ const [openFaq, setOpenFaq] = useState(null);
     answer: "Yes. sAInthetic generates ready-to-use prompts that work with popular LLMs like ChatGPT and similar AI tools. You can copy prompts directly or adapt them to your existing AI workflows."
   },
   {
-  question: "Who is sAInthetic built for?",
-  answer: "sAInthetic is made for:<br>• SaaS founders<br>• Marketing teams<br>• Content strategists<br>• Product marketers<br><br>It’s ideal for anyone using AI to create content who wants consistent, persona-aligned output that reflects their brand’s voice and audience goals."
-}
+    question: "Who is sAInthetic built for?",
+    answer: (
+      <>
+        sAInthetic is made for:
+        <br /><br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; SaaS founders</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Marketing teams</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Content strategists</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Product marketers</span>
+        <br /><br />
+        It’s ideal for anyone using AI to create content who wants consistent, persona-aligned output.
+      </>
+    )
+  }
 ,
   {
     question: "Do I need technical or AI experience to use it?",
     answer: "No. sAInthetic is built for non-technical users. You select an industry, generate a persona, and start using prompts immediately: no prompt engineering or AI setup required."
   },
-  {
   question: "Is there a free plan available?",
-  answer: "Yes.<br><br>The free plan lets you:<br>• Generate 1 AI persona<br>• Access a limited set of prompts and content ideas<br>• Test persona-driven prompt workflows<br><br>You can upgrade anytime to unlock more personas, prompts, and advanced features."
-},
-  {
-  question: "How does sAInthetic improve SEO and organic reach?",
-  answer: "sAInthetic helps you:<br>• Discover persona-based content topics<br>• Build consistent, search-friendly content<br>• Eliminate guesswork around audience intent<br><br>This approach drives more relevant traffic, deeper engagement, and stronger long-term organic growth."
-}
+    answer: (
+      <>
+        Yes. The free plan lets you:
+        <br /><br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Generate 1 AI persona</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Access a limited set of prompts and content ideas</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Test persona-driven prompt workflows</span>
+        <br /><br />
+        You can upgrade anytime to unlock more personas, prompts, and advanced features.
+      </>
+    )
+  }
+  ,
+    {
+    question: "How does sAInthetic improve SEO and organic reach?",
+    answer: (
+      <>
+        sAInthetic helps you:
+        <br /><br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Discover persona-based content topics</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Build consistent, search-friendly content</span>
+        <br />
+        <span style={{ color: "#ffd945", fontWeight: 600 }}>&bull; Eliminate guesswork around audience intent</span>
+        <br /><br />
+        This drives more relevant traffic, deeper engagement, and long-term organic growth.
+      </>
+    )
+  }
 ,
   {
     question: "Can I use this for industries other than SaaS?",
