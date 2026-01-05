@@ -16,7 +16,7 @@ import Analytics from "./pages/analytics";
 import ForgotPassword from "./pages/ForgotPassword";
 import Success from "./pages/Success";
 import ResetPasswordRedirect from "./pages/ResetPasswordRedirect";
-import ResetPasswordForm from "./pages/ResetPasswordForm"; // NEW
+import ResetPasswordForm from "./pages/ResetPasswordForm";
 
 // NEW
 import EmailVerified from "./pages/EmailVerified";
@@ -157,8 +157,10 @@ function App() {
               </PrivateRoute>
             }
           />
-<Route path="/blog" element={<Blog />} />
-<Route path="/blog/why-buyer-personas-transform-marketing" element={<BlogPost />} />
+
+          {/* Blog routes */}
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
 
           <Route
             path="/account"
