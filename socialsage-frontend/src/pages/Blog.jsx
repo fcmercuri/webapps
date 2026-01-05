@@ -2,15 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const firstArticle = {
-title: "Why Creating Buyer Personas Transforms Marketing Strategies for Expert Marketers",
-excerpt: "In the complex world of modern marketing, where consumer behaviors shift rapidly and competition intensifies daily, creating detailed buyer personas stands out as a foundational strategy that separates thriving campaigns from mediocre ones.",
-path: "/blog/why-buyer-personas-transform-marketing"
+  title: "Why Creating Buyer Personas Transforms Marketing Strategies for Expert Marketers",
+  excerpt:
+    "In the complex world of modern marketing, where consumer behaviors shift rapidly and competition intensifies daily, creating detailed buyer personas stands out as a foundational strategy that separates thriving campaigns from mediocre ones.",
+  path: "/blog/why-buyer-personas-transform-marketing",
+};
+
+// NEW: second article config
+const secondArticle = {
+  title: "How AI Personas Supercharge Content Creation",
+  excerpt:
+    "Discover how AI-generated personas can help you ideate, structure, and scale content that feels hyper-personalized while saving hours every week.",
+  path: "/blog/how-ai-personas-supercharge-content-creation",
 };
 
 export default function Blog() {
-return (
-<>
-<style>{`
+  return (
+    <>
+      <style>{`
 nav.blog-nav {
 background: #0B0B0B;
 padding: 1rem 2rem;
@@ -316,89 +325,137 @@ nav.blog-nav { padding: 1rem; }
 }
 `}</style>
 
-{/* Simplified Navigation - Logo + Clickable Brand only */}
-<nav className="blog-nav">
-<Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '14px'}}>
-<img
-src="/logo.jpg"
-alt="sAInthetic Logo"
-className="nav-logo"
-/>
-<div className="nav-brand">sAInthetic</div>
-</Link>
-</nav>
+      <nav className="blog-nav">
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            gap: "14px",
+          }}
+        >
+          <img src="/logo.jpg" alt="sAInthetic Logo" className="nav-logo" />
+          <div className="nav-brand">sAInthetic</div>
+        </Link>
+      </nav>
 
-<div className="blog-container">
-{/* Hero Section */}
-<section className="blog-hero">
-<div className="blog-hero-content">
-<span className="blog-featured-badge">Featured Article</span>
-<h1>{firstArticle.title}</h1>
-<p className="blog-excerpt">{firstArticle.excerpt}</p>
-<Link to={firstArticle.path} className="cta-primary">
-Read Article →
-</Link>
-</div>
+      <div className="blog-container">
+        {/* Hero Section */}
+        <section className="blog-hero">
+          <div className="blog-hero-content">
+            <span className="blog-featured-badge">Featured Article</span>
+            <h1>{firstArticle.title}</h1>
+            <p className="blog-excerpt">{firstArticle.excerpt}</p>
+            <Link to={firstArticle.path} className="cta-primary">
+              Read Article →
+            </Link>
+          </div>
 
-<div className="blog-hero-card">
-<div className="blog-ai-ring">
-<svg fill="none" viewBox="0 0 24 24">
-<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
-</div>
-<h3>AI-Powered Personas</h3>
-<p>Generate targeted buyer personas instantly</p>
-<a href="https://sainthetic.com/" className="blog-hero-link">Try sAInthetic →</a>
-</div>
-</section>
+          <div className="blog-hero-card">
+            <div className="blog-ai-ring">
+              <svg fill="none" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3>AI-Powered Personas</h3>
+            <p>Generate targeted buyer personas instantly</p>
+            <a href="https://sainthetic.com/" className="blog-hero-link">
+              Try sAInthetic →
+            </a>
+          </div>
+        </section>
 
-{/* Recent Articles */}
-<section>
-<h2 className="blog-section-title">Recent Articles</h2>
-<p className="blog-section-desc">Deep dive into AI marketing strategies and buyer persona mastery</p>
+        {/* Recent Articles */}
+        <section>
+          <h2 className="blog-section-title">Recent Articles</h2>
+          <p className="blog-section-desc">
+            Deep dive into AI marketing strategies and buyer persona mastery
+          </p>
 
-<div className="blog-articles-grid">
-{/* Featured Article Card */}
-<article className="blog-article-card">
-<span className="blog-article-badge">Latest</span>
-<h3 className="blog-article-title">{firstArticle.title}</h3>
-<p className="blog-article-excerpt">{firstArticle.excerpt}</p>
-<Link to={firstArticle.path} className="blog-hero-link">Read more →</Link>
-</article>
+          <div className="blog-articles-grid">
+            {/* Featured Article Card */}
+            <article className="blog-article-card">
+              <span className="blog-article-badge">Latest</span>
+              <h3 className="blog-article-title">{firstArticle.title}</h3>
+              <p className="blog-article-excerpt">{firstArticle.excerpt}</p>
+              <Link to={firstArticle.path} className="blog-hero-link">
+                Read more →
+              </Link>
+            </article>
 
-{/* Skeleton Cards */}
-<div className="blog-skeleton">
-<div className="blog-skeleton-line" style={{width: '80px', height: '20px'}}></div>
-<div className="blog-skeleton-line" style={{height: '20px'}}></div>
-<div className="blog-skeleton-line" style={{height: '64px'}}></div>
-<div className="blog-skeleton-line" style={{width: '120px'}}></div>
-</div>
+            {/* NEW: Second Article Card */}
+            <article className="blog-article-card">
+              <span className="blog-article-badge">New</span>
+              <h3 className="blog-article-title">{secondArticle.title}</h3>
+              <p className="blog-article-excerpt">{secondArticle.excerpt}</p>
+              <Link to={secondArticle.path} className="blog-hero-link">
+                Read more →
+              </Link>
+            </article>
 
-<div className="blog-skeleton">
-<div className="blog-skeleton-line" style={{width: '80px', height: '20px'}}></div>
-<div className="blog-skeleton-line" style={{height: '20px'}}></div>
-<div className="blog-skeleton-line" style={{height: '64px'}}></div>
-<div className="blog-skeleton-line" style={{width: '120px'}}></div>
-</div>
-</div>
-</section>
-</div>
+            {/* Skeleton Cards (you can keep or remove) */}
+            <div className="blog-skeleton">
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "80px", height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "64px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "120px" }}
+              ></div>
+            </div>
 
-{/* CTA Footer - Exact match from BlogPost */}
-<footer className="post-footer">
-<div className="post-footer-content">
-<h3>Ready to create personas that convert?</h3>
-<p>Generate AI-powered buyer personas instantly with sAInthetic</p>
-<div className="cta-grid">
-<a href="https://sainthetic.com/register" className="cta-primary">
-Get Started Free
-</a>
-<Link to={firstArticle.path} className="cta-secondary">
-Read First Article
-</Link>
-</div>
-</div>
-</footer>
-</>
-);
+            <div className="blog-skeleton">
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "80px", height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "64px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "120px" }}
+              ></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* CTA Footer - Exact match from BlogPost */}
+      <footer className="post-footer">
+        <div className="post-footer-content">
+          <h3>Ready to create personas that convert?</h3>
+          <p>Generate AI-powered buyer personas instantly with sAInthetic</p>
+          <div className="cta-grid">
+            <a href="https://sainthetic.com/register" className="cta-primary">
+              Get Started Free
+            </a>
+            <Link to={firstArticle.path} className="cta-secondary">
+              Read First Article
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
 }
