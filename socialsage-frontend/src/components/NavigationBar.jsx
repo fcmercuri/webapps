@@ -41,6 +41,8 @@ export default function NavigationBar() {
         <div className="nav-right desktop-nav">
           <a href="#how-it-works">How It Works</a>
           <a href="#pricing">Pricing</a>
+          {/* NEW: FAQ link desktop */}
+          <a href="#faq">FAQ</a>
           <Link to="/blog" className="nav-link">Blog</Link>
           <a href="/login">Sign In</a>
           <a href="/register" className="cta">Get Started</a>
@@ -58,6 +60,8 @@ export default function NavigationBar() {
             >
               <a href="#how-it-works" onClick={closeMobileMenu}>How It Works</a>
               <a href="#pricing" onClick={closeMobileMenu}>Pricing</a>
+              {/* NEW: FAQ link mobile */}
+              <a href="#faq" onClick={closeMobileMenu}>FAQ</a>
               <Link to="/blog" onClick={closeMobileMenu} className="mobile-nav-link">Blog</Link>
               <a href="/login" onClick={closeMobileMenu}>Sign In</a>
               <a href="/register" className="cta" onClick={closeMobileMenu}>Get Started</a>
