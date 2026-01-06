@@ -1,0 +1,4 @@
+Sitemap: https://sainthetic.com/sitemap.xml
+
+User-agent: *
+Disallow:
