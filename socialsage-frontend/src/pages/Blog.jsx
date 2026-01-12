@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const firstArticle = {
   title: "Why Creating Buyer Personas Transforms Marketing Strategies for Expert Marketers",
@@ -8,7 +9,6 @@ const firstArticle = {
   path: "/blog/why-buyer-personas-transform-marketing",
 };
 
-// NEW: second article config
 const secondArticle = {
   title: "How AI Personas Supercharge Content Creation",
   excerpt:
@@ -16,9 +16,34 @@ const secondArticle = {
   path: "/blog/how-ai-personas-supercharge-content-creation",
 };
 
+// ✅ NEW: Blog Hub SEO Meta
+const blogMeta = {
+  title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
+  description: "Master buyer personas and AI content strategies. Learn how expert marketers use personas to 2X ROI, personalize at scale, and align sales teams.",
+};
+
 export default function Blog() {
   return (
     <>
+      {/* ✅ HELMET SEO FOR BLOG HUB */}
+      <Helmet>
+        <title>{blogMeta.title}</title>
+        <meta name="description" content={blogMeta.description} />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={blogMeta.title} />
+        <meta property="og:description" content={blogMeta.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sainthetic.com/blog" />
+        <meta property="og:image" content="https://sainthetic.com/blog-hero.jpg" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={blogMeta.title} />
+        <meta name="twitter:description" content={blogMeta.description} />
+        <meta name="twitter:image" content="https://sainthetic.com/blog-hero.jpg" />
+      </Helmet>
+
       <style>{`
 nav.blog-nav {
 background: #0B0B0B;
@@ -212,7 +237,7 @@ display: -webkit-box;
 overflow: hidden;
 }
 
-/* Footer - Exact match from BlogPost */
+/* Footer */
 .post-footer {
 background: linear-gradient(135deg, #151516 0%, #232835 100%);
 border-top: 1px solid #232323;
@@ -335,7 +360,7 @@ nav.blog-nav { padding: 1rem; }
             gap: "14px",
           }}
         >
-          <img src="/logo.jpg" alt="sAInthetic Logo" className="nav-logo" />
+          <div className="nav-logo"></div>
           <div className="nav-brand">sAInthetic</div>
         </Link>
       </nav>
@@ -389,7 +414,7 @@ nav.blog-nav { padding: 1rem; }
               </Link>
             </article>
 
-            {/* NEW: Second Article Card */}
+            {/* Second Article Card */}
             <article className="blog-article-card">
               <span className="blog-article-badge">New</span>
               <h3 className="blog-article-title">{secondArticle.title}</h3>
@@ -399,7 +424,7 @@ nav.blog-nav { padding: 1rem; }
               </Link>
             </article>
 
-            {/* Skeleton Cards (you can keep or remove) */}
+            {/* Skeleton Cards */}
             <div className="blog-skeleton">
               <div
                 className="blog-skeleton-line"
@@ -441,7 +466,7 @@ nav.blog-nav { padding: 1rem; }
         </section>
       </div>
 
-      {/* CTA Footer - Exact match from BlogPost */}
+      {/* CTA Footer */}
       <footer className="post-footer">
         <div className="post-footer-content">
           <h3>Ready to create personas that convert?</h3>
