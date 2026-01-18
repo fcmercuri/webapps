@@ -16,6 +16,12 @@ const secondArticle = {
   path: "/blog/how-ai-personas-supercharge-content-creation",
 };
 
+const thirdArticle = {
+  title: "From AI Personas to a Full Content Engine: How Expert Marketers Turn Insights into Revenue",
+  excerpt: "Discover how to turn AI-generated buyer personas into a living content engine that powers your entire go-to-market motion, from LinkedIn posts to sales enablement.",
+  path: "/blog/ai-personas-to-content-engine"
+};
+
 // ✅ NEW: Blog Hub SEO Meta
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
