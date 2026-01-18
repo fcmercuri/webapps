@@ -410,38 +410,67 @@ nav.blog-nav { padding: 1rem; }
           </p>
 
           <div className="blog-articles-grid">
-  {/* First Article */}
-  <article className="blog-article-card">
-    <span className="blog-article-badge">Featured</span>
-    <h3 className="blog-article-title">{firstArticle.title}</h3>
-    <p className="blog-article-excerpt">{firstArticle.excerpt}</p>
-    <Link to={firstArticle.path} className="blog-hero-link">Read more →</Link>
-  </article>
+            {/* Featured Article Card */}
+            <article className="blog-article-card">
+              <span className="blog-article-badge">Latest</span>
+              <h3 className="blog-article-title">{firstArticle.title}</h3>
+              <p className="blog-article-excerpt">{firstArticle.excerpt}</p>
+              <Link to={firstArticle.path} className="blog-hero-link">
+                Read more →
+              </Link>
+            </article>
 
-  {/* Second Article */}
-  <article className="blog-article-card">
-    <span className="blog-article-badge">New</span>
-    <h3 className="blog-article-title">{secondArticle.title}</h3>
-    <p className="blog-article-excerpt">{secondArticle.excerpt}</p>
-    <Link to={secondArticle.path} className="blog-hero-link">Read more →</Link>
-  </article>
+            {/* Second Article Card */}
+            <article className="blog-article-card">
+              <span className="blog-article-badge">New</span>
+              <h3 className="blog-article-title">{secondArticle.title}</h3>
+              <p className="blog-article-excerpt">{secondArticle.excerpt}</p>
+              <Link to={secondArticle.path} className="blog-hero-link">
+                Read more →
+              </Link>
+            </article>
 
-  {/* THIRD Article - ADD THIS */}
-  <article className="blog-article-card">
-    <span className="blog-article-badge">Strategy</span>
-    <h3 className="blog-article-title">{thirdArticle.title}</h3>
-    <p className="blog-article-excerpt">{thirdArticle.excerpt}</p>
-    <Link to={thirdArticle.path} className="blog-hero-link">Read more →</Link>
-  </article>
+            {/* Skeleton Cards */}
+            <div className="blog-skeleton">
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "80px", height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "64px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "120px" }}
+              ></div>
+            </div>
 
-  {/* One Skeleton */}
-  <div className="blog-skeleton">
-    <div className="blog-skeleton-line" style={{width: '80px', height: '20px'}}></div>
-    <div className="blog-skeleton-line" style={{height: '20px'}}></div>
-    <div className="blog-skeleton-line" style={{height: '64px'}}></div>
-    <div className="blog-skeleton-line" style={{width: '120px'}}></div>
-  </div>
-</div>
+            <div className="blog-skeleton">
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "80px", height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "20px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ height: "64px" }}
+              ></div>
+              <div
+                className="blog-skeleton-line"
+                style={{ width: "120px" }}
+              ></div>
+            </div>
+          </div>
+        </section>
+      </div>
 
       {/* CTA Footer */}
       <footer className="post-footer">
