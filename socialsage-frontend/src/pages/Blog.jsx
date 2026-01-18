@@ -356,20 +356,17 @@ nav.blog-nav { padding: 1rem; }
 }
 `}</style>
 
-      <nav className="blog-nav">
-        <Link
-          to="/"
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "14px",
-          }}
-        >
-          <div className="nav-logo"></div>
-          <div className="nav-brand">sAInthetic</div>
-        </Link>
-      </nav>
+<nav className="blog-nav">
+  <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '14px'}}>
+    <img 
+      src="/logo.jpg"  // Your logo file
+      alt="sAInthetic" 
+      className="nav-logo"
+    />
+    <div className="nav-brand">sAInthetic</div>
+  </Link>
+</nav>
+
 
       <div className="blog-container">
         {/* Hero Section */}
