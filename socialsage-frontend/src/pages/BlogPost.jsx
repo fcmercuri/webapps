@@ -520,27 +520,24 @@ export default function BlogPost() {
         }
       `}</style>
 
-      {/* Navigation - Exact match to Blog page */}
       <nav className="blog-nav">
-        <Link
-          to="/"
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "14px",
-          }}
-        >
-          <div className="nav-logo"></div>
-          <div className="nav-brand">sAInthetic</div>
-        </Link>
-        <div className="nav-spacer"></div>
-        <div className="nav-right">
-          <Link to="/blog" style={{ textDecoration: "none" }}>Blog</Link>
-          <a href="https://sainthetic.com/pricing" className="cta">Pricing</a>
-          <a href="https://sainthetic.com/register" className="cta">Start Free</a>
-        </div>
-      </nav>
+  <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '14px'}}>
+    <img 
+      src="/logo.jpg"  // ✅ Your logo file
+      alt="sAInthetic Logo" 
+      className="nav-logo" 
+      style={{width: '36px', height: '36px'}} 
+    />
+    <div className="nav-brand">sAInthetic</div>
+  </Link>
+  <div className="nav-spacer"></div>
+  <div className="nav-right">
+    <Link to="/blog">Blog</Link>
+    <a href="https://sainthetic.com/pricing" className="cta">Pricing</a>
+    <a href="https://sainthetic.com/register" className="cta">Start Free</a>
+  </div>
+</nav>
+
 
       <div className="post-container">
         {/* Header */}
