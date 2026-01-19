@@ -216,6 +216,18 @@ const posts = {
 
      `,
   },
+"why-buyer-personas-fail": {
+  title: "Why 90% of Buyer Personas Fail (And How to Fix Yours)",
+  metaTitle: "placeholder",  // ✅ 58 chars
+  metaDescription: "placeholder",  // ✅ 152 chars
+  date: "January 18, 2026",
+  author: "sAInthetic Team",
+  readTime: "13 min read",
+  content: `
+<p>Placeholder</p>
+
+     `,
+  },
 };
 
 export default function BlogPost() {
