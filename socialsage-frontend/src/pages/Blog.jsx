@@ -22,7 +22,12 @@ const thirdArticle = {
   path: "/blog/ai-personas-to-content-engine"
 };
 
-// ✅ NEW: Blog Hub SEO Meta
+const fourArticle = {
+  title: "Why 90% of Buyer Personas Fail (And How to Fix Yours)",
+  excerpt: "Discover the 7 deadly mistakes killing your personas and the 3-step AI process that turns generic profiles into conversion machines.",
+  path: "/blog/why-buyer-personas-fail"
+};
+
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
   description: "Master buyer personas and AI content strategies. Learn how expert marketers use personas to 2X ROI, personalize at scale, and align sales teams.",
@@ -433,6 +438,16 @@ nav.blog-nav { padding: 1rem; }
               <h3 className="blog-article-title">{thirdArticle.title}</h3>
               <p className="blog-article-excerpt">{thirdArticle.excerpt}</p>
               <Link to={thirdArticle.path} className="blog-hero-link">
+                Read more →
+              </Link>
+            </article>
+
+             {/* Four Article Card */}
+            <article className="blog-article-card">
+              <span className="blog-article-badge">New</span>
+              <h3 className="blog-article-title">{fourArticle.title}</h3>
+              <p className="blog-article-excerpt">{fourArticle.excerpt}</p>
+              <Link to={fourArticle.path} className="blog-hero-link">
                 Read more →
               </Link>
             </article>
