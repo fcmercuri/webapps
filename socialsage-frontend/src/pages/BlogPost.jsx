@@ -321,8 +321,6 @@ const posts = {
 
     <p>Fixing personas isn't optional—it's the lever for 2-3x growth in competitive 2026 markets. Implement the 3-step AI process today to convert generic profiles into revenue machines.</p>
 
-    <p><em>(Word count: 2023)</em></p>
-
      `,
   },
 };
