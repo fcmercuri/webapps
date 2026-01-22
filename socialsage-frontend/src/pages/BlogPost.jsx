@@ -456,9 +456,6 @@ const posts = {
     metaDescription:
       "Master the key metrics for AI buyer personas, from 702% SEO ROI to 42:1 email returns, with B2B benchmarks and frameworks to prove marketing impact.",
     content: `
-<p>Turning AI Personas into Revenue Engines: The Metrics That Matter</p>
-
-
 <p>In 2026's competitive B2B marketing landscape, AI personas have evolved far beyond basic customer profiles. They now function as dynamic revenue engines, directly linking personalized marketing efforts to tangible business outcomes like faster pipeline movement, larger deal sizes, and higher customer lifetime value. Success hinges on tracking the right metrics that demonstrate clear incremental uplift from persona-driven strategies, rather than relying on vanity metrics that fail to prove ROI to executive stakeholders.</p>
 
 
@@ -554,7 +551,7 @@ const posts = {
     metaDescription:
       "Step-by-step blueprint to create a scalable AI persona system connecting data, LLMs, and automation—driving 73% better leads, 36% shorter cycles for B2B growth.",
     content: `
-    p>Fragmented buyer personas produce fragmented results. A comprehensive AI-powered persona system integrates data collection, modeling, validation, automation, and continuous iteration into a living revenue engine. This framework delivers 73 percent better lead qualification, 36 percent shorter sales cycles, 84 percent faster content production, and 68 percent marketing ROI uplift for B2B companies serious about 2026 growth.</p>
+    <p>Fragmented buyer personas produce fragmented results. A comprehensive AI-powered persona system integrates data collection, modeling, validation, automation, and continuous iteration into a living revenue engine. This framework delivers 73 percent better lead qualification, 36 percent shorter sales cycles, 84 percent faster content production, and 68 percent marketing ROI uplift for B2B companies serious about 2026 growth.</p>
 
 
 <p>The system transforms static profiles into dynamic infrastructure powering every go-to-market function. Proven enterprise implementations like Clariant demonstrate how properly architected systems scale insights across global teams while adapting to buyer behavior shifts in real time. Covering every phase from raw signal aggregation through predictive deployment, this playbook equips marketing leaders to build infrastructure that compounds competitive advantage quarter after quarter.</p>
