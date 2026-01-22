@@ -42,6 +42,21 @@ const sixthArticle = {
   path: "/blog/ai-persona-playbook-linkedin",
 };
 
+const seventhArticle = {
+  title: "Turning AI Personas into Revenue Engines: The Metrics That Matter",
+  excerpt:
+    "Move beyond vanity metrics. Learn how to quantify the real impact of AI personas on pipeline velocity, deal conversion, and customer lifetime value — with examples from leading B2B teams.",
+  path: "/blog/ai-personas-revenue-metrics",
+};
+
+const eighthArticle = {
+  title: "Building an AI-Powered Persona System: From Data Collection to Execution",
+  excerpt:
+    "Explore a step-by-step process for designing a repeatable AI persona framework — connecting data, chat models, and marketing automation into one cohesive growth system.",
+  path: "/blog/ai-persona-system-framework",
+};
+
+
 
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
@@ -483,6 +498,26 @@ nav.blog-nav { padding: 1rem; }
   <h3 className="blog-article-title">{sixthArticle.title}</h3>
   <p className="blog-article-excerpt">{sixthArticle.excerpt}</p>
   <Link to={sixthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Seventh Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{seventhArticle.title}</h3>
+  <p className="blog-article-excerpt">{seventhArticle.excerpt}</p>
+  <Link to={seventhArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Eighth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{eighthArticle.title}</h3>
+  <p className="blog-article-excerpt">{eighthArticle.excerpt}</p>
+  <Link to={eighthArticle.path} className="blog-hero-link">
     Read more →
   </Link>
 </article>
