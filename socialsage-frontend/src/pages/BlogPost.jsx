@@ -324,7 +324,7 @@ const posts = {
      `,
   },
   
-  const posts = {
+  
   "ai-personas-across-funnel": {
     title: "11 High-Impact Ways to Use AI Personas Across Your Funnel",
     date: "January 20, 2026",
