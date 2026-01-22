@@ -28,6 +28,21 @@ const fourArticle = {
   path: "/blog/why-buyer-personas-fail"
 };
 
+const fifthArticle = {
+  title: "11 High-Impact Ways to Use AI Personas Across Your Funnel",
+  excerpt:
+    "From top-of-funnel awareness to sales follow-ups, discover practical playbooks for using AI personas to sharpen messaging, boost conversions, and align marketing with sales.",
+  path: "/blog/ai-personas-across-funnel",
+};
+
+const sixthArticle = {
+  title: "The AI Persona Playbook for LinkedIn: From Invisible to In-Demand",
+  excerpt:
+    "Learn how expert marketers plug AI personas into their LinkedIn workflow to generate scroll-stopping hooks, authority-building posts, and demand-driving conversations in minutes.",
+  path: "/blog/ai-persona-playbook-linkedin",
+};
+
+
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
   description: "Master buyer personas and AI content strategies. Learn how expert marketers use personas to 2X ROI, personalize at scale, and align sales teams.",
