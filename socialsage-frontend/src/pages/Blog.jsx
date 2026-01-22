@@ -467,6 +467,28 @@ nav.blog-nav { padding: 1rem; }
               </Link>
             </article>
 
+{/* Fifth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{fifthArticle.title}</h3>
+  <p className="blog-article-excerpt">{fifthArticle.excerpt}</p>
+  <Link to={fifthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Sixth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{sixthArticle.title}</h3>
+  <p className="blog-article-excerpt">{sixthArticle.excerpt}</p>
+  <Link to={sixthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+
+
             {/* Skeleton Cards */}
             <div className="blog-skeleton">
               <div
