@@ -56,6 +56,21 @@ const eighthArticle = {
   path: "/blog/ai-persona-system-framework",
 };
 
+const ninthArticle = {
+  title: "The AI Persona Content Stack: Tools, Workflows, and Templates That Actually Ship",
+  excerpt:
+    "Go beyond theory with a practical breakdown of the exact tools, prompts, and workflows elite marketers use to plug AI personas into their content stack — and ship high-impact assets every week.",
+  path: "/blog/ai-persona-content-stack",
+};
+
+const tenthArticle = {
+  title: "Scaling Beyond One Persona: How Expert Marketers Orchestrate Multi-Persona Strategies with AI",
+  excerpt:
+    "Learn how to design, prioritize, and manage a portfolio of AI personas across segments, markets, and products — without drowning your team in complexity or diluting your message.",
+  path: "/blog/scaling-multi-persona-strategies-ai",
+};
+
+
 
 
 const blogMeta = {
@@ -521,6 +536,27 @@ nav.blog-nav { padding: 1rem; }
     Read more →
   </Link>
 </article>
+
+{/* Ninth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{ninthArticle.title}</h3>
+  <p className="blog-article-excerpt">{ninthArticle.excerpt}</p>
+  <Link to={ninthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Tenth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{tenthArticle.title}</h3>
+  <p className="blog-article-excerpt">{tenthArticle.excerpt}</p>
+  <Link to={tenthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
 
 
 
