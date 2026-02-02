@@ -84,10 +84,6 @@ const twelfthArticle = {
   path: "/blog/ai-personas-linkedin-engagement-to-pipeline",
 };
 
-
-
-
-
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
   description: "Master buyer personas and AI content strategies. Learn how expert marketers use personas to 2X ROI, personalize at scale, and align sales teams.",
