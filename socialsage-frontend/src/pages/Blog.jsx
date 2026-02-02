@@ -70,6 +70,21 @@ const tenthArticle = {
   path: "/blog/scaling-multi-persona-strategies-ai",
 };
 
+const eleventhArticle = {
+  title: "AI Personas for Founder-Led Sales on LinkedIn",
+  excerpt:
+    "See how founders use AI personas to turn their LinkedIn profiles into focused deal machines—dialing in personas, posts, comments, and DMs to consistently create high-intent conversations.",
+  path: "/blog/ai-personas-founder-led-linkedin",
+};
+
+const twelfthArticle = {
+  title: "AI Personas for Turning LinkedIn Engagement into Pipeline",
+  excerpt:
+    "Most teams stop at impressions. Learn how AI personas help you define intent signals, score engagement, and route LinkedIn activity into repeatable, revenue-generating motions.",
+  path: "/blog/ai-personas-linkedin-engagement-to-pipeline",
+};
+
+
 
 
 
