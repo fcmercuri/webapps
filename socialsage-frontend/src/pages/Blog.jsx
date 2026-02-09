@@ -84,10 +84,27 @@ const twelfthArticle = {
   path: "/blog/ai-personas-linkedin-engagement-to-pipeline",
 };
 
+const thirteenthArticle = {
+  title: "AI Personas for Sales Enablement: Turning Insights into Talk Tracks That Close",
+  excerpt:
+    "Discover how expert teams plug AI personas into sales enablement to generate sharper talk tracks, tailored decks, and objection handling that actually matches how buyers think and buy.",
+  path: "/blog/ai-personas-sales-enablement",
+};
+
+const fourteenthArticle = {
+  title: "AI Personas for Product Marketing: Launches, Positioning, and Messaging That Land",
+  excerpt:
+    "Learn how product marketers use AI personas to craft sharper positioning, launch narratives, and in-market experiments that resonate with every key buyer in the committee.",
+  path: "/blog/ai-personas-product-marketing-launches",
+};
+
+
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
   description: "Master buyer personas and AI content strategies. Learn how expert marketers use personas to 2X ROI, personalize at scale, and align sales teams.",
 };
+
+
 
 export default function Blog() {
   return (
@@ -584,6 +601,26 @@ nav.blog-nav { padding: 1rem; }
   <h3 className="blog-article-title">{twelfthArticle.title}</h3>
   <p className="blog-article-excerpt">{twelfthArticle.excerpt}</p>
   <Link to={twelfthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Thirteenth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{thirteenthArticle.title}</h3>
+  <p className="blog-article-excerpt">{thirteenthArticle.excerpt}</p>
+  <Link to={thirteenthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Fourteenth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{fourteenthArticle.title}</h3>
+  <p className="blog-article-excerpt">{fourteenthArticle.excerpt}</p>
+  <Link to={fourteenthArticle.path} className="blog-hero-link">
     Read more →
   </Link>
 </article>
