@@ -112,6 +112,20 @@ const sixteenthArticle = {
   path: "/blog/ai-personas-customer-expansion",
 };
 
+const seventeenthArticle = {
+  title: "Prompt Systems for Power Users: Building an AI Workflow That Actually Sticks",
+  excerpt:
+    "Go beyond one-off prompts. Learn how expert marketers and operators design reusable prompt systems that turn AI from a toy into a reliable growth and content engine.",
+  path: "/blog/prompt-systems-for-power-users",
+};
+
+const eighteenthArticle = {
+  title: "From Prompts to Playbooks: Designing Reusable AI Recipes for Your Entire GTM Team",
+  excerpt:
+    "Discover how to turn your best prompts into scalable playbooks that sales, marketing, and CS can plug into daily workflows—without needing to be AI experts.",
+  path: "/blog/prompts-to-playbooks-gtm-recipes",
+};
+
 
 
 const blogMeta = {
@@ -660,6 +674,27 @@ nav.blog-nav { padding: 1rem; }
     Read more →
   </Link>
 </article>
+
+            {/* Seventeenth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{seventeenthArticle.title}</h3>
+  <p className="blog-article-excerpt">{seventeenthArticle.excerpt}</p>
+  <Link to={seventeenthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Eighteenth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{eighteenthArticle.title}</h3>
+  <p className="blog-article-excerpt">{eighteenthArticle.excerpt}</p>
+  <Link to={eighteenthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
 
 
 
