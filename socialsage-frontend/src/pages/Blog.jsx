@@ -98,6 +98,21 @@ const fourteenthArticle = {
   path: "/blog/ai-personas-product-marketing-launches",
 };
 
+const fifteenthArticle = {
+  title: "AI Personas for Account-Based Marketing: Precision Plays for High-Value Accounts",
+  excerpt:
+    "Learn how expert teams combine AI personas with ABM to prioritize accounts, personalize outreach at scale, and orchestrate multi-channel plays that actually move high-value deals.",
+  path: "/blog/ai-personas-account-based-marketing",
+};
+
+const sixteenthArticle = {
+  title: "AI Personas for Customer Expansion: Turning Insights into Renewals and Upsells",
+  excerpt:
+    "Discover how AI personas help CS and marketing teams map stakeholders, predict churn and expansion signals, and run campaigns that grow account value after the first deal closes.",
+  path: "/blog/ai-personas-customer-expansion",
+};
+
+
 
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
@@ -624,6 +639,28 @@ nav.blog-nav { padding: 1rem; }
     Read more →
   </Link>
 </article>
+
+
+{/* Fifteenth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{fifteenthArticle.title}</h3>
+  <p className="blog-article-excerpt">{fifteenthArticle.excerpt}</p>
+  <Link to={fifteenthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Sixteenth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{sixteenthArticle.title}</h3>
+  <p className="blog-article-excerpt">{sixteenthArticle.excerpt}</p>
+  <Link to={sixteenthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
 
 
 
