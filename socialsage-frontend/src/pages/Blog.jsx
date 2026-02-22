@@ -134,7 +134,29 @@ const nineteenthArticle = {
   path: "/blog/prompt-libraries-that-drive-revenue",
 };
 
+const twentiethArticle = {
+  title: "AI Personas for Demand Generation: Building Pipelines That Convert",
+  excerpt: "Unlock agentic AI workflows that autonomously target high-intent accounts, personalize at scale, and turn cold outreach into qualified pipeline using dynamic buyer personas.",
+  path: "/blog/ai-personas-demand-generation",
+};
 
+const twentyFirstArticle = {
+  title: "Integrating AI Personas with CRM: Real-Time Personalization at Scale",
+  excerpt: "Learn how to connect AI personas to your CRM for dynamic segmentation, predictive scoring, and automated nurturing that adapts to buyer behavior in real time.",
+  path: "/blog/ai-personas-crm-integration",
+};
+
+const twentySecondArticle = {
+  title: "AI Personas in 2026: Trends Shaping Hyper-Personalized GTM",
+  excerpt: "Explore emerging trends like agentic AI, real-time data loops, and multi-threaded buying groups that make static personas obsolete and drive revenue growth.",
+  path: "/blog/ai-personas-trends-2026",
+};
+
+const twentyThirdArticle = {
+  title: "Case Studies: AI Personas Delivering 30%+ Pipeline Growth",
+  excerpt: "Real-world examples from B2B teams using AI personas to boost demand gen, shorten cycles, and hit revenue targets with measurable GTM impact.",
+  path: "/blog/ai-personas-case-studies-revenue",
+};
 
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
@@ -713,6 +735,45 @@ nav.blog-nav { padding: 1rem; }
   </Link>
 </article>
 
+{/* Twentieth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentiethArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentiethArticle.excerpt}</p>
+  <Link to={twentiethArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Twenty-First Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentyFirstArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentyFirstArticle.excerpt}</p>
+  <Link to={twentyFirstArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Twenty-Second Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentySecondArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentySecondArticle.excerpt}</p>
+  <Link to={twentySecondArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Twenty-Third Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentyThirdArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentyThirdArticle.excerpt}</p>
+  <Link to={twentyThirdArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
 
 
 
