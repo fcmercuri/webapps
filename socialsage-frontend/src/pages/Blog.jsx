@@ -134,42 +134,6 @@ const nineteenthArticle = {
   path: "/blog/prompt-libraries-that-drive-revenue",
 };
 
-const twentiethArticle = {
-  title: "35+ Proven AI Prompts for Sales and Marketing Success",
-  excerpt: "Unlock 35+ battle-tested AI prompts that accelerate lead gen, sharpen messaging, and boost conversions across your GTM workflows—proven for 2026 revenue impact.",
-  path: "/blog/proven-ai-prompts-sales-marketing",
-};
-
-const twentyfirstArticle = {
-  title: "Building AI Prompt Libraries to Accelerate Sales Enablement",
-  excerpt: "Create a scalable AI prompt library for sales teams: personalize outreach, handle objections, and build battlecards that drive consistency and higher close rates.",
-  path: "/blog/ai-prompt-libraries-sales-enablement",
-};
-
-const twentysecondArticle = {
-  title: "AI GTM Playbooks: From Static Guides to Dynamic Prompts",
-  excerpt: "Shift from rigid playbooks to adaptive AI prompts that evolve with market signals, personalize at scale, and power real-time GTM execution for faster growth.",
-  path: "/blog/ai-gtm-playbooks-prompts",
-};
-
-const twentythirdArticle = {
-  title: "AI Sales Prompts That Close Deals: 25+ Ready-to-Use Templates for 2026",
-  excerpt: "Unlock 25+ battle-tested AI prompts tailored for sales reps to personalize outreach, handle objections, prep calls, and accelerate pipeline—proven to save 5-10 hours weekly while boosting conversions.",
-  path: "/blog/ai-sales-prompts-close-deals-2026",
-};
-
-const twentyfourthArticle = {
-  title: "AI GTM Playbooks 2026: Signal-Based Strategies That Scale Revenue",
-  excerpt: "Shift from static guides to dynamic, AI-powered GTM playbooks that detect buyer signals, automate personalized motions, and unify sales-marketing execution for faster growth in competitive markets.",
-  path: "/blog/ai-gtm-playbooks-2026-signals",
-};
-
-const twentyfifthArticle = {
-  title: "Monetizing Your AI Prompt Library: From Internal Tool to Revenue Stream",
-  excerpt: "Learn how GTM leaders package proven prompt libraries into scalable products—templates, courses, and SaaS tools—that generate recurring revenue while empowering teams across sales and marketing.",
-  path: "/blog/monetizing-ai-prompt-library",
-};
-
 
 
 const blogMeta = {
@@ -749,66 +713,6 @@ nav.blog-nav { padding: 1rem; }
   </Link>
 </article>
 
-
-{/* Twentieth Article Card */}
-<article className="blog-article-card">
-  <span className="blog-article-badge">New</span>
-  <h3 className="blog-article-title">{twentiethArticle.title}</h3>
-  <p className="blog-article-excerpt">{twentiethArticle.excerpt}</p>
-  <Link to={twentiethArticle.path} className="blog-hero-link">
-    Read more →
-  </Link>
-</article>
-
-{/* Twenty-First Article Card */}
-<article className="blog-article-card">
-  <span className="blog-article-badge">New</span>
-  <h3 className="blog-article-title">{twentyfirstArticle.title}</h3>
-  <p className="blog-article-excerpt">{twentyfirstArticle.excerpt}</p>
-  <Link to={twentyfirstArticle.path} className="blog-hero-link">
-    Read more →
-  </Link>
-</article>
-
-{/* Twenty-Second Article Card */}
-<article className="blog-article-card">
-  <span className="blog-article-badge">New</span>
-  <h3 className="blog-article-title">{twentysecondArticle.title}</h3>
-  <p className="blog-article-excerpt">{twentysecondArticle.excerpt}</p>
-  <Link to={twentysecondArticle.path} className="blog-hero-link">
-    Read more →
-  </Link>
-</article>
-
-            {/* Twenty-Third Article Card */}
-<article className="blog-article-card">
-  <span className="blog-article-badge">New</span>
-  <h3 className="blog-article-title">{twentythirdArticle.title}</h3>
-  <p className="blog-article-excerpt">{twentythirdArticle.excerpt}</p>
-  <Link to={twentythirdArticle.path} className="blog-hero-link">
-    Read more →
-  </Link>
-</article>
-
-{/* Twenty-Fourth Article Card */}
-<article className="blog-article-card">
-  <span className="blog-article-badge">New</span>
-  <h3 className="blog-article-title">{twentyfourthArticle.title}</h3>
-  <p className="blog-article-excerpt">{twentyfourthArticle.excerpt}</p>
-  <Link to={twentyfourthArticle.path} className="blog-hero-link">
-    Read more →
-  </Link>
-</article>
-
-{/* Twenty-Fifth Article Card */}
-<article className="blog-article-card">
-  <span className="blog-article-badge">New</span>
-  <h3 className="blog-article-title">{twentyfifthArticle.title}</h3>
-  <p className="blog-article-excerpt">{twentyfifthArticle.excerpt}</p>
-  <Link to={twentyfifthArticle.path} className="blog-hero-link">
-    Read more →
-  </Link>
-</article>
 
 
 
