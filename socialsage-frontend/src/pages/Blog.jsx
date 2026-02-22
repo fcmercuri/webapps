@@ -152,6 +152,23 @@ const twentysecondArticle = {
   path: "/blog/ai-gtm-playbooks-prompts",
 };
 
+const twentythirdArticle = {
+  title: "AI Sales Prompts That Close Deals: 25+ Ready-to-Use Templates for 2026",
+  excerpt: "Unlock 25+ battle-tested AI prompts tailored for sales reps to personalize outreach, handle objections, prep calls, and accelerate pipeline—proven to save 5-10 hours weekly while boosting conversions.",
+  path: "/blog/ai-sales-prompts-close-deals-2026",
+};
+
+const twentyfourthArticle = {
+  title: "AI GTM Playbooks 2026: Signal-Based Strategies That Scale Revenue",
+  excerpt: "Shift from static guides to dynamic, AI-powered GTM playbooks that detect buyer signals, automate personalized motions, and unify sales-marketing execution for faster growth in competitive markets.",
+  path: "/blog/ai-gtm-playbooks-2026-signals",
+};
+
+const twentyfifthArticle = {
+  title: "Monetizing Your AI Prompt Library: From Internal Tool to Revenue Stream",
+  excerpt: "Learn how GTM leaders package proven prompt libraries into scalable products—templates, courses, and SaaS tools—that generate recurring revenue while empowering teams across sales and marketing.",
+  path: "/blog/monetizing-ai-prompt-library",
+};
 
 
 
@@ -762,6 +779,37 @@ nav.blog-nav { padding: 1rem; }
     Read more →
   </Link>
 </article>
+
+            {/* Twenty-Third Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentythirdArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentythirdArticle.excerpt}</p>
+  <Link to={twentythirdArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Twenty-Fourth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentyfourthArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentyfourthArticle.excerpt}</p>
+  <Link to={twentyfourthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Twenty-Fifth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentyfifthArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentyfifthArticle.excerpt}</p>
+  <Link to={twentyfifthArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
 
 
 
