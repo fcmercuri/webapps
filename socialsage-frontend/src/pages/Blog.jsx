@@ -134,6 +134,25 @@ const nineteenthArticle = {
   path: "/blog/prompt-libraries-that-drive-revenue",
 };
 
+const twentiethArticle = {
+  title: "35+ Proven AI Prompts for Sales and Marketing Success",
+  excerpt: "Unlock 35+ battle-tested AI prompts that accelerate lead gen, sharpen messaging, and boost conversions across your GTM workflows—proven for 2026 revenue impact.",
+  path: "/blog/proven-ai-prompts-sales-marketing",
+};
+
+const twentyfirstArticle = {
+  title: "Building AI Prompt Libraries to Accelerate Sales Enablement",
+  excerpt: "Create a scalable AI prompt library for sales teams: personalize outreach, handle objections, and build battlecards that drive consistency and higher close rates.",
+  path: "/blog/ai-prompt-libraries-sales-enablement",
+};
+
+const twentysecondArticle = {
+  title: "AI GTM Playbooks: From Static Guides to Dynamic Prompts",
+  excerpt: "Shift from rigid playbooks to adaptive AI prompts that evolve with market signals, personalize at scale, and power real-time GTM execution for faster growth.",
+  path: "/blog/ai-gtm-playbooks-prompts",
+};
+
+
 
 
 const blogMeta = {
@@ -714,6 +733,35 @@ nav.blog-nav { padding: 1rem; }
 </article>
 
 
+{/* Twentieth Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentiethArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentiethArticle.excerpt}</p>
+  <Link to={twentiethArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Twenty-First Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentyfirstArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentyfirstArticle.excerpt}</p>
+  <Link to={twentyfirstArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
+
+{/* Twenty-Second Article Card */}
+<article className="blog-article-card">
+  <span className="blog-article-badge">New</span>
+  <h3 className="blog-article-title">{twentysecondArticle.title}</h3>
+  <p className="blog-article-excerpt">{twentysecondArticle.excerpt}</p>
+  <Link to={twentysecondArticle.path} className="blog-hero-link">
+    Read more →
+  </Link>
+</article>
 
 
 
