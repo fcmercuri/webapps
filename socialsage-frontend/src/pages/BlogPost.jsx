@@ -66,7 +66,10 @@ export default function BlogPost() {
       })
     : "";
 
-  const htmlContent = post?.content ? blocksToHtml(post.content) : post?.contentHtml || "";
+  // Strip leading = from any field
+  const clean = (val) => (typeof val === "string" && val.startsWith("=") ? val.slice(1) : val ?? "");
+
+  const htmlContent = post?.contentHtml ? clean(post.contentHtml) : post?.content ? blocksToHtml(post.content) : "";
 
   return (
     <>
@@ -289,9 +292,9 @@ nav.blog-nav { padding: 1rem; }
               <span className="post-badge">Article</span>
               <h1 className="post-title">{post.title}</h1>
               <div className="post-meta">
-                {formattedDate && <span>📅 {formattedDate}</span>}
-                {post.author && <span>✍️ {post.author}</span>}
-                {post.readTime && <span>⏱ {post.readTime}</span>}
+                {post.publishedAt && <span>📅 {new Date(clean(post.publishedAt)).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>}
+                {post.author && <span>✍️ {clean(post.author)}</span>}
+                {post.readTime && <span>⏱ {clean(post.readTime)}</span>}
               </div>
             </header>
 
