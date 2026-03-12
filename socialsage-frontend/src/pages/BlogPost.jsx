@@ -40,7 +40,7 @@ export default function BlogPost() {
 
   useEffect(() => {
     const query = encodeURIComponent(
-      `*[_type == "post" && slug.current == "${slug}"][0]{ _id, title, slug, excerpt, content, publishedAt, author, readTime, metaTitle, metaDescription }`
+      `*[_type == "post" && slug.current == "${slug}"][0]{ _id, title, slug, excerpt, content, contentHtml, publishedAt, author, readTime, metaTitle, metaDescription }`
     );
     const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${query}`;
 
