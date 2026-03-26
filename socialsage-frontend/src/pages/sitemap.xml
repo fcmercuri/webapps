@@ -137,4 +137,44 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://sainthetic.com/blog/b2b-marketing-plan-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/b2b-marketing-plan-ultimate-guide-template</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-use-intent-data-to-prioritize-outbound-outreach</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/b2b-email-marketing-automation-that-actually-converts</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/reduce-b2b-sales-cycle-length-ai-personas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/linkedin-outbound-strategies-b2b-founders</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-align-sales-and-marketing-around-buyer-personas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/building-a-revenue-operations-framework-with-ai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
