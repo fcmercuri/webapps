@@ -5,59 +5,260 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://sainthetic.com/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://sainthetic.com/register</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://sainthetic.com/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://sainthetic.com/app</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://sainthetic.com/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-
   <url>
     <loc>https://sainthetic.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-
   <!-- Blog index -->
   <url>
     <loc>https://sainthetic.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <!-- Blog posts -->
   <url>
-    <loc>https://sainthetic.com/blog/why-buyer-personas-transform-marketing</loc>
+    <loc>https://sainthetic.com/blog/abm-campaign-strategy-mid-market-b2b</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
+  <url>
+    <loc>https://sainthetic.com/blog/account-based-marketing-playbook-for-saas-companies</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-persona-content-stack</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-persona-playbook-linkedin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-persona-system-framework</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-account-based-marketing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-across-funnel</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-case-studies-revenue</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-crm-integration</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-customer-expansion</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-demand-generation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-founder-led-linkedin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-linkedin-engagement-to-pipeline</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-product-marketing-launches</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-revenue-metrics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-sales-enablement</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-to-content-engine</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-personas-trends-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/ai-tools-for-competitive-intelligence-in-b2b-markets</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/b2b-content-engine-drives-pipeline</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/b2b-email-marketing-automation-that-actually-converts</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/b2b-marketing-plan-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/b2b-marketing-plan-ultimate-guide-template</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/building-a-revenue-operations-framework-with-ai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/customer-expansion-playbook-b2b-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/demand-generation-strategies-early-stage-b2b-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/gtm-strategy-launching-new-b2b-product</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url>
     <loc>https://sainthetic.com/blog/how-ai-personas-supercharge-content-creation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-align-sales-and-marketing-around-buyer-personas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-build-buyer-personas-from-crm-data</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-measure-marketing-roi-in-b2b-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-run-a-high-converting-b2b-webinar</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-use-ai-for-b2b-content-personalization-at-scale</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-use-ai-to-personalize-your-sales-outreach</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-use-intent-data-to-prioritize-outbound-outreach</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/linkedin-outbound-strategies-b2b-founders</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/predictive-analytics-b2b-revenue-forecasting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/prompt-libraries-that-drive-revenue</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/prompt-systems-for-power-users</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/prompts-to-playbooks-gtm-recipes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/reduce-b2b-sales-cycle-length-ai-personas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/scaling-multi-persona-strategies-ai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/why-buyer-personas-fail</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/why-buyer-personas-transform-marketing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
