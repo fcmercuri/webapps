@@ -53,6 +53,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/ai-automate-competitive-battlecards</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/ai-persona-content-stack</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -133,6 +138,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/ai-tools-for-b2b-market-segmentation-in-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/ai-tools-for-competitive-intelligence-in-b2b-markets</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -153,12 +163,32 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/b2b-marketing-plan-guide-template-steps-strategies-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/b2b-marketing-plan-ultimate-guide-template</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/b2b-social-proof-strategy-beyond-basic-testimonial</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/building-a-dark-funnel-strategy-for-b2b-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/building-a-revenue-operations-framework-with-ai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/churn-prediction-models-b2b-saas-ai</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -193,6 +223,26 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/how-to-build-community-led-growth-strategy-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-build-sales-assisted-plg-motion-with-ai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-build-signal-based-outbound-system</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-create-b2b-influencer-program-linkedin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/how-to-measure-marketing-roi-in-b2b-saas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -208,7 +258,27 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/how-to-use-ai-personas-to-improve-cold-email-reply-rates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-use-ai-to-generate-case-studies-at-scale</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-use-ai-to-optimize-your-b2b-pricing-strategy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/how-to-use-ai-to-personalize-your-sales-outreach</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-use-intent-data-prioritize-outbound-outreach</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -218,12 +288,32 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/how-to-use-micro-surveys-to-improve-b2b-conversion-rates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/linkedin-outbound-strategies-b2b-founders</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sainthetic.com/blog/partner-led-growth-building-a-b2b-referral-engine</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/persona-driven-paid-media-strategy-for-b2b-saas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sainthetic.com/blog/predictive-analytics-b2b-revenue-forecasting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/product-led-growth-vs-sales-led-growth-choosing-the-right-gtm</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
