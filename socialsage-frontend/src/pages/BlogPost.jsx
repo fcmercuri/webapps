@@ -31,7 +31,6 @@ function blocksToHtml(blocks) {
     .join("\n");
 }
 
-// Wrap all tables in a scrollable div for mobile
 function wrapTables(html) {
   return html.replace(/<table/g, '<div class="table-wrapper"><table').replace(/<\/table>/g, '</table></div>');
 }
@@ -69,16 +68,19 @@ export default function BlogPost() {
   const rawHtml = post?.contentHtml ? clean(post.contentHtml) : post?.content ? blocksToHtml(post.content) : "";
   const htmlContent = wrapTables(rawHtml);
 
+  const canonicalUrl = `https://sainthetic.com/blog/${slug}`;
+
   return (
     <>
       {post && (
         <Helmet>
           <title>{post.metaTitle || post.title}</title>
           <meta name="description" content={post.metaDescription || post.excerpt} />
+          <link rel="canonical" href={canonicalUrl} />
           <meta property="og:title" content={post.metaTitle || post.title} />
           <meta property="og:description" content={post.metaDescription || post.excerpt} />
           <meta property="og:type" content="article" />
-          <meta property="og:url" content={`https://sainthetic.com/blog/${slug}`} />
+          <meta property="og:url" content={canonicalUrl} />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={post.metaTitle || post.title} />
           <meta name="twitter:description" content={post.metaDescription || post.excerpt} />
