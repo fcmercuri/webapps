@@ -1,57 +1,91 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 const SANITY_PROJECT_ID = "ziow5svx";
 const SANITY_DATASET = "production";
-const SANITY_QUERY = encodeURIComponent(
-  `*[_type == "post"] | order(publishedAt desc) { _id, title, slug, excerpt, publishedAt, author, readTime }`
-);
-const SANITY_URL = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${SANITY_QUERY}`;
 
-const blogMeta = {
-  title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
-  description:
-    "Master buyer personas and AI content strategies. Learn how expert marketers use personas to 2X ROI, personalize at scale, and align sales teams.",
-};
+function blocksToHtml(blocks) {
+  if (!blocks || !Array.isArray(blocks)) return "";
+  return blocks
+    .map((block) => {
+      if (block._type === "block") {
+        const tag = block.style === "h2" ? "h2"
+          : block.style === "h3" ? "h3"
+          : block.style === "h4" ? "h4"
+          : block.style === "blockquote" ? "blockquote"
+          : "p";
+        const text = (block.children || [])
+          .map((child) => {
+            let t = child.text || "";
+            if (child.marks?.includes("strong")) t = `<strong>${t}</strong>`;
+            if (child.marks?.includes("em")) t = `<em>${t}</em>`;
+            if (child.marks?.includes("code")) t = `<code>${t}</code>`;
+            return t;
+          })
+          .join("");
+        return `<${tag}>${text}</${tag}>`;
+      }
+      return "";
+    })
+    .join("\n");
+}
 
-export default function Blog() {
-  const [posts, setPosts] = useState([]);
+function wrapTables(html) {
+  return html.replace(/<table/g, '<div class="table-wrapper"><table').replace(/<\/table>/g, '</table></div>');
+}
+
+export default function BlogPost() {
+  const { slug } = useParams();
+  const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(SANITY_URL)
+    const query = encodeURIComponent(
+      `*[_type == "post" && slug.current == "${slug}"][0]{ _id, title, slug, excerpt, content, contentHtml, publishedAt, author, readTime, metaTitle, metaDescription }`
+    );
+    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${query}`;
+
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setPosts(data.result || []);
+        if (data.result) {
+          setPost(data.result);
+        } else {
+          setError("Post not found.");
+        }
         setLoading(false);
       })
-      .catch((err) => {
-        console.error("Failed to fetch posts:", err);
-        setError("Failed to load posts.");
+      .catch(() => {
+        setError("Failed to load post.");
         setLoading(false);
       });
-  }, []);
+  }, [slug]);
 
-  const firstPost = posts[0];
-  const remainingPosts = posts.slice(1);
+  const clean = (val) => (typeof val === "string" && val.startsWith("=") ? val.slice(1) : val ?? "");
+
+  const rawHtml = post?.contentHtml ? clean(post.contentHtml) : post?.content ? blocksToHtml(post.content) : "";
+  const htmlContent = wrapTables(rawHtml);
+
+  const canonicalUrl = `https://sainthetic.com/blog/${slug}`;
 
   return (
     <>
-      <Helmet>
-        <title>{blogMeta.title}</title>
-        <meta name="description" content={blogMeta.description} />
-        <meta property="og:title" content={blogMeta.title} />
-        <meta property="og:description" content={blogMeta.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sainthetic.com/blog" />
-        <meta property="og:image" content="https://sainthetic.com/blog-hero.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={blogMeta.title} />
-        <meta name="twitter:description" content={blogMeta.description} />
-        <meta name="twitter:image" content="https://sainthetic.com/blog-hero.jpg" />
-      </Helmet>
+      {post && (
+        <Helmet>
+          <title>{post.metaTitle || post.title}</title>
+          <meta name="description" content={post.metaDescription || post.excerpt} />
+          <link rel="canonical" href={canonicalUrl} />
+          <meta property="og:title" content={post.metaTitle || post.title} />
+          <meta property="og:description" content={post.metaDescription || post.excerpt} />
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={canonicalUrl} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={post.metaTitle || post.title} />
+          <meta name="twitter:description" content={post.metaDescription || post.excerpt} />
+        </Helmet>
+      )}
 
       <style>{`
 nav.blog-nav {
@@ -59,208 +93,163 @@ background: #0B0B0B;
 padding: 1rem 2rem;
 display: flex;
 align-items: center;
-justify-content: flex-start;
 gap: 14px;
 border-bottom: 1px solid #232323;
 position: sticky;
 top: 0;
 z-index: 100;
 }
-.nav-logo {
-width: 36px;
-height: 36px;
-border-radius: 8px;
-cursor: pointer;
-transition: transform 0.2s ease;
-}
-.nav-logo:hover { transform: scale(1.05); }
-.nav-brand {
-font-size: 1.35rem;
-font-weight: 700;
-color: #fff;
-letter-spacing: -0.5px;
-cursor: pointer;
-transition: color 0.2s ease;
-}
+.nav-logo { width: 36px; height: 36px; border-radius: 8px; }
+.nav-brand { font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
 .nav-brand:hover { color: #ffd945; }
-.blog-container {
-padding: 4rem 2rem;
-max-width: 1200px;
+.post-container {
+max-width: 800px;
 margin: 0 auto;
-min-height: calc(100vh - 100px);
+padding: 4rem 2rem;
 }
-.blog-hero {
-display: grid;
-grid-template-columns: 1fr 420px;
-gap: 4rem;
-align-items: start;
-margin-bottom: 6rem;
-}
-.blog-hero-content h1 {
-font-size: clamp(2.2rem, 5vw, 3.8rem);
-font-weight: 800;
-line-height: 1.1;
-margin-bottom: 1.2rem;
-background: linear-gradient(96deg, #fff 30%, #ffd945 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-}
-.blog-hero-content .blog-excerpt {
-font-size: 1.2rem;
-color: #bdbdbd;
-line-height: 1.7;
-margin-bottom: 2.5rem;
-max-width: 28rem;
-}
-.blog-featured-badge {
-display: inline-flex;
-background: #171717;
+.post-back {
 color: #ffd945;
-font-weight: 700;
-padding: 0.6rem 1.4rem;
-border-radius: 25px;
-font-size: 0.9rem;
-margin-bottom: 1.5rem;
-box-shadow: 0 4px 16px rgba(255,217,69,0.2);
-}
-.blog-hero-card {
-background: linear-gradient(135deg, #151516 0%, #232835 100%);
-border-radius: 1.25rem;
-padding: 2.5rem 2rem;
-box-shadow: 0 12px 56px rgba(0,0,0,0.4);
-border: 1px solid #232323;
-height: fit-content;
-text-align: center;
-}
-.blog-ai-ring {
-width: 80px;
-height: 80px;
-margin: 0 auto 1.5rem;
-background: linear-gradient(135deg, #ffd945, #ff9f43);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 0 32px rgba(255,217,69,0.4);
-}
-.blog-ai-ring svg {
-width: 32px;
-height: 32px;
-stroke: #191919;
-stroke-width: 2;
-}
-.blog-hero-card h3 {
-font-size: 1.6rem;
-font-weight: 800;
-margin-bottom: 0.8rem;
-color: #fff;
-}
-.blog-hero-card p {
-color: #bdbdbd;
-font-size: 1.05rem;
-margin-bottom: 1.8rem;
-}
-.blog-hero-link {
-color: #ffd945;
-font-weight: 700;
-font-size: 1.05rem;
 text-decoration: none;
+font-weight: 600;
+font-size: 0.95rem;
+display: inline-flex;
+align-items: center;
+gap: 6px;
+margin-bottom: 2.5rem;
+opacity: 0.8;
+transition: opacity 0.2s;
 }
-.blog-section-title {
-font-size: clamp(2rem, 4vw, 3rem);
-font-weight: 800;
-text-align: center;
-margin-bottom: 1rem;
-background: linear-gradient(96deg, #fff 30%, #ffd945 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-}
-.blog-section-desc {
-font-size: 1.25rem;
-color: #bdbdbd;
-text-align: center;
-max-width: 36rem;
-margin: 0 auto 4rem;
-}
-.blog-articles-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-gap: 2rem;
-}
-.blog-article-card {
-background: linear-gradient(135deg, #151516 0%, #232835 100%);
-border-radius: 1.25rem;
-padding: 2.5rem 2rem;
-box-shadow: 0 12px 56px rgba(0,0,0,0.4);
-border: 1px solid #232323;
-height: 100%;
-transition: all 0.3s ease;
-}
-.blog-article-card:hover {
-transform: translateY(-8px);
-box-shadow: 0 24px 72px rgba(0,0,0,0.5), 0 0 32px rgba(255,217,69,0.15);
-border-color: rgba(255,217,69,0.3);
-}
-.blog-article-badge {
+.post-back:hover { opacity: 1; }
+.post-header { margin-bottom: 3rem; }
+.post-badge {
 background: linear-gradient(135deg, #ffd945, #ff9f43);
 color: #191919;
 font-weight: 700;
-padding: 0.5rem 1.2rem;
+padding: 0.4rem 1rem;
 border-radius: 20px;
 font-size: 0.85rem;
 display: inline-block;
 margin-bottom: 1.2rem;
-box-shadow: 0 4px 16px rgba(255,217,69,0.3);
 }
-.blog-article-title {
-font-size: 1.4rem;
+.post-title {
+font-size: clamp(2rem, 5vw, 3rem);
 font-weight: 800;
-line-height: 1.3;
-margin-bottom: 1.2rem;
+line-height: 1.15;
+margin-bottom: 1.5rem;
+background: linear-gradient(96deg, #fff 30%, #ffd945 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+.post-meta {
+display: flex;
+gap: 1.5rem;
+color: #888;
+font-size: 0.95rem;
+flex-wrap: wrap;
+}
+.post-divider {
+height: 1px;
+background: linear-gradient(90deg, #ffd945, transparent);
+margin: 2.5rem 0;
+}
+.post-body {
+color: #d0d0d0;
+font-size: 1.1rem;
+line-height: 1.85;
+}
+.post-body h2 {
+font-size: 1.8rem;
+font-weight: 800;
 color: #fff;
-display: -webkit-box;
--webkit-line-clamp: 2;
--webkit-box-orient: vertical;
-overflow: hidden;
+margin: 2.5rem 0 1rem;
 }
-.blog-article-excerpt {
+.post-body h3 {
+font-size: 1.4rem;
+font-weight: 700;
+color: #fff;
+margin: 2rem 0 0.8rem;
+}
+.post-body h4 {
+font-size: 1.15rem;
+font-weight: 700;
+color: #ffd945;
+margin: 1.5rem 0 0.5rem;
+}
+.post-body p { margin-bottom: 1.5rem; }
+.post-body strong { color: #fff; font-weight: 700; }
+.post-body em { color: #ffd945; font-style: italic; }
+.post-body code {
+background: #1a1a2e;
+color: #ffd945;
+padding: 0.2rem 0.5rem;
+border-radius: 4px;
+font-size: 0.9em;
+}
+.post-body blockquote {
+border-left: 4px solid #ffd945;
+padding: 1rem 1.5rem;
+margin: 2rem 0;
+background: rgba(255,217,69,0.05);
+border-radius: 0 8px 8px 0;
 color: #bdbdbd;
-line-height: 1.6;
-margin-bottom: 1.8rem;
-display: -webkit-box;
--webkit-line-clamp: 3;
--webkit-box-orient: vertical;
-overflow: hidden;
+font-style: italic;
 }
-.blog-skeleton {
-background: linear-gradient(135deg, #151516 0%, #232835 100%);
-border-radius: 1.25rem;
-border: 1px solid #232323;
-padding: 2.5rem 2rem;
-box-shadow: 0 12px 56px rgba(0,0,0,0.4);
-animation: pulse 2s infinite;
+.post-body ul, .post-body ol {
+margin: 1rem 0 1.5rem 1.5rem;
 }
-.blog-skeleton-line {
-height: 16px;
-background: linear-gradient(90deg, #232323 0%, #2a2a35 50%, #232323 100%);
-border-radius: 8px;
-margin-bottom: 1rem;
+.post-body li { margin-bottom: 0.5rem; }
+
+/* ── Links ── */
+.post-body a {
+color: #ffd945;
+text-decoration: underline;
+text-decoration-color: rgba(255,217,69,0.4);
+text-underline-offset: 3px;
+transition: text-decoration-color 0.2s;
 }
-@keyframes pulse {
-0%, 100% { opacity: 1; }
-50% { opacity: 0.5; }
+.post-body a:hover { text-decoration-color: #ffd945; }
+
+/* ── Responsive Tables ── */
+.table-wrapper {
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+margin: 2rem 0;
+border-radius: 10px;
+border: 1px solid #2a2a2a;
 }
+.post-body table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.95rem;
+min-width: 500px;
+}
+.post-body .table-wrapper table {
+margin: 0;
+}
+.post-body th {
+background: linear-gradient(135deg, #ffd945, #ff9f43);
+color: #191919;
+font-weight: 700;
+padding: 0.85rem 1rem;
+text-align: left;
+white-space: nowrap;
+}
+.post-body td {
+padding: 0.75rem 1rem;
+border-bottom: 1px solid #232323;
+color: #d0d0d0;
+vertical-align: top;
+}
+.post-body tr:last-child td { border-bottom: none; }
+.post-body tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+.post-body tr:hover td { background: rgba(255,217,69,0.05); transition: background 0.2s; }
+
 .post-footer {
 background: linear-gradient(135deg, #151516 0%, #232835 100%);
 border-top: 1px solid #232323;
 padding: 4rem 2rem;
 margin-top: 4rem;
-}
-.post-footer-content {
-max-width: 896px;
-margin: 0 auto;
 text-align: center;
 }
 .post-footer h3 {
@@ -273,9 +262,6 @@ margin-bottom: 1rem;
 color: #bdbdbd;
 font-size: 1.2rem;
 margin-bottom: 2.5rem;
-max-width: 32rem;
-margin-left: auto;
-margin-right: auto;
 }
 .cta-grid {
 display: grid;
@@ -292,15 +278,11 @@ font-weight: 800;
 border-radius: 12px;
 text-decoration: none;
 font-size: 1.15rem;
-box-shadow: 0 12px 32px rgba(255,217,69,0.4);
-transition: all 0.25s ease;
 display: block;
 text-align: center;
+transition: all 0.25s ease;
 }
-.cta-primary:hover {
-transform: translateY(-2px);
-box-shadow: 0 20px 40px rgba(255,217,69,0.5);
-}
+.cta-primary:hover { transform: translateY(-2px); }
 .cta-secondary {
 padding: 1.25rem 2.5rem;
 border: 2px solid #ffd945;
@@ -309,28 +291,25 @@ font-weight: 700;
 border-radius: 12px;
 text-decoration: none;
 font-size: 1.15rem;
-transition: all 0.25s ease;
 display: block;
 text-align: center;
+transition: all 0.25s ease;
 }
-.cta-secondary:hover {
-background: #ffd945;
-color: #191919 !important;
-transform: translateY(-2px);
+.cta-secondary:hover { background: #ffd945; color: #191919 !important; }
+.skeleton-block {
+background: linear-gradient(135deg, #151516, #232835);
+border-radius: 8px;
+margin-bottom: 1rem;
+animation: pulse 2s infinite;
 }
-.error-msg {
-color: #ff6b6b;
-text-align: center;
-padding: 2rem;
-font-size: 1.1rem;
-}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.error-msg { color: #ff6b6b; text-align: center; padding: 4rem 2rem; font-size: 1.2rem; }
 @media (max-width: 768px) {
-.blog-container { padding: 2rem 1rem; }
-.blog-hero { grid-template-columns: 1fr; gap: 2.5rem; }
-.blog-articles-grid { grid-template-columns: 1fr; }
-nav.blog-nav { padding: 1rem; }
-.post-footer { padding: 2rem 1rem; }
+.post-container { padding: 2rem 1rem; }
 .cta-grid { grid-template-columns: 1fr; }
+nav.blog-nav { padding: 1rem; }
+.post-body table { font-size: 0.82rem; }
+.post-body th, .post-body td { padding: 0.6rem 0.75rem; }
 }
       `}</style>
 
@@ -341,81 +320,49 @@ nav.blog-nav { padding: 1rem; }
         </Link>
       </nav>
 
-      <div className="blog-container">
+      <div className="post-container">
+        <Link to="/blog" className="post-back">← Back to Blog</Link>
+
+        {loading && (
+          <>
+            <div className="skeleton-block" style={{ height: "24px", width: "80px" }} />
+            <div className="skeleton-block" style={{ height: "60px", marginTop: "1rem" }} />
+            <div className="skeleton-block" style={{ height: "20px", width: "200px" }} />
+            <div className="skeleton-block" style={{ height: "400px", marginTop: "2rem" }} />
+          </>
+        )}
+
         {error && <p className="error-msg">{error}</p>}
 
-        {/* Hero — first post */}
-        {loading ? (
-          <div className="blog-hero">
-            <div className="blog-skeleton" style={{ height: "300px" }} />
-            <div className="blog-skeleton" style={{ height: "300px" }} />
-          </div>
-        ) : firstPost ? (
-          <section className="blog-hero">
-            <div className="blog-hero-content">
-              <span className="blog-featured-badge">Featured Article</span>
-              <h1>{firstPost.title}</h1>
-              <p className="blog-excerpt">{firstPost.excerpt}</p>
-              <Link to={`/blog/${firstPost.slug?.current}`} className="cta-primary">
-                Read Article →
-              </Link>
-            </div>
-            <div className="blog-hero-card">
-              <div className="blog-ai-ring">
-                <svg fill="none" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+        {post && (
+          <>
+            <header className="post-header">
+              <span className="post-badge">Article</span>
+              <h1 className="post-title">{post.title}</h1>
+              <div className="post-meta">
+                {post.publishedAt && <span>📅 {new Date(clean(post.publishedAt)).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>}
+                {post.author && <span>✍️ {clean(post.author)}</span>}
+                {post.readTime && <span>⏱ {clean(post.readTime)}</span>}
               </div>
-              <h3>AI-Powered Personas</h3>
-              <p>Generate targeted buyer personas instantly</p>
-              <a href="https://sainthetic.com/" className="blog-hero-link">Try sAInthetic →</a>
-            </div>
-          </section>
-        ) : null}
+            </header>
 
-        {/* All posts grid */}
-        <section>
-          <h2 className="blog-section-title">Recent Articles</h2>
-          <p className="blog-section-desc">Deep dive into AI marketing strategies and buyer persona mastery</p>
+            <div className="post-divider" />
 
-          <div className="blog-articles-grid">
-            {loading ? (
-              Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="blog-skeleton">
-                  <div className="blog-skeleton-line" style={{ width: "80px", height: "20px" }} />
-                  <div className="blog-skeleton-line" style={{ height: "20px" }} />
-                  <div className="blog-skeleton-line" style={{ height: "64px" }} />
-                  <div className="blog-skeleton-line" style={{ width: "120px" }} />
-                </div>
-              ))
-            ) : (
-              remainingPosts.map((post) => (
-                <article key={post._id} className="blog-article-card">
-                  <span className="blog-article-badge">New</span>
-                  <h3 className="blog-article-title">{post.title}</h3>
-                  <p className="blog-article-excerpt">{post.excerpt}</p>
-                  <Link to={`/blog/${post.slug?.current}`} className="blog-hero-link">
-                    Read more →
-                  </Link>
-                </article>
-              ))
-            )}
-          </div>
-        </section>
+            <div
+              className="post-body"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
+          </>
+        )}
       </div>
 
       <footer className="post-footer">
-        <div className="post-footer-content">
+        <div>
           <h3>Ready to create personas that convert?</h3>
           <p>Generate AI-powered buyer personas instantly with sAInthetic</p>
           <div className="cta-grid">
             <a href="https://sainthetic.com/register" className="cta-primary">Get Started Free</a>
-            {firstPost && (
-              <Link to={`/blog/${firstPost.slug?.current}`} className="cta-secondary">
-                Read First Article
-              </Link>
-            )}
+            <Link to="/blog" className="cta-secondary">More Articles</Link>
           </div>
         </div>
       </footer>
