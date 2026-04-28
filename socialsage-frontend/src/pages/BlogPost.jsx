@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const SANITY_PROJECT_ID = "ziow5svx";
 const SANITY_DATASET = "production";
@@ -41,6 +41,9 @@ export default function BlogPost() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Canonical is always derived from slug — available immediately, before fetch
+  const canonicalUrl = `https://sainthetic.com/blog/${slug}`;
+
   useEffect(() => {
     const query = encodeURIComponent(
       `*[_type == "post" && slug.current == "${slug}"][0]{ _id, title, slug, excerpt, content, contentHtml, publishedAt, author, readTime, metaTitle, metaDescription }`
@@ -68,24 +71,31 @@ export default function BlogPost() {
   const rawHtml = post?.contentHtml ? clean(post.contentHtml) : post?.content ? blocksToHtml(post.content) : "";
   const htmlContent = wrapTables(rawHtml);
 
-  const canonicalUrl = `https://sainthetic.com/blog/${slug}`;
+  // Resolved meta values — fall back to slug-based defaults so Helmet always has something unique
+  const metaTitle = post?.metaTitle || post?.title || `sAInthetic Blog | ${slug}`;
+  const metaDescription = post?.metaDescription || post?.excerpt || "AI-powered buyer personas and marketing strategies for SaaS growth.";
 
   return (
     <>
-      {post && (
-        <Helmet>
-          <title>{post.metaTitle || post.title}</title>
-          <meta name="description" content={post.metaDescription || post.excerpt} />
-          <link rel="canonical" href={canonicalUrl} />
-          <meta property="og:title" content={post.metaTitle || post.title} />
-          <meta property="og:description" content={post.metaDescription || post.excerpt} />
-          <meta property="og:type" content="article" />
-          <meta property="og:url" content={canonicalUrl} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={post.metaTitle || post.title} />
-          <meta name="twitter:description" content={post.metaDescription || post.excerpt} />
-        </Helmet>
-      )}
+      {/*
+        IMPORTANT SEO FIX:
+        Helmet is rendered unconditionally so Googlebot always sees the canonical,
+        title, and meta description — even before the Sanity fetch completes.
+        The canonical is derived from `slug` (from useParams) which is available
+        immediately, guaranteeing each page gets its own unique canonical URL.
+      */}
+      <Helmet>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+      </Helmet>
 
       <style>{`
 nav.blog-nav {
@@ -199,8 +209,6 @@ font-style: italic;
 margin: 1rem 0 1.5rem 1.5rem;
 }
 .post-body li { margin-bottom: 0.5rem; }
-
-/* ── Links ── */
 .post-body a {
 color: #ffd945;
 text-decoration: underline;
@@ -209,8 +217,6 @@ text-underline-offset: 3px;
 transition: text-decoration-color 0.2s;
 }
 .post-body a:hover { text-decoration-color: #ffd945; }
-
-/* ── Responsive Tables ── */
 .table-wrapper {
 overflow-x: auto;
 -webkit-overflow-scrolling: touch;
@@ -224,9 +230,7 @@ border-collapse: collapse;
 font-size: 0.95rem;
 min-width: 500px;
 }
-.post-body .table-wrapper table {
-margin: 0;
-}
+.post-body .table-wrapper table { margin: 0; }
 .post-body th {
 background: linear-gradient(135deg, #ffd945, #ff9f43);
 color: #191919;
@@ -244,7 +248,6 @@ vertical-align: top;
 .post-body tr:last-child td { border-bottom: none; }
 .post-body tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
 .post-body tr:hover td { background: rgba(255,217,69,0.05); transition: background 0.2s; }
-
 .post-footer {
 background: linear-gradient(135deg, #151516 0%, #232835 100%);
 border-top: 1px solid #232323;
