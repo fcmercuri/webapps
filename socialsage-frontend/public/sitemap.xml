@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
   <url>
     <loc>https://sainthetic.com/</loc>
     <changefreq>weekly</changefreq>
@@ -35,12 +37,14 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <!-- Blog index -->
   <url>
     <loc>https://sainthetic.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <!-- Blog posts -->
   <url>
     <loc>https://sainthetic.com/blog/abm-campaign-strategy-mid-market-b2b</loc>
@@ -168,11 +172,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sainthetic.com/blog/b2b-marketing-plan-ultimate-guide-template</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://sainthetic.com/blog/b2b-social-proof-strategy-beyond-basic-testimonial</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -214,6 +213,11 @@
   </url>
   <url>
     <loc>https://sainthetic.com/blog/how-to-align-sales-and-marketing-around-buyer-personas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sainthetic.com/blog/how-to-build-a-sales-assisted-plg-motion-with-ai</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -347,9 +351,5 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
-    <loc>https://sainthetic.com/blog/why-buyer-personas-transform-marketing</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+
 </urlset>
