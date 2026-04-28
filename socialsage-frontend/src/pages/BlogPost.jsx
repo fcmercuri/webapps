@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 
 const SANITY_PROJECT_ID = "ziow5svx";
 const SANITY_DATASET = "production";
