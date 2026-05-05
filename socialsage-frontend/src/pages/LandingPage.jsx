@@ -1580,52 +1580,46 @@ dozens of questions that reflect realistic, synthetic persona queries
       background: "linear-gradient(135deg, #13131f 0%, #1e1e30 100%)",
       borderRadius: 24,
       border: "1px solid rgba(255, 217, 69, 0.2)",
-      boxShadow: "0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,217,69,0.05)",
+      boxShadow: "0 24px 80px rgba(0,0,0,0.6)",
       overflow: "hidden",
     }}
   >
     {/* Top bar with company profile */}
     <div
       style={{
-        padding: "2rem 2.5rem",
+        padding: "1.5rem",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
         display: "flex",
         alignItems: "center",
         flexWrap: "wrap",
-        gap: 20,
+        gap: 16,
         background: "rgba(255,217,69,0.04)",
       }}
     >
       <div
         style={{
-          width: 52,
-          height: 52,
-          borderRadius: 14,
+          width: 46,
+          height: 46,
+          borderRadius: 12,
           background: "linear-gradient(135deg, #ffd945, #ff9f43)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 24,
+          fontSize: 22,
           flexShrink: 0,
         }}
       >
         🚀
       </div>
-      <div style={{ flex: 1, minWidth: 200 }}>
-        <div style={{ color: "#fff", fontWeight: 800, fontSize: "1.05rem" }}>
+      <div style={{ flex: 1, minWidth: 160 }}>
+        <div style={{ color: "#fff", fontWeight: 800, fontSize: "1rem" }}>
           NexusFlow — B2B SaaS Platform
         </div>
-        <div style={{ color: "#888", fontSize: "0.88rem", marginTop: 3 }}>
+        <div style={{ color: "#888", fontSize: "0.82rem", marginTop: 2 }}>
           Team size: 12 · Industry: SaaS · Use case: Organic content growth
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          gap: 12,
-          flexWrap: "wrap",
-        }}
-      >
+      <div style={{ display: "flex", gap: 10 }}>
         {[
           { label: "Time to results", value: "60 days" },
           { label: "Plan used", value: "Pro" },
@@ -1636,192 +1630,94 @@ dozens of questions that reflect realistic, synthetic persona queries
               background: "rgba(255,217,69,0.1)",
               border: "1px solid rgba(255,217,69,0.25)",
               borderRadius: 10,
-              padding: "8px 16px",
+              padding: "6px 14px",
               textAlign: "center",
             }}
           >
-            <div style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.95rem" }}>
+            <div style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.9rem" }}>
               {stat.value}
             </div>
-            <div style={{ color: "#888", fontSize: "0.75rem" }}>{stat.label}</div>
+            <div style={{ color: "#888", fontSize: "0.7rem" }}>{stat.label}</div>
           </div>
         ))}
       </div>
     </div>
 
-    {/* Results metrics row */}
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
+    {/* Results metrics row — 2x2 on mobile, 4 cols on desktop */}
+    <style>{`
+      .cs-metrics { display: grid; grid-template-columns: 1fr 1fr; }
+      .cs-metric-cell { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .cs-metric-cell:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.06); }
+      .cs-body { display: grid; grid-template-columns: 1fr; gap: 0; }
+      .cs-challenge { padding: 1.8rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .cs-steps { padding: 1.8rem 1.5rem; }
+      @media (min-width: 700px) {
+        .cs-metrics { grid-template-columns: repeat(4, 1fr); }
+        .cs-metric-cell { border-bottom: none; }
+        .cs-metric-cell:nth-child(odd) { border-right: none; }
+        .cs-metric-cell:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.06); }
+        .cs-body { grid-template-columns: 1fr 1fr; }
+        .cs-challenge { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.06); padding: 2.5rem; }
+        .cs-steps { padding: 2.5rem; }
+      }
+    `}</style>
+
+    <div className="cs-metrics">
       {[
         { metric: "3×", label: "Organic traffic", sublabel: "vs prior 60 days", color: "#4ade80" },
         { metric: "68%", label: "Lower bounce rate", sublabel: "content-to-fit", color: "#60a5fa" },
         { metric: "41%", label: "More trial signups", sublabel: "from blog content", color: "#ffd945" },
         { metric: "5h", label: "Saved per week", sublabel: "on content research", color: "#f472b6" },
       ].map((item, i) => (
-        <div
-          key={i}
-          style={{
-            padding: "1.8rem 1.5rem",
-            textAlign: "center",
-            borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "clamp(2rem, 4vw, 2.8rem)",
-              fontWeight: 900,
-              color: item.color,
-              lineHeight: 1,
-              marginBottom: 6,
-              letterSpacing: "-1px",
-            }}
-          >
+        <div key={i} className="cs-metric-cell" style={{ padding: "1.4rem 1rem", textAlign: "center" }}>
+          <div style={{ fontSize: "clamp(1.8rem, 5vw, 2.6rem)", fontWeight: 900, color: item.color, lineHeight: 1, marginBottom: 4, letterSpacing: "-1px" }}>
             {item.metric}
           </div>
-          <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem" }}>
-            {item.label}
-          </div>
-          <div style={{ color: "#666", fontSize: "0.78rem", marginTop: 3 }}>
-            {item.sublabel}
-          </div>
+          <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{item.label}</div>
+          <div style={{ color: "#666", fontSize: "0.75rem", marginTop: 2 }}>{item.sublabel}</div>
         </div>
       ))}
     </div>
 
-    {/* Story + steps */}
-    <div
-      style={{
-        padding: "2.5rem",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "2.5rem",
-        alignItems: "start",
-      }}
-    >
-      {/* Left: the challenge + quote */}
-      <div>
-        <h4
-          style={{
-            color: "#ffd945",
-            fontWeight: 800,
-            fontSize: "0.85rem",
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            marginBottom: 12,
-          }}
-        >
+    {/* Story + steps — stacks on mobile */}
+    <div className="cs-body">
+      {/* Challenge + quote */}
+      <div className="cs-challenge">
+        <h4 style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 12, marginTop: 0 }}>
           The Challenge
         </h4>
-        <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.97rem", marginBottom: 24 }}>
-          NexusFlow's content team was publishing 8 blog posts per month but
-          seeing minimal organic traction. Posts felt generic — they weren't
-          answering what real buyers actually searched for. Prompts were
-          rewritten from scratch every time.
+        <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.95rem", marginBottom: 20, marginTop: 0 }}>
+          NexusFlow's content team was publishing 8 blog posts per month but seeing minimal organic traction. Posts felt generic — they weren't answering what real buyers actually searched for. Prompts were rewritten from scratch every time.
         </p>
-
-        {/* Pull quote */}
-        <div
-          style={{
-            borderLeft: "3px solid #ffd945",
-            paddingLeft: 18,
-            marginBottom: 24,
-          }}
-        >
-          <p
-            style={{
-              color: "#fff",
-              fontStyle: "italic",
-              fontSize: "1rem",
-              lineHeight: 1.6,
-              margin: "0 0 10px 0",
-              fontWeight: 600,
-            }}
-          >
-            "Within a week of using sAInthetic we had a library of 40+ prompts
-            that actually matched what our ICP asks AI tools. It completely
-            changed how we brief our writers."
+        <div style={{ borderLeft: "3px solid #ffd945", paddingLeft: 16 }}>
+          <p style={{ color: "#fff", fontStyle: "italic", fontSize: "0.97rem", lineHeight: 1.6, margin: "0 0 8px 0", fontWeight: 600 }}>
+            "Within a week of using sAInthetic we had a library of 40+ prompts that actually matched what our ICP asks AI tools."
           </p>
-          <div style={{ color: "#ffd945", fontWeight: 700, fontSize: "0.88rem" }}>
+          <div style={{ color: "#ffd945", fontWeight: 700, fontSize: "0.83rem" }}>
             — Jamie R., Head of Growth, NexusFlow
           </div>
         </div>
       </div>
 
-      {/* Right: the workflow steps */}
-      <div>
-        <h4
-          style={{
-            color: "#ffd945",
-            fontWeight: 800,
-            fontSize: "0.85rem",
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            marginBottom: 16,
-          }}
-        >
+      {/* Workflow steps */}
+      <div className="cs-steps">
+        <h4 style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 16, marginTop: 0 }}>
           Their Workflow with sAInthetic
         </h4>
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {[
-            {
-              step: "01",
-              title: "Built 4 personas for their ICP",
-              desc: "Generated detailed SaaS buyer personas in under 2 minutes",
-            },
-            {
-              step: "02",
-              title: "Extracted synthetic search queries",
-              desc: "Uncovered 40+ questions their buyers ask LLMs every week",
-            },
-            {
-              step: "03",
-              title: "Created a reusable prompt library",
-              desc: "Every writer used the same on-brand prompts — no guesswork",
-            },
-            {
-              step: "04",
-              title: "Published persona-matched content",
-              desc: "Content aligned to real intent — Google rewarded them fast",
-            },
+            { step: "01", title: "Built 4 personas for their ICP", desc: "Generated detailed SaaS buyer personas in under 2 minutes" },
+            { step: "02", title: "Extracted synthetic search queries", desc: "Uncovered 40+ questions their buyers ask LLMs every week" },
+            { step: "03", title: "Created a reusable prompt library", desc: "Every writer used the same on-brand prompts — no guesswork" },
+            { step: "04", title: "Published persona-matched content", desc: "Content aligned to real intent — Google rewarded them fast" },
           ].map((item) => (
-            <div
-              key={item.step}
-              style={{
-                display: "flex",
-                gap: 14,
-                alignItems: "flex-start",
-              }}
-            >
-              <div
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 8,
-                  background: "rgba(255,217,69,0.15)",
-                  border: "1px solid rgba(255,217,69,0.3)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#ffd945",
-                  fontWeight: 800,
-                  fontSize: "0.75rem",
-                  flexShrink: 0,
-                }}
-              >
+            <div key={item.step} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+              <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(255,217,69,0.15)", border: "1px solid rgba(255,217,69,0.3)", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffd945", fontWeight: 800, fontSize: "0.72rem", flexShrink: 0 }}>
                 {item.step}
               </div>
               <div>
-                <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.92rem" }}>
-                  {item.title}
-                </div>
-                <div style={{ color: "#777", fontSize: "0.83rem", marginTop: 2 }}>
-                  {item.desc}
-                </div>
+                <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem" }}>{item.title}</div>
+                <div style={{ color: "#777", fontSize: "0.82rem", marginTop: 2 }}>{item.desc}</div>
               </div>
             </div>
           ))}
@@ -1832,7 +1728,7 @@ dozens of questions that reflect realistic, synthetic persona queries
     {/* Bottom CTA bar */}
     <div
       style={{
-        padding: "1.8rem 2.5rem",
+        padding: "1.5rem",
         borderTop: "1px solid rgba(255,255,255,0.06)",
         background: "rgba(255,217,69,0.04)",
         display: "flex",
@@ -1843,10 +1739,10 @@ dozens of questions that reflect realistic, synthetic persona queries
       }}
     >
       <div>
-        <div style={{ color: "#fff", fontWeight: 700, fontSize: "1rem" }}>
+        <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.97rem" }}>
           Want results like NexusFlow?
         </div>
-        <div style={{ color: "#888", fontSize: "0.88rem", marginTop: 3 }}>
+        <div style={{ color: "#888", fontSize: "0.85rem", marginTop: 3 }}>
           Start building your persona library today — free, no card needed
         </div>
       </div>
@@ -1856,21 +1752,12 @@ dozens of questions that reflect realistic, synthetic persona queries
           background: "linear-gradient(135deg, #ffd945, #ff9f43)",
           color: "#000",
           fontWeight: 800,
-          padding: "0.9rem 2rem",
+          padding: "0.85rem 1.8rem",
           borderRadius: 12,
           textDecoration: "none",
-          fontSize: "0.95rem",
+          fontSize: "0.92rem",
           whiteSpace: "nowrap",
           boxShadow: "0 8px 24px rgba(255,217,69,0.3)",
-          transition: "transform 0.2s, box-shadow 0.2s",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,217,69,0.4)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 8px 24px rgba(255,217,69,0.3)";
         }}
       >
         Start Free Trial →
@@ -1881,6 +1768,7 @@ dozens of questions that reflect realistic, synthetic persona queries
 {/* ============================================ */}
 {/* END CASE STUDY SECTION                       */}
 {/* ============================================ */}
+
         
         {/* FAQ SECTION */}
 <section
