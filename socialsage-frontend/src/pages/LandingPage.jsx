@@ -208,7 +208,7 @@ export default function LandingPage() {
             transition={{ duration: 0.9, delay: 0.25 }}
             style={{ fontSize: "clamp(1rem, 2.4vw, 1.3rem)", color: "#bbb", margin: "0 auto 32px auto", maxWidth: 580, lineHeight: 1.65 }}
           >
-            sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs — so your content ranks, converts, and never feels generic again.
+            sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.
           </motion.p>
 
           {/* CTA buttons */}
