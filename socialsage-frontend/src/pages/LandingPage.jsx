@@ -117,6 +117,371 @@ const cards = [
   }
 ];
 
+{/* ============================================ */}
+{/* CASE STUDY SECTION - insert before FAQ      */}
+{/* ============================================ */}
+<section
+  id="case-study"
+  style={{
+    margin: "8rem auto 0 auto",
+    maxWidth: 1000,
+    position: "relative",
+    zIndex: 2,
+    padding: "0 20px",
+  }}
+>
+  {/* Header */}
+  <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+    <div
+      style={{
+        display: "inline-block",
+        background: "linear-gradient(135deg, #ffd945 0%, #ffed4e 100%)",
+        color: "#000",
+        padding: "6px 20px",
+        borderRadius: 20,
+        fontSize: "0.8rem",
+        fontWeight: 800,
+        letterSpacing: "1px",
+        marginBottom: 20,
+        textTransform: "uppercase",
+      }}
+    >
+      Case Study
+    </div>
+    <h2
+      style={{
+        color: "#fff",
+        fontWeight: 900,
+        fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
+        marginBottom: "0.8rem",
+        letterSpacing: "-1px",
+        lineHeight: 1.15,
+      }}
+    >
+      How a SaaS Team Tripled Organic Traffic{" "}
+      <span
+        style={{
+          background: "linear-gradient(96deg, #ffd945, #ff9f43)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        in 60 Days
+      </span>
+    </h2>
+    <p style={{ color: "#bbb", fontSize: "1.1rem", maxWidth: 560, margin: "0 auto" }}>
+      A real workflow from persona creation to published content that converts
+    </p>
+  </div>
+
+  {/* Main card */}
+  <div
+    style={{
+      background: "linear-gradient(135deg, #13131f 0%, #1e1e30 100%)",
+      borderRadius: 24,
+      border: "1px solid rgba(255, 217, 69, 0.2)",
+      boxShadow: "0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,217,69,0.05)",
+      overflow: "hidden",
+    }}
+  >
+    {/* Top bar with company profile */}
+    <div
+      style={{
+        padding: "2rem 2.5rem",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: 20,
+        background: "rgba(255,217,69,0.04)",
+      }}
+    >
+      <div
+        style={{
+          width: 52,
+          height: 52,
+          borderRadius: 14,
+          background: "linear-gradient(135deg, #ffd945, #ff9f43)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 24,
+          flexShrink: 0,
+        }}
+      >
+        🚀
+      </div>
+      <div style={{ flex: 1, minWidth: 200 }}>
+        <div style={{ color: "#fff", fontWeight: 800, fontSize: "1.05rem" }}>
+          NexusFlow — B2B SaaS Platform
+        </div>
+        <div style={{ color: "#888", fontSize: "0.88rem", marginTop: 3 }}>
+          Team size: 12 · Industry: SaaS · Use case: Organic content growth
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: 12,
+          flexWrap: "wrap",
+        }}
+      >
+        {[
+          { label: "Time to results", value: "60 days" },
+          { label: "Plan used", value: "Pro" },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            style={{
+              background: "rgba(255,217,69,0.1)",
+              border: "1px solid rgba(255,217,69,0.25)",
+              borderRadius: 10,
+              padding: "8px 16px",
+              textAlign: "center",
+            }}
+          >
+            <div style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.95rem" }}>
+              {stat.value}
+            </div>
+            <div style={{ color: "#888", fontSize: "0.75rem" }}>{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Results metrics row */}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
+      {[
+        { metric: "3×", label: "Organic traffic", sublabel: "vs prior 60 days", color: "#4ade80" },
+        { metric: "68%", label: "Lower bounce rate", sublabel: "content-to-fit", color: "#60a5fa" },
+        { metric: "41%", label: "More trial signups", sublabel: "from blog content", color: "#ffd945" },
+        { metric: "5h", label: "Saved per week", sublabel: "on content research", color: "#f472b6" },
+      ].map((item, i) => (
+        <div
+          key={i}
+          style={{
+            padding: "1.8rem 1.5rem",
+            textAlign: "center",
+            borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "clamp(2rem, 4vw, 2.8rem)",
+              fontWeight: 900,
+              color: item.color,
+              lineHeight: 1,
+              marginBottom: 6,
+              letterSpacing: "-1px",
+            }}
+          >
+            {item.metric}
+          </div>
+          <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem" }}>
+            {item.label}
+          </div>
+          <div style={{ color: "#666", fontSize: "0.78rem", marginTop: 3 }}>
+            {item.sublabel}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Story + steps */}
+    <div
+      style={{
+        padding: "2.5rem",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "2.5rem",
+        alignItems: "start",
+      }}
+    >
+      {/* Left: the challenge + quote */}
+      <div>
+        <h4
+          style={{
+            color: "#ffd945",
+            fontWeight: 800,
+            fontSize: "0.85rem",
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+            marginBottom: 12,
+          }}
+        >
+          The Challenge
+        </h4>
+        <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.97rem", marginBottom: 24 }}>
+          NexusFlow's content team was publishing 8 blog posts per month but
+          seeing minimal organic traction. Posts felt generic — they weren't
+          answering what real buyers actually searched for. Prompts were
+          rewritten from scratch every time.
+        </p>
+
+        {/* Pull quote */}
+        <div
+          style={{
+            borderLeft: "3px solid #ffd945",
+            paddingLeft: 18,
+            marginBottom: 24,
+          }}
+        >
+          <p
+            style={{
+              color: "#fff",
+              fontStyle: "italic",
+              fontSize: "1rem",
+              lineHeight: 1.6,
+              margin: "0 0 10px 0",
+              fontWeight: 600,
+            }}
+          >
+            "Within a week of using sAInthetic we had a library of 40+ prompts
+            that actually matched what our ICP asks AI tools. It completely
+            changed how we brief our writers."
+          </p>
+          <div style={{ color: "#ffd945", fontWeight: 700, fontSize: "0.88rem" }}>
+            — Jamie R., Head of Growth, NexusFlow
+          </div>
+        </div>
+      </div>
+
+      {/* Right: the workflow steps */}
+      <div>
+        <h4
+          style={{
+            color: "#ffd945",
+            fontWeight: 800,
+            fontSize: "0.85rem",
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+            marginBottom: 16,
+          }}
+        >
+          Their Workflow with sAInthetic
+        </h4>
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {[
+            {
+              step: "01",
+              title: "Built 4 personas for their ICP",
+              desc: "Generated detailed SaaS buyer personas in under 2 minutes",
+            },
+            {
+              step: "02",
+              title: "Extracted synthetic search queries",
+              desc: "Uncovered 40+ questions their buyers ask LLMs every week",
+            },
+            {
+              step: "03",
+              title: "Created a reusable prompt library",
+              desc: "Every writer used the same on-brand prompts — no guesswork",
+            },
+            {
+              step: "04",
+              title: "Published persona-matched content",
+              desc: "Content aligned to real intent — Google rewarded them fast",
+            },
+          ].map((item) => (
+            <div
+              key={item.step}
+              style={{
+                display: "flex",
+                gap: 14,
+                alignItems: "flex-start",
+              }}
+            >
+              <div
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 8,
+                  background: "rgba(255,217,69,0.15)",
+                  border: "1px solid rgba(255,217,69,0.3)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#ffd945",
+                  fontWeight: 800,
+                  fontSize: "0.75rem",
+                  flexShrink: 0,
+                }}
+              >
+                {item.step}
+              </div>
+              <div>
+                <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.92rem" }}>
+                  {item.title}
+                </div>
+                <div style={{ color: "#777", fontSize: "0.83rem", marginTop: 2 }}>
+                  {item.desc}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom CTA bar */}
+    <div
+      style={{
+        padding: "1.8rem 2.5rem",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "rgba(255,217,69,0.04)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: 16,
+      }}
+    >
+      <div>
+        <div style={{ color: "#fff", fontWeight: 700, fontSize: "1rem" }}>
+          Want results like NexusFlow?
+        </div>
+        <div style={{ color: "#888", fontSize: "0.88rem", marginTop: 3 }}>
+          Start building your persona library today — free, no card needed
+        </div>
+      </div>
+      <a
+        href="/register"
+        style={{
+          background: "linear-gradient(135deg, #ffd945, #ff9f43)",
+          color: "#000",
+          fontWeight: 800,
+          padding: "0.9rem 2rem",
+          borderRadius: 12,
+          textDecoration: "none",
+          fontSize: "0.95rem",
+          whiteSpace: "nowrap",
+          boxShadow: "0 8px 24px rgba(255,217,69,0.3)",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,217,69,0.4)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 8px 24px rgba(255,217,69,0.3)";
+        }}
+      >
+        Start Free Trial →
+      </a>
+    </div>
+  </div>
+</section>
+{/* ============================================ */}
+{/* END CASE STUDY SECTION                       */}
+{/* ============================================ */}
+
 const [openFaq, setOpenFaq] = useState(null);
 
 
