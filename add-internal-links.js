@@ -6,7 +6,7 @@ const https = require('https');
 
 const PROJECT_ID = 'ziow5svx';
 const DATASET = 'production';
-const TOKEN = 'ska3t1LcMyAARfNWTuDXC5VaYLImLzr0CvzrCypeCZc4PAuITnSThtOaVPLtNA6DAyAOsqqNXkxBWeSqR1B3omLn7E7P1S9vGiwhvpYNWRdZW4I7iqeu8chJ2zYDJGVcT1gpNEt1WRYq45LDZJfh4lBwHdoWBvE9D20E580WNSLcrynziOeO';
+const TOKEN = '';
 
 function request(method, hostname, path, body) {
   return new Promise((resolve, reject) => {
