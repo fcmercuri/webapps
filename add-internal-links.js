@@ -4,7 +4,7 @@
 
 const https = require('https');
 
-const PROJECT_ID = 'ziow5svx';
+const PROJECT_ID = '';
 const DATASET = 'production';
 const TOKEN = '';
 
