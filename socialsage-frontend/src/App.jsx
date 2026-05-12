@@ -160,6 +160,13 @@ function App() {
 
           {/* Blog routes */}
           <Route path="/blog" element={<Blog />} />
+
+          {/* Redirect duplicate PLG slug to canonical version */}
+          <Route
+            path="/blog/how-to-build-a-sales-assisted-plg-motion-with-ai"
+            element={<Navigate to="/blog/how-to-build-sales-assisted-plg-motion-with-ai" replace />}
+          />
+
           <Route path="/blog/:slug" element={<BlogPost />} />
 
           <Route
