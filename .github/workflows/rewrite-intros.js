@@ -8,7 +8,7 @@ const https = require('https');
 const SANITY_PROJECT_ID = 'ziow5svx';
 const SANITY_DATASET = 'production';
 const SANITY_TOKEN = 'ska3t1LcMyAARfNWTuDXC5VaYLImLzr0CvzrCypeCZc4PAuITnSThtOaVPLtNA6DAyAOsqqNXkxBWeSqR1B3omLn7E7P1S9vGiwhvpYNWRdZW4I7iqeu8chJ2zYDJGVcT1gpNEt1WRYq45LDZJfh4lBwHdoWBvE9D20E580WNSLcrynziOeO';
-const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE'; // <-- paste your Claude API key here
+const PERPLEXITY_API_KEY = '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'; // <-- paste your Perplexity API key here
 
 // Slugs to fix
 const SLUGS_TO_FIX = [
@@ -70,21 +70,22 @@ function sanityPatch(docId, set) {
   );
 }
 
-// ─── CLAUDE HELPER ────────────────────────────────────────────────────────────
+// ─── PERPLEXITY HELPER ────────────────────────────────────────────────────────
 async function rewriteIntro(title, currentIntro) {
   const result = await request(
     'POST',
-    'api.anthropic.com',
-    '/v1/messages',
+    'api.perplexity.ai',
+    '/chat/completions',
     {
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
+      model: 'sonar',
       messages: [
         {
+          role: 'system',
+          content: 'You are an expert B2B SaaS content writer. You write unique, authoritative blog content that ranks on Google. You never use generic AI phrases. You always return clean HTML only.'
+        },
+        {
           role: 'user',
-          content: `You are an expert B2B SaaS content writer. 
-
-Rewrite the opening 3 paragraphs of this blog post to make it unique, authoritative and different in structure from generic AI content.
+          content: `Rewrite the opening 3 paragraphs of this blog post to make it completely unique and different in structure from generic AI content.
 
 Post title: "${title}"
 
@@ -92,27 +93,24 @@ Current intro:
 ${currentIntro}
 
 Requirements:
-- Start with a specific surprising stat or bold claim (not "In this guide" or "In today's landscape")
-- Second paragraph should tell a brief real-world scenario or pain point story
-- Third paragraph should clearly state what the reader will learn
-- Use active voice, be direct and confident
-- Do NOT use phrases like "In this article", "Let's dive in", "In today's competitive landscape"
-- Return ONLY the rewritten HTML paragraphs, no explanation, no markdown
+- Start with a specific surprising stat or bold claim relevant to the topic
+- Never start with "In this guide", "In today's landscape", "In this article"
+- Second paragraph: brief real-world pain point scenario
+- Third paragraph: clearly state what the reader will learn
+- Active voice, direct and confident tone
+- Return ONLY the 3 HTML paragraphs, nothing else
 
-Return format: <p>...</p><p>...</p><p>...</p>`
+Format: <p>...</p><p>...</p><p>...</p>`
         }
       ]
     },
-    {
-      'x-api-key': ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01',
-    }
+    { Authorization: `Bearer ${PERPLEXITY_API_KEY}` }
   );
 
-  return result?.content?.[0]?.text || null;
+  return result?.choices?.[0]?.message?.content || null;
 }
 
-// ─── EXTRACT FIRST 3 PARAGRAPHS FROM HTML ────────────────────────────────────
+// ─── EXTRACT / REPLACE INTRO ──────────────────────────────────────────────────
 function extractIntro(html) {
   if (!html) return null;
   const matches = html.match(/<p[\s\S]*?<\/p>/gi);
@@ -122,12 +120,11 @@ function extractIntro(html) {
 
 function replaceIntro(html, newIntro) {
   if (!html) return html;
-  // Replace first 3 <p> blocks with new intro
   let count = 0;
   return html.replace(/<p[\s\S]*?<\/p>/gi, (match) => {
     if (count < 3) {
       count++;
-      return count === 1 ? newIntro : ''; // insert new intro at first match, remove next 2
+      return count === 1 ? newIntro : '';
     }
     return match;
   });
@@ -137,8 +134,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ─── MAIN ─────────────────────────────────────────────────────────────────────
 async function run() {
-  if (ANTHROPIC_API_KEY === 'YOUR_ANTHROPIC_API_KEY_HERE') {
-    console.error('❌ Please add your Anthropic API key at the top of the script');
+  if (PERPLEXITY_API_KEY === 'YOUR_PERPLEXITY_API_KEY_HERE') {
+    console.error('❌ Please add your Perplexity API key at the top of the script');
     process.exit(1);
   }
 
@@ -151,7 +148,6 @@ async function run() {
     console.log(`\n📄 Processing: ${slug}`);
 
     try {
-      // Fetch post
       const result = await sanityQuery(
         `*[_type == "post" && slug.current == "${slug}"][0]{ _id, title, contentHtml }`
       );
@@ -162,28 +158,23 @@ async function run() {
 
       console.log(`  ✅ Found: ${post.title}`);
 
-      // Extract current intro
       const currentIntro = extractIntro(post.contentHtml);
-      if (!currentIntro) { console.log(`  ⚠️  Could not extract intro paragraphs`); failed++; continue; }
+      if (!currentIntro) { console.log(`  ⚠️  Could not extract intro`); failed++; continue; }
 
-      console.log(`  🤖 Rewriting intro with Claude...`);
+      console.log(`  🤖 Rewriting with Perplexity...`);
 
-      // Rewrite with Claude
       const newIntro = await rewriteIntro(post.title, currentIntro);
-      if (!newIntro) { console.log(`  ❌ Claude returned no content`); failed++; continue; }
+      if (!newIntro) { console.log(`  ❌ Perplexity returned nothing`); failed++; continue; }
 
       console.log(`  ✏️  New intro generated`);
 
-      // Replace intro in full HTML
       const newHtml = replaceIntro(post.contentHtml, newIntro);
 
-      // Patch back to Sanity
       await sanityPatch(post._id, { contentHtml: newHtml });
 
-      console.log(`  ✅ Patched to Sanity successfully`);
+      console.log(`  ✅ Patched to Sanity`);
       updated++;
 
-      // Delay between posts to avoid rate limits
       await sleep(2000);
 
     } catch (err) {
@@ -193,9 +184,7 @@ async function run() {
   }
 
   console.log(`\n🎉 Done! Updated: ${updated} · Failed: ${failed}`);
-  console.log('\nNext steps:');
-  console.log('1. Check your blog posts to verify the new intros look good');
-  console.log('2. Go to Google Search Console → request indexing for each URL');
+  console.log('\nNext: go to Google Search Console and request indexing for each URL');
 }
 
 run();
