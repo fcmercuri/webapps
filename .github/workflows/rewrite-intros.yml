@@ -16,4 +16,6 @@ jobs:
           node-version: '20'
 
       - name: Run rewrite script
+        env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
         run: node rewrite-intros.js
