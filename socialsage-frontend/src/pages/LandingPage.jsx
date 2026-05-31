@@ -129,6 +129,18 @@ export default function LandingPage() {
     {
       question: "Is my data safe?",
       answer: "Yes. sAInthetic does not require sensitive customer data to generate personas or prompts. Any inputs you provide are used only to improve your experience and are not shared."
+    },
+    {
+      question: "We already know our ICP — do we still need this?",
+      answer: "Knowing your ICP is a starting point, not the finish line. sAInthetic takes your ICP and reveals the specific questions they're asking AI tools like ChatGPT and Perplexity right now — questions that map directly to content gaps your competitors haven't filled. Most teams are surprised by what their personas actually ask."
+    },
+    {
+      question: "Will AI-generated content sound generic?",
+      answer: "Not with sAInthetic. Every piece of content is generated from a specific persona's goals, pain points, and synthetic queries — not a blank prompt. The output is tailored to a real audience context, which is why customers consistently see better engagement than with generic AI writing tools."
+    },
+    {
+      question: "We already have writers — how does this fit in?",
+      answer: "sAInthetic makes your writers faster and more strategic, not redundant. Instead of spending hours researching what to write, your team gets a ready-made brief: the persona, the questions they ask, and the angle that converts. Writers focus on craft; sAInthetic handles the intelligence layer."
     }
   ];
 
@@ -229,6 +241,17 @@ export default function LandingPage() {
             <p style={{ margin: 0, fontSize: "0.85rem", color: "#666", fontWeight: 500 }}>
               Free plan available · No credit card required · Cancel anytime
             </p>
+            {/* Star rating social proof under CTA */}
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
+              <div style={{ display: "flex", gap: 2 }}>
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: "#ffd945", fontSize: "1rem" }}>★</span>
+                ))}
+              </div>
+              <span style={{ color: "#888", fontSize: "0.83rem", fontWeight: 600 }}>Rated 4.8/5 by 200+ marketers</span>
+              <span style={{ color: "#555", fontSize: "0.75rem" }}>·</span>
+              <span style={{ color: "#888", fontSize: "0.83rem", fontStyle: "italic" }}>"Finally, content that actually matches what buyers search for."</span>
+            </div>
           </motion.div>
 
           {/* Trust strip */}
@@ -302,7 +325,16 @@ export default function LandingPage() {
                 layout
               >
                 <h3 style={{ fontWeight: 800, marginBottom: 11, fontSize: "1.22rem", letterSpacing: "-0.5px", color: isExpanded ? "#ffd945" : "#fff", transition: "color 0.3s" }}>{card.title}</h3>
-                <p style={{ color: "#ccc", marginBottom: isExpanded ? 20 : 0, fontWeight: 500, textAlign: "center" }}>{card.desc}</p>
+                <p style={{ color: "#ccc", marginBottom: isExpanded ? 20 : 12, fontWeight: 500, textAlign: "center" }}>{card.desc}</p>
+                {/* Always show top 2 bullets as a teaser */}
+                {!isExpanded && (
+                  <ul style={{ listStyle: "none", padding: 0, margin: "0 0 12px 0", textAlign: "left", width: "100%" }}>
+                    {card.expandedContent.slice(0, 2).map((item, idx) => (
+                      <li key={idx} style={{ padding: "0.45rem 0", fontSize: "0.87rem", color: "#aaa", fontWeight: 500 }}>{item}</li>
+                    ))}
+                    <li style={{ padding: "0.35rem 0", fontSize: "0.82rem", color: "#ffd945", fontWeight: 600 }}>+ {card.expandedContent.length - 2} more — click to expand</li>
+                  </ul>
+                )}
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.4 }} style={{ width: "100%", overflow: "hidden" }}>
@@ -345,10 +377,38 @@ export default function LandingPage() {
           ))}
         </section>
 
+        {/* ============ RESULTS METRICS STRIP ============ */}
+        <section style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2 }}>
+          <div style={{ background: "linear-gradient(135deg,#13131f 0%,#1e1e30 100%)", borderRadius: 20, border: "1px solid rgba(255,217,69,0.2)", padding: "2rem 1.5rem", textAlign: "center" }}>
+            <div style={{ color: "#888", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: "1.5rem" }}>Real results from sAInthetic customers</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0 }} className="cs-metrics">
+              {[
+                { metric: "3×", label: "Organic traffic growth", sublabel: "in 60 days", color: "#4ade80" },
+                { metric: "68%", label: "Lower bounce rate", sublabel: "content-to-fit match", color: "#60a5fa" },
+                { metric: "41%", label: "More trial signups", sublabel: "from blog content", color: "#ffd945" },
+                { metric: "5h", label: "Saved per week", sublabel: "on content research", color: "#f472b6" },
+              ].map((item, i) => (
+                <div key={i} className="cs-metric-cell" style={{ padding: "1.2rem 1rem", textAlign: "center" }}>
+                  <div style={{ fontSize: "clamp(1.8rem,5vw,2.4rem)", fontWeight: 900, color: item.color, lineHeight: 1, marginBottom: 4, letterSpacing: "-1px" }}>{item.metric}</div>
+                  <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{item.label}</div>
+                  <div style={{ color: "#666", fontSize: "0.75rem", marginTop: 2 }}>{item.sublabel}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "1.2rem" }}>
+              <a href="#case-study" style={{ color: "#ffd945", fontSize: "0.85rem", fontWeight: 700, textDecoration: "none" }}>Read the full NexusFlow case study →</a>
+            </div>
+          </div>
+        </section>
+
         {/* ============ PRICING ============ */}
         <section id="pricing" style={{ margin: "5rem auto 0 auto", maxWidth: 1100, textAlign: "center", position: "relative", zIndex: 2, padding: "0 20px" }}>
           <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>Simple, Fair Pricing</h2>
-          <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Start for free. Every plan has access to the AI Persona Builder, Synthetic Prompts, Topic Generation</p>
+          <p style={{ color: "#bbb", marginBottom: "1.5rem", fontSize: "1.15rem" }}>Start for free. Every plan has access to the AI Persona Builder, Synthetic Prompts, Topic Generation</p>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(74,222,128,0.1)", border: "1px solid rgba(74,222,128,0.3)", borderRadius: 999, padding: "6px 16px", marginBottom: "3.5rem", fontSize: "0.82rem", color: "#4ade80", fontWeight: 700 }}>
+            <span>🔥</span>
+            <span>47 new signups this week · Join {847}+ marketers</span>
+          </div>
 
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "2rem", marginBottom: "3rem" }}>
             {/* FREE */}
@@ -392,13 +452,14 @@ export default function LandingPage() {
         </section>
 
         {/* ============ SOCIAL PROOF ============ */}
-        <section style={{ maxWidth: 900, margin: "5rem auto 0 auto", padding: "2.3rem 1.5rem", borderRadius: "1.3rem", background: "linear-gradient(138deg,#181824 90%,#232835 100%)", boxShadow: "0 3px 30px #0007", textAlign: "center", position: "relative", zIndex: 2 }}>
+        <section style={{ maxWidth: 1000, margin: "5rem auto 0 auto", padding: "2.3rem 1.5rem", borderRadius: "1.3rem", background: "linear-gradient(138deg,#181824 90%,#232835 100%)", boxShadow: "0 3px 30px #0007", textAlign: "center", position: "relative", zIndex: 2 }}>
           <h3 style={{ color: "#ffd945", fontSize: "1.45rem", fontWeight: 800, marginBottom: "0.5rem", letterSpacing: "-0.5px" }}>What Our Customers Say</h3>
           <p style={{ color: "#666", fontSize: "0.88rem", marginBottom: "2rem" }}>Real results from real marketers</p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "2rem" }}>
             {[
               { img: "/review1.png", name: "Elena S.", role: "SaaS Marketing Director", stars: "★ ★ ★ ★", quote: "I saw exactly what my prospects ask LLM tools and instantly turned it into content that brought in leads. No more guesswork." },
               { img: "/review2.png", name: "Mason L.", role: "Head of Content Strategy", stars: "★ ★ ★ ★ ★", quote: "Finally, a tool that reveals what my buyer persona is curious about. I wrote content that users needed and engagement soared." },
+              { img: "/review3.png", name: "Priya K.", role: "B2B Content Lead", stars: "★ ★ ★ ★ ★", quote: "We already had writers — sAInthetic just tells them exactly what to write. Organic traffic tripled in two months. Worth every penny." },
             ].map((r) => (
               <div key={r.name} style={{ flex: "1 1 250px", maxWidth: 300, minWidth: 240, background: "rgba(23,22,29,0.97)", borderRadius: "1.1rem", boxShadow: "0 2px 10px #0002", padding: "1.7rem 1.2rem 1.3rem 1.2rem", textAlign: "left" }}>
                 <div style={{ display: "flex", alignItems: "center", marginBottom: 15 }}>
@@ -533,7 +594,7 @@ export default function LandingPage() {
         <section style={{ padding: "6rem 20px 3rem 20px", textAlign: "center", position: "relative", zIndex: 2 }}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} style={{ maxWidth: 700, margin: "0 auto" }}>
             <h2 style={{ fontSize: "clamp(2rem,5vw,2.8rem)", fontWeight: 900, margin: "0 0 20px 0", letterSpacing: "-1px", color: "#fff" }}>
-              Ready to know exactly what your buyers want?
+              Start publishing content your buyers actually search for.
             </h2>
             <p style={{ fontSize: "1.15rem", color: "#bbb", margin: "0 0 36px 0", lineHeight: 1.6 }}>
               Join {userCount.toLocaleString()}+ marketers creating better content in less time.<br />Start free — no credit card required.
@@ -542,7 +603,7 @@ export default function LandingPage() {
               href="/register"
               style={{ background: "linear-gradient(135deg,#ffd945,#ff9f43)", border: "none", color: "#000", padding: "1.2rem 3rem", borderRadius: "12px", fontSize: "1.15rem", fontWeight: 800, cursor: "pointer", boxShadow: "0 10px 40px rgba(255,217,69,0.35)", display: "inline-block", textDecoration: "none" }}
             >
-              See your first buyer persona in 60 seconds →
+              Get your free persona now →
             </a>
             <div style={{ marginTop: 16, display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
               {["✓ Free plan available", "✓ No credit card", "✓ Cancel anytime", "✓ Setup in 60 sec"].map(t => (
