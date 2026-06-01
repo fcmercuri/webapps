@@ -376,6 +376,22 @@ export default function LandingPage() {
             </div>
           ))}
         </section>
+        
+        {/* ============ DEMO VIDEO ============ */}
+<section style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2, textAlign: "center" }}>
+  <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.6rem", letterSpacing: "-1px" }}>See It in Action</h2>
+  <p style={{ color: "#bbb", fontSize: "1.1rem", marginBottom: "2rem" }}>Watch how sAInthetic turns your ICP into conversion-ready content in minutes</p>
+  <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.15)", border: "2px solid rgba(255,217,69,0.25)" }}>
+    <iframe
+      src="https://www.youtube.com/embed/NSoS4gFd360"
+      title="sAInthetic Product Demo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+    />
+  </div>
+</section>
+
 
         {/* ============ RESULTS METRICS STRIP ============ */}
         <section style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2 }}>
