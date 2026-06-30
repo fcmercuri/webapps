@@ -1,8 +1,3 @@
-from pathlib import Path
-from textwrap import dedent
-out = Path('/home/user/output')
-out.mkdir(exist_ok=True)
-posts = dedent('''
 export const posts = [
   {
     _id: "ai-personas-fail",
@@ -93,4 +88,73 @@ export const posts = [
     title: "How to Discover What Your Buyers Ask ChatGPT Before They Ever Visit Your Site",
     slug: { current: "how-to-discover-what-your-buyers-ask-chatgpt-before-they-ever-visit-your-site" },
     excerpt:
-      "Your buyers are already asking AI tools questions. Learn how to i
+      "Your buyers are already asking AI tools questions. Learn how to identify those questions and turn them into content that earns visibility.",
+    publishedAt: "2026-06-27T00:00:00.000Z",
+    author: "sAInthetic Team",
+    readTime: "12 min read",
+    metaTitle: "What Buyers Ask ChatGPT Before Visiting Your Site | sAInthetic",
+    metaDescription:
+      "Learn how to discover the questions buyers ask ChatGPT and other AI tools before they ever reach your website.",
+    contentHtml: `
+      <h2>Introduction</h2>
+      <p>Buyers no longer begin every journey with a Google search. They ask AI tools questions, compare options in plain language, and form opinions before they ever land on your site. That means the earliest stage of discovery is happening elsewhere.</p>
+      <p>If you want to be visible in that moment, you need to understand the questions buyers are already asking. Those questions reveal intent, concern, and language that can shape content, SEO, and product positioning.</p>
+      <h2>Why buyer questions matter</h2>
+      <p>Questions show real intent better than broad keywords. A buyer asking "what is the best workflow for turning CRM notes into personas" is much closer to action than someone searching a generic phrase like "marketing tools." The question itself contains the problem and the desired outcome.</p>
+      <p>That is why modern content teams should study the phrasing buyers use in AI tools, communities, and support conversations. The more accurately you mirror the language, the more likely your content is to feel relevant.</p>
+      <h2>How to find the questions</h2>
+      <p>Start with customer support, sales calls, community threads, and search autocomplete. Then compare those phrases to the language you see in AI-generated answers and internal CRM notes. The overlap is where your strongest content opportunities usually live.</p>
+      <p>The goal is to build a question bank around the buying journey. Once you have that, every article, landing page, and email can answer a real concern instead of a guessed one.</p>
+      <h2>Conclusion</h2>
+      <p>If buyers are asking questions before they visit your site, your marketing has to show up earlier in the process. Understanding those questions gives you an advantage in both SEO and AI visibility. That is the central idea behind sAInthetic's content workflow.</p>
+    `,
+  },
+  {
+    _id: "aeo-b2b-saas",
+    title: "Answer Engine Optimization for B2B SaaS: A Practical Guide",
+    slug: { current: "answer-engine-optimization-for-b2b-saas-a-practical-guide" },
+    excerpt:
+      "SEO is no longer only about ranking pages. Learn how to make your brand useful to AI answer engines and buyer-facing discovery tools.",
+    publishedAt: "2026-06-26T00:00:00.000Z",
+    author: "sAInthetic Team",
+    readTime: "13 min read",
+    metaTitle: "Answer Engine Optimization for B2B SaaS | sAInthetic",
+    metaDescription:
+      "A practical guide to Answer Engine Optimization for B2B SaaS teams that want visibility in AI-driven discovery and buyer answers.",
+    contentHtml: `
+      <h2>Introduction</h2>
+      <p>Answer Engine Optimization, or AEO, is the discipline of making your content usable by AI systems that summarize, recommend, and answer questions. For B2B SaaS teams, that means writing content that is clear, structured, and useful enough to be surfaced in AI-driven discovery.</p>
+      <p>This is not a replacement for SEO. It is an extension of it. The goal is to create pages that humans can trust and AI tools can interpret without friction.</p>
+      <h2>What makes content answer-friendly</h2>
+      <p>Answer-friendly content is specific, factual, and easy to parse. It avoids vague claims and leads with direct language. It also uses headings, lists, and examples that help both readers and systems understand the main idea quickly.</p>
+      <p>For B2B SaaS, that means building content around clear problems, practical frameworks, and credible proof. The more your article sounds like a useful answer, the more likely it is to be reused or cited.</p>
+      <h2>How to apply it</h2>
+      <p>Start with one high-intent question, answer it directly, and support the answer with examples and clear structure. Then connect that article to related pages, product flows, and use cases. AEO becomes much stronger when it is part of a broader content architecture.</p>
+      <h2>Conclusion</h2>
+      <p>The brands that win in AI discovery will not be the loudest. They will be the clearest. That is why AEO matters for SaaS teams that want to stay visible as search behavior changes.</p>
+    `,
+  },
+  {
+    _id: "persona-driven-content-engine",
+    title: "How to Build a Persona-Driven Content Engine for Demand Generation",
+    slug: { current: "how-to-build-a-persona-driven-content-engine-for-demand-generation" },
+    excerpt:
+      "A repeatable content engine starts with a persona and ends with consistent distribution. Learn how to connect the two.",
+    publishedAt: "2026-06-25T00:00:00.000Z",
+    author: "sAInthetic Team",
+    readTime: "11 min read",
+    metaTitle: "Persona-Driven Content Engine for Demand Gen | sAInthetic",
+    metaDescription:
+      "Learn how to build a persona-driven content engine for demand generation with repeatable workflows for planning, writing, and distribution.",
+    contentHtml: `
+      <h2>Introduction</h2>
+      <p>A content engine is only valuable if it is repeatable. When personas guide the engine, the output becomes more consistent, more relevant, and easier to scale across channels.</p>
+      <p>The challenge is not just writing content. It is designing a workflow that starts with audience insight and ends with distribution. That is what makes the engine predictable.</p>
+      <h2>The core loop</h2>
+      <p>The loop is simple: define the persona, identify the urgent problem, choose the best format, write the asset, then distribute it where the buyer already spends time. Once that loop is working, every new article or campaign becomes easier to produce.</p>
+      <p>Over time, the engine creates compounding value. New content links to old content, old content supports new campaigns, and the persona library becomes a source of strategic clarity.</p>
+      <h2>Conclusion</h2>
+      <p>Demand generation works better when content is not random. A persona-driven engine creates a system that helps teams stay focused, efficient, and aligned with the buyer's real needs.</p>
+    `,
+  },
+];
