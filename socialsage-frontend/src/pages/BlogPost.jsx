@@ -1,31 +1,89 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { posts } from "./posts";
+
+const SANITY_PROJECT_ID = "ziow5svx";
+const SANITY_DATASET = "production";
+
+function blocksToHtml(blocks) {
+  if (!blocks || !Array.isArray(blocks)) return "";
+  return blocks
+    .map((block) => {
+      if (block._type === "block") {
+        const tag = block.style === "h2" ? "h2"
+          : block.style === "h3" ? "h3"
+          : block.style === "h4" ? "h4"
+          : block.style === "blockquote" ? "blockquote"
+          : "p";
+        const text = (block.children || [])
+          .map((child) => {
+            let t = child.text || "";
+            if (child.marks?.includes("strong")) t = `<strong>${t}</strong>`;
+            if (child.marks?.includes("em")) t = `<em>${t}</em>`;
+            if (child.marks?.includes("code")) t = `<code>${t}</code>`;
+            return t;
+          })
+          .join("");
+        return `<${tag}>${text}</${tag}>`;
+      }
+      return "";
+    })
+    .join("\n");
+}
 
 function wrapTables(html) {
-  return html
-    .replace(/<table/g, '<div class="table-wrapper"><table')
-    .replace(/<\/table>/g, '</table></div>');
+  return html.replace(/<table/g, '<div class="table-wrapper"><table').replace(/<\/table>/g, '</table></div>');
 }
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const post = posts.find((p) => p.slug?.current === slug) || null;
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Canonical is always derived from slug — available immediately, before fetch
   const canonicalUrl = `https://sainthetic.com/blog/${slug}`;
+
+  useEffect(() => {
+    const query = encodeURIComponent(
+      `*[_type == "post" && slug.current == "${slug}"][0]{ _id, title, slug, excerpt, content, contentHtml, publishedAt, author, readTime, metaTitle, metaDescription }`
+    );
+    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${query}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.result) {
+          setPost(data.result);
+        } else {
+          setError("Post not found.");
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to load post.");
+        setLoading(false);
+      });
+  }, [slug]);
+
+  const clean = (val) => (typeof val === "string" && val.startsWith("=") ? val.slice(1) : val ?? "");
+
+  const rawHtml = post?.contentHtml ? clean(post.contentHtml) : post?.content ? blocksToHtml(post.content) : "";
+  const htmlContent = wrapTables(rawHtml);
+
+  // Resolved meta values — fall back to slug-based defaults so Helmet always has something unique
   const metaTitle = post?.metaTitle || post?.title || `sAInthetic Blog | ${slug}`;
-  const metaDescription =
-    post?.metaDescription ||
-    post?.excerpt ||
-    "AI-powered buyer personas and marketing strategies for SaaS growth.";
-
-  const clean = (val) =>
-    typeof val === "string" && val.startsWith("=") ? val.slice(1) : val ?? "";
-
-  const htmlContent = post?.contentHtml ? wrapTables(clean(post.contentHtml)) : "";
+  const metaDescription = post?.metaDescription || post?.excerpt || "AI-powered buyer personas and marketing strategies for SaaS growth.";
 
   return (
     <>
+      {/*
+        IMPORTANT SEO FIX:
+        Helmet is rendered unconditionally so Googlebot always sees the canonical,
+        title, and meta description — even before the Sanity fetch completes.
+        The canonical is derived from `slug` (from useParams) which is available
+        immediately, guaranteeing each page gets its own unique canonical URL.
+      */}
       <Helmet>
         <title>{metaTitle}</title>
         <meta name="description" content={metaDescription} />
@@ -241,6 +299,13 @@ text-align: center;
 transition: all 0.25s ease;
 }
 .cta-secondary:hover { background: #ffd945; color: #191919 !important; }
+.skeleton-block {
+background: linear-gradient(135deg, #151516, #232835);
+border-radius: 8px;
+margin-bottom: 1rem;
+animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .error-msg { color: #ff6b6b; text-align: center; padding: 4rem 2rem; font-size: 1.2rem; }
 @media (max-width: 768px) {
 .post-container { padding: 2rem 1rem; }
@@ -261,7 +326,16 @@ nav.blog-nav { padding: 1rem; }
       <div className="post-container">
         <Link to="/blog" className="post-back">← Back to Blog</Link>
 
-        {!post && <p className="error-msg">Post not found.</p>}
+        {loading && (
+          <>
+            <div className="skeleton-block" style={{ height: "24px", width: "80px" }} />
+            <div className="skeleton-block" style={{ height: "60px", marginTop: "1rem" }} />
+            <div className="skeleton-block" style={{ height: "20px", width: "200px" }} />
+            <div className="skeleton-block" style={{ height: "400px", marginTop: "2rem" }} />
+          </>
+        )}
+
+        {error && <p className="error-msg">{error}</p>}
 
         {post && (
           <>
@@ -277,7 +351,10 @@ nav.blog-nav { padding: 1rem; }
 
             <div className="post-divider" />
 
-            <div className="post-body" dangerouslySetInnerHTML={{ __html: htmlContent }} />
+            <div
+              className="post-body"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
           </>
         )}
       </div>
