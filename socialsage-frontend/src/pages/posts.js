@@ -1,3 +1,8 @@
+from pathlib import Path
+from textwrap import dedent
+out = Path('/home/user/output')
+out.mkdir(exist_ok=True)
+posts = dedent('''
 export const posts = [
   {
     _id: "ai-personas-fail",
@@ -17,7 +22,7 @@ export const posts = [
       <p>A useful persona must help a team decide what to say, where to say it, and why it matters. If it cannot guide messaging, campaign planning, or content creation, then it is just a profile. The goal is to move from descriptive personas to operational personas that create clarity.</p>
       <h2>Why personas break</h2>
       <p>Most personas fail for three reasons. First, they are built from too little evidence. Second, they are too broad to be useful. Third, nobody owns them after the workshop ends. That means the document looks complete but never changes behavior.</p>
-      <p>In practice, teams often write things like “busy decision-maker” or “results-focused marketer” and stop there. Those phrases sound plausible, but they do not reveal what the buyer is trying to solve today. Good personas should tell you what the buyer is worried about, what they compare you against, and what would make them act now.</p>
+      <p>In practice, teams often write things like "busy decision-maker" or "results-focused marketer" and stop there. Those phrases sound plausible, but they do not reveal what the buyer is trying to solve today. Good personas should tell you what the buyer is worried about, what they compare you against, and what would make them act now.</p>
       <h2>What useful personas include</h2>
       <p>Strong personas are built around real decision signals. That includes pain points, triggers, internal blockers, desired outcomes, and buying language. It also includes the channels where the buyer actually pays attention, because a persona is only useful if it changes distribution as well as message.</p>
       <p>Instead of a generic profile, the best persona should answer questions like: what problem is urgent, what objection is strongest, what outcome is most valuable, and what proof is required. That makes the persona actionable for ads, landing pages, emails, sales decks, and blog content.</p>
@@ -42,16 +47,16 @@ export const posts = [
       "Learn how to turn buyer personas into content that converts with practical workflows for headlines, hooks, landing pages, and campaigns.",
     contentHtml: `
       <h2>Introduction</h2>
-      <p>Buyer personas only matter when they affect what gets published. If a persona does not change the headline, hook, structure, or offer, it has no commercial value. The goal is to move from “persona as insight” to “persona as content system.”</p>
+      <p>Buyer personas only matter when they affect what gets published. If a persona does not change the headline, hook, structure, or offer, it has no commercial value. The goal is to move from persona as insight to persona as content system.</p>
       <p>Most teams do not struggle with content volume. They struggle with relevance. They publish a lot, but the material feels generic because it was not shaped by a clear understanding of the buyer’s job, pressure, or desired result.</p>
-      <h2>Start with the buyer’s current context</h2>
+      <h2>Start with the buyer's current context</h2>
       <p>Every piece of content should begin with one buyer state. Is the buyer unaware, problem-aware, solution-aware, or ready to compare options? That one decision changes the entire message. A persona becomes useful when it helps you choose the right state before writing.</p>
       <p>For example, a first-time visitor may need a problem-led article, while a returning buyer may need proof, comparison, or implementation detail. If you write for everyone at once, the content becomes vague. If you write for one state tied to one persona, the message becomes sharper and more persuasive.</p>
       <h2>Map persona pain to content type</h2>
       <p>Different pain points require different formats. Fear and uncertainty work well in educational content, while comparison pain works better in product pages, use-case pages, and case studies. Desire for speed or clarity may belong in short social posts or landing page copy.</p>
       <p>The practical workflow is simple: identify the persona, identify the most urgent pain, then choose the content format that best resolves that pain. That turns content planning into a decision tree instead of a guessing game.</p>
       <h2>Write content in layers</h2>
-      <p>The strongest content layers three things together: the emotional trigger, the practical framework, and the proof. First, it reflects the buyer’s real frustration. Then it gives a useful method. Then it shows evidence that the method works in the real world.</p>
+      <p>The strongest content layers three things together: the emotional trigger, the practical framework, and the proof. First, it reflects the buyer's real frustration. Then it gives a useful method. Then it shows evidence that the method works in the real world.</p>
       <p>This structure keeps the content from becoming either too fluffy or too tactical. It also helps each article feed the next one, because the framework can link to a deeper post and the proof can link to a case study or product page.</p>
       <h2>Conclusion</h2>
       <p>Content converts when it feels like it was built for a specific buyer moment. Buyer personas help you find that moment, but only if you turn them into writing decisions. That is the bridge from research to revenue, and it is where sAInthetic fits best.</p>
@@ -88,6 +93,4 @@ export const posts = [
     title: "How to Discover What Your Buyers Ask ChatGPT Before They Ever Visit Your Site",
     slug: { current: "how-to-discover-what-your-buyers-ask-chatgpt-before-they-ever-visit-your-site" },
     excerpt:
-      "Your buyers are already asking AI tools questions. Learn how to identify those questions and turn them into content that earns visibility.",
-    publishedAt: "2026-06-27T00:00:00.000Z",
-    
+      "Your buyers are already asking AI tools questions. Learn how to i
