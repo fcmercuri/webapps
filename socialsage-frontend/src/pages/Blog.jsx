@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { posts } from "./posts";
+
+const SANITY_PROJECT_ID = "ziow5svx";
+const SANITY_DATASET = "production";
+const SANITY_QUERY = encodeURIComponent(
+  `*[_type == "post"] | order(publishedAt desc) { _id, title, slug, excerpt, publishedAt, author, readTime }`
+);
+const SANITY_URL = `https://${SANITY_PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${SANITY_DATASET}?query=${SANITY_QUERY}`;
 
 const blogMeta = {
   title: "sAInthetic Blog | AI Personas & Marketing Strategies for SaaS Growth",
@@ -10,6 +16,24 @@ const blogMeta = {
 };
 
 export default function Blog() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(SANITY_URL)
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data.result || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch posts:", err);
+        setError("Failed to load posts.");
+        setLoading(false);
+      });
+  }, []);
+
   const firstPost = posts[0];
   const remainingPosts = posts.slice(1);
 
@@ -211,6 +235,24 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 overflow: hidden;
 }
+.blog-skeleton {
+background: linear-gradient(135deg, #151516 0%, #232835 100%);
+border-radius: 1.25rem;
+border: 1px solid #232323;
+padding: 2.5rem 2rem;
+box-shadow: 0 12px 56px rgba(0,0,0,0.4);
+animation: pulse 2s infinite;
+}
+.blog-skeleton-line {
+height: 16px;
+background: linear-gradient(90deg, #232323 0%, #2a2a35 50%, #232323 100%);
+border-radius: 8px;
+margin-bottom: 1rem;
+}
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.5; }
+}
 .post-footer {
 background: linear-gradient(135deg, #151516 0%, #232835 100%);
 border-top: 1px solid #232323;
@@ -277,6 +319,12 @@ background: #ffd945;
 color: #191919 !important;
 transform: translateY(-2px);
 }
+.error-msg {
+color: #ff6b6b;
+text-align: center;
+padding: 2rem;
+font-size: 1.1rem;
+}
 @media (max-width: 768px) {
 .blog-container { padding: 2rem 1rem; }
 .blog-hero { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -295,7 +343,14 @@ nav.blog-nav { padding: 1rem; }
       </nav>
 
       <div className="blog-container">
-        {firstPost && (
+        {error && <p className="error-msg">{error}</p>}
+
+        {loading ? (
+          <div className="blog-hero">
+            <div className="blog-skeleton" style={{ height: "300px" }} />
+            <div className="blog-skeleton" style={{ height: "300px" }} />
+          </div>
+        ) : firstPost ? (
           <section className="blog-hero">
             <div className="blog-hero-content">
               <span className="blog-featured-badge">Featured Article</span>
@@ -317,23 +372,34 @@ nav.blog-nav { padding: 1rem; }
               <a href="https://sainthetic.com/" className="blog-hero-link">Try sAInthetic →</a>
             </div>
           </section>
-        )}
+        ) : null}
 
         <section>
           <h2 className="blog-section-title">Recent Articles</h2>
           <p className="blog-section-desc">Deep dive into AI marketing strategies and buyer persona mastery</p>
 
           <div className="blog-articles-grid">
-            {remainingPosts.map((post) => (
-              <article key={post._id} className="blog-article-card">
-                <span className="blog-article-badge">New</span>
-                <h3 className="blog-article-title">{post.title}</h3>
-                <p className="blog-article-excerpt">{post.excerpt}</p>
-                <Link to={`/blog/${post.slug?.current}`} className="blog-hero-link">
-                  Read more →
-                </Link>
-              </article>
-            ))}
+            {loading ? (
+              Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="blog-skeleton">
+                  <div className="blog-skeleton-line" style={{ width: "80px", height: "20px" }} />
+                  <div className="blog-skeleton-line" style={{ height: "20px" }} />
+                  <div className="blog-skeleton-line" style={{ height: "64px" }} />
+                  <div className="blog-skeleton-line" style={{ width: "120px" }} />
+                </div>
+              ))
+            ) : (
+              remainingPosts.map((post) => (
+                <article key={post._id} className="blog-article-card">
+                  <span className="blog-article-badge">New</span>
+                  <h3 className="blog-article-title">{post.title}</h3>
+                  <p className="blog-article-excerpt">{post.excerpt}</p>
+                  <Link to={`/blog/${post.slug?.current}`} className="blog-hero-link">
+                    Read more →
+                  </Link>
+                </article>
+              ))
+            )}
           </div>
         </section>
       </div>
