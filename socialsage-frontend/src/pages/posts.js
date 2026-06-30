@@ -48,7 +48,7 @@ export const posts = [
     contentHtml: `
       <h2>Introduction</h2>
       <p>Buyer personas only matter when they affect what gets published. If a persona does not change the headline, hook, structure, or offer, it has no commercial value. The goal is to move from persona as insight to persona as content system.</p>
-      <p>Most teams do not struggle with content volume. They struggle with relevance. They publish a lot, but the material feels generic because it was not shaped by a clear understanding of the buyer’s job, pressure, or desired result.</p>
+      <p>Most teams do not struggle with content volume. They struggle with relevance. They publish a lot, but the material feels generic because it was not shaped by a clear understanding of the buyer's job, pressure, or desired result.</p>
       <h2>Start with the buyer's current context</h2>
       <p>Every piece of content should begin with one buyer state. Is the buyer unaware, problem-aware, solution-aware, or ready to compare options? That one decision changes the entire message. A persona becomes useful when it helps you choose the right state before writing.</p>
       <p>For example, a first-time visitor may need a problem-led article, while a returning buyer may need proof, comparison, or implementation detail. If you write for everyone at once, the content becomes vague. If you write for one state tied to one persona, the message becomes sharper and more persuasive.</p>
