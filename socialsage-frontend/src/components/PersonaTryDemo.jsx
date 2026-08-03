@@ -189,7 +189,7 @@ const cardStyle = {
 
           <div style={{marginTop:24,padding:24,borderRadius:12,background:"rgba(255,255,255,.05)",filter:"blur(.2px)"}}>
             <strong>+48 Premium Insights</strong>
-            <p>Buying triggers • Customer journey • GEO opportunities • Prompt library • Competitor analysis</p>
+            <p>Synthetic AI questions • Lead intent scoring • GEO content ideas • Ready-to-answer prompts • LLM search gaps</p>
             <button style={buttonStyle} onClick={unlock}>Unlock Free</button>
           </div>
         </div>
