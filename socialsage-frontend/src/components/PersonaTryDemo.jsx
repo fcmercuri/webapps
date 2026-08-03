@@ -61,20 +61,66 @@ export default function PersonaTryDemo() {
     navigate("/register");
   };
 
+  const inputStyle = {
+  width: "100%",
+  background: "rgba(255,255,255,.03)",
+  border: "1px solid rgba(255,255,255,.08)",
+  borderRadius: "14px",
+  padding: "15px 18px",
+  color: "#fff",
+  fontSize: "15px",
+  outline: "none",
+  transition: "all .25s ease",
+  boxSizing: "border-box"
+};
+
+const buttonStyle = {
+  background: "linear-gradient(135deg,#FFD945,#FFB800)",
+  color: "#111",
+  border: "none",
+  padding: "16px 28px",
+  borderRadius: "14px",
+  cursor: "pointer",
+  fontWeight: 800,
+  fontSize: "1rem",
+  marginTop: 24,
+  boxShadow: "0 15px 35px rgba(255,217,69,.22)"
+};
+
+const cardStyle = {
+  background: "rgba(255,255,255,.03)",
+  border: "1px solid rgba(255,255,255,.08)",
+  borderRadius: "22px",
+  padding: "30px",
+  marginTop: "32px"
+};
+
   return (
     <section style={{maxWidth:1100,margin:"80px auto",padding:"40px",background:"#141414",borderRadius:20,color:"#fff"}}>
       <h2>Try sAInthetic Free</h2>
       <p>Generate a sample AI persona before creating an account.</p>
 
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:16}}>
-        <select value={industry} onChange={e=>setIndustry(e.target.value)}>
+        <select style={inputStyle} value={industry} onChange={e=>setIndustry(e.target.value)}>
           {Object.keys(personas).map(x=><option key={x}>{x}</option>)}
         </select>
-        <input placeholder="Company (optional)" value={company} onChange={e=>setCompany(e.target.value)}/>
-        <input placeholder="Website (optional)" value={website} onChange={e=>setWebsite(e.target.value)}/>
+
+        <input
+          style={inputStyle}
+          placeholder="Company (optional)"
+          value={company}
+          onChange={e=>setCompany(e.target.value)}
+        />
+
+        <input
+          style={inputStyle}
+          placeholder="Website (optional)"
+          value={website}
+          onChange={e=>setWebsite(e.target.value)}
+        />
       </div>
 
-      <button style={{marginTop:20}} onClick={generate}>Generate Persona</button>
+      <button style={buttonStyle} onClick={generate}>Generate Persona</button>
 
       {loading && (
         <div style={{marginTop:30}}>
@@ -84,7 +130,7 @@ export default function PersonaTryDemo() {
       )}
 
       {persona && (
-        <div style={{marginTop:30,padding:24,border:"1px solid #333",borderRadius:16}}>
+        <div style={cardStyle}>
           <h2>{persona.name}</h2>
           <h4>{persona.role}</h4>
 
@@ -106,4 +152,3 @@ export default function PersonaTryDemo() {
       )}
     </section>
   );
-}
