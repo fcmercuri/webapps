@@ -152,3 +152,4 @@ const cardStyle = {
       )}
     </section>
   );
+}
