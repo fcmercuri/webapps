@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 import Footer from '../components/Footer';
+import PersonaTryDemo from "../components/PersonaTryDemo";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -305,6 +306,9 @@ export default function LandingPage() {
             </div>
           </motion.div>
         </header>
+
+        
+<PersonaTryDemo />
 
         {/* ============ FEATURES ============ */}
         <main id="features" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "0.6rem", margin: "4rem auto 0 auto", maxWidth: 1200, zIndex: 2, position: "relative", padding: "0 20px" }}>
