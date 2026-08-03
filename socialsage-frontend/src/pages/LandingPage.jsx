@@ -275,7 +275,7 @@ export default function LandingPage() {
             ))}
           </motion.div>
 
-          <PersonaTryDemo />
+    
 
           {/* Persona preview card */}
           <motion.div
@@ -310,7 +310,7 @@ export default function LandingPage() {
         </header>
 
         
-
+  <PersonaTryDemo />
 
         {/* ============ FEATURES ============ */}
         <main id="features" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "0.6rem", margin: "4rem auto 0 auto", maxWidth: 1200, zIndex: 2, position: "relative", padding: "0 20px" }}>
