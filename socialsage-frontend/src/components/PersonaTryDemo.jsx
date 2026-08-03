@@ -34,6 +34,50 @@ const personas = {
       "How do I recover abandoned carts?",
       "What content drives repeat sales?"
     ]
+  },
+  Healthcare: {
+    name: "Dr. Lisa Nguyen",
+    role: "Patient Acquisition Manager",
+    goals: ["Increase appointment bookings","Build patient trust","Expand service line awareness"],
+    painPoints: ["Strict compliance rules","Low online visibility","High patient acquisition cost"],
+    questions: [
+      "How do patients search for providers?",
+      "What content builds trust in healthcare?",
+      "How do I stay compliant with marketing?"
+    ]
+  },
+  RealEstate: {
+    name: "Marcus Reid",
+    role: "Head of Growth, Real Estate Group",
+    goals: ["Generate qualified buyer leads","Increase listing views","Shorten sales cycle"],
+    painPoints: ["Seasonal demand swings","High cost per lead","Low agent follow-up rates"],
+    questions: [
+      "What content converts home buyers?",
+      "How do I generate more listing leads?",
+      "Which channels drive qualified traffic?"
+    ]
+  },
+  Education: {
+    name: "Priya Shah",
+    role: "Enrollment Marketing Director",
+    goals: ["Increase enrollment applications","Improve program awareness","Boost student engagement"],
+    painPoints: ["Long decision cycles","Low content differentiation","Difficulty reaching Gen Z"],
+    questions: [
+      "How do students research programs?",
+      "What content increases applications?",
+      "How do I reach prospective students online?"
+    ]
+  },
+  Travel: {
+    name: "Jonas Weber",
+    role: "Head of Digital Marketing, Travel Brand",
+    goals: ["Increase direct bookings","Reduce OTA dependency","Improve repeat travel rate"],
+    painPoints: ["High seasonality","Price-driven comparison shopping","Low brand loyalty"],
+    questions: [
+      "How do travelers choose where to book?",
+      "What content increases direct bookings?",
+      "How do I compete with OTAs?"
+    ]
   }
 };
 
@@ -146,7 +190,7 @@ const cardStyle = {
           <div style={{marginTop:24,padding:24,borderRadius:12,background:"rgba(255,255,255,.05)",filter:"blur(.2px)"}}>
             <strong>+48 Premium Insights</strong>
             <p>Buying triggers • Customer journey • GEO opportunities • Prompt library • Competitor analysis</p>
-            <button onClick={unlock}>Unlock Free</button>
+            <button style={buttonStyle} onClick={unlock}>Unlock Free</button>
           </div>
         </div>
       )}
