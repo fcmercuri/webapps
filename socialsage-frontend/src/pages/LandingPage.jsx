@@ -197,8 +197,7 @@ export default function LandingPage() {
           background: #171b2b !important;
           padding: 13px 22px !important;
           border-radius: 999px !important;
-          box-shadow: none !important;
-        }
+          box-shadow: none !important;        }
         #sainthetic-home .nav-right a.cta:hover { background: #30384d !important; }
         #sainthetic-home .sainthetic-menu-toggle { display: none; }
         #sainthetic-home header#hero {
@@ -397,8 +396,7 @@ export default function LandingPage() {
             justify-content: center;
             width: 48px;
             height: 48px;
-            padding: 0 !important;
-            margin: 0 !important;
+            padding: 0 !important;            margin: 0 !important;
             border: 1px solid #e4e8ef !important;
             border-radius: 50% !important;
             background: #fff !important;
@@ -466,6 +464,202 @@ export default function LandingPage() {
           .cs-steps { padding: 2.5rem; }
         }
         .feature-card { background: linear-gradient(120deg,#191924b7 85%,#232845c7 100%); min-width: 300px; max-width: 340px; flex: 1 1 260px; border-radius: 1.3rem; padding: 2.4rem 1.6rem 1.8rem 1.6rem; color: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+      `}</style>
+
+
+      <style>{`
+        /* Editorial visual refinement inspired by the supplied HeyCatch reference.
+           Intentionally visual-only: all existing sAInthetic copy and functionality remain unchanged. */
+        #sainthetic-home {
+          font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+          background: #fff !important;
+          color: #191b29 !important;
+        }
+        #sainthetic-home nav.main-nav {
+          width: min( calc(100% - 40px), 1440px ) !important;
+          margin: 18px auto 0 !important;
+          padding: 14px 22px !important;
+          border: 1px solid rgba(25,27,41,.045) !important;
+          border-radius: 999px !important;
+          background: rgba(255,255,255,.92) !important;
+          box-shadow: 0 12px 40px rgba(29,34,58,.055) !important;
+        }
+        #sainthetic-home .nav-logo { border-radius: 13px !important; }
+        #sainthetic-home .nav-brand { letter-spacing: -.045em !important; }
+        #sainthetic-home header#hero {
+          max-width: 1120px !important;
+          padding: clamp(90px, 13vw, 176px) 28px 90px !important;
+          text-align: center !important;
+        }
+        #sainthetic-home header#hero > div:first-child {
+          background: #f7f7f9 !important;
+          border: 1px solid #ededf1 !important;
+          box-shadow: none !important;
+          color: #4d5265 !important;
+          padding: 10px 18px !important;
+          font-size: .88rem !important;
+          letter-spacing: .01em !important;
+        }
+        #sainthetic-home #hero h1 {
+          max-width: 1040px !important;
+          font-size: clamp(3.25rem, 8.3vw, 7.2rem) !important;
+          font-weight: 650 !important;
+          line-height: .99 !important;
+          letter-spacing: -.078em !important;
+          margin: 30px auto 28px !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home #hero h1 span {
+          background: none !important;
+          color: #45495f !important;
+          -webkit-text-fill-color: #45495f !important;
+        }
+        #sainthetic-home #hero > p {
+          max-width: 690px !important;
+          font-size: clamp(1.15rem, 2vw, 1.5rem) !important;
+          line-height: 1.55 !important;
+          color: #50556a !important;
+          margin: 0 auto 34px !important;
+        }
+        #sainthetic-home #hero a[href="/register"] {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          min-height: 64px !important;
+          min-width: 220px !important;
+          padding: 18px 34px !important;
+          border-radius: 999px !important;
+          background: #191b29 !important;
+          border: 1px solid #191b29 !important;
+          color: #fff !important;
+          box-shadow: none !important;
+          font-weight: 650 !important;
+        }
+        #sainthetic-home #hero a[href="/register"]:hover,
+        #sainthetic-home a[href="/register"]:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 28px rgba(25,27,41,.12) !important;
+        }
+        #sainthetic-home .hero-trust-strip { margin-top: 42px !important; }
+        #sainthetic-home .hero-trust-strip > div { color: #777d91 !important; }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] {
+          border-radius: 30px !important;
+          box-shadow: 0 24px 80px rgba(29,34,58,.075) !important;
+        }
+        #sainthetic-home section {
+          margin-top: clamp(88px, 11vw, 156px) !important;
+        }
+        #sainthetic-home section h2 {
+          font-size: clamp(2.35rem, 5vw, 4.5rem) !important;
+          font-weight: 600 !important;
+          line-height: 1.04 !important;
+          letter-spacing: -.065em !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home #features {
+          max-width: 1180px !important;
+          padding: 0 24px !important;
+          gap: 22px !important;
+        }
+        #sainthetic-home .feature-card {
+          border-radius: 30px !important;
+          padding: 36px 30px !important;
+          box-shadow: 0 14px 50px rgba(29,34,58,.055) !important;
+          border: 1px solid #f0f0f3 !important;
+          text-align: left !important;
+          align-items: flex-start !important;
+          transition: transform .25s ease, box-shadow .25s ease !important;
+        }
+        #sainthetic-home .feature-card:hover {
+          transform: translateY(-5px) !important;
+          box-shadow: 0 20px 60px rgba(29,34,58,.09) !important;
+        }
+        #sainthetic-home .how-step-wrapper { margin-bottom: 8rem !important; }
+        #sainthetic-home .step-image {
+          border-radius: 30px !important;
+          box-shadow: 0 18px 60px rgba(29,34,58,.075) !important;
+        }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div {
+          border-radius: 30px !important;
+          padding: 2.6rem 2rem !important;
+          box-shadow: 0 14px 50px rgba(29,34,58,.06) !important;
+        }
+        #sainthetic-home #pricing button,
+        #sainthetic-home #pricing a[href="/register"] {
+          border-radius: 999px !important;
+          min-height: 54px !important;
+          background: #191b29 !important;
+          color: #fff !important;
+          font-weight: 650 !important;
+        }
+        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
+          border-radius: 32px !important;
+        }
+        #sainthetic-home #case-study > div {
+          border-radius: 32px !important;
+          box-shadow: 0 18px 65px rgba(29,34,58,.065) !important;
+        }
+        #sainthetic-home #faq > div > div > div {
+          border-radius: 22px !important;
+          box-shadow: 0 8px 30px rgba(29,34,58,.035) !important;
+        }
+        #sainthetic-home #faq button {
+          padding: 24px 28px !important;
+          font-size: 1.12rem !important;
+          font-weight: 550 !important;
+        }
+        #sainthetic-home footer {
+          padding-top: 30px !important;
+          margin-top: 90px !important;
+        }
+        @media (max-width: 800px) {
+          #sainthetic-home nav.main-nav {
+            width: calc(100% - 28px) !important;
+            margin-top: 14px !important;
+            padding: 12px 16px !important;
+            min-height: 76px !important;
+            border-radius: 999px !important;
+          }
+          #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; }
+          #sainthetic-home .nav-brand { font-size: 1.32rem !important; }
+          #sainthetic-home header#hero {
+            padding: 112px 24px 60px !important;
+          }
+          #sainthetic-home #hero h1 {
+            font-size: clamp(3rem, 12vw, 5.2rem) !important;
+            line-height: 1.02 !important;
+            letter-spacing: -.075em !important;
+            margin: 28px auto 24px !important;
+          }
+          #sainthetic-home #hero > p {
+            font-size: 1.16rem !important;
+            line-height: 1.55 !important;
+            margin-bottom: 30px !important;
+          }
+          #sainthetic-home #hero a[href="/register"] {
+            width: 100% !important;
+            min-height: 64px !important;
+            border-radius: 999px !important;
+          }
+          #sainthetic-home .hero-trust-strip { margin-top: 32px !important; }
+          #sainthetic-home section { margin-top: 92px !important; }
+          #sainthetic-home section h2 {
+            font-size: clamp(2.5rem, 10vw, 3.6rem) !important;
+            line-height: 1.04 !important;
+          }
+          #sainthetic-home #features { padding: 0 20px !important; }
+          #sainthetic-home .feature-card {
+            border-radius: 28px !important;
+            padding: 30px 24px !important;
+          }
+          #sainthetic-home .how-step-wrapper { margin-bottom: 5rem !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] > div {
+            border-radius: 28px !important;
+            padding: 2.1rem 1.5rem !important;
+          }
+          #sainthetic-home #faq button { padding: 20px 18px !important; }
+          #sainthetic-home footer { margin-top: 64px !important; }
+        }
       `}</style>
 
       <div
@@ -597,8 +791,7 @@ export default function LandingPage() {
             <div style={{ background: "rgba(12,180,120,0.12)", border: "1px solid rgba(12,180,120,0.35)", borderRadius: 12, padding: "10px 14px", display: "flex", alignItems: "center", gap: 8 }}>
               <span>✨</span>
               <span style={{ color: "#a5ffcf", fontSize: "0.84rem" }}>"Show me 5 content ideas that answer Sofia's top synthetic questions this week"</span>
-            </div>
-          </motion.div>
+            </div>          </motion.div>
         </header>
 
         
@@ -797,8 +990,7 @@ export default function LandingPage() {
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <div style={{ display: "inline-block", background: "linear-gradient(135deg,#ffd945 0%,#ffed4e 100%)", color: "#000", padding: "6px 20px", borderRadius: 20, fontSize: "0.8rem", fontWeight: 800, letterSpacing: "1px", marginBottom: 20, textTransform: "uppercase" }}>Case Study</div>
             <h2 style={{ color: "#fff", fontWeight: 900, fontSize: "clamp(1.8rem,4vw,2.6rem)", marginBottom: "0.8rem", letterSpacing: "-1px", lineHeight: 1.15 }}>
-              How a SaaS Team Tripled Organic Traffic{" "}
-              <span style={{ background: "linear-gradient(96deg,#ffd945,#ff9f43)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>in 60 Days</span>
+              How a SaaS Team Tripled Organic Traffic{" "}              <span style={{ background: "linear-gradient(96deg,#ffd945,#ff9f43)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>in 60 Days</span>
             </h2>
             <p style={{ color: "#bbb", fontSize: "1.1rem", maxWidth: 560, margin: "0 auto" }}>A real workflow from persona creation to published content that converts</p>
           </div>
