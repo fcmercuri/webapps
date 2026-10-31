@@ -74,7 +74,17 @@ async function main() {
   const res = await fetch(
     `https://${PROJECT_ID}.api.sanity.io/v2021-06-07/data/query/${DATASET}?query=${query}`
   );
-  const posts = (await res.json()).result || [];
+  const REMOVE = new Set([
+  'how-to-build-sales-assisted-plg-motion-with-ai',
+  'how-to-use-intent-data-prioritize-outbound-outreach',
+  'b2b-marketing-plan-guide',
+]);
+const seen = new Set();
+const posts = ((await res.json()).result || []).filter((p) => {
+  if (REMOVE.has(p.slug) || seen.has(p.slug)) return false;
+  seen.add(p.slug);
+  return true;
+});
   const template = fs.readFileSync(path.join(BUILD, 'index.html'), 'utf8');
 
   // Individual posts
