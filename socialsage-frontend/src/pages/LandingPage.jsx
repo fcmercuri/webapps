@@ -662,6 +662,8 @@ export default function LandingPage() {
         }
       `}</style>
 
+
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
