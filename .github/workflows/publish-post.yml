@@ -1,0 +1,32 @@
+name: Publish post to Sanity
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: "JSON file in the repo root to publish"
+        required: true
+        default: "sainthetic-premium-roi.json"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Send post to Sanity
+        env:
+          SANITY_TOKEN: ${{ secrets.SANITY_TOKEN }}
+          POST_FILE: ${{ github.event.inputs.file }}
+        run: |
+          curl --fail-with-body -X POST \
+            "https://ziow5svx.api.sanity.io/v2021-06-07/data/mutate/production" \
+            -H "Authorization: Bearer $SANITY_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data-binary @"$POST_FILE"
+
+      - name: Redeploy site on Render (optional)
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$HOOK" ]; then curl -fsS -X POST "$HOOK"; fi
