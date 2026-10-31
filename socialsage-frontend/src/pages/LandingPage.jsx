@@ -357,6 +357,36 @@ export default function LandingPage() {
           background: #fff !important;
           border-color: #e8ecf2 !important;
         }
+
+        #sainthetic-home .persona-try-demo {
+          background: #ffffff !important;
+          color: #171b2b !important;
+          border: 1px solid #e8ecf2 !important;
+          box-shadow: 0 18px 55px rgba(31,42,68,.07);
+          padding: clamp(22px, 4vw, 42px) !important;
+        }
+        #sainthetic-home .persona-try-demo h2,
+        #sainthetic-home .persona-try-demo h3 { color: #171b2b !important; }
+        #sainthetic-home .persona-try-demo p,
+        #sainthetic-home .persona-try-demo li { color: #586176 !important; }
+        #sainthetic-home .persona-try-demo input,
+        #sainthetic-home .persona-try-demo select {
+          background: #f7f8fb !important;
+          color: #171b2b !important;
+          border: 1px solid #e1e6ef !important;
+        }
+        #sainthetic-home .persona-try-demo input::placeholder { color: #9299a8 !important; }
+        #sainthetic-home .persona-try-demo > button,
+        #sainthetic-home .persona-try-demo button {
+          background: #ffdc60 !important;
+          color: #171b2b !important;
+          border-radius: 12px !important;
+          box-shadow: none !important;
+        }
+        #sainthetic-home .persona-try-demo > div[style*="rgba(255,255,255"] {
+          background: #f7f8fb !important;
+          border-color: #e4e8ef !important;
+        }
         @media (max-width: 800px) {
           #sainthetic-home nav.main-nav { padding: 14px 20px !important; flex-direction: row !important; }
           #sainthetic-home .nav-left { justify-content: flex-start !important; margin: 0 !important; }
