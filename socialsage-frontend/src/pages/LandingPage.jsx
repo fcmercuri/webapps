@@ -662,6 +662,279 @@ export default function LandingPage() {
         }
       `}</style>
 
+      <style>{`
+        /* Premium visual system — presentation only; all page copy and behaviour stay intact. */
+        #sainthetic-home {
+          --ink: #171925;
+          --muted: #697083;
+          --line: #e9eaf0;
+          --paper: #ffffff;
+          --canvas: #f7f8fb;
+          --accent: #f4c94f;
+          font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+          color: var(--ink) !important;
+          background: var(--canvas) !important;
+          overflow: clip !important;
+        }
+        #sainthetic-home > div[style*="linear-gradient"] {
+          background: var(--canvas) !important;
+          overflow: visible !important;
+          isolation: isolate;
+        }
+        #sainthetic-home > div > div[style*="position: fixed"] { display: none !important; }
+        #sainthetic-home nav.main-nav {
+          width: min(calc(100% - 64px), 1320px) !important;
+          min-height: 76px;
+          margin: 18px auto 0 !important;
+          padding: 12px 24px !important;
+          border: 1px solid rgba(23,25,37,.07) !important;
+          border-radius: 20px !important;
+          background: rgba(255,255,255,.88) !important;
+          box-shadow: 0 8px 30px rgba(22,28,45,.045) !important;
+          backdrop-filter: blur(18px);
+        }
+        #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; border-radius: 12px !important; }
+        #sainthetic-home .nav-brand { color: var(--ink) !important; font-size: 1.38rem !important; font-weight: 760 !important; letter-spacing: -.055em !important; }
+        #sainthetic-home .nav-right { gap: 5px !important; }
+        #sainthetic-home .nav-right a,
+        #sainthetic-home .desktop-nav .nav-link {
+          color: #555b6c !important; font-size: .9rem !important; font-weight: 600 !important;
+          padding: 11px 14px !important; border-radius: 10px !important;
+        }
+        #sainthetic-home .nav-right a:hover { background: #f4f5f8 !important; color: var(--ink) !important; }
+        #sainthetic-home .nav-right a.cta {
+          color: #fff !important; background: var(--ink) !important; padding: 12px 20px !important;
+          border-radius: 11px !important; box-shadow: 0 5px 14px rgba(23,25,37,.12) !important;
+        }
+        #sainthetic-home header#hero {
+          max-width: 1120px !important;
+          padding: clamp(82px, 10vw, 132px) 28px 72px !important;
+        }
+        #sainthetic-home header#hero > div:first-child {
+          background: #fff !important; border: 1px solid #ececf1 !important;
+          color: #555b6c !important; box-shadow: 0 3px 12px rgba(23,25,37,.035) !important;
+          padding: 9px 16px !important; font-size: .82rem !important; font-weight: 650 !important;
+        }
+        #sainthetic-home #hero h1 {
+          max-width: 1020px !important; margin: 28px auto 24px !important;
+          color: var(--ink) !important; -webkit-text-fill-color: var(--ink) !important;
+          background: none !important; font-size: clamp(3.5rem, 7.1vw, 6.7rem) !important;
+          line-height: .99 !important; letter-spacing: -.082em !important; font-weight: 680 !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home #hero h1 span {
+          color: #62677a !important; -webkit-text-fill-color: #62677a !important;
+          background: none !important;
+        }
+        #sainthetic-home #hero > p {
+          max-width: 690px !important; color: #62697b !important;
+          font-size: clamp(1.08rem, 1.7vw, 1.28rem) !important;
+          line-height: 1.7 !important; margin: 0 auto 30px !important;
+        }
+        #sainthetic-home #hero a[href="/register"] {
+          display: inline-flex !important; align-items: center !important; justify-content: center !important;
+          min-height: 58px !important; padding: 16px 26px !important; border-radius: 12px !important;
+          background: var(--ink) !important; border: 1px solid var(--ink) !important;
+          color: #fff !important; box-shadow: 0 8px 22px rgba(23,25,37,.13) !important;
+          font-size: 1rem !important; font-weight: 650 !important;
+        }
+        #sainthetic-home #hero a[href="/register"]:hover,
+        #sainthetic-home a[href="/register"]:hover { background: #303449 !important; }
+        #sainthetic-home #hero p[style*="color"] { color: #8a8f9e !important; }
+        #sainthetic-home .hero-trust-strip { gap: 12px 25px !important; margin-top: 28px !important; }
+        #sainthetic-home .hero-trust-strip > div { color: #777e8f !important; font-size: .78rem !important; }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] {
+          max-width: 850px !important; margin: 54px auto 0 !important; padding: 26px !important;
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 22px !important; box-shadow: 0 26px 75px rgba(30,36,57,.09) !important;
+          color: var(--ink) !important;
+        }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="rgba(255,255,255"] {
+          background: #f6f7fa !important; border-color: #eceef3 !important;
+        }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="color"] { color: #555d70 !important; }
+        #sainthetic-home .persona-try-demo {
+          max-width: 1080px !important; margin: 28px auto 0 !important;
+          padding: clamp(24px, 4vw, 48px) !important; background: #fff !important;
+          border: 1px solid var(--line) !important; border-radius: 24px !important;
+          box-shadow: 0 18px 60px rgba(30,36,57,.055) !important;
+        }
+        #sainthetic-home .persona-try-demo h2 { font-size: clamp(2rem,4vw,3rem) !important; letter-spacing: -.06em !important; }
+        #sainthetic-home .persona-try-demo input,
+        #sainthetic-home .persona-try-demo select {
+          min-height: 54px !important; background: #f8f9fb !important; color: var(--ink) !important;
+          border: 1px solid #e5e7ed !important; border-radius: 11px !important;
+        }
+        #sainthetic-home .persona-try-demo > button,
+        #sainthetic-home .persona-try-demo button {
+          min-height: 50px !important; padding: 13px 22px !important; border-radius: 11px !important;
+          background: var(--ink) !important; color: #fff !important; box-shadow: none !important;
+        }
+        #sainthetic-home .persona-try-demo > div[style*="rgba(255,255,255"],
+        #sainthetic-home .persona-try-demo [style*="rgba(255,255,255"] {
+          background: #f7f8fa !important; border-color: #e9ebf0 !important; color: var(--ink) !important;
+        }
+        #sainthetic-home .persona-try-demo [style*="color: #aaa"],
+        #sainthetic-home .persona-try-demo [style*="color: #888"] { color: #737a8b !important; }
+        #sainthetic-home #features {
+          max-width: 1160px !important; padding: 0 28px !important;
+          margin: 105px auto 0 !important; gap: 18px !important;
+        }
+        #sainthetic-home .feature-card {
+          min-width: 0 !important; max-width: none !important; flex: 1 1 280px !important;
+          padding: 30px !important; align-items: flex-start !important; text-align: left !important;
+          color: var(--ink) !important; background: #fff !important;
+          border: 1px solid #e9eaf0 !important; border-radius: 18px !important;
+          box-shadow: 0 8px 28px rgba(30,36,57,.035) !important;
+        }
+        #sainthetic-home .feature-card h3 { color: var(--ink) !important; font-size: 1.18rem !important; letter-spacing: -.035em !important; }
+        #sainthetic-home .feature-card p,
+        #sainthetic-home .feature-card li { color: #697083 !important; text-align: left !important; line-height: 1.65 !important; }
+        #sainthetic-home .feature-card li:last-child { color: #777d8d !important; }
+        #sainthetic-home section {
+          scroll-margin-top: 110px; color: var(--ink) !important;
+          margin-top: clamp(92px, 10vw, 142px) !important;
+        }
+        #sainthetic-home section h2 {
+          color: var(--ink) !important; font-size: clamp(2.5rem,5vw,4.25rem) !important;
+          font-weight: 650 !important; letter-spacing: -.07em !important; line-height: 1.04 !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home section h3,
+        #sainthetic-home section h4 { color: var(--ink) !important; }
+        #sainthetic-home section p { color: #697083 !important; }
+        #sainthetic-home #how-it-works,
+        #sainthetic-home #pricing,
+        #sainthetic-home #case-study,
+        #sainthetic-home #faq { max-width: 1160px !important; }
+        #sainthetic-home #how-it-works > p { color: #777d8d !important; }
+        #sainthetic-home .how-step-wrapper { gap: clamp(32px,6vw,90px) !important; margin-bottom: 7rem !important; }
+        #sainthetic-home .step-image {
+          border: 1px solid #e8eaf0 !important; border-radius: 20px !important;
+          box-shadow: 0 18px 55px rgba(30,36,57,.075) !important; overflow: hidden !important;
+        }
+        #sainthetic-home .step-image img { display: block; width: 100%; }
+        #sainthetic-home .step-text h3 { font-size: clamp(1.8rem,3vw,2.55rem) !important; letter-spacing: -.055em !important; }
+        #sainthetic-home .step-text p { color: #697083 !important; line-height: 1.75 !important; }
+        #sainthetic-home .step-text > div:first-child {
+          background: #f6f1df !important; color: #67531c !important;
+          border: 1px solid #eee4c5 !important; border-radius: 8px !important;
+          font-size: .72rem !important; letter-spacing: .08em !important;
+        }
+        #sainthetic-home section > div[style*="paddingBottom: \"56.25%\""] {
+          border: 1px solid #e6e8ee !important; border-radius: 20px !important;
+          box-shadow: 0 18px 55px rgba(30,36,57,.08) !important;
+        }
+        #sainthetic-home section > div[style*="linear-gradient(135deg,#13131f"],
+        #sainthetic-home section > div[style*="linear-gradient(135deg, #13131f"],
+        #sainthetic-home #case-study > div {
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 22px !important; box-shadow: 0 16px 55px rgba(30,36,57,.055) !important;
+        }
+        #sainthetic-home .cs-metric-cell { border-color: #eceef2 !important; }
+        #sainthetic-home .cs-metric-cell div[style*="color:"] { color: #30364a !important; }
+        #sainthetic-home #pricing > div[style*="linear-gradient"] {
+          background: #f7f3e7 !important; border: 1px solid #eee5cd !important;
+          color: #62552f !important; border-radius: 999px !important;
+        }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div {
+          min-width: 250px !important; max-width: 340px !important; flex: 1 1 270px !important;
+          padding: 34px 28px !important; background: #fff !important; color: var(--ink) !important;
+          border: 1px solid #e7e9ef !important; border-radius: 20px !important;
+          box-shadow: 0 10px 35px rgba(30,36,57,.045) !important;
+        }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div[style*="border: 2px solid"] {
+          border-color: #d8bd66 !important; box-shadow: 0 18px 48px rgba(30,36,57,.09) !important;
+        }
+        #sainthetic-home #pricing h3 { color: var(--ink) !important; }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div > div[style*="fontSize: 32"] { color: var(--ink) !important; }
+        #sainthetic-home #pricing ul,
+        #sainthetic-home #pricing ul li { color: #646b7d !important; line-height: 1.9 !important; }
+        #sainthetic-home #pricing button,
+        #sainthetic-home #pricing a[href="/register"] {
+          background: var(--ink) !important; color: #fff !important; border: 0 !important;
+          border-radius: 10px !important; min-height: 50px !important;
+        }
+        #sainthetic-home #pricing > p { color: #777d8d !important; }
+        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 22px !important; box-shadow: 0 16px 55px rgba(30,36,57,.05) !important;
+        }
+        #sainthetic-home section[style*="max-width: 1000px"] > div > div > div[style*="rgba(23,22,29"] {
+          background: #f8f9fb !important; border: 1px solid #eceef2 !important;
+        }
+        #sainthetic-home #case-study > div { overflow: hidden !important; }
+        #sainthetic-home #case-study > div > div:first-child,
+        #sainthetic-home #case-study > div > div:last-child {
+          background: #fafafc !important; border-color: #eceef2 !important;
+        }
+        #sainthetic-home #case-study [style*="rgba(255,255,255"] { border-color: #e8eaf0 !important; }
+        #sainthetic-home #case-study [style*="color:"] { color: #626a7d !important; }
+        #sainthetic-home #case-study h2,
+        #sainthetic-home #case-study h3,
+        #sainthetic-home #case-study h4 { color: var(--ink) !important; }
+        #sainthetic-home #case-study a { color: var(--ink) !important; }
+        #sainthetic-home #faq > div > div > div {
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 14px !important; box-shadow: 0 5px 18px rgba(30,36,57,.025) !important;
+        }
+        #sainthetic-home #faq button {
+          background: #fff !important; color: var(--ink) !important;
+          padding: 21px 24px !important; font-size: 1rem !important; font-weight: 620 !important;
+        }
+        #sainthetic-home #faq button span:last-child { color: #8b7440 !important; }
+        #sainthetic-home #faq p { color: #697083 !important; }
+        #sainthetic-home footer {
+          background: transparent !important; color: #858b99 !important;
+          border-color: #e8eaf0 !important; padding-top: 28px !important;
+        }
+        #sainthetic-home footer div { color: #858b99 !important; }
+        #sainthetic-home section[style*="padding: \"6rem 20px 3rem 20px\""] {
+          padding-top: 110px !important;
+        }
+        #sainthetic-home section[style*="padding: \"6rem 20px 3rem 20px\""] a[href="/register"] {
+          background: var(--ink) !important; color: #fff !important; border-radius: 12px !important;
+          box-shadow: 0 8px 22px rgba(23,25,37,.12) !important;
+        }
+        @media (max-width: 800px) {
+          #sainthetic-home nav.main-nav {
+            width: calc(100% - 28px) !important; margin-top: 12px !important;
+            min-height: 66px !important; padding: 10px 14px !important; border-radius: 15px !important;
+          }
+          #sainthetic-home .nav-brand { font-size: 1.2rem !important; }
+          #sainthetic-home .sainthetic-menu-toggle {
+            display: inline-flex !important; align-items: center; justify-content: center;
+            width: 42px; height: 42px; border: 1px solid #e8eaf0 !important;
+            border-radius: 10px !important; background: #fff !important; color: var(--ink) !important;
+          }
+          #sainthetic-home .mobile-dropdown {
+            background: #fff !important; border: 1px solid #e8eaf0 !important;
+            border-radius: 0 0 16px 16px !important; box-shadow: 0 16px 30px rgba(30,36,57,.08) !important;
+          }
+          #sainthetic-home .mobile-dropdown a { color: var(--ink) !important; }
+          #sainthetic-home .mobile-dropdown a.cta { color: #fff !important; background: var(--ink) !important; }
+          #sainthetic-home header#hero { padding: 88px 22px 48px !important; }
+          #sainthetic-home #hero h1 { font-size: clamp(3.05rem, 12vw, 5rem) !important; letter-spacing: -.075em !important; }
+          #sainthetic-home #hero > p { font-size: 1.05rem !important; }
+          #sainthetic-home #hero a[href="/register"] { width: 100% !important; box-sizing: border-box; }
+          #sainthetic-home .hero-trust-strip { gap: 11px 16px !important; }
+          #sainthetic-home header#hero > div[style*="radial-gradient"] { padding: 18px !important; margin-top: 38px !important; }
+          #sainthetic-home .persona-try-demo { margin: 20px 16px 0 !important; padding: 24px 18px !important; }
+          #sainthetic-home #features { margin-top: 76px !important; padding: 0 18px !important; }
+          #sainthetic-home .feature-card { flex-basis: 100% !important; padding: 25px !important; }
+          #sainthetic-home section { margin-top: 82px !important; padding-left: 18px !important; padding-right: 18px !important; }
+          #sainthetic-home section h2 { font-size: clamp(2.35rem, 10vw, 3.4rem) !important; }
+          #sainthetic-home .how-step-wrapper { display: flex !important; flex-direction: column !important; gap: 22px !important; margin-bottom: 4.5rem !important; }
+          #sainthetic-home .how-step-wrapper .step-text { order: 1 !important; text-align: left !important; }
+          #sainthetic-home .how-step-wrapper .step-image { order: 2 !important; width: 100% !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] { gap: 14px !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] > div { width: 100% !important; max-width: 440px !important; min-width: 0 !important; }
+          #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] { margin-left: 16px !important; margin-right: 16px !important; padding: 26px 18px !important; }
+          #sainthetic-home #faq button { padding: 18px 16px !important; }
+          #sainthetic-home footer { margin-top: 55px !important; }
+        }
+      `}</style>
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
