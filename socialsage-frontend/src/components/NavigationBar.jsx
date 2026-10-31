@@ -8,7 +8,6 @@ export default function NavigationBar() {
 
   const handleLogoClick = () => {
     setLogoSpin(true);
-    setMobileOpen((open) => !open);
     setTimeout(() => setLogoSpin(false), 600); // reset after spin
   };
 
@@ -38,6 +37,15 @@ export default function NavigationBar() {
           </span>
         </div>
         <div className="nav-spacer"></div>
+        <button
+          type="button"
+          className="sainthetic-menu-toggle"
+          aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((open) => !open)}
+        >
+          <span aria-hidden="true" style={{ fontSize: 25, lineHeight: 1 }}>{mobileOpen ? "×" : "☰"}</span>
+        </button>
         <div className="nav-right desktop-nav">
           <a href="#how-it-works">How It Works</a>
           <a href="#pricing">Pricing</a>
