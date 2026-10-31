@@ -154,7 +154,7 @@ const cardStyle = {
 };
 
   return (
-    <section style={{maxWidth:1100,margin:"80px auto",padding:"40px",background:"#141414",borderRadius:20,color:"#fff"}}>
+    <section className="persona-try-demo" style={{maxWidth:1100,margin:"80px auto",padding:"40px",background:"#fff",borderRadius:20,color:"#171b2b"}}>
       <h2>Try sAInthetic Free</h2>
       <p>Generate a sample AI persona before creating an account.</p>
 
