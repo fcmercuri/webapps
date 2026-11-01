@@ -8,12 +8,13 @@ export default function Sidebar({ isOpen, onItemClick }) {
   const location = useLocation();
 
   const menuItems = [
-    { icon: '', label: 'Dashboard', path: '/dashboard' },
-    { icon: '', label: 'Personas', path: '/personas' },
-    { icon: '', label: 'Prompts', path: '/prompts' },
-    { icon: '', label: 'Saved', path: '/saved' },
-    { icon: '', label: 'Analytics', path: '/analytics' },
-    { icon: '', label: 'Account & Billing', path: '/account' },
+    { icon: '⌂', label: 'Home', path: '/dashboard' },
+    { icon: '♙', label: 'Buyer Personas', path: '/personas' },
+    { icon: '⌕', label: 'Customer Questions', path: '/prompts' },
+    { icon: '✧', label: 'Content Opportunities', path: '/content' },
+    { icon: '▣', label: 'Saved Reports', path: '/saved' },
+    { icon: '◫', label: 'Analytics', path: '/analytics' },
+    { icon: '⚙', label: 'Account & Billing', path: '/account' },
   ];
 
   const handleLogout = () => {
@@ -27,8 +28,9 @@ export default function Sidebar({ isOpen, onItemClick }) {
       style={{
         width: '240px',
         height: '100vh',
-        background: 'linear-gradient(180deg, #0b0b0b 0%, #1a1a2e 100%)',
-        borderRight: '1px solid rgba(255, 217, 69, 0.1)',
+        background: 'linear-gradient(180deg, #15102f 0%, #100d25 100%)',
+        borderRight: '1px solid rgba(130, 92, 255, 0.18)',
+        boxShadow: '8px 0 30px rgba(24, 16, 55, 0.08)',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -38,7 +40,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
         onClick={onItemClick} // close sidebar on mobile when logo is clicked
         style={{
           padding: '30px 20px',
-          borderBottom: '1px solid rgba(255, 217, 69, 0.1)',
+          borderBottom: '1px solid rgba(255,255,255,0.09)',
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
@@ -46,13 +48,12 @@ export default function Sidebar({ isOpen, onItemClick }) {
         }}
       >
         <img
-          src="/logo.jpg"
+          src="/sainthetic-mark.svg"
           alt="sainthetic Logo"
           style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '8px',
-            objectFit: 'cover',
+            width: '38px',
+            height: '38px',
+            objectFit: 'contain',
           }}
         />
         <h1
@@ -60,7 +61,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
             fontSize: '1.5rem',
             fontWeight: 900,
             margin: 0,
-            background: 'linear-gradient(96deg, #fff 60%, #ffd945 100%)',
+            background: 'linear-gradient(96deg, #fff 30%, #c6a7ff 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             letterSpacing: '-0.5px',
@@ -89,20 +90,22 @@ export default function Sidebar({ isOpen, onItemClick }) {
               gap: '10px',
               padding: '10px 16px',
               margin: '4px 0',
-              borderRadius: '10px',
+              borderRadius: '11px',
               textDecoration: 'none',
-              color: location.pathname === item.path ? '#ffd945' : '#bbb',
+              minHeight: '46px',
+              boxSizing: 'border-box',
+              color: location.pathname === item.path ? '#fff' : '#c4bfd7',
               background:
                 location.pathname === item.path
-                  ? 'rgba(255, 217, 69, 0.12)'
+                  ? 'linear-gradient(100deg, rgba(132,86,255,0.42), rgba(132,86,255,0.12))'
                   : 'transparent',
               fontWeight: location.pathname === item.path ? 700 : 500,
-              fontSize: '0.95rem',
+              fontSize: '0.88rem',
               lineHeight: 1.2,
               transition: 'background 0.18s, color 0.18s',
             }}
           >
-            <span style={{ fontSize: '1.1rem', lineHeight: 1 }}>
+            <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>
               {item.icon}
             </span>
             <span style={{ lineHeight: 1.2 }}>{item.label}</span>
@@ -152,7 +155,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
                 fontSize: '0.7rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.08em',
-                color: '#ffd945',
+                color: '#c6a7ff',
                 opacity: 0.8,
               }}
             >
@@ -179,9 +182,9 @@ export default function Sidebar({ isOpen, onItemClick }) {
           onClick={handleLogout}
           style={{
             width: '100%',
-            background: 'rgba(255, 107, 107, 0.1)',
-            border: '1px solid rgba(255, 107, 107, 0.3)',
-            color: '#ff6b6b',
+            background: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            color: '#e0dced',
             padding: '12px',
             borderRadius: '10px',
             fontWeight: 700,
@@ -189,7 +192,7 @@ export default function Sidebar({ isOpen, onItemClick }) {
             fontSize: '0.95rem',
           }}
         >
-          Logout
+          Sign out
         </button>
       </div>
     </div>
