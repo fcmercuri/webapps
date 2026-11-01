@@ -2340,7 +2340,7 @@ export default function LandingPage() {
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
               </div>
             <div className="reference-visual reference-hero-photo" aria-label="Francesco Mercuri, founder of sAInthetic">
-              <img className="reference-hero-photo-image" src="/sainthetic-francesco-hero.webp" alt="Francesco Mercuri at a laptop with a preview of the sAInthetic buyer persona tool" fetchPriority="high" />
+              <img className="reference-hero-photo-image" src="/sainthetic-francesco-hero.jpg" alt="Francesco Mercuri at a laptop with a preview of the sAInthetic buyer persona tool" fetchPriority="high" />
               <a className="reference-linkedin-credit" href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">
                 <span className="reference-linkedin-icon" aria-hidden="true">in</span>
                 <strong>Built by Francesco Mercuri</strong>
