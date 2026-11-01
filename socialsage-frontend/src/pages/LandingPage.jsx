@@ -150,64 +150,68 @@ export default function LandingPage() {
       <NavigationBar />
 
       <style>{`
-        /* Hero CTA buttons matched to the supplied reference image. */
+        /* Compact, aligned hero CTAs: never stack on tablet/desktop. */
         #sainthetic-home .reference-actions {
-          display:flex !important; align-items:center !important; flex-wrap:wrap !important; gap:20px !important;
+          display:flex !important; flex-flow:row nowrap !important; align-items:center !important;
+          gap:10px !important; width:100% !important; max-width:100% !important;
         }
         #sainthetic-home .reference-actions a.reference-primary {
-          box-sizing:border-box !important; display:inline-flex !important; align-items:center !important;
-          justify-content:space-between !important; gap:28px !important; width:610px !important;
-          max-width:100% !important; min-width:0 !important; min-height:116px !important;
-          padding:0 52px !important; border:1px solid #191a26 !important; border-radius:24px !important;
-          background:#191a26 !important; color:#fff !important;
-          box-shadow:0 14px 32px rgba(20,22,34,.12) !important;
-          font-size:clamp(22px,2.25vw,32px) !important; font-weight:800 !important;
-          line-height:1.15 !important; letter-spacing:-.025em !important; text-align:left !important;
-          white-space:nowrap !important; text-decoration:none !important;
+          box-sizing:border-box !important; display:inline-flex !important; flex:1 1 0 !important;
+          align-items:center !important; justify-content:space-between !important; gap:8px !important;
+          width:auto !important; min-width:0 !important; min-height:64px !important;
+          padding:0 16px !important; border:1px solid #191a26 !important; border-radius:16px !important;
+          background:#191a26 !important; color:#fff !important; box-shadow:0 10px 24px rgba(20,22,34,.12) !important;
+          font-size:clamp(13px,1.55vw,19px) !important; font-weight:800 !important;
+          line-height:1.12 !important; letter-spacing:-.025em !important; text-align:left !important;
+          white-space:normal !important; text-decoration:none !important;
         }
         #sainthetic-home .reference-actions a.reference-primary span {
-          flex:0 0 auto !important; color:#fff !important; font-size:42px !important;
+          flex:0 0 auto !important; color:#fff !important; font-size:30px !important;
           font-weight:500 !important; line-height:1 !important; margin-left:auto !important;
         }
         #sainthetic-home .reference-actions a.reference-secondary {
-          box-sizing:border-box !important; display:inline-flex !important; align-items:center !important;
-          justify-content:center !important; gap:24px !important; min-width:290px !important;
-          min-height:80px !important; padding:0 32px !important; border:2px solid #1b263f !important;
-          border-radius:999px !important; background:#fff !important; color:#111a30 !important;
-          box-shadow:none !important; font-size:26px !important; font-weight:750 !important;
+          box-sizing:border-box !important; display:inline-flex !important; flex:0 0 180px !important;
+          align-items:center !important; justify-content:center !important; gap:12px !important;
+          width:180px !important; min-width:0 !important; min-height:64px !important;
+          padding:0 14px !important; border:2px solid #1b263f !important; border-radius:999px !important;
+          background:#fff !important; color:#111a30 !important; box-shadow:none !important;
+          font-size:clamp(14px,1.55vw,19px) !important; font-weight:750 !important;
           line-height:1 !important; letter-spacing:-.02em !important; text-decoration:none !important;
         }
         #sainthetic-home .reference-actions a.reference-secondary .play-icon {
-          position:relative !important; display:inline-block !important; flex:0 0 24px !important;
-          width:24px !important; height:26px !important; padding:0 !important;
+          position:relative !important; display:inline-block !important; flex:0 0 18px !important;
+          width:18px !important; height:20px !important; padding:0 !important;
           overflow:visible !important; font-size:0 !important; line-height:0 !important;
         }
         #sainthetic-home .reference-actions a.reference-secondary .play-icon::before {
           content:"" !important; position:absolute !important; left:1px !important; top:1px !important;
-          width:0 !important; height:0 !important; border-top:12px solid transparent !important;
-          border-bottom:12px solid transparent !important; border-left:23px solid #111a30 !important;
+          width:0 !important; height:0 !important; border-top:9px solid transparent !important;
+          border-bottom:9px solid transparent !important; border-left:17px solid #111a30 !important;
         }
         #sainthetic-home .reference-actions a.reference-secondary .play-icon::after {
-          content:"" !important; position:absolute !important; left:2px !important; top:6px !important;
-          width:0 !important; height:0 !important; border-top:7px solid transparent !important;
-          border-bottom:7px solid transparent !important; border-left:13px solid #fff !important;
+          content:"" !important; position:absolute !important; left:2px !important; top:5px !important;
+          width:0 !important; height:0 !important; border-top:5px solid transparent !important;
+          border-bottom:5px solid transparent !important; border-left:10px solid #fff !important;
         }
-        #sainthetic-home .reference-actions a.reference-primary:hover {
-          background:#252735 !important; transform:translateY(-2px) !important;
+        #sainthetic-home .reference-actions a.reference-primary:hover { background:#252735 !important; transform:translateY(-2px) !important; }
+        #sainthetic-home .reference-actions a.reference-secondary:hover { background:#f8f9fc !important; transform:translateY(-2px) !important; }
+        /* New high-resolution four-person portrait strip. */
+        #sainthetic-home#sainthetic-home .growth-avatars img { width:400% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-1 { transform:translateX(0) !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-2 { transform:translateX(-25%) !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-3 { transform:translateX(-50%) !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-4 { transform:translateX(-75%) !important; }
+        /* Clean white FAQ cards — remove the old grey gradient treatment. */
+        #sainthetic-home#sainthetic-home #faq > div > div > div {
+          background:#fff !important; background-image:none !important; border:1px solid #e4e9f0 !important;
+          border-radius:16px !important; box-shadow:0 5px 18px rgba(31,42,68,.045) !important;
         }
-        #sainthetic-home .reference-actions a.reference-secondary:hover {
-          background:#f8f9fc !important; transform:translateY(-2px) !important;
-        }
-        @media (max-width:760px) {
-          #sainthetic-home .reference-actions { align-items:stretch !important; flex-direction:column !important; gap:12px !important; }
-          #sainthetic-home .reference-actions a.reference-primary {
-            width:100% !important; min-height:76px !important; padding:0 24px !important;
-            border-radius:18px !important; font-size:clamp(19px,5vw,24px) !important; gap:14px !important;
-          }
-          #sainthetic-home .reference-actions a.reference-primary span { font-size:32px !important; }
-          #sainthetic-home .reference-actions a.reference-secondary {
-            width:100% !important; min-width:0 !important; min-height:66px !important; font-size:21px !important;
-          }
+        #sainthetic-home#sainthetic-home #faq button { background:transparent !important; color:#172033 !important; }
+        #sainthetic-home#sainthetic-home #faq p { color:#526079 !important; }
+        @media (max-width:560px) {
+          #sainthetic-home .reference-actions { flex-direction:column !important; align-items:stretch !important; }
+          #sainthetic-home .reference-actions a.reference-primary,
+          #sainthetic-home .reference-actions a.reference-secondary { width:100% !important; flex:1 1 auto !important; }
         }
       `}</style>
 
@@ -2836,7 +2840,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="Buyer persona portrait" /></div>
+                    <div className="reference-persona-avatar"><img src="/community-people-sprite.webp?v=20261101" className="reference-person-0" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">High-value questions they ask AI</div>
@@ -2858,10 +2862,10 @@ export default function LandingPage() {
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
             <div className="growth-avatars" aria-hidden="true">
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span>
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span>
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span>
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-4" alt="" /></span>
+              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-1" alt="" /></span>
+              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-2" alt="" /></span>
+              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-3" alt="" /></span>
+              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-4" alt="" /></span>
             </div>
           </section>
 
