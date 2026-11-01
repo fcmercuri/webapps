@@ -172,15 +172,15 @@ export default function LandingPage() {
       answer: "Yes. sAInthetic does not require sensitive customer data to generate personas or prompts. Any inputs you provide are used only to improve your experience and are not shared."
     },
     {
-      question: "We already know our ICP — do we still need this?",
-      answer: "Knowing your ICP is a starting point, not the finish line. sAInthetic takes your ICP and reveals the specific questions they're asking AI tools like ChatGPT and Perplexity right now — questions that map directly to content gaps your competitors haven't filled. Most teams are surprised by what their personas actually ask."
+      question: "We already know our ICP. Do we still need sAInthetic?",
+      answer: "Knowing your ICP is a useful starting point. sAInthetic helps you go further by uncovering the specific questions your buyers ask tools like ChatGPT and Perplexity. These questions reveal content gaps your competitors may have missed and give your team clearer ideas for what to create next."
     },
     {
       question: "Will AI-generated content sound generic?",
-      answer: "Not with sAInthetic. Every piece of content is generated from a specific persona's goals, pain points, and synthetic queries — not a blank prompt. The output is tailored to a real audience context, which is why customers consistently see better engagement than with generic AI writing tools."
+      answer: "Not with sAInthetic. Content ideas are informed by each persona's goals, pain points and search questions, rather than a generic prompt. This gives your writers a clear audience and purpose to work from, while leaving them in control of the final content."
     },
     {
-      question: "We already have writers — how does this fit in?",
+      question: "We already have writers. How does sAInthetic fit into our workflow?",
       answer: "sAInthetic makes your writers faster and more strategic, not redundant. Instead of spending hours researching what to write, your team gets a ready-made brief: the persona, the questions they ask, and the angle that converts. Writers focus on craft; sAInthetic handles the intelligence layer."
     }
   ];
@@ -3040,7 +3040,7 @@ export default function LandingPage() {
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">High-value questions they ask AI</div>
-                  <div className="reference-question"><span>⌕</span> What measurable impact can [product] deliver across organic acquisition, content productivity and conversion — and how quickly?</div>
+                  <div className="reference-question"><span>⌕</span> How can [product] improve organic acquisition, content productivity and conversion, and how soon could we see results?</div>
                   <div className="reference-question"><span>⌕</span> How does [product] compare with leading alternatives on answer quality, workflow integration, scalability and total cost of ownership?</div>
                   <div className="reference-question"><span>⌕</span> What is the investment case for a lean marketing team, including expected ROI, implementation effort and key adoption risks?</div>
                 </div>
@@ -3237,7 +3237,7 @@ export default function LandingPage() {
               <div className="cs-company-brand">
                 <div className="cs-company-logo" style={{ width: 46, height: 46, borderRadius: 12, background: "linear-gradient(135deg,#ffd945,#ff9f43)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>🚀</div>
                 <div className="cs-company-info" style={{ flex: 1, minWidth: 160 }}>
-                  <div style={{ color: "#fff", fontWeight: 800, fontSize: "1rem" }}>NexusFlow — B2B SaaS Platform</div>
+                  <div style={{ color: "#fff", fontWeight: 800, fontSize: "1rem" }}>NexusFlow, a B2B SaaS platform</div>
                   <div style={{ color: "#888", fontSize: "0.82rem", marginTop: 2 }}>Team size: 12 · Industry: SaaS · Use case: Organic content growth</div>
                 </div>
               </div>
@@ -3274,10 +3274,10 @@ export default function LandingPage() {
             <div className="cs-body">
               <div className="cs-challenge">
                 <h4 style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "1px", marginBottom: 12, marginTop: 0 }}>The Challenge</h4>
-                <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.95rem", marginBottom: 20, marginTop: 0 }}>NexusFlow's content team was publishing 8 blog posts per month but seeing minimal organic traction. Posts felt generic — they weren't answering what real buyers actually searched for. Prompts were rewritten from scratch every time.</p>
+                <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.95rem", marginBottom: 20, marginTop: 0 }}>NexusFlow's content team was publishing 8 blog posts per month but seeing minimal organic traction. Posts felt generic and did not answer the questions real buyers were searching for. The team also had to rewrite prompts from scratch each time.</p>
                 <div style={{ borderLeft: "3px solid #ffd945", paddingLeft: 16 }}>
                   <p style={{ color: "#fff", fontStyle: "italic", fontSize: "0.97rem", lineHeight: 1.6, margin: "0 0 8px 0", fontWeight: 600 }}>"Within a week of using sAInthetic we had a library of 40+ prompts that actually matched what our ICP asks AI tools."</p>
-                  <div style={{ color: "#ffd945", fontWeight: 700, fontSize: "0.83rem" }}>— Jamie R., Head of Growth, NexusFlow</div>
+                  <div style={{ color: "#ffd945", fontWeight: 700, fontSize: "0.83rem" }}>Jamie R. | Head of Growth, NexusFlow</div>
                 </div>
               </div>
               <div className="cs-steps">
@@ -3286,8 +3286,8 @@ export default function LandingPage() {
                   {[
                     { step: "01", title: "Built 4 personas for their ICP", desc: "Generated detailed SaaS buyer personas in under 2 minutes" },
                     { step: "02", title: "Extracted synthetic search queries", desc: "Uncovered 40+ questions their buyers ask LLMs every week" },
-                    { step: "03", title: "Created a reusable prompt library", desc: "Every writer used the same on-brand prompts — no guesswork" },
-                    { step: "04", title: "Published persona-matched content", desc: "Content aligned to real intent — Google rewarded them fast" },
+                    { step: "03", title: "Created a reusable prompt library", desc: "Every writer worked from consistent, on-brand prompts." },
+                    { step: "04", title: "Published persona-matched content", desc: "Content matched buyer intent and helped improve organic performance." },
                   ].map(item => (
                     <div key={item.step} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                       <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(255,217,69,0.15)", border: "1px solid rgba(255,217,69,0.3)", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffd945", fontWeight: 800, fontSize: "0.72rem", flexShrink: 0 }}>{item.step}</div>
@@ -3305,7 +3305,7 @@ export default function LandingPage() {
             <div style={{ padding: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,217,69,0.04)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
               <div>
                 <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.97rem" }}>Want results like NexusFlow?</div>
-                <div style={{ color: "#888", fontSize: "0.85rem", marginTop: 3 }}>Start building your persona library today — free, no card needed</div>
+                <div style={{ color: "#888", fontSize: "0.85rem", marginTop: 3 }}>Start building your persona library today. It's free, and no credit card is needed.</div>
               </div>
               <a href="/register" style={{ background: "linear-gradient(135deg,#ffd945,#ff9f43)", color: "#000", fontWeight: 800, padding: "0.85rem 1.8rem", borderRadius: 12, textDecoration: "none", fontSize: "0.92rem", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(255,217,69,0.3)" }}>Start Free Trial →</a>
             </div>
@@ -3350,7 +3350,7 @@ export default function LandingPage() {
               Start publishing content your buyers actually search for.
             </h2>
             <p style={{ fontSize: "1.15rem", color: "#bbb", margin: "0 0 36px 0", lineHeight: 1.6 }}>
-              Join {userCount.toLocaleString()}+ marketers creating better content in less time.<br />Start free — no credit card required.
+              Join {userCount.toLocaleString()}+ marketers creating better content in less time.<br />Start free. No credit card required.
             </p>
             <a
               href="/register"
