@@ -2491,6 +2491,28 @@ export default function LandingPage() {
         }
 
 
+        /* Refined buyer questions: strategy-grade, commercial and outcome-led. */
+        #sainthetic-home .reference-glow { display:none !important; }
+        #sainthetic-home .reference-visual { isolation:isolate !important; }
+        #sainthetic-home .reference-question-title {
+          margin:12px 0 7px !important; font-size:.72rem !important;
+          line-height:1.2 !important; font-weight:850 !important; color:#10182c !important;
+        }
+        #sainthetic-home .reference-question {
+          display:flex !important; align-items:flex-start !important; gap:7px !important;
+          padding:7px 8px !important; margin:5px 0 !important;
+          border:1px solid #e4e9f0 !important; border-radius:11px !important;
+          background:linear-gradient(180deg,#fff,#fafbfd) !important;
+          box-shadow:0 2px 6px rgba(25,39,65,.045) !important;
+          color:#172033 !important; font-size:.64rem !important;
+          line-height:1.3 !important; white-space:normal !important;
+        }
+        #sainthetic-home .reference-question span {
+          display:grid !important; place-items:center !important; flex:0 0 22px !important;
+          width:22px !important; height:22px !important; margin-top:1px !important;
+          border-radius:50% !important; background:#f0f3f8 !important;
+          color:#172033 !important; font-size:.95rem !important;
+        }
         /* Screenshot-accurate top composition: preserve every element and its relationship. */
         #sainthetic-home .sainthetic-reference-top {
           width:100% !important; max-width:1160px !important; margin:0 auto !important;
@@ -2748,8 +2770,6 @@ export default function LandingPage() {
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
             </div>
             <div className="reference-visual" aria-label="Preview of the sAInthetic buyer persona dashboard">
-              <div className="reference-glow reference-glow-one"></div>
-              <div className="reference-glow reference-glow-two"></div>
               <div className="reference-app-window">
                 <div className="reference-window-dots"><i></i><i></i><i></i></div>
                 <div className="reference-app-sidebar">
@@ -2766,10 +2786,10 @@ export default function LandingPage() {
                     <div className="reference-persona-avatar"><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
-                  <div className="reference-question-title">Top questions they ask AI</div>
-                  <div className="reference-question"><span>⌕</span> What's the best AI tool for content marketing?</div>
-                  <div className="reference-question"><span>⌕</span> How does it compare to [competitor]?</div>
-                  <div className="reference-question"><span>⌕</span> Is it worth the price for a small team?</div>
+                  <div className="reference-question-title">High-value questions they ask AI</div>
+                  <div className="reference-question"><span>⌕</span> What measurable impact can [product] deliver across organic acquisition, content productivity and conversion — and how quickly?</div>
+                  <div className="reference-question"><span>⌕</span> How does [product] compare with leading alternatives on answer quality, workflow integration, scalability and total cost of ownership?</div>
+                  <div className="reference-question"><span>⌕</span> What is the investment case for a lean marketing team, including expected ROI, implementation effort and key adoption risks?</div>
                 </div>
               </div>
             </div>
