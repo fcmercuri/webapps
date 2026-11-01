@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const personas = {
+const personaAvatar = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCACgAKADASIAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAABQACAwQGAQf/xAA2EAACAQMCBAUCBQIGAwAAAAABAgMABBEFIRIxQVEGEyJhcTKBFCNSkcFCsWIkQ3LBFjaCktHh/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAMBAgQFBv/EACcRAAICAgICAgICAwEAAAAAAAABAhEDIRIxBEEiURNhBTIUI0JS/9oADAMBAAIRAxEAPwD0ilSpUAqVKlQCpUqVAKlSrn1fFALny5d6gubuK1X1HLHko5mob298nMcW8nU9FoPJxOxZsknmTS3I0iW6v5rjYNwJ+laBaprEGnQkuwMh+lBzNP1nU0021LHeRtkXua86vJ5LidppnLO1LOt+LWoaxdXjks/Cp/pWqMfG56YriAHdvsKlyEXiP2AptMSLESepFSMEgwTkgmo4XkkI4UIFXjp0ssRLGi2QTG061vBE4aOUo3zWq0nVPPIWQ8MnQjbPxXntxDNbPuNu9ENLvMMFYkHpRyjses22qSRYWb8xe/UUXiljnQPG2R3FYXTL38RHwsfWuxH80Ygnkt344zg9R0NZvX0aaUHoeddqvaXUd3HldmH1L2qcHfBpyu0qVKgFSpVwnAzQCO+371Tv71bZQin8xh+wqzI/lRM5GSN8d6yt1DcyzPK+7McmsoEInV255qWUIsTMcDaqFhbzBtwTXddd7TSrmZhsqYA9zUbFZdvO/EuoC91BjGT5UfpX37mgy4+pq62WYlqjc52FUkLUiKWaiun2InbLDlVC1xxkdSMCtNpkfAFpc7qH8eO71PbaYi81q9+EUpjG1WI98bVYRRiofXRyAdzo4ljOFzWSurRrO7AH05r1WMKFwRWU8Q6YzOZYVzjfFVx4lnNqOn3DW0iS815MO4rZwyLLGGU7EZrz+2nBj8ttmxjfvWs8PTmWzUH6kPCareuccgkaCQOhwR/zR63mW4hDrt3HY0AxVmxnNvNv9DbN/wB0Rg2Dmu007er96dTAqad2+KdTRsCTQDZBxkDoKja3UjlT0cHenMwAoYjhjCA4FZ3x1IU8PTBRniYKT23o+84XOKyvjS7STRJEJwcjA+9JTSvLpdtqbGpO/vXXGWqYKFi2HqOwo3o2tprAxicvIwVR3rSWd/YRgBp1B+KE6baW9vH5t0Ax7HkKvNLplweARxB/sDU7q1XHeMaK2uoJceXIrA9jV8cGc9KyNvHHbTKVyBnlmtZZIsto7McgCl5vim7rqvda9Y2hKuWY9lFU11eO8BMdnO0fU4oVqF3bWtxtECc8yM0WsNXVLdJGRkQnA4kIB+Dyp538TvP1k9aRbfUBJFvFKOIfPUUb8LzFZz1VhnNd8Z28bWsN5AAPX6se451Q8O3iQ3PCw9R6Cml4nlOt+BSqC3mDAD2FT8Qpkxewl82Dhb6k2PxVpeWO1CNPlCXIGdn2otyf5pg6xwpqpqdx+FsHfOOSj7mrT/TQXxS5XT41/VKP7GgIodVTAyakk1RODZqAwoSKdKpVaxie51Ugk52rL63qK3MLQBcgn1N2qxqE3lwOx6UFjsZZ4TIxJHMikqmMgLICknPPaidlaluCR988h2pklsvGqIOlFtOQNAhxuu1LllxXHHrs2mNcKCGYAdBT7Gx/D3yzqHyP6eDY0bshjFETGgQtgfNTxys+K5YS/WeuLcK7PjhLnPD0HwOlGtFZnhePPMUJupfNmYR+rHM0W0ZeEjBAJrN202pIo6lojSSO4QMr/UCalsrONLUWskZ8nOfL4sgnvRrUZfIQFlymcFhUdiI5XBBFNu/IT1mt0P13T1bw7OqrhUUMB2wazlpYtHHHcA8L8g2Olb7VYg+m3Ea78aEVjI5GjMtvKMAZKD27U85xLLvRCyvWC+s+obGrou8jagcSFAAeZolarkU8Rv1aS9aOVH/SwNbMkEKw5ViJIsitjbnisYT3RT/xTRiZ+Q+aCeKF4rWD2k/g0bf6TQvxEnFpnEB9Dq38fzWgEtkwort0voNdtTkCnXQ9FaRnL238+N0/UCKj0s/5Pyz9YPCw96IPgMT2oco4L7z0H5bEA+/vU6rPivdWipKzMpC42IPKprVPLDj3zS1m4EVmZVwXDBcHkOv8VS0e5adn8xsl1Dgfcg/2qNn1fHL5scgn3xUt1fYjMSnc8z2qqoCOGPI1U1a2uOIPaycPXGOdJFbeHtETlkYrkYOKs6YJbd1JZ3UnbfJqvZQW8yKLi7lRjzBHtRyx0rTwY2N8xBXcZ608xZcoIR2kclu65Y8e54mzQmJ30678ljlGPpP8Vd1K2V7LytMmlW4JH5nQDrVO205o7lEmleZlwS7nJJrcppmNGJJ+O2cnoOtZTUR61YbMvqzWlusQ2uGO5Of2rPXuLi9ZV2XmfYdq3H4ln9cVuNVbuKI2Y2oeRw4FELE+mqxC/Vt9hWothiwhB/8AWtZeTcYHM1rFXghROwArYEh3BqtfQ/idPmi6shA+atUxdmI+9aGQswSozUt0cJROaxEVw/DsrHIqleWrFK1OstdOWmCH6TSuMBAWYKgGTiiD6dkktQTWZVhVouLJAwcVLJbDoFeXhcyRjeNuhP7VFplw6ajEeQxwYHaq0mfMJPI1yB+G7iI6OP70a4bfWxWcMMZqwkhaPB5ihTqVbiWnreFSMjeoa/x07/1deAs+VyrdxRG1iuAFUnYe1U7W7R8b0YguEULvzolptiVsuIxnJOOtckwj561Ik8fl5UZOOQqihe4kJP2FUk9kcs/V28KtGZGAJUbe1B7WA8RL833o9cwE2jj2qKaBVQcI36VTWkJdh72uelSQxFOVEEhJAyK75OOlMRywiM17ChGwPEfgb1pm3dR96HaRb8PHMRufSP5oiu7M32Fa0+mPsQw6U+kRmgIpUDgHtVC74QhoihweE/ahOqq8bAj/AMbdex7UMobchnTgix5j7A9vesRqtsqpMzNh1O5P9q2dzNFacM1xIkSEYyxxXnuvX8N3eytbsTGzZzjnU7OqY3UBpXLnA6U6LCPGx5KwJrhHauZp9F31rwodQR1qJ7UnfFQ6JOZrcK31JtWghiDriuSzV07JfabCIYDnajum2KyY80sR2zUEdtwybjajNhGF6UBaKRW0DEAIijJPtT4FTgVkwVIyCKqa1xf4RdhPqMTY/asv4T8RJHbfhbxyFT6H54HY10eNzeT8bo4ZcVStBxet+WSE+P8AupIbqGZQ0MqSA/pOarwuUQoeQY4pr9JPi/gdK6icbhQMk1VWcUYsIMIJXGGYbZ6CtYsqohhVF+BT1HCoFNX1txdByp9aCpUqVANdcjbmKjkiW4heOTI4hg45j3FTUx1PNdiKA8c8WaPf6XfkXUklxDIfyp2JPEOx7H2oAU9Jr3u6tbfUbZ7a7iWSNx6kb+4rzbxH4MudNDz2Ia5tBuQBl0+R1HuK2MYsjIzTMb1Km6VxlxQBTQmxPw/qFa6zbDDNYWxlMM6OP6Tmt6EDRRzRbqwBGKh5ce7dHiy5pfMYOCKs244abBEXgVqeF4WAPWorGX7/AOWkH+k15PA5hvWXkOIivWrqPigf3ry3VYPw9+/+6reO6qPkm4tsZYGElvIyNzBU4ohY+JbxBwy8MmOfEMGqFsJLpEjjRpJDsqqMk1tvDnglY5EvNVUM43W35gf7u/xXRdOaCfhyGTUIVvLmBoozuit/X7/FaJjxHgXl1NInPoj2A2yOlOVQowKUzoGBgV2lSoBUqVKlQCo=";\n\nconst personas = {
   SaaS: {
     name: "Sarah Johnson", role: "Growth Marketing Manager",
     goals: ["Increase SQLs", "Reduce CAC", "Improve retention"],
@@ -96,7 +96,7 @@ export default function PersonaTryDemo() {
         .persona-result { margin-top:30px; padding:clamp(18px,3vw,30px); border:1px solid #e6eaf0; border-radius:22px; background:#fbfcfe; }
         .persona-result-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:22px; border-bottom:1px solid #e9edf3; }
         .persona-result-identity { display:flex; align-items:center; gap:15px; min-width:0; }
-        .persona-result-avatar { width:58px; height:58px; flex:0 0 58px; display:flex; align-items:center; justify-content:center; border-radius:17px; background:#fff0b8; font-size:27px; }
+        .persona-result-avatar { width:76px; height:76px; flex:0 0 76px; display:block; object-fit:cover; object-position:center 30%; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); }
         .persona-result-name { margin:0; color:#171b2b; font-size:clamp(1.35rem,3vw,1.8rem); line-height:1.15; letter-spacing:-.04em; }
         .persona-result-role { margin-top:5px; color:#667085; font-size:.95rem; line-height:1.4; }
         .persona-result-badge { flex:0 0 auto; border:1px solid #f0df9d; border-radius:999px; padding:7px 11px; background:#fff9e5; color:#80620b; font-size:.76rem; font-weight:750; }
@@ -114,8 +114,8 @@ export default function PersonaTryDemo() {
         .persona-result-cta-copy { min-width:0; max-width:570px; }
         #sainthetic-home .persona-result-cta h3, .persona-result-cta h3 { margin:0 0 7px !important; color:#171b2b !important; font-size:1.18rem !important; line-height:1.25 !important; font-weight:800 !important; }
         #sainthetic-home .persona-result-cta p, .persona-result-cta p { margin:0 !important; color:#596579 !important; font-size:.92rem !important; line-height:1.55 !important; }
-        .persona-result-cta .persona-demo-button { flex:0 0 auto; background:#171b2b; color:#fff; }
-        .persona-result-cta .persona-demo-button:hover { background:#30394d; }
+        .persona-result-cta .persona-demo-button { flex:0 0 auto; min-height:54px !important; padding:14px 22px !important; border:0 !important; border-radius:12px !important; background:#171b2b !important; color:#fff !important; font-size:15px !important; font-weight:800 !important; line-height:1.25 !important; white-space:nowrap !important; visibility:visible !important; opacity:1 !important; }
+        .persona-result-cta .persona-demo-button:hover { background:#30394d !important; color:#fff !important; }
         #sainthetic-home .persona-demo-note, .persona-demo-note { margin-top:8px !important; color:#7b8494 !important; font-size:.8rem !important; }
         .persona-prompt { color:#315d49 !important; }
         .persona-prompt-label { color:#56816b !important; }
@@ -139,7 +139,7 @@ export default function PersonaTryDemo() {
           .persona-questions { margin-top:10px; }
           .persona-prompt { margin-top:13px; padding:14px; font-size:.9rem; }
           .persona-result-cta { align-items:stretch; flex-direction:column; gap:14px; padding:18px; }
-          .persona-result-cta .persona-demo-button { width:100%; }
+          .persona-result-cta .persona-demo-button { width:100% !important; min-height:54px !important; background:#171b2b !important; color:#fff !important; }
         }
         @media(max-width:380px) {
           .persona-result-head { flex-direction:column; }
@@ -172,7 +172,7 @@ export default function PersonaTryDemo() {
         <div className="persona-result" aria-live="polite">
           <div className="persona-result-head">
             <div className="persona-result-identity">
-              <div className="persona-result-avatar" aria-hidden="true">🧠</div>
+              <img className="persona-result-avatar" src={personaAvatar} alt={`${persona.name}, sample buyer persona`} />
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
