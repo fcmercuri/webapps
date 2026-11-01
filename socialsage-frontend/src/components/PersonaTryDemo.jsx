@@ -119,7 +119,7 @@ export default function PersonaTryDemo() {
         .persona-demo-intro { text-align:center; max-width:680px; margin:0 auto 26px; }
         .persona-demo-intro h2 { margin:0 0 10px; color:#171b2b; font-size:clamp(1.55rem,3vw,2.15rem); letter-spacing:-.045em; line-height:1.15; }
         .persona-demo-intro p { margin:0; color:#667085; font-size:1rem; line-height:1.6; }
-        .persona-demo-controls { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,.95fr) minmax(0,1.2fr); gap:10px; width:100%; max-width:760px; margin:0 auto; align-items:start; }
+        .persona-demo-controls { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; width:100%; max-width:760px; margin:0 auto; align-items:start; }
         .persona-demo-website-field { min-width:0; display:flex; flex-direction:column; gap:6px; }
         .persona-demo-website-field small { color:#667085; font-size:11px; line-height:1.35; }
         .persona-demo-website-field small[role="alert"] { color:#b42318; }
