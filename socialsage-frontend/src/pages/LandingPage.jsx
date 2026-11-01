@@ -107,6 +107,8 @@ export default function LandingPage() {
   const step2Ref = useRef(null);
   const step3Ref = useRef(null);
   const step4Ref = useRef(null);
+  const personaTitleRef = useRef(null);
+  const personaTitleInView = useInView(personaTitleRef, { once: true, margin: "-40px" });
   const caseMetricsRef = useRef(null);
   const caseMetricsInView = useInView(caseMetricsRef, { once: true, margin: "-80px" });
   const [caseMetricCounts, setCaseMetricCounts] = useState([0, 0, 0, 0]);
@@ -3037,7 +3039,21 @@ export default function LandingPage() {
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
                     <div className="reference-persona-avatar"><img src="/community-avatars-clean.webp?v=20261103" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
-                    <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
+                    <div>
+                      <motion.strong
+                        ref={personaTitleRef}
+                        initial={{ opacity: 0, y: 9, filter: "blur(4px)" }}
+                        animate={personaTitleInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 9, filter: "blur(4px)" }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ display: "inline-block" }}
+                      >The Growth-Minded Marketer</motion.strong>
+                      <motion.div
+                        className="reference-tags"
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={personaTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 5 }}
+                        transition={{ duration: 0.45, delay: 0.22 }}
+                      ><span>B2B</span><span>AI Tools</span><span>Growth</span></motion.div>
+                    </div>
                   </div>
                   <motion.div
                     className="reference-question-title"
