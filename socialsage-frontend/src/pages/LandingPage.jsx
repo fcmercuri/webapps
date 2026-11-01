@@ -2820,7 +2820,7 @@ export default function LandingPage() {
           height:100% !important;
           max-width:100% !important;
           object-fit:cover !important;
-          object-position:center 43% !important;
+          object-position:0% 43% !important;
           transform:none !important;
           border-radius:50% !important;
           image-rendering:auto !important;
@@ -2866,7 +2866,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/community-avatars-clean.webp?v=20261102" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
+                    <div className="reference-persona-avatar"><img src="/community-avatars-clean.webp?v=20261103" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">High-value questions they ask AI</div>
