@@ -3154,10 +3154,12 @@ export default function LandingPage() {
           <div style={{ background: "linear-gradient(135deg,#13131f 0%,#1e1e30 100%)", borderRadius: 24, border: "1px solid rgba(255,217,69,0.2)", boxShadow: "0 24px 80px rgba(0,0,0,0.6)", overflow: "hidden" }}>
             {/* Company bar */}
             <div className="cs-company-bar" style={{ padding: "1.5rem", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", flexWrap: "wrap", gap: 16, background: "rgba(255,217,69,0.04)" }}>
-              <div style={{ width: 46, height: 46, borderRadius: 12, background: "linear-gradient(135deg,#ffd945,#ff9f43)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>🚀</div>
-              <div className="cs-company-info" style={{ flex: 1, minWidth: 160 }}>
-                <div style={{ color: "#fff", fontWeight: 800, fontSize: "1rem" }}>NexusFlow — B2B SaaS Platform</div>
-                <div style={{ color: "#888", fontSize: "0.82rem", marginTop: 2 }}>Team size: 12 · Industry: SaaS · Use case: Organic content growth</div>
+              <div className="cs-company-brand">
+                <div className="cs-company-logo" style={{ width: 46, height: 46, borderRadius: 12, background: "linear-gradient(135deg,#ffd945,#ff9f43)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, flexShrink: 0 }}>🚀</div>
+                <div className="cs-company-info" style={{ flex: 1, minWidth: 160 }}>
+                  <div style={{ color: "#fff", fontWeight: 800, fontSize: "1rem" }}>NexusFlow — B2B SaaS Platform</div>
+                  <div style={{ color: "#888", fontSize: "0.82rem", marginTop: 2 }}>Team size: 12 · Industry: SaaS · Use case: Organic content growth</div>
+                </div>
               </div>
               <div className="cs-achievement-grid" style={{ display: "flex", gap: 10 }}>
                 {[{ label: "Time to results", value: "60 days" }, { label: "Plan used", value: "Pro" }, { label: "Estimated value saved", value: "$150 / week", note: "5h × $30/hour" }].map(s => (
@@ -3720,11 +3722,17 @@ export default function LandingPage() {
       <style>{`
         /* Case-study header: keep the three achievement cards inside the case-study frame. */
         #sainthetic-home #case-study .cs-company-bar {
-          display:grid !important; grid-template-columns:minmax(0,1fr) minmax(0,470px) !important;
-          align-items:center !important; gap:18px 24px !important; width:100% !important;
-          box-sizing:border-box !important; min-width:0 !important;
+          display:flex !important; flex-direction:column !important; align-items:stretch !important;
+          gap:18px !important; width:100% !important; box-sizing:border-box !important; min-width:0 !important;
         }
-        #sainthetic-home #case-study .cs-company-info { min-width:0 !important; width:auto !important; }
+        #sainthetic-home #case-study .cs-company-brand {
+          display:flex !important; flex-direction:row !important; align-items:center !important;
+          justify-content:flex-start !important; gap:16px !important; width:100% !important; min-width:0 !important;
+        }
+        #sainthetic-home #case-study .cs-company-logo { flex:0 0 46px !important; }
+        #sainthetic-home #case-study .cs-company-info { flex:1 1 auto !important; min-width:0 !important; width:auto !important; }
+        #sainthetic-home #case-study .cs-company-info > div:first-child { text-align:left !important; }
+        #sainthetic-home #case-study .cs-company-info > div:nth-child(2) { text-align:left !important; }
         #sainthetic-home #case-study .cs-achievement-grid {
           display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important;
           gap:9px !important; width:100% !important; min-width:0 !important;
@@ -3752,6 +3760,9 @@ export default function LandingPage() {
         }
         @media (max-width:520px) {
           #sainthetic-home #case-study .cs-company-bar { padding:16px !important; }
+          #sainthetic-home #case-study .cs-company-brand { align-items:center !important; gap:12px !important; }
+          #sainthetic-home #case-study .cs-company-logo { flex-basis:42px !important; width:42px !important; height:42px !important; }
+          #sainthetic-home #case-study .cs-company-achievement-grid { width:100% !important; }
           #sainthetic-home #case-study .cs-achievement-grid { grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:7px !important; }
           #sainthetic-home #case-study .cs-achievement-card { min-height:70px !important; padding:8px 5px !important; border-radius:9px !important; }
           #sainthetic-home #case-study .cs-achievement-card > div:first-child { font-size:.82rem !important; }
