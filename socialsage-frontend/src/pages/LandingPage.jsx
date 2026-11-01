@@ -253,7 +253,7 @@ export default function LandingPage() {
           padding-bottom:24px !important;
           margin-bottom:24px !important;
         }
-        /* Clean white FAQ cards — remove the old grey gradient treatment. */
+        /* Clean white FAQ cards. Remove the old grey gradient treatment. */
         #sainthetic-home#sainthetic-home #faq > div > div > div {
           background:#fff !important; background-image:none !important; border:1px solid #e4e9f0 !important;
           border-radius:16px !important; box-shadow:0 5px 18px rgba(31,42,68,.045) !important;
@@ -268,7 +268,7 @@ export default function LandingPage() {
       `}</style>
 
       <style>{`
-        /* sAInthetic white editorial redesign — homepage only */
+        /* sAInthetic white editorial redesign for the homepage. */
         #sainthetic-home {
           background: #ffffff !important;
           color: #171b2b !important;
@@ -779,7 +779,7 @@ export default function LandingPage() {
       `}</style>
 
       <style>{`
-        /* Premium visual system — presentation only; all page copy and behaviour stay intact. */
+        /* Premium visual system for presentation. Page copy and behaviour stay intact. */
         #sainthetic-home {
           --ink: #171925;
           --muted: #697083;
@@ -3113,7 +3113,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Founder contact banner — placed after the top-level product story. */}
+        {/* Founder contact banner, placed after the top-level product story. */}
         <section className="reference-founder-banner" aria-label="Get in touch with the founder">
           <a className="reference-founder-banner-link" href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">
             <img src="/sainthetic-founder-contact.webp?v=20261101" alt="Get in touch with sAInthetic founder Francesco Mercuri. Connect on LinkedIn." loading="eager" decoding="async" fetchPriority="low" />
