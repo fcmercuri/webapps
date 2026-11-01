@@ -1271,6 +1271,17 @@ export default function LandingPage() {
         }
         #sainthetic-home .nav-logo { width:38px !important; height:38px !important; border-radius:11px !important; object-fit:contain !important; background:transparent !important; }
         #sainthetic-home .nav-brand { color:#111827 !important; font-size:1.5rem !important; font-weight:850 !important; letter-spacing:-.055em !important; }
+
+        /* Remove the inherited section spacing above the homepage hero. */
+        #sainthetic-home > div[style*="flex: 1"] > .sainthetic-reference-top {
+          margin-top:0 !important;
+          padding-top:0 !important;
+        }
+        @media (min-width:901px) {
+          #sainthetic-home .sainthetic-reference-top > header#hero.reference-hero {
+            padding-top:20px !important;
+          }
+        }
       `}</style>
 
 
