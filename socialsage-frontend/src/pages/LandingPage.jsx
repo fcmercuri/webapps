@@ -3016,7 +3016,7 @@ export default function LandingPage() {
               <p className="reference-subtitle">Build a clearer picture of your buyers, map the questions shaping their decisions, and turn those insights into focused content briefs. sAInthetic connects audience research with practical content planning.</p>
               <div className="reference-actions">
                 <a className="reference-primary" href="/register">Create my free account <span>→</span></a>
-                <a className="reference-secondary" href="#try-persona"><span className="play-icon">▷</span> Preview a sample persona</a>
+                <a className="reference-secondary" href="#try-persona">Preview a sample persona <span className="preview-arrow" aria-hidden="true">→</span></a>
               </div>
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card</span><span>✓&nbsp; Cancel anytime</span><span>✓&nbsp; Setup in 60 sec</span></div>
             </div>
@@ -4195,8 +4195,65 @@ export default function LandingPage() {
           }
         }
       `}</style>
+      <style>{`
+        /* Desktop/tablet hero refinements: keep the mock sidebar and CTAs inside their columns. */
+        @media (min-width:761px) {
+          #sainthetic-home .reference-app-window {
+            grid-template-columns:122px minmax(0,1fr) !important;
+            padding-left:15px !important;
+            padding-right:15px !important;
+          }
+          #sainthetic-home .reference-app-sidebar {
+            min-width:0 !important;
+            overflow:hidden !important;
+            padding-right:8px !important;
+            font-size:.68rem !important;
+          }
+          #sainthetic-home .reference-app-sidebar > div:not(:first-child) {
+            display:block !important;
+            box-sizing:border-box !important;
+            width:100% !important;
+            min-width:0 !important;
+            overflow:hidden !important;
+            padding:7px 5px !important;
+            text-overflow:ellipsis !important;
+            white-space:nowrap !important;
+          }
+          #sainthetic-home .reference-app-sidebar .active { max-width:100% !important; }
+          #sainthetic-home header#hero .reference-actions {
+            display:flex !important; flex-flow:row nowrap !important; align-items:stretch !important;
+            gap:12px !important; width:100% !important; min-width:0 !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-primary {
+            flex:1 1 auto !important; min-width:0 !important; min-height:58px !important;
+            padding:0 18px !important; font-size:clamp(14px,1.25vw,17px) !important;
+            white-space:nowrap !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-secondary {
+            flex:0 0 230px !important; width:230px !important; min-width:230px !important;
+            min-height:58px !important; box-sizing:border-box !important; gap:10px !important;
+            padding:0 15px !important; font-size:clamp(14px,1.2vw,16px) !important;
+            white-space:nowrap !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-secondary .preview-arrow {
+            flex:0 0 auto !important; font-size:1.2em !important; line-height:1 !important;
+          }
+        }
+        @media (min-width:761px) and (max-width:1100px) {
+          #sainthetic-home .reference-app-window {
+            grid-template-columns:108px minmax(0,1fr) !important;
+            padding-left:12px !important; padding-right:10px !important;
+          }
+          #sainthetic-home .reference-app-sidebar { font-size:.62rem !important; }
+          #sainthetic-home header#hero .reference-actions a.reference-secondary {
+            flex-basis:210px !important; width:210px !important; min-width:210px !important;
+            font-size:13px !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-primary {
+            padding:0 13px !important; font-size:13px !important;
+          }
+        }
+      `}</style>
 
       </div>
-    </div>
-  );
 }
