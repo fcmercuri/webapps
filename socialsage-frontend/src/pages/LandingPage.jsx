@@ -3169,7 +3169,7 @@ export default function LandingPage() {
             { ref: step2Ref, inView: step2InView, img: "step-2-personas.jpg", alt: "AI buyer personas", step: "STEP 2", title: "Meet your customers", desc: "Generate detailed buyer personas with goals, pain points and behaviours, giving your team a clearer picture of the people you want to reach.", highlights: [{ icon: "♙", title: "Realistic personas", detail: "Built around customer behaviour and intent" }, { icon: "▥", title: "Actionable insights", detail: "Goals, pain points and motivations" }, { icon: "▤", title: "Content-ready", detail: "Ideas and angles that drive results" }] },
             { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "AI buyer questions and content ideas", step: "STEP 3", title: "Turn buyer questions into content", desc: "Explore AI-generated questions that reflect buyer research and decision stages, then turn them into useful, search-ready content.", highlights: [{ icon: "⌕", title: "Intent-led questions", detail: "Understand what buyers really want to know" }, { icon: "✦", title: "Content opportunities", detail: "Find useful angles your competitors miss" }, { icon: "↗", title: "Ready to create", detail: "Build briefs and copy around buyer intent" }] },
           ].map((s, i) => (
-            <div key={i} ref={s.ref} className="how-step-wrapper">
+            <div key={i} id={i === 0 ? "step-1" : undefined} ref={s.ref} className="how-step-wrapper">
               <motion.div className="step-text" initial={{ opacity: 0, y: 18 }} animate={s.inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.08 }}>
                 <div className="step-number-label">{s.step}</div>
                 <h3>{s.title}</h3>
