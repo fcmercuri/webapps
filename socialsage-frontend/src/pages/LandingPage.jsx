@@ -3806,8 +3806,8 @@ export default function LandingPage() {
           background-position-y:50% !important;
         }
         /* Use the sprite's actual portrait centres; equal 20% slices cut through faces. */
-        #sainthetic-home #product-walkthrough .step-persona-portrait-one { left:23% !important; transform:translateX(-50%) !important; background-position-x:3.125% !important; }
-        #sainthetic-home #product-walkthrough .step-persona-portrait-two { left:50% !important; transform:translateX(-50%) !important; background-position-x:34.375% !important; }
+        #sainthetic-home #product-walkthrough .step-persona-portrait-one { left:23% !important; transform:translateX(-50%) !important; background-position-x:34.375% !important; }
+        #sainthetic-home #product-walkthrough .step-persona-portrait-two { left:50% !important; transform:translateX(-50%) !important; background-position-x:65.625% !important; }
         #sainthetic-home #product-walkthrough .step-persona-portrait-three { left:77.3% !important; transform:translateX(-50%) !important; background-position-x:96.875% !important; }
       `}</style>
       <style>{`
