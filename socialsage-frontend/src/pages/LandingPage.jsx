@@ -2409,6 +2409,88 @@ export default function LandingPage() {
         }
       `}</style>
 
+      <style>{`
+        /* Final reference layout: crisp product hero, founder banner, light editorial finish. */
+        #sainthetic-home { background:#fff !important; color:#111827 !important; }
+        #sainthetic-home > div[style*="linear-gradient(135deg, #0b0b0b"] { background:#fff !important; overflow:visible !important; }
+        #sainthetic-home > div[style*="position: fixed"] { display:none !important; }
+        #sainthetic-home .sainthetic-reference-top { max-width:1200px !important; margin:0 auto !important; padding:0 26px !important; }
+        #sainthetic-home header#hero.reference-hero { display:grid !important; grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr) !important; gap:26px !important; min-height:0 !important; padding:42px 10px 26px !important; align-items:center !important; }
+        #sainthetic-home .reference-hero h1 { max-width:570px !important; margin:0 0 18px !important; color:#111827 !important; font-size:clamp(2.8rem,5.3vw,4.15rem) !important; line-height:1.01 !important; letter-spacing:-.065em !important; font-weight:900 !important; }
+        #sainthetic-home .reference-hero h1 span { color:#111827 !important; -webkit-text-fill-color:#111827 !important; background:linear-gradient(transparent 62%,#ffe28a 62%,#ffe28a 93%,transparent 93%) !important; }
+        #sainthetic-home .reference-eyebrow { display:inline-flex !important; align-items:center !important; gap:8px !important; margin-bottom:18px !important; padding:8px 14px !important; border-radius:999px !important; background:#fff1bf !important; color:#171b2b !important; font-weight:800 !important; font-size:.84rem !important; }
+        #sainthetic-home .reference-subtitle { max-width:540px !important; margin:0 0 22px !important; color:#34415f !important; font-size:1rem !important; line-height:1.5 !important; }
+        #sainthetic-home .reference-actions { display:flex !important; flex-wrap:wrap !important; gap:12px !important; }
+        #sainthetic-home .reference-primary { background:#111827 !important; color:#fff !important; border-radius:999px !important; box-shadow:0 7px 18px rgba(17,24,39,.14) !important; }
+        #sainthetic-home .reference-secondary { border:1px solid #111827 !important; color:#111827 !important; border-radius:999px !important; background:#fff !important; }
+        #sainthetic-home .reference-reassurance { display:flex !important; flex-wrap:wrap !important; gap:16px !important; margin-top:18px !important; color:#34415f !important; font-size:.8rem !important; }
+        #sainthetic-home .reference-visual.reference-hero-dashboard { display:flex !important; align-items:center !important; justify-content:center !important; min-width:0 !important; width:100% !important; padding:0 !important; background:transparent !important; border:0 !important; box-shadow:none !important; overflow:visible !important; }
+        #sainthetic-home .reference-hero-dashboard-image { display:block !important; width:100% !important; height:auto !important; max-width:650px !important; object-fit:contain !important; filter:drop-shadow(0 20px 25px rgba(30,41,59,.10)) !important; }
+        #sainthetic-home .reference-features { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:28px !important; max-width:1080px !important; margin:12px auto 28px !important; }
+        #sainthetic-home .reference-features article { text-align:left !important; }
+        #sainthetic-home .reference-features h3 { color:#111827 !important; font-size:1.35rem !important; font-weight:850 !important; letter-spacing:-.045em !important; margin:8px 0 4px !important; }
+        #sainthetic-home .reference-features p { color:#34415f !important; line-height:1.35 !important; margin:0 !important; }
+        #sainthetic-home .reference-feature-icon, #sainthetic-home .growth-icon { background:#ffe99c !important; color:#111827 !important; border-radius:12px !important; }
+        #sainthetic-home .reference-growth-bar { display:grid !important; grid-template-columns:1fr 1fr auto !important; align-items:center !important; gap:20px !important; margin:28px auto 26px !important; padding:16px 24px !important; border:1px solid #e8edf4 !important; border-radius:22px !important; background:#fff !important; box-shadow:0 9px 25px rgba(31,42,68,.06) !important; }
+        #sainthetic-home .growth-message strong, #sainthetic-home .growth-count strong { color:#111827 !important; }
+        #sainthetic-home .growth-count span { color:#34415f !important; }
+        #sainthetic-home .reference-pricing { max-width:1160px !important; margin:28px auto 0 !important; padding:0 10px !important; }
+        #sainthetic-home .reference-pricing h2, #sainthetic-home .reference-how-it-works h2 { color:#111827 !important; }
+        #sainthetic-home .pricing-intro { color:#34415f !important; }
+        #sainthetic-home .reference-price-card { background:#fff !important; border:1px solid #e7ebf2 !important; box-shadow:0 10px 26px rgba(31,42,68,.055) !important; }
+        #sainthetic-home .reference-price-card h3, #sainthetic-home .reference-price-card .reference-price { color:#111827 !important; }
+        #sainthetic-home .reference-price-card p, #sainthetic-home .reference-price-card ul { color:#34415f !important; }
+        #sainthetic-home .reference-price-card a, #sainthetic-home .reference-price-card button { border-radius:999px !important; }
+        #sainthetic-home .reference-price-card.featured { background:#fff9e6 !important; border-color:#ffe28a !important; }
+        #sainthetic-home .reference-how-it-works { max-width:1160px !important; margin:28px auto 0 !important; padding:22px 26px !important; border:1px solid #e8edf4 !important; border-radius:24px !important; background:#fff !important; box-shadow:0 10px 26px rgba(31,42,68,.055) !important; text-align:center !important; }
+        #sainthetic-home .reference-how-it-works h2 { margin:0 0 6px !important; font-size:clamp(2rem,3.5vw,2.6rem) !important; }
+        #sainthetic-home .reference-how-it-works > p { margin:0 0 22px !important; color:#34415f !important; }
+        #sainthetic-home .reference-how-steps { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:24px !important; text-align:left !important; }
+        #sainthetic-home .reference-how-steps article { display:flex !important; align-items:flex-start !important; gap:12px !important; min-width:0 !important; }
+        #sainthetic-home .reference-how-steps article > span { display:grid !important; place-items:center !important; flex:0 0 38px !important; width:38px !important; height:38px !important; border-radius:50% !important; background:#ffe99c !important; color:#111827 !important; font-size:1.15rem !important; font-weight:900 !important; }
+        #sainthetic-home .reference-how-steps h3 { margin:6px 0 4px !important; color:#111827 !important; font-size:1rem !important; font-weight:850 !important; }
+        #sainthetic-home .reference-how-steps p { margin:0 !important; color:#34415f !important; font-size:.9rem !important; line-height:1.4 !important; }
+        #sainthetic-home .reference-founder-banner { position:relative !important; max-width:1160px !important; margin:30px auto 10px !important; padding:0 20px !important; }
+        #sainthetic-home .reference-founder-banner img { display:block !important; width:100% !important; height:auto !important; border-radius:28px !important; box-shadow:0 12px 30px rgba(31,42,68,.08) !important; }
+        #sainthetic-home .reference-founder-banner a { position:absolute !important; left:4.8% !important; bottom:18% !important; display:block !important; width:25% !important; height:18% !important; overflow:hidden !important; text-indent:-9999px !important; border-radius:999px !important; }
+        #sainthetic-home #product-walkthrough, #sainthetic-home #product-demo, #sainthetic-home #case-study, #sainthetic-home #faq { color:#111827 !important; }
+        #sainthetic-home #product-walkthrough h2, #sainthetic-home #product-demo h2, #sainthetic-home #case-study h2, #sainthetic-home #faq h2 { color:#111827 !important; }
+        #sainthetic-home #product-walkthrough h3, #sainthetic-home #product-walkthrough p, #sainthetic-home #product-demo p, #sainthetic-home #case-study p, #sainthetic-home #faq p { color:#34415f !important; }
+        #sainthetic-home #product-walkthrough .step-text h3 { color:#111827 !important; }
+        #sainthetic-home #product-walkthrough .step-image { border:1px solid #e8edf4 !important; box-shadow:0 12px 28px rgba(31,42,68,.08) !important; }
+        #sainthetic-home #product-demo iframe { border:1px solid #e8edf4 !important; box-shadow:0 12px 28px rgba(31,42,68,.08) !important; }
+        #sainthetic-home #case-study > div { background:#fff !important; border:1px solid #e8edf4 !important; box-shadow:0 12px 32px rgba(31,42,68,.07) !important; }
+        #sainthetic-home #case-study [style*="color:"] { color:#34415f !important; }
+        #sainthetic-home #case-study h2, #sainthetic-home #case-study h3, #sainthetic-home #case-study h4 { color:#111827 !important; }
+        #sainthetic-home #case-study .cs-metrics { border-bottom:1px solid #e8edf4 !important; }
+        #sainthetic-home #case-study .cs-metric-cell div:first-child { color:#111827 !important; }
+        #sainthetic-home #case-study .cs-metric-cell div:nth-child(2) { color:#111827 !important; }
+        #sainthetic-home #faq > div > div > div { background:#fff !important; border:1px solid #e1e6ee !important; box-shadow:0 7px 18px rgba(31,42,68,.05) !important; }
+        #sainthetic-home #faq button { color:#172033 !important; }
+        #sainthetic-home #faq p { color:#4b5872 !important; }
+        #sainthetic-home section[style*="padding: 6rem 20px 3rem"] h2 { color:#111827 !important; }
+        #sainthetic-home section[style*="padding: 6rem 20px 3rem"] p { color:#34415f !important; }
+        #sainthetic-home footer { border-color:#e8edf4 !important; color:#647087 !important; }
+        @media(max-width:900px) {
+          #sainthetic-home .sainthetic-reference-top { padding:0 18px !important; }
+          #sainthetic-home header#hero.reference-hero { grid-template-columns:1fr 1fr !important; gap:10px !important; }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.3rem,5.6vw,3.3rem) !important; }
+          #sainthetic-home .reference-features { gap:16px !important; }
+          #sainthetic-home .reference-how-steps { gap:14px !important; }
+        }
+        @media(max-width:700px) {
+          #sainthetic-home header#hero.reference-hero { grid-template-columns:1fr !important; padding:30px 0 18px !important; }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.6rem,10vw,3.6rem) !important; }
+          #sainthetic-home .reference-visual.reference-hero-dashboard { order:2 !important; }
+          #sainthetic-home .reference-features { grid-template-columns:1fr !important; gap:20px !important; }
+          #sainthetic-home .reference-growth-bar { grid-template-columns:1fr !important; text-align:center !important; justify-items:center !important; }
+          #sainthetic-home .reference-how-steps { grid-template-columns:1fr !important; }
+          #sainthetic-home .reference-founder-banner { padding:0 12px !important; margin:22px auto 4px !important; }
+          #sainthetic-home .reference-founder-banner img { border-radius:18px !important; }
+          #sainthetic-home .reference-founder-banner a { left:5% !important; bottom:12% !important; width:39% !important; height:17% !important; }
+        }
+      `}</style>
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
@@ -2427,20 +2509,15 @@ export default function LandingPage() {
             <div className="reference-hero-copy">
               <div className="reference-eyebrow"><span>⚡</span> Buyer Intelligence for Growth</div>
               <h1>Stop guessing<br/>what your buyers<br/>want. Know exactly<br/><span>what they ask AI.</span></h1>
-              <p className="reference-subtitle">Create real buyer personas, uncover the exact questions your audience asks in ChatGPT, Google and more, and turn them into content that converts.</p>
+              <p className="reference-subtitle">sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.</p>
               <div className="reference-actions">
                 <a className="reference-primary" href="/register">See your first buyer persona <span>→</span></a>
                 <a className="reference-secondary" href="#product-demo"><span className="play-icon">▷</span> Watch demo</a>
               </div>
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
-              </div>
-            <div className="reference-visual reference-hero-photo" aria-label="Francesco Mercuri, founder of sAInthetic">
-              <img className="reference-hero-photo-image" src="/sainthetic-francesco-hero.webp" alt="Francesco Mercuri at a laptop with a preview of the sAInthetic buyer persona tool" fetchPriority="high" />
-              <a className="reference-linkedin-credit" href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">
-                <span className="reference-linkedin-icon" aria-hidden="true">in</span>
-                <strong>Built by Francesco Mercuri</strong>
-                <span className="reference-linkedin-external" aria-hidden="true">↗</span>
-              </a>
+            </div>
+            <div className="reference-visual reference-hero-dashboard" aria-label="sAInthetic buyer persona product preview">
+              <img className="reference-hero-dashboard-image" src="/sainthetic-hero-dashboard.webp" alt="sAInthetic dashboard showing a buyer persona and the questions that buyer asks AI" fetchPriority="high" />
             </div>
           </header>
 
@@ -2489,40 +2566,20 @@ export default function LandingPage() {
         <section id="how-it-works" className="reference-how-it-works" aria-labelledby="reference-how-title">
           <h2 id="reference-how-title">How it works</h2>
           <p>From audience insight to content that converts, in three simple steps.</p>
-          <div className="reference-how-grid">
-            <article className="reference-how-card">
-              <div className="reference-how-card-top"><span>01 / AUDIENCE</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
-              <div className="reference-how-image reference-how-persona-preview">
-                <div className="reference-how-screenshot-wrap">
-                  <img className="reference-how-persona-screenshot" src="/step-2-personas.jpg" alt="sAInthetic buyer persona dashboard with customer profiles" loading="lazy" />
-                  <div className="reference-how-screenshot-portraits" aria-hidden="true">
-                    <span className="portrait-one"><img src="/reference-people-sprite.jpg" alt="" loading="lazy" /></span>
-                    <span className="portrait-two"><img src="/reference-people-sprite.jpg" alt="" loading="lazy" /></span>
-                    <span className="portrait-three"><img src="/reference-people-sprite.jpg" alt="" loading="lazy" /></span>
-                  </div>
-                </div>
-                <div className="reference-how-people" aria-label="Example buyer personas">
-                  <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="" loading="lazy" /></span><div><strong>Growth marketer</strong><small>Goals &amp; challenges</small></div></div>
-                  <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" loading="lazy" /></span><div><strong>Product lead</strong><small>Needs &amp; priorities</small></div></div>
-                  <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" loading="lazy" /></span><div><strong>Marketing lead</strong><small>Intent &amp; behaviour</small></div></div>
-                </div>
-              </div>
-              <div className="reference-how-card-copy"><div className="reference-how-number">01</div><div><h3>Get to know your buyers</h3><p>Build detailed customer personas around the people you want to reach — their goals, needs and motivations.</p><span className="reference-how-outcome">A clearer picture of your audience <b>↗</b></span></div></div>
-            </article>
-            <article className="reference-how-card">
-              <div className="reference-how-card-top"><span>02 / DISCOVERY</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
-              <div className="reference-how-image"><img src="/step-5-prompts.jpg" alt="sAInthetic AI questions and prompt library tool" loading="lazy" /></div>
-              <div className="reference-how-card-copy"><div className="reference-how-number">02</div><div><h3>Find what they really ask</h3><p>Explore the questions your audience brings to ChatGPT, Google and other AI tools.</p><span className="reference-how-outcome">Real questions. Useful insights. <b>↗</b></span></div></div>
-            </article>
-            <article className="reference-how-card">
-              <div className="reference-how-card-top"><span>03 / CREATION</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
-              <div className="reference-how-image"><img src="/step-4-content.jpg" alt="sAInthetic content creation tool" loading="lazy" /></div>
-              <div className="reference-how-card-copy"><div className="reference-how-number">03</div><div><h3>Make content that connects</h3><p>Turn buyer insight into focused ideas, briefs and content your audience actually needs.</p><span className="reference-how-outcome">From insight to action <b>↗</b></span></div></div>
-            </article>
+          <div className="reference-how-steps">
+            <article><span>1</span><div><h3>Create your buyer persona</h3><p>Generate AI personas based on your real audience.</p></div></article>
+            <article><span>2</span><div><h3>See the exact questions</h3><p>Discover what your buyers ask in ChatGPT, Google and more.</p></div></article>
+            <article><span>3</span><div><h3>Turn insight into content</h3><p>Get data-backed ideas, briefs and topics that drive results.</p></div></article>
           </div>
         </section>
 
-        {/* Original detailed four-step product walkthrough retained below the compact overview. */}
+        {/* Founder contact banner — placed after the top-level product story. */}
+        <section className="reference-founder-banner" aria-label="Get in touch with the founder">
+          <img src="/sainthetic-founder-contact.webp" alt="Get in touch with sAInthetic founder Francesco Mercuri. Connect on LinkedIn." loading="lazy" />
+          <a href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">Connect on LinkedIn</a>
+        </section>
+
+        {/* The remaining product proof, demo, case study, FAQs and conversion CTA follow below. */}
         <section id="product-walkthrough" className="product-walkthrough" style={{ margin: "3.5rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
           <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>AI-Powered Content That Converts</h2>
           <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Generate customer personas, content ideas, and conversion-ready copy in minutes</p>
