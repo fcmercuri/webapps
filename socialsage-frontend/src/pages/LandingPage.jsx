@@ -3263,7 +3263,7 @@ export default function LandingPage() {
 
         {/* ============ CASE STUDY ============ */}
         <section id="case-study" style={{ margin: "8rem auto 0 auto", maxWidth: 1000, position: "relative", zIndex: 2, padding: "0 20px" }}>
-          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+          <div className="cs-intro-header" style={{ textAlign: "center", marginBottom: "3rem" }}>
             <div style={{ display: "inline-block", background: "linear-gradient(135deg,#ffd945 0%,#ffed4e 100%)", color: "#000", padding: "6px 20px", borderRadius: 20, fontSize: "0.8rem", fontWeight: 800, letterSpacing: "1px", marginBottom: 20, textTransform: "uppercase" }}>Case Study</div>
             <h2 style={{ color: "#fff", fontWeight: 900, fontSize: "clamp(1.8rem,4vw,2.6rem)", marginBottom: "0.8rem", letterSpacing: "-1px", lineHeight: 1.15 }}>
               How a SaaS Team Tripled Organic Traffic{" "}              <span style={{ background: "linear-gradient(96deg,#ffd945,#ff9f43)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>in 60 Days</span>
@@ -4146,6 +4146,38 @@ export default function LandingPage() {
         #sainthetic-home .reference-price-card:first-child > a { background:#ffd945 !important; border-color:#ffd945 !important; color:#111827 !important; }
         #sainthetic-home .final-cta-section a { min-width:min(100%,300px) !important; }
         #sainthetic-home .reference-growth-bar { margin-bottom:0 !important; }
+
+        /* Centre the case-study headline group within its bordered intro panel. */
+        #sainthetic-home #case-study .cs-intro-header {
+          min-height:560px !important;
+          box-sizing:border-box !important;
+          padding:38px 32px 42px !important;
+          margin:0 auto 3rem !important;
+          display:flex !important;
+          flex-direction:column !important;
+          align-items:center !important;
+          justify-content:center !important;
+          text-align:center !important;
+        }
+        #sainthetic-home #case-study .cs-intro-header h2 {
+          width:100% !important;
+          max-width:900px !important;
+          margin:0 auto 18px !important;
+          text-align:center !important;
+        }
+        #sainthetic-home #case-study .cs-intro-header p {
+          width:100% !important;
+          max-width:850px !important;
+          margin:0 auto !important;
+          text-align:center !important;
+        }
+        @media (max-width:700px) {
+          #sainthetic-home #case-study .cs-intro-header {
+            min-height:420px !important;
+            padding:30px 16px !important;
+            margin-bottom:2rem !important;
+          }
+        }
       `}</style>
 
       </div>
