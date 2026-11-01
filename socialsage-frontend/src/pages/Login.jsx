@@ -11,6 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -29,6 +30,7 @@ export default function Login() {
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
+      setGoogleLoading(true);
       try {
         setError("");
 
@@ -42,12 +44,21 @@ export default function Login() {
         if (!res.ok) throw new Error(data.error || "Google login failed");
 
         loginSuccess(data.token, data.user);
-        goAfterLogin();
+        goAfterLogin(data.user?.email);
       } catch (err) {
         setError(err.message || "Google login failed");
+      } finally {
+        setGoogleLoading(false);
       }
     },
-    onError: () => setError("Google login failed"),
+    onError: () => {
+      setGoogleLoading(false);
+      setError("Google login failed. Please try again.");
+    },
+    onNonOAuthError: () => {
+      setGoogleLoading(false);
+      setError("Google sign-in was interrupted. Please try again.");
+    },
   });
 
   async function handleSubmit(e) {
@@ -287,7 +298,12 @@ export default function Login() {
 
         <button
           type="button"
-          onClick={() => loginWithGoogle()}
+          onClick={() => {
+            setError("");
+            setGoogleLoading(true);
+            loginWithGoogle();
+          }}
+          disabled={googleLoading}
           style={{
             width: "100%",
             background: "#0B0B0B",
@@ -297,6 +313,8 @@ export default function Login() {
             padding: "12px 16px",
             fontWeight: 600,
             marginTop: 10,
+            cursor: googleLoading ? "wait" : "pointer",
+            opacity: googleLoading ? 0.7 : 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -304,7 +322,7 @@ export default function Login() {
           }}
         >
           <img src="/google-icon.svg" alt="Google logo" style={{ width: 18 }} />
-          Continue with Google
+          {googleLoading ? "Connecting to Google…" : "Continue with Google"}
         </button>
 
         <p
