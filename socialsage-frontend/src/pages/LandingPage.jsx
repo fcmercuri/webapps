@@ -1939,6 +1939,104 @@ export default function LandingPage() {
           #sainthetic-home .faq-question-text { font-size:.86rem !important; }
         }
       
+        /* Human buyer-persona preview: real portrait imagery alongside the product UI. */
+        #sainthetic-home .reference-how-persona-preview {
+          display:flex !important;
+          flex-direction:column !important;
+          align-items:stretch !important;
+          justify-content:center !important;
+          gap:11px !important;
+          padding:14px !important;
+          aspect-ratio:1.48 / 1 !important;
+          background:linear-gradient(145deg,#f3f1eb,#faf8f2) !important;
+        }
+        #sainthetic-home .reference-how-persona-screenshot {
+          flex:1 1 0 !important;
+          min-height:0 !important;
+          width:100% !important;
+          height:62% !important;
+          object-fit:contain !important;
+          object-position:center !important;
+          border:1px solid rgba(32,39,53,.08) !important;
+          border-radius:10px !important;
+          background:#fff !important;
+          box-shadow:0 6px 16px rgba(28,36,52,.09) !important;
+        }
+        #sainthetic-home .reference-how-people {
+          display:grid !important;
+          grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+          gap:7px !important;
+          min-width:0 !important;
+        }
+        #sainthetic-home .reference-how-person {
+          display:flex !important;
+          align-items:center !important;
+          gap:7px !important;
+          min-width:0 !important;
+          padding:7px 6px !important;
+          border:1px solid #e8e2d5 !important;
+          border-radius:11px !important;
+          background:rgba(255,255,255,.94) !important;
+          box-shadow:0 3px 9px rgba(34,39,50,.045) !important;
+        }
+        #sainthetic-home .reference-how-person > span {
+          position:relative !important;
+          display:block !important;
+          flex:0 0 32px !important;
+          width:32px !important;
+          height:32px !important;
+          overflow:hidden !important;
+          border-radius:50% !important;
+          background:#eadfce !important;
+        }
+        #sainthetic-home .reference-how-person > span img {
+          position:absolute !important;
+          top:0 !important;
+          left:0 !important;
+          width:500% !important;
+          max-width:none !important;
+          height:100% !important;
+          object-fit:fill !important;
+          border:0 !important;
+          border-radius:0 !important;
+          box-shadow:none !important;
+        }
+        #sainthetic-home .reference-how-person > div {
+          display:flex !important;
+          flex-direction:column !important;
+          gap:2px !important;
+          min-width:0 !important;
+        }
+        #sainthetic-home .reference-how-person strong {
+          overflow:hidden !important;
+          color:#293247 !important;
+          font-size:.62rem !important;
+          font-weight:800 !important;
+          line-height:1.15 !important;
+          text-overflow:ellipsis !important;
+          white-space:nowrap !important;
+        }
+        #sainthetic-home .reference-how-person small {
+          overflow:hidden !important;
+          color:#7b8290 !important;
+          font-size:.54rem !important;
+          line-height:1.15 !important;
+          text-overflow:ellipsis !important;
+          white-space:nowrap !important;
+        }
+        @media (max-width:900px) {
+          #sainthetic-home .reference-how-person > span { flex-basis:38px !important; width:38px !important; height:38px !important; }
+          #sainthetic-home .reference-how-person strong { font-size:.7rem !important; }
+          #sainthetic-home .reference-how-person small { font-size:.6rem !important; }
+        }
+        @media (max-width:600px) {
+          #sainthetic-home .reference-how-persona-preview { aspect-ratio:1.38 / 1 !important; padding:10px !important; gap:8px !important; }
+          #sainthetic-home .reference-how-person { gap:5px !important; padding:6px 4px !important; }
+          #sainthetic-home .reference-how-person > span { flex-basis:30px !important; width:30px !important; height:30px !important; }
+          #sainthetic-home .reference-how-person strong { font-size:.58rem !important; }
+          #sainthetic-home .reference-how-person small { display:none !important; }
+        }
+
         /* Premium product cards: show the real interface, not cropped thumbnails in generic boxes. */
         #sainthetic-home .reference-how-it-works {
           max-width:1240px !important;
@@ -2197,7 +2295,14 @@ export default function LandingPage() {
           <div className="reference-how-grid">
             <article className="reference-how-card">
               <div className="reference-how-card-top"><span>01 / AUDIENCE</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
-              <div className="reference-how-image"><img src="/step-2-personas.jpg" alt="sAInthetic buyer persona tool showing customer profiles" loading="lazy" /></div>
+              <div className="reference-how-image reference-how-persona-preview">
+                <img className="reference-how-persona-screenshot" src="/step-2-personas.jpg" alt="sAInthetic buyer persona dashboard" loading="lazy" />
+                <div className="reference-how-people" aria-label="Example buyer personas">
+                  <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="" loading="lazy" /></span><div><strong>Growth marketer</strong><small>Goals &amp; challenges</small></div></div>
+                  <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" loading="lazy" /></span><div><strong>Product lead</strong><small>Needs &amp; priorities</small></div></div>
+                  <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" loading="lazy" /></span><div><strong>Marketing lead</strong><small>Intent &amp; behaviour</small></div></div>
+                </div>
+              </div>
               <div className="reference-how-card-copy"><div className="reference-how-number">01</div><div><h3>Get to know your buyers</h3><p>Build detailed customer personas around the people you want to reach — their goals, needs and motivations.</p><span className="reference-how-outcome">A clearer picture of your audience <b>↗</b></span></div></div>
             </article>
             <article className="reference-how-card">
