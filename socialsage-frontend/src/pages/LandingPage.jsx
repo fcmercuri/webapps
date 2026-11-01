@@ -2576,7 +2576,7 @@ export default function LandingPage() {
         {/* Founder contact banner — placed after the top-level product story. */}
         <section className="reference-founder-banner" aria-label="Get in touch with the founder">
           <a className="reference-founder-banner-link" href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">
-            <img src="/sainthetic-founder-contact.webp" alt="Get in touch with sAInthetic founder Francesco Mercuri. Connect on LinkedIn." loading="lazy" />
+            <img src="/sainthetic-founder-contact.webp?v=20261101" alt="Get in touch with sAInthetic founder Francesco Mercuri. Connect on LinkedIn." loading="eager" decoding="async" fetchPriority="low" />
           </a>
         </section>
 
