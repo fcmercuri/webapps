@@ -3214,31 +3214,36 @@ export default function LandingPage() {
         </section>
 
         {/* ============ FAQ ============ */}
-        <section id="faq" style={{ margin: "8rem auto 0 auto", maxWidth: 1000, textAlign: "left", position: "relative", zIndex: 2, padding: "0 20px" }}>
-          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
-            <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.3rem", marginBottom: "0.8rem", letterSpacing: "-1px" }}>Frequently Asked Questions</h2>
-            <p style={{ color: "#bbb", fontSize: "1.15rem", maxWidth: 600, margin: "0 auto" }}>Everything you need to know about persona-driven AI content generation</p>
+        <section id="faq" className="reference-faq" aria-labelledby="reference-faq-title">
+          <div className="reference-faq-intro">
+            <span className="reference-faq-eyebrow"><span aria-hidden="true">✳</span> GOOD TO KNOW</span>
+            <h2 id="reference-faq-title">A few things you might be wondering.</h2>
+            <p>Clear answers about sAInthetic, how it works and what you can do with it.</p>
+            <div className="reference-faq-note"><span aria-hidden="true">✦</span><span>Still have a question? We are always happy to help.</span></div>
           </div>
-          <div style={{ maxWidth: 900, margin: "0 auto" }}>
-            {faqItems.map((item, index) => (
-              <motion.div key={index} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.4, delay: index * 0.05 }} style={{ background: "linear-gradient(135deg,rgba(24,24,36,0.7) 0%,rgba(35,35,50,0.9) 100%)", borderRadius: "1.2rem", marginBottom: "1.2rem", border: "1px solid rgba(255,217,69,0.15)", overflow: "hidden" }}>
-                <button onClick={() => setOpenFaq(openFaq === index ? null : index)} style={{ width: "100%", padding: "1.6rem 2rem", background: "transparent", border: "none", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "1.1rem", fontWeight: 700, color: "#fff" }}>
-                  <span className="faq-question-icon" aria-hidden="true">{["✧","▱","♙","◉","⌘","♡","✓","▤","◎","✎","↗"][index] || "✧"}</span>
-                  <span className="faq-question-text">{item.question}</span>
-                  <motion.span className="faq-chevron" animate={{ rotate: openFaq === index ? 180 : 0 }} transition={{ duration: 0.3 }}>⌄</motion.span>
-                </button>
-                <AnimatePresence>
-                  {openFaq === index && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }} style={{ padding: "0 2rem 1.6rem 2rem", overflow: "hidden" }}>
-                      <p style={{ color: "#ccc", fontSize: "1rem", lineHeight: 1.6, margin: 0 }}>{item.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
+          <div className="reference-faq-list">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaq === index;
+              const panelId = `reference-faq-answer-${index}`;
+              return (
+                <motion.article key={index} className={`reference-faq-item${isOpen ? " is-open" : ""}`} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.35, delay: Math.min(index * 0.035, 0.2) }}>
+                  <button type="button" className="reference-faq-question" id={`reference-faq-trigger-${index}`} aria-expanded={isOpen} aria-controls={panelId} onClick={() => setOpenFaq(isOpen ? null : index)}>
+                    <span className="reference-faq-icon" aria-hidden="true">{["✧","▱","♙","◉","⌘","♡","✓","▤","◎","✎","↗"][index] || "✧"}</span>
+                    <span className="reference-faq-question-text">{item.question}</span>
+                    <motion.span className="reference-faq-chevron" animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.22 }} aria-hidden="true">⌄</motion.span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div id={panelId} className="reference-faq-answer" role="region" aria-labelledby={`reference-faq-trigger-${index}`} initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
+                        <p>{item.answer}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.article>
+              );
+            })}
           </div>
         </section>
-
         {/* ============ FINAL CTA ============ */}
         <section style={{ padding: "6rem 20px 3rem 20px", textAlign: "center", position: "relative", zIndex: 2 }}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} style={{ maxWidth: 700, margin: "0 auto" }}>
@@ -3554,6 +3559,96 @@ export default function LandingPage() {
           #sainthetic-home #product-walkthrough .step-highlight-icon { flex-basis:27px !important; width:27px !important; height:27px !important; }
           #sainthetic-home #product-walkthrough .step-highlight-copy strong { font-size:.73rem !important; }
           #sainthetic-home #product-walkthrough .step-highlight-copy small { font-size:.65rem !important; }
+        }
+      `}</style>
+      <style>{`
+        /* FAQ follows the warm, editorial sAInthetic landing-page template. */
+        #sainthetic-home #faq.reference-faq {
+          display:grid !important; grid-template-columns:minmax(245px,.72fr) minmax(0,1.28fr) !important;
+          align-items:start !important; gap:clamp(30px,5vw,68px) !important;
+          width:calc(100% - 48px) !important; max-width:1120px !important;
+          margin:82px auto 0 !important; padding:clamp(25px,4vw,48px) !important;
+          box-sizing:border-box !important; border:1px solid #eee9df !important; border-radius:30px !important;
+          background:linear-gradient(145deg,#fffdf7 0%,#fff 62%,#fffaf0 100%) !important;
+          box-shadow:0 16px 42px rgba(31,42,68,.055) !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-intro { text-align:left !important; padding-top:8px !important; }
+        #sainthetic-home #faq.reference-faq .reference-faq-eyebrow {
+          display:inline-flex !important; align-items:center !important; gap:8px !important;
+          margin:0 0 18px !important; padding:8px 13px !important; border:1px solid #f0dfa9 !important;
+          border-radius:999px !important; background:#fff2c8 !important; color:#755b1c !important;
+          font-size:.68rem !important; font-weight:850 !important; letter-spacing:.13em !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-eyebrow span { font-size:1rem !important; }
+        #sainthetic-home #faq.reference-faq h2 {
+          margin:0 0 14px !important; color:#111827 !important; font-size:clamp(2rem,3.3vw,2.8rem) !important;
+          line-height:1.04 !important; letter-spacing:-.055em !important; font-weight:900 !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-intro > p {
+          margin:0 !important; color:#59647a !important; font-size:1rem !important; line-height:1.6 !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-note {
+          display:flex !important; align-items:flex-start !important; gap:10px !important; margin-top:25px !important;
+          padding:13px 14px !important; border:1px solid #eeeae0 !important; border-radius:14px !important;
+          background:#fff !important; color:#657087 !important; font-size:.82rem !important; line-height:1.45 !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-note span:first-child { color:#987a34 !important; font-size:1rem !important; }
+        #sainthetic-home #faq.reference-faq .reference-faq-list { display:flex !important; flex-direction:column !important; gap:10px !important; min-width:0 !important; }
+        #sainthetic-home #faq.reference-faq .reference-faq-item {
+          overflow:hidden !important; border:1px solid #e9e5dc !important; border-radius:17px !important;
+          background:#fff !important; box-shadow:0 5px 16px rgba(31,42,68,.035) !important;
+          transition:border-color .2s ease, box-shadow .2s ease !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-item.is-open {
+          border-color:#ead79c !important; box-shadow:0 9px 24px rgba(31,42,68,.06) !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-question {
+          display:flex !important; align-items:center !important; gap:13px !important; width:100% !important;
+          min-height:72px !important; padding:14px 17px !important; border:0 !important; border-radius:0 !important;
+          background:#fff !important; color:#172033 !important; text-align:left !important; cursor:pointer !important;
+          font:inherit !important; box-sizing:border-box !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-icon {
+          display:grid !important; place-items:center !important; flex:0 0 37px !important; width:37px !important; height:37px !important;
+          border-radius:12px !important; background:#fff2c8 !important; color:#755b1c !important; font-size:1.05rem !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-question-text {
+          flex:1 1 auto !important; min-width:0 !important; color:#202b40 !important;
+          font-size:.96rem !important; font-weight:750 !important; line-height:1.4 !important; text-align:left !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-chevron {
+          display:grid !important; place-items:center !important; flex:0 0 29px !important; width:29px !important; height:29px !important;
+          margin-left:3px !important; border-radius:50% !important; background:#faf7ee !important; color:#8a6d2c !important;
+          font-size:1.35rem !important; line-height:1 !important;
+        }
+        #sainthetic-home #faq.reference-faq .reference-faq-answer { overflow:hidden !important; }
+        #sainthetic-home #faq.reference-faq .reference-faq-answer p {
+          margin:0 !important; padding:0 20px 19px 67px !important; color:#59647a !important;
+          font-size:.91rem !important; line-height:1.65 !important; text-align:left !important;
+        }
+        @media (max-width:760px) {
+          #sainthetic-home #faq.reference-faq {
+            display:flex !important; flex-direction:column !important; gap:22px !important;
+            width:calc(100% - 32px) !important; margin:48px auto 0 !important; padding:22px 16px 17px !important;
+            border-radius:23px !important;
+          }
+          #sainthetic-home #faq.reference-faq .reference-faq-intro { padding:0 2px !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-eyebrow { margin-bottom:12px !important; font-size:.63rem !important; }
+          #sainthetic-home #faq.reference-faq h2 { max-width:440px !important; margin-bottom:9px !important; font-size:clamp(1.8rem,7vw,2.2rem) !important; line-height:1.06 !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-intro > p { font-size:.9rem !important; line-height:1.5 !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-note { margin-top:14px !important; padding:10px 11px !important; font-size:.76rem !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-list { gap:8px !important; width:100% !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-item { border-radius:14px !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-question { min-height:64px !important; gap:9px !important; padding:11px 10px !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-icon { flex-basis:31px !important; width:31px !important; height:31px !important; border-radius:10px !important; font-size:.9rem !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-question-text { font-size:.86rem !important; line-height:1.35 !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-chevron { flex-basis:25px !important; width:25px !important; height:25px !important; font-size:1.15rem !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-answer p { padding:0 13px 15px 50px !important; font-size:.83rem !important; line-height:1.55 !important; }
+        }
+        @media (max-width:380px) {
+          #sainthetic-home #faq.reference-faq { width:calc(100% - 24px) !important; padding:19px 12px 14px !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-question { gap:7px !important; padding:10px 8px !important; }
+          #sainthetic-home #faq.reference-faq .reference-faq-question-text { font-size:.81rem !important; }
         }
       `}</style>
       </div>
