@@ -1938,6 +1938,154 @@ export default function LandingPage() {
           #sainthetic-home .reference-human-note strong { font-size:.76rem !important; }
           #sainthetic-home .faq-question-text { font-size:.86rem !important; }
         }
+      
+        /* Premium product cards: show the real interface, not cropped thumbnails in generic boxes. */
+        #sainthetic-home .reference-how-it-works {
+          max-width:1240px !important;
+          padding:clamp(28px,4vw,48px) !important;
+          border:1px solid #eee8dc !important;
+          border-radius:32px !important;
+          background:linear-gradient(145deg,#fffefa 0%,#fff 58%,#fffaf0 100%) !important;
+          box-shadow:0 22px 60px rgba(48,43,32,.07) !important;
+        }
+        #sainthetic-home .reference-how-it-works h2 { margin-bottom:10px !important; }
+        #sainthetic-home .reference-how-it-works > p { margin-bottom:34px !important; }
+        #sainthetic-home .reference-how-grid {
+          grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+          gap:20px !important;
+          align-items:stretch !important;
+        }
+        #sainthetic-home .reference-how-grid .reference-how-card {
+          display:flex !important;
+          flex-direction:column !important;
+          min-width:0 !important;
+          overflow:hidden !important;
+          border:1px solid #e8e5dc !important;
+          border-radius:24px !important;
+          background:#fff !important;
+          box-shadow:0 8px 22px rgba(35,39,49,.045) !important;
+          transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease !important;
+        }
+        #sainthetic-home .reference-how-grid .reference-how-card:hover {
+          transform:translateY(-6px) !important;
+          border-color:#e4d5aa !important;
+          box-shadow:0 22px 42px rgba(35,39,49,.11) !important;
+        }
+        #sainthetic-home .reference-how-card-top {
+          display:flex !important;
+          justify-content:space-between !important;
+          align-items:center !important;
+          gap:8px !important;
+          min-height:48px !important;
+          padding:0 17px !important;
+          border-bottom:1px solid #efede7 !important;
+          background:#fffefa !important;
+          color:#7b6b48 !important;
+          font-size:.67rem !important;
+          font-weight:800 !important;
+          letter-spacing:.09em !important;
+        }
+        #sainthetic-home .reference-how-live {
+          display:inline-flex !important;
+          align-items:center !important;
+          gap:6px !important;
+          color:#899080 !important;
+          font-size:.58rem !important;
+          letter-spacing:.07em !important;
+          white-space:nowrap !important;
+        }
+        #sainthetic-home .reference-how-live i {
+          width:6px !important;height:6px !important;border-radius:50% !important;
+          background:#83a889 !important;display:inline-block !important;
+        }
+        #sainthetic-home .reference-how-image {
+          display:flex !important;
+          align-items:center !important;
+          justify-content:center !important;
+          aspect-ratio:1.48 / 1 !important;
+          min-height:0 !important;
+          padding:15px !important;
+          box-sizing:border-box !important;
+          overflow:hidden !important;
+          background:linear-gradient(145deg,#f4f3ef,#f9f8f5) !important;
+          border-bottom:1px solid #eeece6 !important;
+        }
+        #sainthetic-home .reference-how-image img {
+          width:100% !important;
+          height:100% !important;
+          display:block !important;
+          object-fit:contain !important;
+          object-position:center !important;
+          border:1px solid rgba(32,39,53,.08) !important;
+          border-radius:10px !important;
+          background:#fff !important;
+          box-shadow:0 8px 22px rgba(28,36,52,.12) !important;
+          transition:transform .35s ease !important;
+        }
+        #sainthetic-home .reference-how-card:hover .reference-how-image img { transform:translateY(-2px) scale(1.015) !important; }
+        #sainthetic-home .reference-how-card-copy {
+          display:grid !important;
+          grid-template-columns:38px minmax(0,1fr) !important;
+          align-items:start !important;
+          gap:13px !important;
+          flex:1 1 auto !important;
+          padding:22px 19px 22px !important;
+          text-align:left !important;
+        }
+        #sainthetic-home .reference-how-number {
+          display:grid !important;
+          place-items:center !important;
+          width:38px !important;height:38px !important;
+          border-radius:13px !important;
+          background:#fff2cc !important;
+          color:#70561b !important;
+          font-size:.8rem !important;
+          font-weight:850 !important;
+        }
+        #sainthetic-home .reference-how-card-copy h3 {
+          margin:2px 0 9px !important;
+          color:#172033 !important;
+          font-size:clamp(1.08rem,1.45vw,1.28rem) !important;
+          line-height:1.15 !important;
+          font-weight:800 !important;
+          letter-spacing:-.045em !important;
+        }
+        #sainthetic-home .reference-how-card-copy p {
+          margin:0 !important;
+          color:#667085 !important;
+          font-size:.91rem !important;
+          line-height:1.55 !important;
+        }
+        #sainthetic-home .reference-how-outcome {
+          display:flex !important;
+          justify-content:space-between !important;
+          align-items:center !important;
+          gap:8px !important;
+          margin-top:17px !important;
+          padding-top:13px !important;
+          border-top:1px solid #f0eee8 !important;
+          color:#8a7441 !important;
+          font-size:.74rem !important;
+          font-weight:700 !important;
+        }
+        #sainthetic-home .reference-how-outcome b { font-size:1rem !important; font-weight:600 !important; }
+        @media (max-width:900px) {
+          #sainthetic-home .reference-how-grid { grid-template-columns:1fr !important; gap:16px !important; }
+          #sainthetic-home .reference-how-grid .reference-how-card { display:grid !important; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) !important; grid-template-rows:44px 1fr !important; }
+          #sainthetic-home .reference-how-card-top { grid-column:1 / -1 !important; }
+          #sainthetic-home .reference-how-image { grid-column:1 !important; grid-row:2 !important; height:100% !important; aspect-ratio:auto !important; border-right:1px solid #eeece6 !important; border-bottom:0 !important; }
+          #sainthetic-home .reference-how-card-copy { grid-column:2 !important; grid-row:2 !important; align-content:center !important; padding:20px !important; }
+        }
+        @media (max-width:600px) {
+          #sainthetic-home .reference-how-it-works { margin:28px 12px 0 !important; padding:26px 14px 16px !important; border-radius:24px !important; }
+          #sainthetic-home .reference-how-it-works > p { margin-bottom:24px !important; }
+          #sainthetic-home .reference-how-grid .reference-how-card { display:flex !important; }
+          #sainthetic-home .reference-how-card-top { min-height:42px !important; padding:0 13px !important; }
+          #sainthetic-home .reference-how-image { aspect-ratio:1.4 / 1 !important; padding:10px !important; border-right:0 !important; border-bottom:1px solid #eeece6 !important; }
+          #sainthetic-home .reference-how-card-copy { padding:17px 15px 18px !important; }
+          #sainthetic-home .reference-how-card-copy h3 { font-size:1.08rem !important; }
+          #sainthetic-home .reference-how-card-copy p { font-size:.88rem !important; }
+        }
       `}</style>
 
       <div
@@ -2048,16 +2196,19 @@ export default function LandingPage() {
           <p>From audience insight to content that converts, in three simple steps.</p>
           <div className="reference-how-grid">
             <article className="reference-how-card">
+              <div className="reference-how-card-top"><span>01 / AUDIENCE</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
               <div className="reference-how-image"><img src="/step-2-personas.jpg" alt="sAInthetic buyer persona tool showing customer profiles" loading="lazy" /></div>
-              <div className="reference-how-card-copy"><span className="reference-how-number">01</span><div><h3>Create your buyer persona</h3><p>Generate AI personas based on your real audience.</p></div></div>
+              <div className="reference-how-card-copy"><div className="reference-how-number">01</div><div><h3>Get to know your buyers</h3><p>Build detailed customer personas around the people you want to reach — their goals, needs and motivations.</p><span className="reference-how-outcome">A clearer picture of your audience <b>↗</b></span></div></div>
             </article>
             <article className="reference-how-card">
+              <div className="reference-how-card-top"><span>02 / DISCOVERY</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
               <div className="reference-how-image"><img src="/step-5-prompts.jpg" alt="sAInthetic AI questions and prompt library tool" loading="lazy" /></div>
-              <div className="reference-how-card-copy"><span className="reference-how-number">02</span><div><h3>See the exact questions</h3><p>Discover what your buyers ask in ChatGPT, Google and more.</p></div></div>
+              <div className="reference-how-card-copy"><div className="reference-how-number">02</div><div><h3>Find what they really ask</h3><p>Explore the questions your audience brings to ChatGPT, Google and other AI tools.</p><span className="reference-how-outcome">Real questions. Useful insights. <b>↗</b></span></div></div>
             </article>
             <article className="reference-how-card">
+              <div className="reference-how-card-top"><span>03 / CREATION</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
               <div className="reference-how-image"><img src="/step-4-content.jpg" alt="sAInthetic content creation tool" loading="lazy" /></div>
-              <div className="reference-how-card-copy"><span className="reference-how-number">03</span><div><h3>Turn insight into content</h3><p>Get data-backed ideas, briefs and topics that drive results.</p></div></div>
+              <div className="reference-how-card-copy"><div className="reference-how-number">03</div><div><h3>Make content that connects</h3><p>Turn buyer insight into focused ideas, briefs and content your audience actually needs.</p><span className="reference-how-outcome">From insight to action <b>↗</b></span></div></div>
             </article>
           </div>
         </section>
