@@ -194,8 +194,8 @@ export default function LandingPage() {
         #sainthetic-home .reference-persona-panel { margin-left:12px; padding:8px 12px 10px; border:1px solid #eceff4; border-radius:18px; background:rgba(255,255,255,.88); box-shadow:0 7px 22px rgba(28,38,60,.08); color:#101522; }
         #sainthetic-home .reference-persona-panel h3 { margin:0 0 17px !important; font-size:1rem !important; font-weight:800 !important; color:#101522 !important; letter-spacing:-.03em; }
         #sainthetic-home .reference-persona-profile { display:flex; align-items:center; gap:12px; padding-bottom:14px; border-bottom:1px solid #e9edf2; }
-        #sainthetic-home .reference-persona-avatar { display:grid; place-items:center; width:54px; height:54px; flex:0 0 54px; border-radius:50%; background:linear-gradient(135deg,#f8d5b6,#d99c70); font-size:32px; }
-        #sainthetic-home .reference-persona-profile strong { font-size:.82rem; letter-spacing:-.03em; white-space:nowrap; }
+        #sainthetic-home .reference-persona-avatar { display:grid; place-items:center; width:54px; height:54px; flex:0 0 54px; border-radius:50%; background:linear-gradient(135deg,#f8d5b6,#d99c70); font-size:32px; overflow:hidden; }
+        #sainthetic-home .reference-persona-avatar img { width:100%; height:100%; object-fit:cover; display:block; }\n        #sainthetic-home .reference-persona-profile strong { font-size:.82rem; letter-spacing:-.03em; white-space:nowrap; }
         #sainthetic-home .reference-tags { display:flex; gap:5px; margin-top:8px; }
         #sainthetic-home .reference-tags span { padding:5px 9px; border-radius:999px; background:#f0f2f6; color:#253149; font-size:.66rem; }
         #sainthetic-home .reference-question-title { margin:17px 0 9px; font-size:.9rem; font-weight:800; letter-spacing:-.03em; }
@@ -208,14 +208,14 @@ export default function LandingPage() {
         #sainthetic-home .reference-features p { margin:0 !important; color:#34415f !important; font-size:1.03rem !important; line-height:1.38 !important; }
         #sainthetic-home .reference-growth-bar { display:grid; grid-template-columns:1.15fr 1.1fr .9fr; align-items:center; gap:20px; min-height:104px; padding:16px 30px; margin:0 0 38px; box-sizing:border-box; border:1px solid #edf0f5; border-radius:24px; background:rgba(255,255,255,.9); box-shadow:0 10px 26px rgba(31,42,68,.07); }
         #sainthetic-home .growth-message { display:flex; align-items:center; gap:16px; padding-right:24px; border-right:1px solid #d9deea; }
-        #sainthetic-home .growth-icon { display:grid; place-items:center; flex:0 0 52px; width:52px; height:52px; border-radius:14px; background:#fff0b9; font-size:1.8rem; }
+        #sainthetic-home .growth-icon { display:grid; place-items:center; flex:0 0 52px; width:52px; height:52px; border-radius:14px; background:#fff0b9; font-size:1.8rem; overflow:hidden; }
         #sainthetic-home .growth-message strong { color:#101522; font-size:1.28rem; line-height:1.12; letter-spacing:-.05em; }
         #sainthetic-home .growth-count { display:flex; flex-direction:column; gap:3px; }
         #sainthetic-home .growth-count strong { color:#101522; font-size:1.8rem; font-weight:850; letter-spacing:-.06em; }
         #sainthetic-home .growth-count span { color:#34415f; font-size:.98rem; }
         #sainthetic-home .growth-avatars { display:flex; justify-content:flex-end; padding-right:8px; }
         #sainthetic-home .growth-avatars span { display:grid; place-items:center; width:55px; height:55px; margin-left:-8px; border:2px solid white; border-radius:50%; background:#f1dfcf; box-shadow:0 3px 8px #1b27401c; font-size:1.8rem; }
-        #sainthetic-home .growth-avatars span:nth-child(2) { background:#f4d7c2; }
+        #sainthetic-home .growth-avatars img { width:100%; height:100%; object-fit:cover; display:block; border-radius:50%; }\n        #sainthetic-home .growth-avatars span:nth-child(2) { background:#f4d7c2; }
         #sainthetic-home .growth-avatars span:nth-child(3) { background:#e9d7c7; }
         #sainthetic-home .growth-avatars span:nth-child(4) { background:#e8d6c9; }
         #sainthetic-home .reference-pricing { max-width:1160px; margin:0 auto; padding:0 10px; text-align:center; }
@@ -329,7 +329,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar">👩🏻‍💼</div>
+                    <div className="reference-persona-avatar"><img src="/review2.png" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">Top questions they ask AI</div>
@@ -350,7 +350,7 @@ export default function LandingPage() {
           <section className="reference-growth-bar" aria-label="sAInthetic community growth">
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
-            <div className="growth-avatars" aria-hidden="true"><span>👨🏻‍💼</span><span>👩🏻‍💼</span><span>👨🏽‍💻</span><span>👩🏽‍💼</span></div>
+            <div className="growth-avatars" aria-hidden="true"><span><img src="/review1.png" alt="" /></span><span><img src="/review2.png" alt="" /></span><span><img src="/review3.png" alt="" /></span><span><img src="/review2.png" alt="" /></span></div>
           </section>
 
           <section id="pricing" className="reference-pricing">
@@ -380,7 +380,7 @@ export default function LandingPage() {
           </section>
         </section>
 
-<PersonaTryDemo />
+
 
         {/* ============ HOW IT WORKS ============ */}
         <section id="how-it-works" style={{ margin: "7rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
@@ -406,7 +406,7 @@ export default function LandingPage() {
           ))}
         </section>
         
-        {/* ============ DEMO VIDEO ============ */}
+        <PersonaTryDemo />\n\n        {/* ============ DEMO VIDEO ============ */}
 <section id="product-demo" style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2, textAlign: "center" }}>
   <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.6rem", letterSpacing: "-1px" }}>See It in Action</h2>
   <p style={{ color: "#bbb", fontSize: "1.1rem", marginBottom: "2rem" }}>Watch how sAInthetic turns your ICP into conversion-ready content in minutes</p>
