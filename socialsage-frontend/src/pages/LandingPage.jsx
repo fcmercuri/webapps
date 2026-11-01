@@ -3372,6 +3372,44 @@ export default function LandingPage() {
           #sainthetic-home .reference-question { font-size:.61rem !important; }
         }
       `}</style>
+
+      <style>{`
+        /* iOS mobile header: fixed positioning avoids Safari sticky failures
+           caused by the homepage's overflow-clipped wrappers. */
+        @media (max-width:800px) {
+          #sainthetic-home {
+            padding-top:0 !important;
+            overflow:visible !important;
+            overflow-x:clip !important;
+          }
+          #sainthetic-home > div[style*="linear-gradient(135deg, #0b0b0b"] {
+            overflow:visible !important;
+            overflow-x:clip !important;
+          }
+          #sainthetic-home nav.main-nav {
+            position:fixed !important;
+            top:0 !important;
+            left:0 !important;
+            right:0 !important;
+            width:100% !important;
+            box-sizing:border-box !important;
+            z-index:99999 !important;
+            margin:0 !important;
+            padding-top:max(12px, env(safe-area-inset-top)) !important;
+            padding-bottom:12px !important;
+            background:rgba(255,255,255,.97) !important;
+            -webkit-backdrop-filter:blur(16px) !important;
+            backdrop-filter:blur(16px) !important;
+          }
+          #sainthetic-home nav.main-nav .mobile-dropdown {
+            z-index:100000 !important;
+          }
+          #sainthetic-home .sainthetic-reference-top {
+            padding-top:82px !important;
+          }
+        }
+      `}</style>
+
       </div>
     </div>
   );
