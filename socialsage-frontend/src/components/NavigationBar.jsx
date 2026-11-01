@@ -47,7 +47,7 @@ export default function NavigationBar() {
           <span aria-hidden="true" style={{ fontSize: 25, lineHeight: 1 }}>{mobileOpen ? "×" : "☰"}</span>
         </button>
         <div className="nav-right desktop-nav">
-          <a href="#features">Product</a>
+          <a href="/#step-1">Product</a>
           <a href="/#case-study">Use Cases</a>
           <a href="#pricing">Pricing</a>
           {/* NEW: FAQ link desktop */}
@@ -67,7 +67,7 @@ export default function NavigationBar() {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.33 }}
             >
-              <a href="#features" onClick={closeMobileMenu}>Product</a>
+              <a href="/#step-1" onClick={closeMobileMenu}>Product</a>
               <a href="/#case-study" onClick={closeMobileMenu}>Use Cases</a>
               <a href="#pricing" onClick={closeMobileMenu}>Pricing</a>
               {/* NEW: FAQ link mobile */}
