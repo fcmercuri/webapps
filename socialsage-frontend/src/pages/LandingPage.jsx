@@ -1457,6 +1457,112 @@ export default function LandingPage() {
           #sainthetic-home .reference-reassurance { gap:8px 12px !important; font-size:.72rem !important; }
           #sainthetic-home .growth-avatars span { width:46px !important; height:46px !important; }
         }
+
+        /* Final polish: align the three benefit cards, crop each portrait from the sprite,
+           and keep the mobile navigation vertical, readable and fully inside the viewport. */
+        #sainthetic-home .reference-features {
+          align-items:stretch !important;
+        }
+        #sainthetic-home .reference-features article {
+          display:flex !important;
+          flex-direction:column !important;
+          align-items:flex-start !important;
+          min-height:176px !important;
+          box-sizing:border-box !important;
+        }
+        #sainthetic-home .reference-features h3 {
+          min-height:2.55em !important;
+          display:flex !important;
+          align-items:flex-start !important;
+          margin-bottom:8px !important;
+        }
+        #sainthetic-home .reference-features p {
+          min-height:4.2em !important;
+          flex:1 1 auto !important;
+          line-height:1.42 !important;
+        }
+        #sainthetic-home .reference-persona-avatar,
+        #sainthetic-home .growth-avatars span {
+          position:relative !important;
+          overflow:hidden !important;
+          isolation:isolate;
+        }
+        #sainthetic-home .reference-persona-avatar img,
+        #sainthetic-home .growth-avatars img {
+          position:absolute !important;
+          top:0 !important;
+          left:0 !important;
+          width:500% !important;
+          max-width:none !important;
+          height:100% !important;
+          object-fit:fill !important;
+          border-radius:0 !important;
+          image-rendering:auto !important;
+        }
+        #sainthetic-home img.reference-person-0 { transform:translateX(0) !important; }
+        #sainthetic-home img.reference-person-1 { transform:translateX(-20%) !important; }
+        #sainthetic-home img.reference-person-2 { transform:translateX(-40%) !important; }
+        #sainthetic-home img.reference-person-3 { transform:translateX(-60%) !important; }
+        #sainthetic-home img.reference-person-4 { transform:translateX(-80%) !important; }
+        @media (max-width:800px) {
+          #sainthetic-home nav.main-nav {
+            position:relative !important;
+            z-index:1000 !important;
+            overflow:visible !important;
+          }
+          #sainthetic-home .mobile-dropdown.nav-right {
+            display:flex !important;
+            flex-direction:column !important;
+            align-items:stretch !important;
+            justify-content:flex-start !important;
+            position:absolute !important;
+            top:calc(100% + 8px) !important;
+            left:0 !important;
+            right:0 !important;
+            width:100% !important;
+            max-height:calc(100vh - 100px) !important;
+            overflow-y:auto !important;
+            overflow-x:hidden !important;
+            box-sizing:border-box !important;
+            margin:0 !important;
+            padding:10px !important;
+            gap:4px !important;
+            background:#fff !important;
+            border:1px solid #e8ebf1 !important;
+            border-radius:18px !important;
+            box-shadow:0 18px 42px rgba(17,24,39,.14) !important;
+            z-index:1001 !important;
+          }
+          #sainthetic-home .mobile-dropdown.nav-right a,
+          #sainthetic-home .mobile-dropdown.nav-right a.cta {
+            display:flex !important;
+            align-items:center !important;
+            justify-content:flex-start !important;
+            width:100% !important;
+            min-width:0 !important;
+            min-height:48px !important;
+            box-sizing:border-box !important;
+            margin:0 !important;
+            padding:13px 16px !important;
+            border-radius:11px !important;
+            font-size:1rem !important;
+            line-height:1.35 !important;
+            text-align:left !important;
+            white-space:normal !important;
+            overflow:visible !important;
+            overflow-wrap:break-word !important;
+            word-break:normal !important;
+          }
+          #sainthetic-home .mobile-dropdown.nav-right a.cta {
+            justify-content:center !important;
+            margin-top:5px !important;
+            background:#090e1d !important;
+            color:#fff !important;
+          }
+          #sainthetic-home .mobile-dropdown.nav-right a::after {
+            display:none !important;
+          }
+        }
       `}</style>
 
 
@@ -1518,7 +1624,7 @@ export default function LandingPage() {
           </header>
 
           <section id="features" className="reference-features" aria-label="Product benefits">
-            <article><div className="reference-feature-icon">♧</div><h3>Understand buyers</h3><p>AI personas based on<br/>real LLM behaviour</p></article>
+            <article><div className="reference-feature-icon">♧</div><h3>Understand buyers</h3><p>AI personas built from<br/>real LLM behaviour<br/>and buyer intent</p></article>
             <article><div className="reference-feature-icon">▢</div><h3>Discover AI questions</h3><p>The exact questions your<br/>audience asks in ChatGPT,<br/>Google and more</p></article>
             <article><div className="reference-feature-icon">✧</div><h3>Create better content</h3><p>Data-backed ideas that<br/>rank, convert and drive<br/>revenue</p></article>
           </section>
