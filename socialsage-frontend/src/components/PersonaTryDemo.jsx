@@ -135,7 +135,7 @@ export default function PersonaTryDemo() {
         .persona-result-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:22px; border-bottom:1px solid #e9edf3; }
         .persona-result-identity { display:flex; align-items:center; gap:15px; min-width:0; }
         .persona-result-avatar { width:76px; height:76px; flex:0 0 76px; display:block; object-fit:cover; object-position:center 30%; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); }
-        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background-image:url("/persona-people-clean.webp?v=20261104"); background-repeat:no-repeat; background-size:400% 100%; background-position:var(--persona-avatar-position, 33.333%) 50%; background-color:#f5f6f8; }
+        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background:#f5f6f8; } .persona-result-avatar-strip { display:block; width:400%; max-width:none; height:100%; object-fit:fill; transform:translateX(calc(var(--persona-avatar-index, 1) * -25%)); }
         .persona-result-insights { margin-top:14px; padding:18px; border:1px solid #dcebe3; border-radius:16px; background:linear-gradient(145deg,#f3faf6,#fff); }
         .persona-result-insights h4 { margin:0 0 12px; color:#203b30; font-size:1rem; letter-spacing:-.02em; }
         .persona-result-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-bottom:14px; }
@@ -225,7 +225,7 @@ export default function PersonaTryDemo() {
         <div className="persona-result" aria-live="polite">
           <div className="persona-result-head">
             <div className="persona-result-identity">
-              <div className="persona-result-avatar-wrap" role="img" aria-label={`${persona.name}, sample buyer persona`} style={{ "--persona-avatar-position": `${[0, 33.333, 66.667, 100][persona.avatarIndex ?? 1]}%` }} />
+              <div className="persona-result-avatar-wrap" role="img" aria-label={`${persona.name}, sample buyer persona`}><img className="persona-result-avatar-strip" src="/persona-people-clean.webp?v=20261105" alt="" aria-hidden="true" style={{ "--persona-avatar-index": persona.avatarIndex ?? 1 }} /></div>
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
