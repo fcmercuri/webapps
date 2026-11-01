@@ -3264,6 +3264,114 @@ export default function LandingPage() {
             <USCookieConsent />
           </footer>
         </section>
+
+      {/* Mobile-first hero correction: the buyer preview sits directly below the
+          description, before the calls to action, and the headline wraps naturally. */}
+      <style>{`
+        @media (max-width:700px) {
+          #sainthetic-home .sainthetic-reference-top { padding:0 16px 20px !important; }
+          #sainthetic-home header#hero.reference-hero {
+            display:flex !important;
+            flex-direction:column !important;
+            align-items:stretch !important;
+            gap:0 !important;
+            padding:22px 2px 10px !important;
+          }
+          #sainthetic-home .reference-hero-copy { display:contents !important; }
+          #sainthetic-home .reference-eyebrow { order:1 !important; align-self:flex-start !important; margin:0 0 12px !important; font-size:.76rem !important; }
+          #sainthetic-home .reference-hero h1 {
+            order:2 !important;
+            max-width:100% !important;
+            margin:0 0 12px !important;
+            font-size:clamp(1.85rem,7.1vw,2.15rem) !important;
+            line-height:1.04 !important;
+            letter-spacing:-.06em !important;
+            text-wrap:pretty !important;
+          }
+          #sainthetic-home .reference-hero h1 br { display:none !important; }
+          #sainthetic-home .reference-subtitle {
+            order:3 !important;
+            max-width:100% !important;
+            margin:0 0 13px !important;
+            font-size:.86rem !important;
+            line-height:1.42 !important;
+          }
+          #sainthetic-home .reference-visual {
+            order:4 !important;
+            width:100% !important;
+            min-height:0 !important;
+            margin:0 0 14px !important;
+            padding:0 !important;
+          }
+          #sainthetic-home .reference-app-window {
+            display:grid !important;
+            grid-template-columns:minmax(0,1fr) !important;
+            width:100% !important;
+            max-width:none !important;
+            min-height:0 !important;
+            padding:35px 10px 10px !important;
+            transform:none !important;
+            border-radius:18px !important;
+            box-shadow:0 10px 26px rgba(35,44,65,.10) !important;
+          }
+          #sainthetic-home .reference-app-sidebar { display:none !important; }
+          #sainthetic-home .reference-persona-panel {
+            min-width:0 !important;
+            margin:0 !important;
+            padding:9px 10px !important;
+            border-radius:13px !important;
+          }
+          #sainthetic-home .reference-persona-panel h3 { font-size:.86rem !important; margin-bottom:8px !important; }
+          #sainthetic-home .reference-persona-profile { gap:8px !important; padding-bottom:8px !important; }
+          #sainthetic-home .reference-persona-avatar { flex:0 0 40px !important; width:40px !important; height:40px !important; }
+          #sainthetic-home .reference-persona-profile strong { font-size:.72rem !important; line-height:1.2 !important; }
+          #sainthetic-home .reference-tags { gap:4px !important; }
+          #sainthetic-home .reference-tags span { padding:4px 6px !important; font-size:.57rem !important; }
+          #sainthetic-home .reference-question-title { margin:9px 0 5px !important; font-size:.72rem !important; }
+          #sainthetic-home .reference-question {
+            display:flex !important;
+            gap:6px !important;
+            margin:5px 0 !important;
+            padding:6px 7px !important;
+            border:1px solid #e7ebf1 !important;
+            border-radius:9px !important;
+            background:#fafbfd !important;
+            font-size:.64rem !important;
+            line-height:1.28 !important;
+            white-space:normal !important;
+          }
+          #sainthetic-home .reference-question span { flex:0 0 18px !important; width:18px !important; height:18px !important; font-size:.8rem !important; }
+          #sainthetic-home .reference-actions {
+            order:5 !important;
+            display:flex !important;
+            flex-direction:column !important;
+            align-items:stretch !important;
+            gap:8px !important;
+            width:100% !important;
+          }
+          #sainthetic-home .reference-actions a {
+            width:100% !important;
+            min-height:46px !important;
+            box-sizing:border-box !important;
+            justify-content:space-between !important;
+            padding:0 16px !important;
+            font-size:.84rem !important;
+            white-space:normal !important;
+          }
+          #sainthetic-home .reference-reassurance {
+            order:6 !important;
+            display:flex !important;
+            flex-wrap:wrap !important;
+            gap:6px 12px !important;
+            margin:10px 0 0 !important;
+            font-size:.66rem !important;
+          }
+        }
+        @media (max-width:390px) {
+          #sainthetic-home .reference-hero h1 { font-size:1.8rem !important; }
+          #sainthetic-home .reference-question { font-size:.61rem !important; }
+        }
+      `}</style>
       </div>
     </div>
   );
