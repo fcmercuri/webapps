@@ -3812,6 +3812,39 @@ export default function LandingPage() {
           #sainthetic-home header#hero .reference-reassurance { grid-template-columns:minmax(0,1fr) !important; row-gap:7px !important; }
         }
       `}</style>
+      <style>{`
+        /* Keep both hero calls-to-action side by side on phones. */
+        @media (max-width:760px) {
+          #sainthetic-home header#hero .reference-actions {
+            display:grid !important; grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+            align-items:stretch !important; gap:9px !important; width:100% !important;
+          }
+          #sainthetic-home header#hero .reference-actions a {
+            display:flex !important; width:100% !important; min-width:0 !important;
+            min-height:48px !important; height:auto !important; box-sizing:border-box !important;
+            justify-content:center !important; gap:6px !important; padding:9px 10px !important;
+            border-radius:13px !important; font-size:clamp(.68rem,3.1vw,.82rem) !important;
+            line-height:1.15 !important; text-align:center !important; white-space:normal !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-primary span {
+            flex:0 0 auto !important; font-size:1rem !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-secondary .play-icon {
+            flex:0 0 13px !important; width:13px !important; height:15px !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-secondary .play-icon::before {
+            border-top-width:7px !important; border-bottom-width:7px !important; border-left-width:12px !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-secondary .play-icon::after {
+            left:2px !important; top:4px !important; border-top-width:3.5px !important;
+            border-bottom-width:3.5px !important; border-left-width:7px !important;
+          }
+        }
+        @media (max-width:360px) {
+          #sainthetic-home header#hero .reference-actions { gap:7px !important; }
+          #sainthetic-home header#hero .reference-actions a { padding:8px 6px !important; font-size:.66rem !important; }
+        }
+      `}</style>
       </div>
     </div>
   );
