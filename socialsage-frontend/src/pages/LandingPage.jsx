@@ -2450,9 +2450,10 @@ export default function LandingPage() {
         #sainthetic-home .reference-how-steps article > span { display:grid !important; place-items:center !important; flex:0 0 38px !important; width:38px !important; height:38px !important; border-radius:50% !important; background:#ffe99c !important; color:#111827 !important; font-size:1.15rem !important; font-weight:900 !important; }
         #sainthetic-home .reference-how-steps h3 { margin:6px 0 4px !important; color:#111827 !important; font-size:1rem !important; font-weight:850 !important; }
         #sainthetic-home .reference-how-steps p { margin:0 !important; color:#34415f !important; font-size:.9rem !important; line-height:1.4 !important; }
-        #sainthetic-home .reference-founder-banner { display:flex !important; flex-direction:column !important; align-items:center !important; gap:18px !important; position:relative !important; max-width:900px !important; margin:34px auto 16px !important; padding:0 20px !important; }
-        #sainthetic-home .reference-founder-banner img { display:block !important; width:100% !important; max-width:860px !important; height:auto !important; aspect-ratio:1195 / 973 !important; object-fit:contain !important; border-radius:28px !important; box-shadow:0 16px 38px rgba(31,42,68,.10) !important; }
-        #sainthetic-home .reference-founder-banner a { position:static !important; display:inline-flex !important; align-items:center !important; justify-content:center !important; min-height:56px !important; padding:0 28px !important; border-radius:999px !important; background:#111827 !important; color:#fff !important; font-size:1rem !important; font-weight:800 !important; text-decoration:none !important; box-shadow:0 10px 26px rgba(17,24,39,.16) !important; }
+        #sainthetic-home .reference-founder-banner { display:block !important; position:relative !important; max-width:1160px !important; margin:24px auto 16px !important; padding:0 20px !important; }
+        #sainthetic-home .reference-founder-banner-link { display:block !important; width:100% !important; border-radius:28px !important; overflow:hidden !important; line-height:0 !important; box-shadow:0 12px 30px rgba(31,42,68,.08) !important; transition:transform .2s ease,box-shadow .2s ease !important; }
+        #sainthetic-home .reference-founder-banner-link:hover { transform:translateY(-2px) !important; box-shadow:0 18px 38px rgba(31,42,68,.12) !important; }
+        #sainthetic-home .reference-founder-banner img { display:block !important; width:100% !important; max-width:none !important; height:auto !important; aspect-ratio:1600 / 388 !important; object-fit:contain !important; border-radius:28px !important; }
         #sainthetic-home #product-walkthrough, #sainthetic-home #product-demo, #sainthetic-home #case-study, #sainthetic-home #faq { color:#111827 !important; }
         #sainthetic-home #product-walkthrough h2, #sainthetic-home #product-demo h2, #sainthetic-home #case-study h2, #sainthetic-home #faq h2 { color:#111827 !important; }
         #sainthetic-home #product-walkthrough h3, #sainthetic-home #product-walkthrough p, #sainthetic-home #product-demo p, #sainthetic-home #case-study p, #sainthetic-home #faq p { color:#34415f !important; }
@@ -2486,8 +2487,7 @@ export default function LandingPage() {
           #sainthetic-home .reference-growth-bar { grid-template-columns:1fr !important; text-align:center !important; justify-items:center !important; }
           #sainthetic-home .reference-how-steps { grid-template-columns:1fr !important; }
           #sainthetic-home .reference-founder-banner { padding:0 12px !important; margin:22px auto 4px !important; }
-          #sainthetic-home .reference-founder-banner img { border-radius:18px !important; }
-          #sainthetic-home .reference-founder-banner a { width:auto !important; max-width:100% !important; min-height:50px !important; padding:0 20px !important; font-size:.9rem !important; }
+          #sainthetic-home .reference-founder-banner-link, #sainthetic-home .reference-founder-banner img { border-radius:18px !important; }
         }
       `}</style>
 
@@ -2574,9 +2574,10 @@ export default function LandingPage() {
         </section>
 
         {/* Founder contact banner — placed after the top-level product story. */}
-        <section className="reference-founder-banner" aria-label="Meet the founder of sAInthetic">
-          <img src="/sainthetic-francesco-hero.webp" alt="The sAInthetic founder seated at his laptop beside a buyer persona preview." loading="lazy" />
-          <a href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">in&nbsp; Connect with Francesco on LinkedIn&nbsp; ↗</a>
+        <section className="reference-founder-banner" aria-label="Get in touch with the founder">
+          <a className="reference-founder-banner-link" href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">
+            <img src="/sainthetic-founder-contact.webp" alt="Get in touch with sAInthetic founder Francesco Mercuri. Connect on LinkedIn." loading="lazy" />
+          </a>
         </section>
 
         {/* The remaining product proof, demo, case study, FAQs and conversion CTA follow below. */}
