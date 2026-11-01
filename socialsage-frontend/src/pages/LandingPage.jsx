@@ -1457,7 +1457,6 @@ export default function LandingPage() {
           #sainthetic-home .reference-reassurance { gap:8px 12px !important; font-size:.72rem !important; }
           #sainthetic-home .growth-avatars span { width:46px !important; height:46px !important; }
         }
-      `;
       `}</style>
 
 
