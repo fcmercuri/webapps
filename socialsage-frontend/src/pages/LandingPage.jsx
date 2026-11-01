@@ -3918,6 +3918,21 @@ export default function LandingPage() {
           #sainthetic-home .growth-community-proof .growth-avatars-caption { max-width:150px !important; font-size:.68rem !important; }
         }
       `}</style>
+      <style>{`
+        #sainthetic-home .growth-typing-caret {
+          display:inline-block !important;
+          width:2px !important;
+          height:1em !important;
+          margin-left:2px !important;
+          vertical-align:-.12em !important;
+          background:#d3a92e !important;
+          animation:growthTypingBlink .85s steps(2,start) infinite !important;
+        }
+        @keyframes growthTypingBlink { to { visibility:hidden; } }
+        @media (prefers-reduced-motion:reduce) {
+          #sainthetic-home .growth-typing-caret { animation:none !important; opacity:0 !important; }
+        }
+      `}</style>
       </div>
     </div>
   );
