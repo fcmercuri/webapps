@@ -8,6 +8,21 @@ import PersonaTryDemo from "../components/PersonaTryDemo";
 export default function LandingPage() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const personaCaption = "Build a buyer persona set that feels like your real customers.";
+  const [typedPersonaCaption, setTypedPersonaCaption] = useState("");
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTypedPersonaCaption(personaCaption);
+      return;
+    }
+    let i = 0;
+    const timer = setInterval(() => {
+      i += 1;
+      setTypedPersonaCaption(personaCaption.slice(0, i));
+      if (i >= personaCaption.length) clearInterval(timer);
+    }, 40);
+    return () => clearInterval(timer);
+  }, []);
 
   async function handleUpgrade(priceId) {
     if (!user?.email) {
@@ -3029,7 +3044,7 @@ export default function LandingPage() {
                 <span className="community-avatar-3" aria-hidden="true" />
                 <span className="community-avatar-4" aria-hidden="true" />
               </div>
-              <p className="growth-avatars-caption">Build a buyer persona set that feels like your real customers.</p>
+              <p className="growth-avatars-caption" aria-label={personaCaption}><span>{typedPersonaCaption}</span><span className="growth-typing-caret" aria-hidden="true" /></p>
             </div>
           </section>
 
