@@ -48,7 +48,7 @@ export default function NavigationBar() {
         </button>
         <div className="nav-right desktop-nav">
           <a href="#features">Product</a>
-          <a href="#features">Use Cases</a>
+          <a href="/#case-study">Use Cases</a>
           <a href="#pricing">Pricing</a>
           {/* NEW: FAQ link desktop */}
           <a href="/blog">Resources</a>
@@ -68,7 +68,7 @@ export default function NavigationBar() {
               transition={{ duration: 0.33 }}
             >
               <a href="#features" onClick={closeMobileMenu}>Product</a>
-              <a href="#features" onClick={closeMobileMenu}>Use Cases</a>
+              <a href="/#case-study" onClick={closeMobileMenu}>Use Cases</a>
               <a href="#pricing" onClick={closeMobileMenu}>Pricing</a>
               {/* NEW: FAQ link mobile */}
               <a href="/blog" onClick={closeMobileMenu}>Resources</a>
