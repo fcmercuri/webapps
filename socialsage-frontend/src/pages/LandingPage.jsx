@@ -1202,7 +1202,7 @@ export default function LandingPage() {
         #sainthetic-home .reference-question-title { margin:17px 0 9px; font-size:.9rem; font-weight:800; letter-spacing:-.03em; }
         #sainthetic-home .reference-question { display:flex; align-items:center; gap:9px; padding:7px 0; color:#172033; font-size:.73rem; white-space:nowrap; }
         #sainthetic-home .reference-question span { display:grid; place-items:center; width:24px; height:24px; flex:0 0 24px; border-radius:50%; background:#f1f3f7; color:#34415c; font-size:1.1rem; }
-        #sainthetic-home .reference-features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; padding:0 30px; margin:4px 0 35px; }
+        #sainthetic-home .reference-features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; padding:0 30px 18px; margin:4px 0 35px; }
         #sainthetic-home .reference-features article { text-align:left; }
         #sainthetic-home .reference-feature-icon { display:grid; place-items:center; width:52px; height:52px; border-radius:14px; margin-bottom:9px; background:#fff0b9; color:#101522; font-size:1.8rem; font-weight:700; }
         #sainthetic-home .reference-features h3 { margin:0 0 5px !important; color:#101522 !important; font-size:1.42rem !important; font-weight:850 !important; letter-spacing:-.055em !important; }
