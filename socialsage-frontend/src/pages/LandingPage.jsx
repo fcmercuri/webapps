@@ -3014,9 +3014,14 @@ export default function LandingPage() {
             <article><div className="reference-feature-icon">✧</div><h3>Create better content</h3><p>Data-backed ideas that<br/>rank, convert and drive<br/>revenue</p></article>
           </section>
 
-          <section className="reference-growth-bar" aria-label="sAInthetic community growth">
+          <section className="reference-growth-bar" aria-label="sAInthetic community and illustrative results">
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
+            <div className="growth-count growth-savings">
+              <strong>$150<span className="growth-period">/wk</span></strong>
+              <span>illustrative time value saved</span>
+              <small>Based on 5 hours × $30/hour</small>
+            </div>
             <div className="growth-avatars" aria-hidden="true">
               <span className="community-avatar-1" />
               <span className="community-avatar-2" />
@@ -3679,6 +3684,37 @@ export default function LandingPage() {
         #sainthetic-home #product-walkthrough .step-persona-portrait-one { left:23% !important; transform:translateX(-50%) !important; background-position-x:3.125% !important; }
         #sainthetic-home #product-walkthrough .step-persona-portrait-two { left:50% !important; transform:translateX(-50%) !important; background-position-x:34.375% !important; }
         #sainthetic-home #product-walkthrough .step-persona-portrait-three { left:77.3% !important; transform:translateX(-50%) !important; background-position-x:96.875% !important; }
+      `}</style>
+      <style>{`
+        /* Additional proof point: illustrative value of five hours saved weekly. */
+        #sainthetic-home .reference-growth-bar {
+          grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) minmax(0,1fr) auto !important;
+          gap:16px !important;
+        }
+        #sainthetic-home .growth-savings {
+          min-width:0 !important; padding-left:18px !important;
+          border-left:1px solid #e1e5ec !important;
+        }
+        #sainthetic-home .growth-savings strong {
+          display:flex !important; align-items:baseline !important; gap:3px !important;
+          color:#15734c !important; font-size:1.55rem !important; letter-spacing:-.055em !important;
+        }
+        #sainthetic-home .growth-savings .growth-period {
+          color:#15734c !important; font-size:.75rem !important; font-weight:750 !important;
+        }
+        #sainthetic-home .growth-savings > span { color:#35425d !important; font-size:.72rem !important; line-height:1.25 !important; }
+        #sainthetic-home .growth-savings small { color:#8790a0 !important; font-size:.61rem !important; line-height:1.25 !important; }
+        @media (max-width:900px) {
+          #sainthetic-home .reference-growth-bar { grid-template-columns:1fr 1fr auto !important; }
+          #sainthetic-home .growth-savings { border-left:0 !important; padding-left:0 !important; }
+        }
+        @media (max-width:700px) {
+          #sainthetic-home .reference-growth-bar { grid-template-columns:1fr 1fr !important; align-items:center !important; gap:14px 12px !important; }
+          #sainthetic-home .growth-message { grid-column:1/-1 !important; }
+          #sainthetic-home .growth-count { min-width:0 !important; }
+          #sainthetic-home .growth-savings { padding:0 !important; border:0 !important; }
+          #sainthetic-home .growth-avatars { grid-column:1/-1 !important; justify-content:flex-start !important; }
+        }
       `}</style>
       </div>
     </div>
