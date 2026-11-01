@@ -2489,19 +2489,7 @@ export default function LandingPage() {
           #sainthetic-home .reference-founder-banner { padding:0 12px !important; margin:22px auto 4px !important; }
           #sainthetic-home .reference-founder-banner-link, #sainthetic-home .reference-founder-banner img { border-radius:18px !important; }
         }
-        /* Replace the blurry stock-photo strip with restrained, crisp community monograms. */
-        #sainthetic-home .growth-avatars { display:flex !important; align-items:center !important; justify-content:flex-end !important; padding:0 3px 0 0 !important; }
-        #sainthetic-home .growth-avatars .growth-avatar-initial {
-          display:grid !important; place-items:center !important; flex:0 0 46px !important;
-          width:46px !important; height:46px !important; margin-left:-9px !important;
-          border:2px solid #fff !important; border-radius:50% !important; overflow:hidden !important;
-          color:#34415f !important; font-size:11px !important; line-height:1 !important;
-          font-weight:800 !important; letter-spacing:.02em !important;
-          background:#f2f4f7 !important; box-shadow:0 2px 7px rgba(20,32,55,.09) !important;
-        }
-        #sainthetic-home .growth-avatars .growth-avatar-initial:nth-child(2) { background:#fff3d6 !important; color:#775b1e !important; }
-        #sainthetic-home .growth-avatars .growth-avatar-initial:nth-child(3) { background:#eaf1f7 !important; color:#3e5b73 !important; }
-        #sainthetic-home .growth-avatars .growth-avatar-initial:nth-child(4) { background:#f4edf5 !important; color:#705477 !important; } 
+
       `}</style>
 
       <div
@@ -2529,8 +2517,31 @@ export default function LandingPage() {
               </div>
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
             </div>
-            <div className="reference-visual reference-hero-dashboard" aria-label="sAInthetic buyer persona product preview">
-              <img className="reference-hero-dashboard-image" src="/step-2-personas.jpg" alt="sAInthetic buyer persona dashboard showing customer profiles and buyer insights" fetchPriority="high" />
+            <div className="reference-visual" aria-label="Preview of the sAInthetic buyer persona dashboard">
+              <div className="reference-glow reference-glow-one"></div>
+              <div className="reference-glow reference-glow-two"></div>
+              <div className="reference-app-window">
+                <div className="reference-window-dots"><i></i><i></i><i></i></div>
+                <div className="reference-app-sidebar">
+                  <div className="reference-mini-brand"><span className="mini-logo">●</span> sAInthetic</div>
+                  <div>⌂ &nbsp;Dashboard</div>
+                  <div className="active">♙ &nbsp;Buyer Personas</div>
+                  <div>◎ &nbsp;AI Questions</div>
+                  <div>▣ &nbsp;Content Ideas</div>
+                  <div>◷ &nbsp;Tracking</div>
+                </div>
+                <div className="reference-persona-panel">
+                  <h3>Buyer Persona</h3>
+                  <div className="reference-persona-profile">
+                    <div className="reference-persona-avatar"><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="Buyer persona portrait" /></div>
+                    <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
+                  </div>
+                  <div className="reference-question-title">Top questions they ask AI</div>
+                  <div className="reference-question"><span>⌕</span> What's the best AI tool for content marketing?</div>
+                  <div className="reference-question"><span>⌕</span> How does it compare to [competitor]?</div>
+                  <div className="reference-question"><span>⌕</span> Is it worth the price for a small team?</div>
+                </div>
+              </div>
             </div>
           </header>
 
@@ -2543,7 +2554,12 @@ export default function LandingPage() {
           <section className="reference-growth-bar" aria-label="sAInthetic community growth">
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
-            <div className="growth-avatars" aria-label="A community of marketers"><span className="growth-avatar-initial">AM</span><span className="growth-avatar-initial">JL</span><span className="growth-avatar-initial">RK</span><span className="growth-avatar-initial">SC</span></div>
+            <div className="growth-avatars" aria-hidden="true">
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span>
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span>
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span>
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-4" alt="" /></span>
+            </div>
           </section>
 
           <section id="pricing" className="reference-pricing">
