@@ -1241,6 +1241,36 @@ export default function LandingPage() {
           #sainthetic-home .reference-question { font-size:.56rem; white-space:normal; }
           #sainthetic-home .reference-reassurance { gap:9px 13px; font-size:.75rem; }
         }
+
+        /* Desktop correction: override the older #hero grid-area rules that displaced the reference layout. */
+        @media (min-width:901px) {
+          #sainthetic-home header#hero.reference-hero {
+            display:grid !important;
+            grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+            grid-template-areas:none !important;
+            grid-auto-flow:row !important;
+            align-items:center !important;
+            column-gap:clamp(28px,4vw,64px) !important;
+            row-gap:0 !important;
+            width:100% !important;
+            max-width:1280px !important;
+            min-height:0 !important;
+            padding:38px 28px 24px !important;
+            margin:0 auto !important;
+            text-align:left !important;
+          }
+          #sainthetic-home header#hero.reference-hero > .reference-hero-copy,
+          #sainthetic-home header#hero.reference-hero > .reference-visual {
+            grid-area:auto !important;
+            align-self:center !important;
+            width:auto !important;
+            min-width:0 !important;
+            margin:0 !important;
+          }
+          #sainthetic-home header#hero.reference-hero > .reference-visual { min-height:0 !important; }
+        }
+        #sainthetic-home .nav-logo { width:38px !important; height:38px !important; border-radius:11px !important; object-fit:contain !important; background:transparent !important; }
+        #sainthetic-home .nav-brand { color:#111827 !important; font-size:1.5rem !important; font-weight:850 !important; letter-spacing:-.055em !important; }
       `}</style>
 
 
