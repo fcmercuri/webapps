@@ -3044,14 +3044,14 @@ export default function LandingPage() {
                         ref={personaTitleRef}
                         initial={{ opacity: 0, y: 9, filter: "blur(4px)" }}
                         animate={personaTitleInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 9, filter: "blur(4px)" }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 1.35, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                         style={{ display: "inline-block" }}
                       >The Growth-Minded Marketer</motion.strong>
                       <motion.div
                         className="reference-tags"
                         initial={{ opacity: 0, y: 5 }}
                         animate={personaTitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 5 }}
-                        transition={{ duration: 0.45, delay: 0.22 }}
+                        transition={{ duration: 0.85, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
                       ><span>B2B</span><span>AI Tools</span><span>Growth</span></motion.div>
                     </div>
                   </div>
