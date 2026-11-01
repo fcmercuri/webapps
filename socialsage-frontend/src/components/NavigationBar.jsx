@@ -84,27 +84,40 @@ export default function NavigationBar() {
         @media (max-width:800px) {
           nav.main-nav { position: relative; z-index: 11; }
           .desktop-nav { display: none !important; }
+          nav.main-nav { position: relative; z-index: 1000; overflow: visible; }
           .mobile-dropdown {
             display: flex !important;
-            flex-direction: column;
-            align-items: stretch;
+            flex-direction: column !important;
+            align-items: stretch !important;
             background: #ffffff;
             border: 1px solid #e9edf3;
             position: absolute;
-            top: 100%; left: 0; right: 0;
+            top: calc(100% + 8px); left: 0; right: 0;
             width: 100%;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            overflow-x: hidden;
             z-index: 1001;
-            padding: 18px 12px 12px 12px;
+            padding: 10px;
             margin: 0;
+            gap: 4px;
             box-sizing: border-box;
+            border-radius: 16px;
+            box-shadow: 0 18px 42px rgba(17,24,39,.14);
           }
           .mobile-dropdown.nav-right a, 
           .mobile-dropdown .mobile-nav-link,
           .mobile-dropdown .cta {
             margin: 2px 0;
             width: 100%;
-            text-align: center;
-            font-size: 1.11rem;
+            min-width: 0;
+            min-height: 48px;
+            box-sizing: border-box;
+            text-align: left;
+            white-space: normal;
+            overflow-wrap: break-word;
+            line-height: 1.35;
+            font-size: 1rem;
             color: #111827;
             border: none;
             background: none;
@@ -114,7 +127,7 @@ export default function NavigationBar() {
             transition: background 0.2s, color 0.2s;
             display: block;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
           }
           .mobile-dropdown a:hover, 
           .mobile-dropdown .mobile-nav-link:hover,
