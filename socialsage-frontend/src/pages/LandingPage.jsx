@@ -3022,12 +3022,14 @@ export default function LandingPage() {
               <span>illustrative time value saved</span>
               <small>Based on 5 hours × $30/hour</small>
             </div>
-            <div className="growth-avatars">
-              <span className="community-avatar-1" aria-hidden="true" />
-              <span className="community-avatar-2" aria-hidden="true" />
-              <span className="community-avatar-3" aria-hidden="true" />
-              <span className="community-avatar-4" aria-hidden="true" />
-              <span className="growth-avatars-caption">Meet the people behind your next growth opportunity.</span>
+            <div className="growth-community-proof">
+              <div className="growth-avatars" aria-label="Example customer portraits">
+                <span className="community-avatar-1" aria-hidden="true" />
+                <span className="community-avatar-2" aria-hidden="true" />
+                <span className="community-avatar-3" aria-hidden="true" />
+                <span className="community-avatar-4" aria-hidden="true" />
+              </div>
+              <p className="growth-avatars-caption">Build a buyer persona set that feels like your real customers.</p>
             </div>
           </section>
 
@@ -3864,6 +3866,41 @@ export default function LandingPage() {
         @media (max-width:380px) {
           #sainthetic-home .growth-avatars { justify-content:flex-start !important; }
           #sainthetic-home .growth-avatars-caption { max-width:170px !important; font-size:.68rem !important; }
+        }
+      `}</style>
+      <style>{`
+        /* Keep the portraits grouped on the left and give the message its own space. */
+        #sainthetic-home .growth-community-proof {
+          display:flex !important; align-items:center !important; justify-content:flex-start !important;
+          gap:16px !important; min-width:0 !important; width:100% !important;
+        }
+        #sainthetic-home .growth-community-proof .growth-avatars {
+          display:flex !important; flex:0 0 auto !important; align-items:center !important;
+          justify-content:flex-start !important; width:max-content !important; min-width:0 !important;
+        }
+        #sainthetic-home .growth-community-proof .growth-avatars > span {
+          flex:0 0 42px !important; width:42px !important; height:42px !important;
+        }
+        #sainthetic-home .growth-community-proof .growth-avatars-caption {
+          display:block !important; position:static !important; flex:1 1 150px !important;
+          width:auto !important; height:auto !important; min-width:0 !important; max-width:190px !important;
+          margin:0 !important; padding:0 !important; overflow:visible !important;
+          border:0 !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important;
+          color:#35425d !important; font-size:.76rem !important; font-weight:650 !important;
+          line-height:1.35 !important; text-align:left !important; letter-spacing:-.01em !important;
+        }
+        @media (max-width:900px) {
+          #sainthetic-home .growth-community-proof { grid-column:1/-1 !important; justify-content:center !important; }
+        }
+        @media (max-width:700px) {
+          #sainthetic-home .growth-community-proof { gap:14px !important; justify-content:center !important; }
+          #sainthetic-home .growth-community-proof .growth-avatars > span { flex-basis:38px !important; width:38px !important; height:38px !important; }
+          #sainthetic-home .growth-community-proof .growth-avatars-caption { max-width:185px !important; font-size:.72rem !important; }
+        }
+        @media (max-width:380px) {
+          #sainthetic-home .growth-community-proof { gap:10px !important; justify-content:flex-start !important; }
+          #sainthetic-home .growth-community-proof .growth-avatars > span { flex-basis:34px !important; width:34px !important; height:34px !important; margin-left:-8px !important; }
+          #sainthetic-home .growth-community-proof .growth-avatars-caption { max-width:150px !important; font-size:.68rem !important; }
         }
       `}</style>
       </div>
