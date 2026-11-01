@@ -1282,6 +1282,54 @@ export default function LandingPage() {
             padding-top:20px !important;
           }
         }
+
+        /* Final reference proportions: five-line headline, lifted dashboard, tighter vertical rhythm. */
+        @media (min-width:901px) {
+          #sainthetic-home .sainthetic-reference-top > header#hero.reference-hero {
+            grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr) !important;
+            column-gap:clamp(28px,3.2vw,44px) !important;
+            min-height:0 !important;
+            padding-top:20px !important;
+            padding-bottom:14px !important;
+          }
+          #sainthetic-home .reference-hero-copy { min-width:0 !important; }
+          #sainthetic-home .reference-hero h1 {
+            max-width:none !important;
+            font-size:clamp(2.8rem,4.75vw,3.35rem) !important;
+            line-height:1.0 !important;
+            letter-spacing:-.067em !important;
+            margin-bottom:18px !important;
+          }
+          #sainthetic-home .reference-visual {
+            min-height:0 !important;
+            transform:translateY(-30px) !important;
+          }
+          #sainthetic-home .reference-app-window {
+            max-width:100% !important;
+          }
+          #sainthetic-home .reference-features {
+            margin-top:0 !important;
+            margin-bottom:24px !important;
+            gap:24px !important;
+          }
+          #sainthetic-home .reference-growth-bar {
+            min-height:92px !important;
+            margin-bottom:28px !important;
+          }
+          #sainthetic-home .reference-pricing {
+            margin-top:0 !important;
+          }
+        }
+        @media (min-width:901px) and (max-width:1100px) {
+          #sainthetic-home .sainthetic-reference-top > header#hero.reference-hero {
+            grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr) !important;
+            column-gap:24px !important;
+          }
+          #sainthetic-home .reference-hero h1 {
+            font-size:clamp(2.7rem,4.55vw,3.05rem) !important;
+          }
+          #sainthetic-home .reference-visual { transform:translateY(-24px) !important; }
+        }
       `}</style>
 
 
