@@ -208,7 +208,7 @@ export default function PersonaTryDemo() {
         <input aria-label="Company name, optional" placeholder="Company (optional)" value={company} onChange={e => setCompany(e.target.value)} />
         <div className="persona-demo-website-field">
           <input aria-label="Company website, required" aria-required="true" aria-invalid={!!websiteError} aria-describedby="persona-website-help persona-website-error" type="url" placeholder="Website (e.g. yourcompany.com)" value={website} onChange={e => { setWebsite(e.target.value); setWebsiteError(""); }} />
-          <small id="persona-website-help">Your website is the differentiator: it gives Sainthetic your real products, positioning and content to build a persona around your brand—not just your industry.</small>
+          <small id="persona-website-help">Your website is the differentiator: it gives Sainthetic your real products, positioning and content to build a persona around your brand, not just your industry.</small>
           {websiteError && <small id="persona-website-error" role="alert">{websiteError}</small>}
         </div>
       </div>
