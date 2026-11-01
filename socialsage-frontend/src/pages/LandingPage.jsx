@@ -3074,14 +3074,14 @@ export default function LandingPage() {
 
         {/* The remaining product proof, demo, case study, FAQs and conversion CTA follow below. */}
         <section id="product-walkthrough" className="product-walkthrough" style={{ margin: "3.5rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
-          <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>AI-Powered Content That Converts</h2>
-          <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Generate customer personas, content ideas, and conversion-ready copy in minutes</p>
+          <div className="walkthrough-eyebrow"><span>⚡</span> How it works</div>
+          <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>From industry to buyer insights in three simple steps</h2>
+          <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Turn market context into AI-ready buyer intelligence.</p>
 
           {[
             { ref: step1Ref, inView: step1InView, img: "step-1-industry.jpg", alt: "Select Industry", step: "STEP 1", title: "Choose Your Industry", desc: "Select from 5+ industries: from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors everything to your specific market.", highlights: [{ icon: "⚡", title: "Multiple industries", detail: "SaaS, retail, healthcare and more" }, { icon: "◎", title: "Market-specific", detail: "Personas tailored to your niche" }, { icon: "✦", title: "Ready in seconds", detail: "Go from industry to insight instantly" }] },
             { ref: step2Ref, inView: step2InView, img: "step-2-personas.jpg", alt: "AI Persona", step: "STEP 2", title: "Meet Your Customers", desc: "sAInthetic instantly generates detailed customer personas with goals, pain points, and behaviors — like having a marketing team in your pocket.", highlights: [{ icon: "♙", title: "Realistic personas", detail: "Built around customer behaviour and intent" }, { icon: "▥", title: "Actionable insights", detail: "Goals, pain points and motivations" }, { icon: "▤", title: "Content-ready", detail: "Ideas and angles that drive results" }] },
-            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "Content Ideas", step: "STEP 3", title: "Prompt Library On Demand", desc: "Every persona unlocks a focused library of powerful, ready-to-use prompts that reflect realistic synthetic persona queries.", highlights: [{ icon: "⌕", title: "Intent-led prompts", detail: "Questions grounded in buyer needs" }, { icon: "▤", title: "Reusable library", detail: "A consistent source for your team" }, { icon: "↗", title: "Fresh angles", detail: "Explore topics competitors overlook" }] },
-            { ref: step4Ref, inView: step4InView, img: "step-4-content.jpg", alt: "Generated Content", step: "STEP 4", title: "Professional Copy, Instantly", desc: "One click generates 1,000–1,500 words of conversion-ready copy that speaks directly to your customers' needs.", highlights: [{ icon: "✦", title: "Conversion-ready", detail: "Copy shaped around customer needs" }, { icon: "✓", title: "On-message output", detail: "Aligned to your persona and angle" }, { icon: "↗", title: "Ready to use", detail: "Save, edit and publish faster" }] },
+            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "AI buyer questions and content ideas", step: "STEP 3", title: "Turn buyer questions into content", desc: "Discover the questions your audience asks AI, then turn those insights into useful, search-ready content.", highlights: [{ icon: "⌕", title: "Intent-led questions", detail: "Understand what buyers really want to know" }, { icon: "✦", title: "Content opportunities", detail: "Find useful angles your competitors miss" }, { icon: "↗", title: "Ready to create", detail: "Build briefs and copy around buyer intent" }] }, { icon: "✓", title: "On-message output", detail: "Aligned to your persona and angle" }, { icon: "↗", title: "Ready to use", detail: "Save, edit and publish faster" }] },
           ].map((s, i) => (
             <div key={i} ref={s.ref} className="how-step-wrapper">
               <motion.div className="step-image" initial={{ opacity: 0, x: -50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8 }} style={{ borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.2)", border: "2px solid rgba(255,217,69,0.3)" }}>
@@ -3410,6 +3410,105 @@ export default function LandingPage() {
         }
       `}</style>
 
+
+      <style>{\`
+        /* Three-step walkthrough: consistent editorial cards and framed product screens. */
+        #sainthetic-home #product-walkthrough {
+          max-width:1120px !important; margin:76px auto 0 !important;
+          padding:0 24px !important; text-align:center !important; box-sizing:border-box !important;
+        }
+        #sainthetic-home #product-walkthrough .walkthrough-eyebrow {
+          display:inline-flex !important; align-items:center !important; gap:9px !important;
+          margin:0 auto 16px !important; padding:9px 16px !important; border-radius:999px !important;
+          background:#fff1bf !important; color:#172033 !important; font-size:.9rem !important; font-weight:800 !important;
+        }
+        #sainthetic-home #product-walkthrough .walkthrough-eyebrow span {
+          display:grid !important; place-items:center !important; width:30px !important; height:30px !important;
+          border-radius:50% !important; background:#ffe28a !important;
+        }
+        #sainthetic-home #product-walkthrough > h2 {
+          max-width:850px !important; margin:0 auto 12px !important; color:#111827 !important;
+          font-size:clamp(2rem,4.4vw,3.15rem) !important; line-height:1.06 !important;
+          letter-spacing:-.055em !important; text-align:center !important;
+        }
+        #sainthetic-home #product-walkthrough > p {
+          max-width:680px !important; margin:0 auto 42px !important; color:#59647a !important;
+          font-size:clamp(1rem,1.8vw,1.15rem) !important; line-height:1.55 !important; text-align:center !important;
+        }
+        #sainthetic-home #product-walkthrough .how-step-wrapper {
+          display:grid !important; grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr) !important;
+          align-items:center !important; gap:clamp(22px,4vw,48px) !important;
+          width:100% !important; margin:0 auto 22px !important; padding:26px !important;
+          box-sizing:border-box !important; border:1px solid #f0ede5 !important; border-radius:28px !important;
+          background:linear-gradient(135deg,#fffdf8 0%,#fff 72%) !important;
+          box-shadow:0 10px 28px rgba(31,42,68,.045) !important; text-align:left !important;
+        }
+        #sainthetic-home #product-walkthrough .how-step-wrapper:nth-child(even) .step-text,
+        #sainthetic-home #product-walkthrough .how-step-wrapper:nth-child(even) .step-image { order:initial !important; }
+        #sainthetic-home #product-walkthrough .step-text { min-width:0 !important; padding:0 !important; text-align:left !important; }
+        #sainthetic-home #product-walkthrough .step-text > div:first-child {
+          display:inline-flex !important; align-items:center !important; margin:0 0 14px !important;
+          padding:8px 15px !important; border:1px solid #f0dfa9 !important; border-radius:999px !important;
+          background:#fff3cd !important; color:#755b1c !important; font-size:.8rem !important;
+          font-weight:850 !important; letter-spacing:.12em !important;
+        }
+        #sainthetic-home #product-walkthrough .step-text h3 {
+          margin:0 0 10px !important; color:#111827 !important;
+          font-size:clamp(1.55rem,2.6vw,2.15rem) !important; line-height:1.08 !important; letter-spacing:-.05em !important;
+        }
+        #sainthetic-home #product-walkthrough .step-text > p {
+          margin:0 !important; color:#58647a !important; font-size:1rem !important; line-height:1.55 !important;
+        }
+        #sainthetic-home #product-walkthrough .step-image {
+          width:100% !important; min-width:0 !important; margin:0 !important; padding:0 !important;
+          overflow:hidden !important; border:1px solid #dfe4ed !important; border-radius:20px !important;
+          background:#11131d !important; box-shadow:0 16px 34px rgba(26,32,48,.14) !important;
+        }
+        #sainthetic-home #product-walkthrough .step-image img {
+          display:block !important; width:100% !important; max-width:100% !important; height:auto !important;
+          object-fit:contain !important; object-position:center !important;
+        }
+        #sainthetic-home #product-walkthrough .step-highlights {
+          display:grid !important; grid-template-columns:1fr !important; gap:8px !important; margin-top:18px !important;
+        }
+        #sainthetic-home #product-walkthrough .step-highlight {
+          display:flex !important; align-items:center !important; gap:9px !important; min-height:0 !important;
+          padding:8px 10px !important; border:1px solid #f0eee8 !important; border-radius:12px !important; background:#fff !important;
+        }
+        #sainthetic-home #product-walkthrough .step-highlight-icon {
+          display:grid !important; place-items:center !important; flex:0 0 30px !important; width:30px !important;
+          height:30px !important; border-radius:9px !important; background:#fff1bf !important; color:#755b1c !important;
+        }
+        #sainthetic-home #product-walkthrough .step-highlight-copy strong { display:block !important; color:#172033 !important; font-size:.78rem !important; }
+        #sainthetic-home #product-walkthrough .step-highlight-copy small { display:block !important; color:#657087 !important; font-size:.69rem !important; }
+        @media (max-width:700px) {
+          #sainthetic-home #product-walkthrough { margin:46px auto 0 !important; padding:0 16px !important; }
+          #sainthetic-home #product-walkthrough > h2 {
+            max-width:540px !important; font-size:clamp(1.9rem,7.2vw,2.45rem) !important; line-height:1.08 !important;
+          }
+          #sainthetic-home #product-walkthrough > p { margin:0 auto 24px !important; font-size:.96rem !important; }
+          #sainthetic-home #product-walkthrough .how-step-wrapper {
+            display:flex !important; flex-direction:column !important; align-items:stretch !important;
+            gap:16px !important; margin:0 auto 18px !important; padding:17px !important;
+            border-radius:22px !important; background:#fffdf8 !important; box-shadow:0 8px 22px rgba(31,42,68,.055) !important;
+          }
+          #sainthetic-home #product-walkthrough .step-text { order:1 !important; width:100% !important; }
+          #sainthetic-home #product-walkthrough .step-image {
+            order:2 !important; width:100% !important; border-radius:15px !important;
+            box-shadow:0 10px 22px rgba(26,32,48,.12) !important;
+          }
+          #sainthetic-home #product-walkthrough .step-text > div:first-child {
+            margin:0 0 10px !important; padding:6px 12px !important; font-size:.7rem !important;
+          }
+          #sainthetic-home #product-walkthrough .step-text h3 { margin:0 0 8px !important; font-size:1.48rem !important; line-height:1.12 !important; }
+          #sainthetic-home #product-walkthrough .step-text > p { font-size:.9rem !important; line-height:1.45 !important; }
+          #sainthetic-home #product-walkthrough .step-highlights { grid-template-columns:1fr !important; gap:6px !important; margin-top:12px !important; }
+          #sainthetic-home #product-walkthrough .step-highlight { padding:7px 9px !important; border-radius:10px !important; }
+          #sainthetic-home #product-walkthrough .step-highlight-icon { flex-basis:26px !important; width:26px !important; height:26px !important; }
+          #sainthetic-home #product-walkthrough .step-highlight-copy strong { font-size:.73rem !important; }
+          #sainthetic-home #product-walkthrough .step-highlight-copy small { font-size:.65rem !important; }
+        }
+      \`}</style>
       </div>
     </div>
   );
