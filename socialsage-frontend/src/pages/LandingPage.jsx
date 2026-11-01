@@ -3143,8 +3143,45 @@ export default function LandingPage() {
                   <span>sAInthetic workspace</span>
                   <span className="step-window-status">LIVE PREVIEW</span>
                 </div>
-                <div className="step-image-canvas">
+                <div className={`step-image-canvas step-image-canvas-${i + 1}`}>
                   <img src={s.img} alt={s.alt} loading="lazy" decoding="async" />
+                  <motion.div
+                    className={`step-live-activity step-live-activity-${i + 1}`}
+                    aria-hidden="true"
+                    initial={{ opacity: 0, y: 14, scale: 0.97 }}
+                    animate={s.inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 14, scale: 0.97 }}
+                    transition={{ duration: 0.55, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {i === 0 && (
+                      <div className="step-live-selection">
+                        <span className="step-live-check">✓</span>
+                        <span><small>INDUSTRY SELECTED</small><strong>SaaS &amp; Software</strong></span>
+                        <span className="step-live-pulse" />
+                      </div>
+                    )}
+                    {i === 1 && (
+                      <div className="step-live-persona">
+                        <small>PERSONA INSIGHTS GENERATED</small>
+                        <div className="step-live-insight-list">
+                          {["Goals identified", "Pain points mapped", "Buyer intent scored"].map((label, index) => (
+                            <motion.span
+                              key={label}
+                              initial={{ opacity: 0, x: 10 }}
+                              animate={s.inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 10 }}
+                              transition={{ duration: 0.35, delay: 1.05 + index * 0.32 }}
+                            ><b>✓</b>{label}</motion.span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {i === 2 && (
+                      <div className="step-live-question">
+                        <span className="step-live-question-icon">⌕</span>
+                        <span><small>NEW BUYER QUESTION DISCOVERED</small><strong>What should I look for in a solution?</strong></span>
+                        <span className="step-live-cursor" />
+                      </div>
+                    )}
+                  </motion.div>
                   {i === 1 && (
                     <div className="step-persona-portrait-overlay" aria-hidden="true">
                       <span className="step-persona-portrait step-persona-portrait-one" />
@@ -3960,6 +3997,75 @@ export default function LandingPage() {
           #sainthetic-home .growth-typing-caret { animation:none !important; opacity:0 !important; }
         }
       `}</style>
+      <style>{`
+        /* Lightweight live UI overlays make the product screenshots feel active without altering the source images. */
+        #sainthetic-home #product-walkthrough .step-image-canvas { position:relative !important; overflow:hidden !important; }
+        #sainthetic-home #product-walkthrough .step-live-activity {
+          position:absolute !important; right:2.4% !important; bottom:4.2% !important; z-index:3 !important;
+          max-width:min(48%,330px) !important; pointer-events:none !important; line-height:1.2 !important;
+          color:#f8fafc !important; font-family:inherit !important;
+          filter:drop-shadow(0 8px 18px rgba(0,0,0,.25)) !important;
+        }
+        #sainthetic-home #product-walkthrough .step-live-selection,
+        #sainthetic-home #product-walkthrough .step-live-persona,
+        #sainthetic-home #product-walkthrough .step-live-question {
+          display:flex !important; align-items:center !important; gap:10px !important;
+          padding:11px 14px !important; border:1px solid rgba(255,217,69,.55) !important;
+          border-radius:13px !important; background:rgba(19,21,33,.94) !important;
+          box-shadow:0 8px 26px rgba(0,0,0,.2) !important; backdrop-filter:blur(10px) !important;
+        }
+        #sainthetic-home #product-walkthrough .step-live-check {
+          display:grid !important; place-items:center !important; flex:0 0 25px !important;
+          width:25px !important; height:25px !important; border-radius:50% !important;
+          background:#ffdf62 !important; color:#171b2b !important; font-weight:900 !important;
+        }
+        #sainthetic-home #product-walkthrough .step-live-activity small {
+          display:block !important; margin:0 0 4px !important; color:#ffdf62 !important;
+          font-size:8px !important; font-weight:850 !important; letter-spacing:.12em !important;
+        }
+        #sainthetic-home #product-walkthrough .step-live-activity strong {
+          display:block !important; color:#fff !important; font-size:12px !important; font-weight:750 !important;
+        }
+        #sainthetic-home #product-walkthrough .step-live-pulse {
+          flex:0 0 7px !important; width:7px !important; height:7px !important;
+          margin-left:5px !important; border-radius:50% !important; background:#72d6a0 !important;
+          box-shadow:0 0 0 0 rgba(114,214,160,.55) !important;
+          animation:stepLivePulse 1.8s ease-out infinite !important;
+        }
+        #sainthetic-home #product-walkthrough .step-live-persona { display:block !important; min-width:205px !important; }
+        #sainthetic-home #product-walkthrough .step-live-insight-list { display:grid !important; gap:5px !important; }
+        #sainthetic-home #product-walkthrough .step-live-insight-list span {
+          display:flex !important; align-items:center !important; gap:7px !important;
+          color:#f5f6fa !important; font-size:10px !important; font-weight:600 !important;
+        }
+        #sainthetic-home #product-walkthrough .step-live-insight-list b { color:#ffdf62 !important; font-size:12px !important; }
+        #sainthetic-home #product-walkthrough .step-live-question { max-width:300px !important; }
+        #sainthetic-home #product-walkthrough .step-live-question-icon { color:#ffdf62 !important; font-size:22px !important; }
+        #sainthetic-home #product-walkthrough .step-live-question strong { font-size:11px !important; line-height:1.35 !important; }
+        #sainthetic-home #product-walkthrough .step-live-cursor {
+          flex:0 0 2px !important; width:2px !important; height:20px !important;
+          background:#ffdf62 !important; animation:stepLiveBlink .8s steps(2,start) infinite !important;
+        }
+        @keyframes stepLivePulse { 70% { box-shadow:0 0 0 7px rgba(114,214,160,0); } 100% { box-shadow:0 0 0 0 rgba(114,214,160,0); } }
+        @keyframes stepLiveBlink { to { opacity:0; } }
+        @media (max-width:760px) {
+          #sainthetic-home #product-walkthrough .step-live-activity { right:2.5% !important; bottom:3% !important; max-width:58% !important; }
+          #sainthetic-home #product-walkthrough .step-live-selection,
+          #sainthetic-home #product-walkthrough .step-live-persona,
+          #sainthetic-home #product-walkthrough .step-live-question { gap:7px !important; padding:7px 9px !important; border-radius:9px !important; }
+          #sainthetic-home #product-walkthrough .step-live-activity small { font-size:6px !important; }
+          #sainthetic-home #product-walkthrough .step-live-activity strong { font-size:9px !important; }
+          #sainthetic-home #product-walkthrough .step-live-persona { min-width:150px !important; }
+          #sainthetic-home #product-walkthrough .step-live-insight-list span { font-size:8px !important; }
+          #sainthetic-home #product-walkthrough .step-live-question strong { font-size:8px !important; }
+          #sainthetic-home #product-walkthrough .step-live-check { flex-basis:20px !important; width:20px !important; height:20px !important; }
+        }
+        @media (prefers-reduced-motion:reduce) {
+          #sainthetic-home #product-walkthrough .step-live-pulse,
+          #sainthetic-home #product-walkthrough .step-live-cursor { animation:none !important; }
+        }
+      `}</style>
+
       </div>
     </div>
   );
