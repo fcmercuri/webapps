@@ -1128,7 +1128,12 @@ export default function LandingPage() {
         #sainthetic-home .reference-persona-panel h3 { margin:0 0 17px !important; font-size:1rem !important; font-weight:800 !important; color:#101522 !important; letter-spacing:-.03em; }
         #sainthetic-home .reference-persona-profile { display:flex; align-items:center; gap:12px; padding-bottom:14px; border-bottom:1px solid #e9edf2; }
         #sainthetic-home .reference-persona-avatar { display:grid; place-items:center; width:54px; height:54px; flex:0 0 54px; border-radius:50%; background:linear-gradient(135deg,#f8d5b6,#d99c70); font-size:32px; overflow:hidden; }
-        #sainthetic-home .reference-persona-avatar img { width:100%; height:100%; object-fit:cover; display:block; }\n        #sainthetic-home .reference-persona-profile strong { font-size:.82rem; letter-spacing:-.03em; white-space:nowrap; }
+        #sainthetic-home .reference-persona-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+        #sainthetic-home .reference-person-0 { object-position:0% 50%; }
+        #sainthetic-home .reference-person-1 { object-position:25% 50%; }
+        #sainthetic-home .reference-person-2 { object-position:50% 50%; }
+        #sainthetic-home .reference-person-3 { object-position:75% 50%; }
+        #sainthetic-home .reference-person-4 { object-position:100% 50%; }\n        #sainthetic-home .reference-persona-profile strong { font-size:.82rem; letter-spacing:-.03em; white-space:nowrap; }
         #sainthetic-home .reference-tags { display:flex; gap:5px; margin-top:8px; }
         #sainthetic-home .reference-tags span { padding:5px 9px; border-radius:999px; background:#f0f2f6; color:#253149; font-size:.66rem; }
         #sainthetic-home .reference-question-title { margin:17px 0 9px; font-size:.9rem; font-weight:800; letter-spacing:-.03em; }
@@ -1262,7 +1267,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/review2.png" alt="Buyer persona portrait" /></div>
+                    <div className="reference-persona-avatar"><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">Top questions they ask AI</div>
@@ -1283,7 +1288,7 @@ export default function LandingPage() {
           <section className="reference-growth-bar" aria-label="sAInthetic community growth">
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
-            <div className="growth-avatars" aria-hidden="true"><span><img src="/review1.png" alt="" /></span><span><img src="/review2.png" alt="" /></span><span><img src="/review3.png" alt="" /></span><span><img src="/review2.png" alt="" /></span></div>
+            <div className="growth-avatars" aria-hidden="true"><span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span><span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span><span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span><span><img src="/reference-people-sprite.jpg" className="reference-person-4" alt="" /></span></div>
           </section>
 
           <section id="pricing" className="reference-pricing">
