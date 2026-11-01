@@ -3084,22 +3084,27 @@ export default function LandingPage() {
             { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "AI buyer questions and content ideas", step: "STEP 3", title: "Turn buyer questions into content", desc: "Discover the questions your audience asks AI, then turn those insights into useful, search-ready content.", highlights: [{ icon: "⌕", title: "Intent-led questions", detail: "Understand what buyers really want to know" }, { icon: "✦", title: "Content opportunities", detail: "Find useful angles your competitors miss" }, { icon: "↗", title: "Ready to create", detail: "Build briefs and copy around buyer intent" }] },
           ].map((s, i) => (
             <div key={i} ref={s.ref} className="how-step-wrapper">
-              <motion.div className="step-image" initial={{ opacity: 0, x: -50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8 }} style={{ borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.2)", border: "2px solid rgba(255,217,69,0.3)" }}>
-                <img src={s.img} alt={s.alt} style={{ width: "100%", display: "block" }} />
+              <motion.div className="step-text" initial={{ opacity: 0, y: 18 }} animate={s.inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.08 }}>
+                <div className="step-number-label">{s.step}</div>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
               </motion.div>
-              <motion.div className="step-text" initial={{ opacity: 0, x: 50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }}>
-                <div style={{ background: "linear-gradient(135deg,#ffd945 0%,#ffed4e 100%)", color: "#000", padding: "8px 20px", borderRadius: 20, fontSize: "0.875rem", fontWeight: 700, display: "inline-block", marginBottom: 20 }}>{s.step}</div>
-                <h3 style={{ fontSize: "2.2rem", fontWeight: 800, margin: "0 0 20px 0", letterSpacing: "-1px", color: "#fff" }}>{s.title}</h3>
-                <p style={{ fontSize: "1.15rem", color: "#bbb", lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
-                <div className="step-highlights">
-                  {s.highlights.map((item) => (
-                    <div className="step-highlight" key={item.title}>
-                      <span className="step-highlight-icon" aria-hidden="true">{item.icon}</span>
-                      <span className="step-highlight-copy"><strong>{item.title}</strong><small>{item.detail}</small></span>
-                    </div>
-                  ))}
+              <motion.div className="step-image" initial={{ opacity: 0, y: 18 }} animate={s.inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.16 }}>
+                <div className="step-image-toolbar" aria-hidden="true">
+                  <span className="step-window-dots"><i></i><i></i><i></i></span>
+                  <span>sAInthetic workspace</span>
+                  <span className="step-window-status">LIVE PREVIEW</span>
                 </div>
+                <img src={s.img} alt={s.alt} loading="lazy" decoding="async" />
               </motion.div>
+              <div className="step-highlights">
+                {s.highlights.map((item) => (
+                  <div className="step-highlight" key={item.title}>
+                    <span className="step-highlight-icon" aria-hidden="true">{item.icon}</span>
+                    <span className="step-highlight-copy"><strong>{item.title}</strong><small>{item.detail}</small></span>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </section>
