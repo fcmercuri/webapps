@@ -119,7 +119,9 @@ export default function Login() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)",
+        background: "radial-gradient(ellipse at 50% 0%, #21183d 0%, #101015 48%, #0b0b0d 100%)",
+        padding: "28px 16px",
+        boxSizing: "border-box",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -151,17 +153,18 @@ export default function Login() {
           background: "rgba(20, 20, 22, 0.75)",
           backdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
           WebkitBackdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
-          border: "1px solid rgba(255, 217, 69, 0.1)",
-          borderRadius: "20px",
-          padding: "50px 40px",
-          maxWidth: 420,
-          width: "90%",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          borderRadius: "22px",
+          padding: "38px 32px 30px",
+          maxWidth: 440,
+          width: "100%",
+          boxSizing: "border-box",
           position: "relative",
           zIndex: 10,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+          boxShadow: "0 24px 80px rgba(0,0,0,0.48)",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <div style={{ textAlign: "center", marginBottom: "28px" }}>
           <img
             src="/sainthetic-mark.svg"
             alt="SocialSage Logo"
@@ -194,7 +197,7 @@ export default function Login() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: 20,
+            gap: 17,
             width: "100%",
           }}
         >
@@ -271,8 +274,8 @@ export default function Login() {
               background: "#ffd945",
               color: "#191919",
               border: "none",
-              padding: "13px 20px",
-              borderRadius: "10px",
+              padding: "15px 20px",
+              borderRadius: "12px",
               fontWeight: 700,
               fontSize: "1rem",
               cursor: "pointer",
