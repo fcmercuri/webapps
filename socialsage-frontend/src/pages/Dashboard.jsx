@@ -156,323 +156,121 @@ export default function Dashboard() {
     }
   }
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0b0b0b 0%, #1a1a2e 100%)',
-        color: '#fff',
-      }}
-    >
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onItemClick={() => setIsSidebarOpen(false)}
-      />
+  const firstName = user?.name?.split(" ")[0] || user?.email?.split("@")[0] || "there";
+  const planLabel = (user?.plan || "free").toUpperCase();
+  const recentPersonas = personas.slice(0, 3);
 
-      <div className="dashboard-main">
-        {/* Mobile header */}
-        <div
-          className="dashboard-mobile-header"
-          style={{ padding: '10px 10px 0' }}
-        >
-          <button
-            type="button"
-            onClick={() => setIsSidebarOpen(v => !v)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-              padding: 0,
-            }}
-          >
-            <img
-              src="/logo.jpg"
-              alt="sainthetic"
-              style={{ width: 32, height: 32, borderRadius: 10 }}
-            />
-            <span style={{ color: '#fff', fontWeight: 700 }}>Menu</span>
+  return (
+    <div className="saas-dashboard-shell">
+      <Sidebar isOpen={isSidebarOpen} onItemClick={() => setIsSidebarOpen(false)} />
+
+      <main className="dashboard-main sainthetic-dashboard">
+        <div className="dashboard-mobile-header">
+          <button type="button" className="dashboard-menu-trigger" onClick={() => setIsSidebarOpen(v => !v)}>
+            <img src="/sainthetic-mark.svg" alt="sAInthetic" />
+            <span>Menu</span>
           </button>
+          <span className="mobile-plan-pill">{planLabel} PLAN</span>
         </div>
 
-        <div className="dashboard-content">
-          {/* Top row: title + user info (no language here) */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: 16,
-              gap: 12,
-            }}
-          >
-            <h1 style={{ margin: 0 }}>Dashboard</h1>
+        <div className="dashboard-content sainthetic-dashboard-content">
+          <header className="workspace-topbar">
+            <div>
+              <div className="workspace-eyebrow">YOUR WORKSPACE</div>
+              <h1>Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {firstName} <span>✦</span></h1>
+              <p>Turn customer insight into marketing growth.</p>
+            </div>
+            <div className="workspace-topbar-actions">
+              <span className="workspace-plan-pill">{planLabel} PLAN</span>
+              <div className="workspace-avatar">{firstName.slice(0, 1).toUpperCase()}</div>
+            </div>
+          </header>
 
-            {user && (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                  flexShrink: 0,
-                }}
-              >
-                <div
-                  style={{
-                    textAlign: 'right',
-                    marginRight: 12,
-                    maxWidth: 170,
-                  }}
-                >
-                  <div
-                    style={{
-                      color: '#e5e7eb',
-                      fontWeight: 600,
-                      fontSize: '1.0rem',
-                      lineHeight: 1.2,
-                      wordBreak: 'break-all',
-                    }}
-                  >
-                    {user.email?.split('@')[0] || ''}
-                  </div>
-                  <div
-                    style={{
-                      color: '#9ca3af',
-                      fontSize: '0.75rem',
-                    }}
-                  >
-                    Account type
-                  </div>
-                </div>
-
-                <span
-                  style={{
-                    padding: '4px 10px',
-                    borderRadius: 999,
-                    background:
-                      user.plan === 'pro'
-                        ? 'rgba(22,163,74,0.15)'
-                        : user.plan === 'starter'
-                        ? 'rgba(234,179,8,0.15)'
-                        : 'rgba(148,163,184,0.2)',
-                    color:
-                      user.plan === 'pro'
-                        ? '#22c55e'
-                        : user.plan === 'starter'
-                        ? '#eab308'
-                        : '#e5e7eb',
-                    border:
-                      user.plan === 'pro'
-                        ? '1px solid rgba(22,163,74,0.5)'
-                        : user.plan === 'starter'
-                        ? '1px solid rgba(234,179,8,0.5)'
-                        : '1px solid rgba(148,163,184,0.5)',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    fontSize: '0.7rem',
-                  }}
-                >
-                  {user.plan || 'free'}
-                </span>
+          <section className="dashboard-welcome-hero">
+            <div className="welcome-hero-copy">
+              <div className="welcome-hero-kicker"><span>✦</span> BUYER INTELLIGENCE WORKSPACE</div>
+              <h2>Create buyer intelligence<br className="desktop-break" /> in minutes.</h2>
+              <p>Understand your buyers, uncover what they care about and find the content opportunities that move them to act.</p>
+              <a href="#new-analysis" className="welcome-hero-button">Start a new analysis <span>→</span></a>
+            </div>
+            <div className="welcome-hero-art" aria-hidden="true">
+              <div className="hero-art-orbit orbit-one"></div>
+              <div className="hero-art-orbit orbit-two"></div>
+              <div className="hero-art-card hero-art-card-main">
+                <div className="hero-art-avatar">◎</div>
+                <div className="hero-art-lines"><i></i><i></i><i></i></div>
+                <div className="hero-art-tag">BUYER PROFILE</div>
               </div>
-            )}
-          </div>
-
-          {/* Upgrade buttons */}
-          {user && (
-            <div style={{ marginBottom: 32 }}>
-              {user.plan === 'free' && (
-                <button
-                  onClick={() =>
-                    handleUpgrade('price_1SdH1fPwyyuQCEbaZt4loxPH')
-                  }
-                  style={{
-                    background: '#ffd945',
-                    color: '#1a1a28',
-                    fontWeight: 700,
-                    border: 'none',
-                    padding: '0.8rem 2rem',
-                    borderRadius: 8,
-                    fontSize: '1.12rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 12px #ffd94555',
-                  }}
-                >
-                  Upgrade to Starter
-                </button>
-              )}
-
-              {user.plan === 'starter' && (
-                <button
-                  onClick={() =>
-                    handleUpgrade('price_1SdH2yPwyyuQCEbacY3y1487')
-                  }
-                  style={{
-                    background: '#ffd945',
-                    color: '#1a1a28',
-                    fontWeight: 700,
-                    border: 'none',
-                    padding: '0.8rem 2rem',
-                    borderRadius: 8,
-                    fontSize: '1.12rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 12px #ffd94555',
-                  }}
-                >
-                  Upgrade to Pro
-                </button>
-              )}
+              <div className="hero-art-card hero-art-card-chart"><span>↗</span><strong>+38%</strong><small>Content opportunity</small><div className="hero-art-bars"><i></i><i></i><i></i><i></i><i></i></div></div>
+              <div className="hero-art-spark">✦</div>
             </div>
-          )}
+          </section>
 
-          {/* Error message */}
-          {error && (
-            <div
-              style={{
-                background: 'rgba(239, 68, 68, 0.1)',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
-                color: '#ff6b6b',
-                padding: '16px 20px',
-                borderRadius: '12px',
-                marginBottom: '30px',
-                fontWeight: 500,
-              }}
-            >
-              {error}
+          <section className="dashboard-metrics-grid" aria-label="Workspace overview">
+            <div className="dashboard-metric-card"><span className="metric-icon">♙</span><div><strong>{personas.length}</strong><span>Buyer personas</span></div></div>
+            <div className="dashboard-metric-card"><span className="metric-icon">⌕</span><div><strong>{personas.length ? "Ready" : "—"}</strong><span>Audience insights</span></div></div>
+            <div className="dashboard-metric-card"><span className="metric-icon">✧</span><div><strong>{personas.length ? "Explore" : "Next step"}</strong><span>Content opportunities</span></div></div>
+          </section>
+
+          {error && <div className="dashboard-error-message">{error}</div>}
+
+          <section className="dashboard-section-block">
+            <div className="dashboard-section-heading">
+              <div><h2>Your latest analyses</h2><p>Pick up where you left off.</p></div>
+              {personas.length > 0 && <a href="/personas">View all <span>→</span></a>}
             </div>
-          )}
-
-          {/* Industry section header + language switcher */}
-          <div
-            style={{
-              marginTop: 24,
-              marginBottom: 8,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 12,
-            }}
-          >
-            <h2
-              style={{
-                fontSize: '1.4rem',
-                fontWeight: 800,
-                color: '#fff',
-                margin: 0,
-                letterSpacing: '-0.5px',
-              }}
-            >
-              Select Your Industry
-            </h2>
-
-            <button
-              type="button"
-              onClick={() =>
-                setLanguage(prev => (prev === 'en' ? 'it' : 'en'))
-              }
-              style={{
-                padding: '6px 16px',
-                borderRadius: 999,
-                border: '2px solid #2563eb',
-                background: '#020617',
-                color: '#e5e7eb',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                boxShadow: '0 0 0 1px rgba(15,23,42,0.9)',
-                whiteSpace: 'nowrap',
-              }}
-              title="Switch language for personas, prompts and content"
-            >
-              Language: {language === 'en' ? 'English' : 'Italiano'}
-            </button>
-          </div>
-
-          {/* Industry selector */}
-          <IndustrySelector
-            onSelect={handleIndustrySelect}
-            currentIndustry={user?.industry}
-          />
-
-          {/* Personas Section */}
-          {personas.length > 0 && (
-            <div style={{ marginTop: 32 }}>
-              <h2
-                style={{
-                  fontSize: '1.8rem',
-                  fontWeight: 800,
-                  color: '#ffd945',
-                  margin: '0 0 20px 0',
-                  letterSpacing: '-0.5px',
-                }}
-              >
-                Your Customer Personas
-              </h2>
-              <div className="personas-grid">
-                {personas.map(persona => (
-                  <PersonaCard
-                    key={persona._id}
-                    persona={persona}
-                    onClick={() => handlePersonaClick(persona)}
-                    isLocked={persona.isPremium && user?.plan !== 'pro'}
-                    onUnlock={() => handleUpgrade('price_PRO_REAL_ID')}
-                  />
+            {recentPersonas.length > 0 ? (
+              <div className="recent-analysis-list">
+                {recentPersonas.map((persona, index) => (
+                  <button type="button" className="recent-analysis-row" key={persona._id} onClick={() => handlePersonaClick(persona)}>
+                    <span className="recent-analysis-icon">{["◈", "◎", "✧"][index % 3]}</span>
+                    <span className="recent-analysis-details"><strong>{persona.name || "Buyer persona"}</strong><small>{persona.industry || user?.industry || "Customer profile"} · Buyer persona</small></span>
+                    <span className="recent-analysis-action">Open <b>→</b></span>
+                  </button>
                 ))}
               </div>
+            ) : (
+              <div className="dashboard-empty-state">
+                <div className="empty-state-icon">✦</div>
+                <div><strong>Your first buyer insight starts here</strong><p>Choose your industry below to generate your first buyer personas.</p></div>
+              </div>
+            )}
+          </section>
+
+          <section className="dashboard-section-block dashboard-quick-actions">
+            <div className="dashboard-section-heading"><div><h2>Explore your workspace</h2><p>Move from understanding buyers to creating better content.</p></div></div>
+            <div className="quick-action-grid">
+              <a href="/personas" className="quick-action-card"><span className="quick-action-icon">♙</span><span className="quick-action-arrow">↗</span><strong>Buyer personas</strong><small>Understand your ideal customers</small></a>
+              <a href="/prompts" className="quick-action-card"><span className="quick-action-icon">⌕</span><span className="quick-action-arrow">↗</span><strong>Customer questions</strong><small>Discover what buyers want to know</small></a>
+              <a href="/content" className="quick-action-card"><span className="quick-action-icon">✧</span><span className="quick-action-arrow">↗</span><strong>Content opportunities</strong><small>Turn insights into useful content</small></a>
             </div>
+          </section>
+
+          <section className="dashboard-section-block new-analysis-section" id="new-analysis">
+            <div className="dashboard-section-heading">
+              <div><div className="workspace-eyebrow">GET STARTED</div><h2>Create a new analysis</h2><p>Choose the market you want to understand. We'll build your buyer profiles around it.</p></div>
+              <button type="button" className="language-switch" onClick={() => setLanguage(prev => prev === "en" ? "it" : "en")}>Language: {language === "en" ? "English" : "Italiano"}</button>
+            </div>
+            <IndustrySelector onSelect={handleIndustrySelect} currentIndustry={user?.industry} />
+          </section>
+
+          {personas.length > 0 && (
+            <section className="dashboard-section-block generated-personas-section">
+              <div className="dashboard-section-heading"><div><h2>Your buyer personas</h2><p>Detailed profiles generated for your selected market.</p></div></div>
+              <div className="personas-grid">
+                {personas.map(persona => <PersonaCard key={persona._id} persona={persona} onClick={() => handlePersonaClick(persona)} isLocked={persona.isPremium && user?.plan !== "pro"} onUnlock={() => handleUpgrade("price_PRO_REAL_ID")} />)}
+              </div>
+            </section>
           )}
 
-          {/* Prompts & Content Section */}
           {selectedPersona && (
-            <div
-              className="dashboard-prompts-layout"
-              style={{ marginTop: '40px' }}
-            >
-              <div>
-                <h2
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 800,
-                    color: '#ffd945',
-                    margin: '0 0 8px 0',
-                    letterSpacing: '-0.5px',
-                  }}
-                >
-                  Content Ideas for {selectedPersona.name}
-                </h2>
-
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px',
-                  }}
-                >
-                  {prompts.map(prompt => (
-                    <PromptCard
-                      key={prompt._id}
-                      prompt={prompt}
-                      onGenerate={handleGenerateContent}
-                      loading={loading}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div id="content-editor">
-                <ContentEditor
-                  content={generatedContent}
-                  onSave={handleSaveContent}
-                />
-              </div>
+            <div className="dashboard-prompts-layout" style={{ marginTop: 40 }}>
+              <div><h2 className="dashboard-subsection-title">Content ideas for {selectedPersona.name}</h2><div style={{ display: "flex", flexDirection: "column", gap: 15 }}>{prompts.map(prompt => <PromptCard key={prompt._id} prompt={prompt} onGenerate={handleGenerateContent} loading={loading} />)}</div></div>
+              <div id="content-editor"><ContentEditor content={generatedContent} onSave={handleSaveContent} /></div>
             </div>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
