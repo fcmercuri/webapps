@@ -6,50 +6,50 @@ const personas = {
     name: "Sarah Johnson", role: "Growth Marketing Manager",
     goals: ["Increase SQLs", "Reduce CAC", "Improve retention"],
     painPoints: ["Low lead quality", "Generic AI content", "Weak positioning"],
-    questions: ["How do I improve demo conversions?", "What content ranks in AI search?", "How can I reduce CAC?"],
-    topPrompt: "Show me 5 content ideas that answer Sarah's top synthetic questions this week"
+    questions: ["Which project management platforms are best for a 50-person SaaS team scaling beyond spreadsheets?", "What should we compare when choosing a platform: implementation time, integrations, adoption or total cost?", "How can a SaaS company improve trial-to-paid conversion without increasing acquisition spend?", "What evidence should I look for before trusting a vendor's security, reliability and customer results?", "Which tools integrate with our CRM and product analytics stack, and how difficult is migration?"],
+    topPrompt: "Identify the five highest-intent questions a 50-person SaaS team would ask before choosing a platform. Group by discovery, comparison and purchase, then recommend content that addresses each decision criterion."
   },
   Finance: {
     name: "David Carter", role: "Digital Banking Lead",
     goals: ["Acquire deposits", "Increase trust", "Grow applications"],
     painPoints: ["Compliance", "Long approval cycles", "Low engagement"],
-    questions: ["How do customers research loans?", "Which GEO content converts?", "What builds trust?"],
-    topPrompt: "Show me 5 content ideas that answer David's top synthetic questions this week"
+    questions: ["Which business savings accounts offer competitive rates while keeping deposits accessible?", "What should I compare between providers: FSCS protection, fees, access, service and digital tools?", "How long does business account opening take, and what documents will a company need?", "How can a business improve cash returns without compromising liquidity or risk controls?", "What are the key risks and eligibility criteria when switching a business banking provider?"],
+    topPrompt: "Map the questions a finance decision-maker asks before choosing a business banking provider. Prioritise trust, eligibility, access, risk and total value, then identify the evidence content must provide."
   },
   Ecommerce: {
     name: "Emily Brown", role: "E-commerce Director",
     goals: ["Increase AOV", "Boost repeat purchases", "Reduce cart abandonment"],
     painPoints: ["Creative fatigue", "High CAC", "Low loyalty"],
-    questions: ["Which offers increase AOV?", "How do I recover abandoned carts?", "What content drives repeat sales?"],
-    topPrompt: "Show me 5 content ideas that answer Emily's top synthetic questions this week"
+    questions: ["Which skincare products are best for sensitive skin, and what ingredients should I avoid?", "How do these products compare on ingredients, independent reviews, price and delivery?", "Is the premium option worth the extra cost compared with a lower-priced alternative?", "Which size or product is right for my needs, and what is the returns policy if it is not suitable?", "Can I trust the product claims, and what evidence supports the stated benefits?"],
+    topPrompt: "Map the questions shoppers ask from product discovery to purchase. Highlight comparison criteria, objections and trust signals, then recommend content that helps customers choose confidently."
   },
   Healthcare: {
     name: "Dr. Lisa Nguyen", role: "Patient Acquisition Manager",
     goals: ["Increase appointment bookings", "Build patient trust", "Expand service line awareness"],
     painPoints: ["Strict compliance rules", "Low online visibility", "High patient acquisition cost"],
-    questions: ["How do patients search for providers?", "What content builds trust in healthcare?", "How do I stay compliant with marketing?"],
-    topPrompt: "Show me 5 content ideas that answer Lisa's top synthetic questions this week"
+    questions: ["Which local clinics specialise in this condition, and what qualifications should I look for?", "What should I expect at the first consultation, including preparation, costs and follow-up?", "How do the available treatment options compare in benefits, risks and recovery time?", "Is this provider regulated, and where can I verify its clinical credentials?", "When should I seek urgent medical advice rather than booking a routine appointment?"],
+    topPrompt: "Identify the questions patients ask when evaluating a provider. Organise by symptoms, treatment options, credentials and appointment decisions, while keeping information evidence-led and appropriately cautious."
   },
   RealEstate: {
     name: "Marcus Reid", role: "Head of Growth, Real Estate Group",
     goals: ["Generate qualified buyer leads", "Increase listing views", "Shorten sales cycle"],
     painPoints: ["Seasonal demand swings", "High cost per lead", "Low agent follow-up rates"],
-    questions: ["What content converts home buyers?", "How do I generate more listing leads?", "Which channels drive qualified traffic?"],
-    topPrompt: "Show me 5 content ideas that answer Marcus's top synthetic questions this week"
+    questions: ["Which areas offer the best balance of commute, schools, amenities and property value?", "What should I compare between similar properties beyond asking price?", "What are the likely total purchase costs, including tax, legal fees, surveys and ongoing charges?", "How can I assess the condition of a property and identify costly issues before making an offer?", "How have comparable properties in this area performed, and what could affect future resale?"],
+    topPrompt: "Map a buyer's decision journey from area research to offer. Identify the questions that signal intent, the evidence buyers need and the content that reduces uncertainty at each stage."
   },
   Education: {
     name: "Priya Shah", role: "Enrollment Marketing Director",
     goals: ["Increase enrollment applications", "Improve program awareness", "Boost student engagement"],
     painPoints: ["Long decision cycles", "Low content differentiation", "Difficulty reaching Gen Z"],
-    questions: ["How do students research programs?", "What content increases applications?", "How do I reach prospective students online?"],
-    topPrompt: "Show me 5 content ideas that answer Priya's top synthetic questions this week"
+    questions: ["Which universities offer the strongest programmes for a career in data analytics?", "How do the courses compare on curriculum, industry placements, graduate outcomes and total cost?", "What entry requirements and practical experience will strengthen my application?", "Which scholarships, bursaries or financing options are available to students like me?", "What career paths do graduates typically enter, and which employers recruit from the programme?"],
+    topPrompt: "Map a prospective student's decision journey from course discovery to application. Identify questions about outcomes, curriculum, entry requirements and funding, then recommend content that supports informed choice."
   },
   Travel: {
     name: "Jonas Weber", role: "Head of Digital Marketing, Travel Brand",
     goals: ["Increase direct bookings", "Reduce OTA dependency", "Improve repeat travel rate"],
     painPoints: ["High seasonality", "Price-driven comparison shopping", "Low brand loyalty"],
-    questions: ["How do travelers choose where to book?", "What content increases direct bookings?", "How do I compete with OTAs?"],
-    topPrompt: "Show me 5 content ideas that answer Jonas's top synthetic questions this week"
+    questions: ["Which destinations offer the best value for a family holiday in September?", "How do direct flights, baggage, transfers and cancellation terms change the true trip cost?", "Which hotels are best for families, based on location, recent reviews and facilities?", "When is the best time to book, and how flexible are the fares if plans change?", "What is included in the direct booking rate that may not be included through an online travel agency?"],
+    topPrompt: "Map a traveller's decision journey from destination discovery to booking. Identify comparison criteria, booking objections and trust signals, then recommend content that makes the direct-booking proposition compelling."
   }
 };
 
@@ -110,11 +110,15 @@ export default function PersonaTryDemo() {
         .persona-questions .persona-result-list li:before { background:#9ba8bc; }
         .persona-prompt { margin-top:16px; padding:17px 19px; border:1px solid #d5eee2; border-radius:15px; background:#f1faf5; color:#315d49; font-size:.96rem; line-height:1.55; }
         .persona-prompt-label { display:block; margin-bottom:6px; color:#56816b; font-size:.7rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
-        .persona-result-cta { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-top:20px; padding:21px 23px; border-radius:16px; background:#111827; color:#fff; }
-        .persona-result-cta h3 { margin:0 0 5px; color:#fff; font-size:1.12rem; }
-        .persona-result-cta p { margin:0; color:#c3cad5; font-size:.9rem; line-height:1.5; }
-        .persona-result-cta .persona-demo-button { flex:0 0 auto; background:#ffd945; }
-        .persona-demo-note { margin-top:9px !important; color:#aeb8c7 !important; font-size:.78rem !important; }
+        .persona-result-cta { display:flex; align-items:center; justify-content:space-between; gap:24px; margin-top:20px; padding:24px 26px; border:1px solid #f0e4bd; border-radius:16px; background:#fffaf0; color:#20283b; }
+        .persona-result-cta-copy { min-width:0; max-width:570px; }
+        #sainthetic-home .persona-result-cta h3, .persona-result-cta h3 { margin:0 0 7px !important; color:#171b2b !important; font-size:1.18rem !important; line-height:1.25 !important; font-weight:800 !important; }
+        #sainthetic-home .persona-result-cta p, .persona-result-cta p { margin:0 !important; color:#596579 !important; font-size:.92rem !important; line-height:1.55 !important; }
+        .persona-result-cta .persona-demo-button { flex:0 0 auto; background:#171b2b; color:#fff; }
+        .persona-result-cta .persona-demo-button:hover { background:#30394d; }
+        #sainthetic-home .persona-demo-note, .persona-demo-note { margin-top:8px !important; color:#7b8494 !important; font-size:.8rem !important; }
+        .persona-prompt { color:#315d49 !important; }
+        .persona-prompt-label { color:#56816b !important; }
         @media(max-width:700px) {
           .persona-demo { margin:42px 0; padding:22px 17px; border-radius:20px; }
           .persona-demo-intro { margin-bottom:20px; }
@@ -189,12 +193,12 @@ export default function PersonaTryDemo() {
           </div>
 
           <div className="persona-result-panel persona-questions">
-            <div className="persona-result-label">QUESTIONS YOUR BUYERS MAY ASK AI</div>
+            <div className="persona-result-label">BUYER DECISION QUESTIONS</div>
             <ul className="persona-result-list">{persona.questions.map(x => <li key={x}>{x}</li>)}</ul>
           </div>
 
           <div className="persona-prompt">
-            <span className="persona-prompt-label">Example content prompt</span>
+            <span className="persona-prompt-label">STRATEGIC CONTENT BRIEF</span>
             “{persona.topPrompt}”
           </div>
 
