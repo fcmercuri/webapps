@@ -71,10 +71,28 @@ export default function PersonaTryDemo() {
   const [industry, setIndustry] = useState("SaaS");
   const [company, setCompany] = useState("");
   const [website, setWebsite] = useState("");
+  const [websiteError, setWebsiteError] = useState("");
   const [loading, setLoading] = useState(false);
   const [persona, setPersona] = useState(null);
 
+  const normaliseWebsite = (value) => {
+    const trimmed = value.trim();
+    if (!trimmed) return "";
+    const candidate = /^https?:\\/\\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    try {
+      const parsed = new URL(candidate);
+      return parsed.hostname.includes(".") ? parsed.toString().replace(/\\/$/, "") : "";
+    } catch { return ""; }
+  };
+
   const generate = () => {
+    const normalisedWebsite = normaliseWebsite(website);
+    if (!normalisedWebsite) {
+      setWebsiteError(website.trim() ? "Enter a valid website, e.g. yourcompany.com." : "Add your website to see a brand-specific persona preview.");
+      return;
+    }
+    setWebsite(normalisedWebsite);
+    setWebsiteError("");
     setLoading(true);
     setPersona(null);
     setTimeout(() => {
@@ -84,9 +102,14 @@ export default function PersonaTryDemo() {
   };
 
   const unlock = () => {
+    const normalisedWebsite = normaliseWebsite(website);
+    if (!normalisedWebsite) {
+      setWebsiteError(website.trim() ? "Enter a valid website, e.g. yourcompany.com." : "Your website is required to create a persona for your brand.");
+      return;
+    }
     localStorage.setItem("industry", industry);
     localStorage.setItem("company", company);
-    localStorage.setItem("website", website);
+    localStorage.setItem("website", normalisedWebsite);
     navigate("/register");
   };
 
@@ -99,6 +122,10 @@ export default function PersonaTryDemo() {
         .persona-demo-intro h2 { margin:0 0 10px; color:#171b2b; font-size:clamp(1.55rem,3vw,2.15rem); letter-spacing:-.045em; line-height:1.15; }
         .persona-demo-intro p { margin:0; color:#667085; font-size:1rem; line-height:1.6; }
         .persona-demo-controls { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; max-width:900px; margin:0 auto; }
+        .persona-demo-website-field { min-width:0; display:flex; flex-direction:column; gap:7px; }
+        .persona-demo-website-field small { color:#667085; font-size:12px; line-height:1.4; }
+        .persona-demo-website-field small[role="alert"] { color:#b42318; }
+        .persona-demo-website-field input[aria-invalid="true"] { border-color:#d92d20; }
         .persona-demo-controls input,.persona-demo-controls select { width:100%; min-width:0; min-height:50px; border:1px solid #dce2eb; border-radius:12px; padding:12px 14px; background:#fff; color:#20283b; font-size:16px; outline:none; }
         .persona-demo-controls input:focus,.persona-demo-controls select:focus { border-color:#d9aa12; box-shadow:0 0 0 3px rgba(255,217,69,.2); }
         .persona-demo-generate { display:flex; justify-content:center; margin-top:16px; }
@@ -181,7 +208,11 @@ export default function PersonaTryDemo() {
           {Object.keys(personas).map(x => <option key={x} value={x}>{x === "Ecommerce" ? "E-commerce" : x === "RealEstate" ? "Real estate" : x}</option>)}
         </select>
         <input aria-label="Company name, optional" placeholder="Company (optional)" value={company} onChange={e => setCompany(e.target.value)} />
-        <input aria-label="Website, optional" placeholder="Website (optional)" value={website} onChange={e => setWebsite(e.target.value)} />
+        <div className="persona-demo-website-field">
+          <input aria-label="Company website, required" aria-required="true" aria-invalid={!!websiteError} aria-describedby="persona-website-help persona-website-error" type="url" placeholder="Website (e.g. yourcompany.com)" value={website} onChange={e => { setWebsite(e.target.value); setWebsiteError(""); }} />
+          <small id="persona-website-help">Your website is the differentiator: it gives Sainthetic your real products, positioning and content to build a persona around your brand—not just your industry.</small>
+          {websiteError && <small id="persona-website-error" role="alert">{websiteError}</small>}
+        </div>
       </div>
 
       <div className="persona-demo-generate">
