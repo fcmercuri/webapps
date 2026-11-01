@@ -119,12 +119,12 @@ export default function PersonaTryDemo() {
         .persona-demo-intro { text-align:center; max-width:680px; margin:0 auto 26px; }
         .persona-demo-intro h2 { margin:0 0 10px; color:#171b2b; font-size:clamp(1.55rem,3vw,2.15rem); letter-spacing:-.045em; line-height:1.15; }
         .persona-demo-intro p { margin:0; color:#667085; font-size:1rem; line-height:1.6; }
-        .persona-demo-controls { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; max-width:900px; margin:0 auto; }
-        .persona-demo-website-field { min-width:0; display:flex; flex-direction:column; gap:7px; }
-        .persona-demo-website-field small { color:#667085; font-size:12px; line-height:1.4; }
+        .persona-demo-controls { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,.95fr) minmax(0,1.2fr); gap:10px; width:100%; max-width:760px; margin:0 auto; align-items:start; }
+        .persona-demo-website-field { min-width:0; display:flex; flex-direction:column; gap:6px; }
+        .persona-demo-website-field small { color:#667085; font-size:11px; line-height:1.35; }
         .persona-demo-website-field small[role="alert"] { color:#b42318; }
         .persona-demo-website-field input[aria-invalid="true"] { border-color:#d92d20; }
-        .persona-demo-controls input,.persona-demo-controls select { width:100%; min-width:0; min-height:50px; border:1px solid #dce2eb; border-radius:12px; padding:12px 14px; background:#fff; color:#20283b; font-size:16px; outline:none; }
+        .persona-demo-controls input,.persona-demo-controls select { width:100%; min-width:0; min-height:44px; border:1px solid #dce2eb; border-radius:10px; padding:10px 12px; background:#fff; color:#20283b; font-size:15px; outline:none; }
         .persona-demo-controls input:focus,.persona-demo-controls select:focus { border-color:#d9aa12; box-shadow:0 0 0 3px rgba(255,217,69,.2); }
         .persona-demo-generate { display:flex; justify-content:center; margin-top:16px; }
         .persona-demo-button { min-height:50px; border:0; border-radius:12px; padding:13px 23px; background:#ffd945; color:#151927; font-size:15px; font-weight:800; cursor:pointer; transition:transform .2s ease,background .2s ease; }
