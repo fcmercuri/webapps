@@ -2490,6 +2490,236 @@ export default function LandingPage() {
           #sainthetic-home .reference-founder-banner-link, #sainthetic-home .reference-founder-banner img { border-radius:18px !important; }
         }
 
+
+        /* Screenshot-accurate top composition: preserve every element and its relationship. */
+        #sainthetic-home .sainthetic-reference-top {
+          width:100% !important; max-width:1160px !important; margin:0 auto !important;
+          padding:0 22px !important; box-sizing:border-box !important;
+        }
+        #sainthetic-home header#hero.reference-hero {
+          display:grid !important; grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr) !important;
+          grid-template-areas:none !important; align-items:center !important;
+          gap:18px !important; width:100% !important; max-width:none !important;
+          min-height:0 !important; margin:0 !important; padding:18px 8px 10px !important;
+          text-align:left !important; box-sizing:border-box !important;
+        }
+        #sainthetic-home .reference-hero-copy { min-width:0 !important; width:auto !important; }
+        #sainthetic-home .reference-eyebrow {
+          display:inline-flex !important; align-items:center !important; gap:6px !important;
+          margin:0 0 12px !important; padding:6px 11px !important;
+          border-radius:999px !important; background:#fff0b8 !important;
+          color:#172033 !important; font-size:.76rem !important; line-height:1 !important;
+          font-weight:800 !important;
+        }
+        #sainthetic-home .reference-hero h1 {
+          max-width:560px !important; margin:0 0 12px !important;
+          color:#101a31 !important; font-size:clamp(2.75rem,4.45vw,3.55rem) !important;
+          line-height:.99 !important; letter-spacing:-.067em !important; font-weight:900 !important;
+        }
+        #sainthetic-home .reference-hero h1 span {
+          color:#101a31 !important; -webkit-text-fill-color:#101a31 !important;
+          background:linear-gradient(transparent 60%,#ffd84d 60%,#ffd84d 94%,transparent 94%) !important;
+        }
+        #sainthetic-home .reference-subtitle {
+          max-width:535px !important; margin:0 0 16px !important;
+          color:#33415e !important; font-size:.88rem !important; line-height:1.38 !important;
+        }
+        #sainthetic-home .reference-actions { display:flex !important; flex-wrap:wrap !important; gap:10px !important; }
+        #sainthetic-home .reference-actions a {
+          display:inline-flex !important; align-items:center !important; justify-content:center !important;
+          min-height:40px !important; padding:0 17px !important; border-radius:999px !important;
+          font-size:.79rem !important; line-height:1 !important; font-weight:750 !important;
+          white-space:nowrap !important; text-decoration:none !important;
+        }
+        #sainthetic-home .reference-primary {
+          background:#10182c !important; color:#fff !important;
+          box-shadow:0 5px 13px rgba(16,24,44,.16) !important;
+        }
+        #sainthetic-home .reference-secondary {
+          background:#fff !important; color:#10182c !important; border:1.4px solid #182238 !important;
+        }
+        #sainthetic-home .reference-reassurance {
+          display:flex !important; flex-wrap:wrap !important; gap:8px 15px !important;
+          margin:13px 0 0 !important; color:#35425d !important;
+          font-size:.69rem !important; line-height:1.25 !important;
+        }
+        #sainthetic-home .reference-visual {
+          position:relative !important; display:flex !important; align-items:center !important;
+          justify-content:center !important; width:100% !important; min-width:0 !important;
+          min-height:0 !important; margin:0 !important; padding:0 !important;
+          transform:none !important; overflow:visible !important;
+        }
+        #sainthetic-home .reference-glow-one {
+          width:190px !important; height:285px !important; right:3% !important; top:-15px !important;
+          border-radius:48% !important; background:linear-gradient(135deg,#fff1b7,#ffe48b) !important;
+          opacity:.85 !important; transform:rotate(27deg) !important;
+        }
+        #sainthetic-home .reference-glow-two {
+          width:210px !important; height:240px !important; left:2% !important; bottom:-9px !important;
+          border-radius:48% !important; background:linear-gradient(135deg,#fff2bd,#ffe58e) !important;
+          opacity:.8 !important; transform:rotate(35deg) !important;
+        }
+        #sainthetic-home .reference-app-window {
+          position:relative !important; z-index:1 !important; width:100% !important;
+          max-width:540px !important; min-height:330px !important;
+          grid-template-columns:112px minmax(0,1fr) !important;
+          padding:43px 13px 15px !important; box-sizing:border-box !important;
+          border:1px solid #e8ebf1 !important; border-radius:24px !important;
+          background:linear-gradient(135deg,#fff 0%,#f7f8fb 100%) !important;
+          box-shadow:0 18px 42px rgba(35,44,65,.17) !important;
+          transform:rotate(-2deg) !important;
+        }
+        #sainthetic-home .reference-window-dots { top:13px !important; left:17px !important; gap:6px !important; }
+        #sainthetic-home .reference-window-dots i { width:9px !important; height:9px !important; }
+        #sainthetic-home .reference-app-sidebar {
+          gap:9px !important; padding:3px 8px 0 0 !important;
+          font-size:.65rem !important; line-height:1.1 !important;
+        }
+        #sainthetic-home .reference-mini-brand { gap:6px !important; margin-bottom:10px !important; font-size:.74rem !important; }
+        #sainthetic-home .mini-logo { width:17px !important; height:17px !important; border-radius:5px !important; }
+        #sainthetic-home .reference-app-sidebar > div:not(:first-child) {
+          padding:7px 6px !important; border-radius:7px !important;
+        }
+        #sainthetic-home .reference-persona-panel {
+          min-width:0 !important; margin-left:9px !important; padding:8px 10px 9px !important;
+          border:1px solid #edf0f4 !important; border-radius:15px !important;
+          background:rgba(255,255,255,.94) !important; box-shadow:0 6px 18px rgba(28,38,60,.08) !important;
+        }
+        #sainthetic-home .reference-persona-panel h3 {
+          margin:0 0 12px !important; font-size:.82rem !important; line-height:1.2 !important;
+        }
+        #sainthetic-home .reference-persona-profile { gap:8px !important; padding-bottom:10px !important; }
+        #sainthetic-home .reference-persona-avatar {
+          width:44px !important; height:44px !important; flex:0 0 44px !important;
+        }
+        #sainthetic-home .reference-persona-profile strong {
+          display:block !important; font-size:.67rem !important; line-height:1.2 !important;
+          white-space:normal !important;
+        }
+        #sainthetic-home .reference-tags { gap:4px !important; margin-top:6px !important; }
+        #sainthetic-home .reference-tags span { padding:4px 6px !important; font-size:.55rem !important; }
+        #sainthetic-home .reference-question-title {
+          margin:12px 0 6px !important; font-size:.72rem !important; line-height:1.2 !important;
+        }
+        #sainthetic-home .reference-question {
+          gap:6px !important; padding:5px 0 !important; font-size:.59rem !important;
+          line-height:1.25 !important; white-space:normal !important;
+        }
+        #sainthetic-home .reference-question span {
+          width:19px !important; height:19px !important; flex:0 0 19px !important; font-size:.9rem !important;
+        }
+        #sainthetic-home .reference-features {
+          display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+          gap:25px !important; max-width:1080px !important; margin:3px auto 19px !important;
+          padding:0 30px !important; align-items:start !important;
+        }
+        #sainthetic-home .reference-features article {
+          display:block !important; min-height:0 !important; text-align:left !important;
+        }
+        #sainthetic-home .reference-feature-icon {
+          display:grid !important; place-items:center !important; width:43px !important; height:43px !important;
+          margin:0 0 7px !important; border-radius:11px !important;
+          background:#ffe89a !important; color:#10182c !important; font-size:1.45rem !important;
+        }
+        #sainthetic-home .reference-features h3 {
+          display:block !important; min-height:0 !important; margin:0 0 3px !important;
+          color:#10182c !important; font-size:1.08rem !important; line-height:1.13 !important;
+          letter-spacing:-.045em !important; font-weight:850 !important;
+        }
+        #sainthetic-home .reference-features p {
+          min-height:0 !important; margin:0 !important; color:#35425d !important;
+          font-size:.83rem !important; line-height:1.22 !important;
+        }
+        #sainthetic-home .reference-growth-bar {
+          display:grid !important; grid-template-columns:1.08fr 1fr auto !important;
+          align-items:center !important; gap:18px !important; width:100% !important;
+          min-height:78px !important; margin:0 auto 17px !important; padding:11px 19px !important;
+          box-sizing:border-box !important; border:1px solid #edf0f5 !important;
+          border-radius:18px !important; background:#fff !important;
+          box-shadow:0 8px 22px rgba(31,42,68,.075) !important;
+        }
+        #sainthetic-home .growth-message {
+          display:flex !important; align-items:center !important; gap:11px !important;
+          padding-right:16px !important; border-right:1px solid #e1e5ec !important;
+        }
+        #sainthetic-home .growth-icon {
+          display:grid !important; place-items:center !important; flex:0 0 42px !important;
+          width:42px !important; height:42px !important; border-radius:10px !important;
+          background:#ffe89a !important; color:#10182c !important; font-size:1.3rem !important;
+        }
+        #sainthetic-home .growth-message strong {
+          color:#10182c !important; font-size:.88rem !important; line-height:1.2 !important;
+          letter-spacing:-.025em !important;
+        }
+        #sainthetic-home .growth-count { display:flex !important; flex-direction:column !important; gap:2px !important; }
+        #sainthetic-home .growth-count strong {
+          color:#10182c !important; font-size:1.45rem !important; line-height:1.05 !important;
+          letter-spacing:-.05em !important; font-weight:850 !important;
+        }
+        #sainthetic-home .growth-count span {
+          color:#35425d !important; font-size:.72rem !important; line-height:1.2 !important;
+        }
+        #sainthetic-home .growth-avatars {
+          display:flex !important; align-items:center !important; justify-content:flex-end !important;
+          padding:0 3px 0 0 !important;
+        }
+        #sainthetic-home .growth-avatars span {
+          position:relative !important; display:block !important; flex:0 0 42px !important;
+          width:42px !important; height:42px !important; overflow:hidden !important;
+          margin-left:-7px !important; border:2px solid #fff !important; border-radius:50% !important;
+          background:#f3f4f6 !important; box-shadow:0 2px 7px rgba(20,32,55,.10) !important;
+        }
+        #sainthetic-home .growth-avatars img {
+          position:absolute !important; top:0 !important; left:0 !important;
+          width:500% !important; max-width:none !important; height:100% !important;
+          object-fit:fill !important; border-radius:0 !important;
+        }
+        #sainthetic-home .reference-pricing { margin:8px auto 0 !important; padding:0 10px !important; }
+        #sainthetic-home .reference-pricing h2 {
+          margin:0 0 5px !important; color:#10182c !important;
+          font-size:clamp(1.8rem,3vw,2.45rem) !important; line-height:1.08 !important;
+        }
+        @media (min-width:901px) and (max-width:1100px) {
+          #sainthetic-home header#hero.reference-hero {
+            grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important; gap:14px !important;
+            padding-top:13px !important;
+          }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.45rem,4.1vw,3rem) !important; }
+          #sainthetic-home .reference-app-window { min-height:300px !important; grid-template-columns:100px minmax(0,1fr) !important; }
+          #sainthetic-home .reference-features { gap:18px !important; padding:0 18px !important; }
+          #sainthetic-home .reference-growth-bar { gap:12px !important; padding:10px 14px !important; }
+          #sainthetic-home .growth-avatars span { flex-basis:36px !important; width:36px !important; height:36px !important; }
+        }
+        @media (max-width:900px) {
+          #sainthetic-home .sainthetic-reference-top { padding:0 18px !important; }
+          #sainthetic-home header#hero.reference-hero {
+            grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important; gap:12px !important;
+            padding:18px 4px 12px !important;
+          }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.15rem,5vw,2.8rem) !important; }
+          #sainthetic-home .reference-app-window { min-height:290px !important; grid-template-columns:88px minmax(0,1fr) !important; }
+          #sainthetic-home .reference-features { gap:14px !important; padding:0 8px !important; }
+          #sainthetic-home .reference-features h3 { font-size:.98rem !important; }
+          #sainthetic-home .reference-features p { font-size:.76rem !important; }
+          #sainthetic-home .reference-growth-bar { grid-template-columns:1fr 1fr auto !important; gap:9px !important; padding:9px 12px !important; }
+          #sainthetic-home .growth-avatars span { flex-basis:34px !important; width:34px !important; height:34px !important; }
+        }
+        @media (max-width:700px) {
+          #sainthetic-home header#hero.reference-hero { grid-template-columns:1fr !important; gap:10px !important; padding:28px 4px 10px !important; }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.55rem,10vw,3.5rem) !important; }
+          #sainthetic-home .reference-visual { min-height:0 !important; margin:8px 0 0 !important; }
+          #sainthetic-home .reference-app-window { max-width:540px !important; min-height:300px !important; }
+          #sainthetic-home .reference-features { grid-template-columns:1fr !important; gap:18px !important; padding:0 8px !important; }
+          #sainthetic-home .reference-growth-bar { grid-template-columns:1fr 1fr !important; gap:10px !important; padding:13px !important; }
+          #sainthetic-home .growth-message { border:0 !important; padding:0 !important; }
+          #sainthetic-home .growth-avatars { grid-column:1/-1 !important; justify-content:flex-start !important; }
+        }
+        @media (max-width:420px) {
+          #sainthetic-home .reference-app-window { grid-template-columns:78px minmax(0,1fr) !important; padding:40px 8px 10px !important; }
+          #sainthetic-home .reference-app-sidebar { font-size:.55rem !important; }
+          #sainthetic-home .reference-persona-avatar { width:38px !important; height:38px !important; flex-basis:38px !important; }
+        }
+
       `}</style>
 
       <div
