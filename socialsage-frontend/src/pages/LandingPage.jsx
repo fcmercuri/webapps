@@ -1181,6 +1181,28 @@ export default function LandingPage() {
         #sainthetic-home #how-it-works p, #sainthetic-home #case-study p, #sainthetic-home #faq p { color:#4b5872 !important; }
         #sainthetic-home #case-study > div[style*="linear-gradient"], #sainthetic-home #faq > div > div > div { background:#fff !important; border:1px solid #e9edf3 !important; box-shadow:0 12px 34px rgba(31,42,68,.06) !important; }
         #sainthetic-home footer { color:#5b6579 !important; border-color:#e9edf3 !important; }
+        /* Tablet / compact-desktop correction: the legacy #hero media rule was forcing the approved two-column hero into one column. */
+        @media (min-width:701px) and (max-width:900px) {
+          #sainthetic-home header#hero.reference-hero {
+            display:grid !important;
+            grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+            grid-template-areas:none !important;
+            align-items:center !important;
+            gap:16px !important;
+            min-height:560px !important;
+            padding:36px 12px 24px !important;
+          }
+          #sainthetic-home header#hero.reference-hero > .reference-hero-copy,
+          #sainthetic-home header#hero.reference-hero > .reference-visual {
+            grid-area:auto !important;
+            width:auto !important;
+            min-width:0 !important;
+          }
+          #sainthetic-home .reference-hero h1 {
+            font-size:clamp(2.35rem,5.2vw,3.1rem) !important;
+          }
+          #sainthetic-home .reference-visual { min-height:0 !important; margin-top:0 !important; }
+        }
         @media (max-width:900px) {
           #sainthetic-home nav.main-nav { width:calc(100% - 32px); }
           #sainthetic-home .reference-hero { grid-template-columns:1fr 1fr; gap:12px; min-height:560px; }
