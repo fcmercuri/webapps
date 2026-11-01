@@ -149,6 +149,939 @@ export default function LandingPage() {
     <div id="sainthetic-home" style={{ minHeight: "100vh", minWidth: "100vw", margin: 0, padding: 0, background: "#fff", display: "flex", flexDirection: "column" }}>
       <NavigationBar />
       <style>{`
+        /* sAInthetic white editorial redesign — homepage only */
+        #sainthetic-home {
+          background: #ffffff !important;
+          color: #171b2b !important;
+          min-height: 100vh;
+          overflow: hidden;
+        }
+        #sainthetic-home > div {
+          background: #ffffff !important;
+          color: #171b2b !important;
+        }
+        #sainthetic-home > div > div[style*="position: fixed"] { display: none !important; }
+        #sainthetic-home nav.main-nav {
+          position: sticky !important;
+          top: 0;
+          z-index: 100;
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          gap: 20px;
+          padding: 18px clamp(20px, 5vw, 64px) !important;
+          background: rgba(255,255,255,.94) !important;
+          border: 0 !important;
+          border-bottom: 1px solid #edf0f5 !important;
+          box-shadow: 0 8px 30px rgba(22,30,55,.035);
+          backdrop-filter: blur(16px);
+        }
+        #sainthetic-home .nav-left { justify-content: flex-start !important; margin: 0 !important; gap: 12px; }
+        #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; border-radius: 12px !important; }
+        #sainthetic-home .nav-brand { color: #171b2b !important; font-size: 1.5rem !important; font-weight: 800 !important; }
+        #sainthetic-home .nav-spacer { display: block !important; }
+        #sainthetic-home .nav-right { flex-direction: row; align-items: center; gap: 10px !important; width: auto; }
+        #sainthetic-home .nav-right a,
+        #sainthetic-home .desktop-nav .nav-link {
+          color: #3f4658 !important;
+          font-size: .96rem !important;
+          font-weight: 650 !important;
+          padding: 11px 13px !important;
+          text-decoration: none;
+          border-radius: 999px !important;
+        }
+        #sainthetic-home .nav-right a:hover { background: #fff8dc !important; color: #171b2b !important; }
+        #sainthetic-home .nav-right a.cta {
+          color: #fff !important;
+          background: #171b2b !important;
+          padding: 13px 22px !important;
+          border-radius: 999px !important;
+          box-shadow: none !important;        }
+        #sainthetic-home .nav-right a.cta:hover { background: #30384d !important; }
+        #sainthetic-home .sainthetic-menu-toggle { display: none; }
+        #sainthetic-home header#hero {
+          max-width: 1080px !important;
+          padding: clamp(54px, 8vw, 100px) 24px 36px !important;
+        }
+        #sainthetic-home header#hero > div:first-child {
+          background: #fff8df !important;
+          color: #22283a !important;
+          border: 1px solid #ffe69a !important;
+          border-radius: 999px !important;
+          padding: 10px 22px !important;
+          box-shadow: 0 5px 0 rgba(255,217,69,.12);
+          font-size: .95rem !important;
+        }
+        #sainthetic-home #hero h1 {
+          color: #171b2b !important;
+          background: none !important;
+          -webkit-text-fill-color: #171b2b !important;
+          font-size: clamp(2.8rem, 6.5vw, 5.2rem) !important;
+          line-height: 1.02 !important;
+          letter-spacing: -.065em !important;
+          max-width: 950px;
+          margin: 24px auto 22px !important;
+        }
+        #sainthetic-home #hero h1 span {
+          color: #171b2b !important;
+          -webkit-text-fill-color: #171b2b !important;
+          background: linear-gradient(transparent 64%, #ffedaa 64%) !important;
+        }
+        #sainthetic-home #hero > p {
+          color: #555d70 !important;
+          font-size: clamp(1.05rem, 2vw, 1.3rem) !important;
+          line-height: 1.7 !important;
+          max-width: 720px !important;
+        }
+        #sainthetic-home #hero a[href="/register"] {
+          color: #171b2b !important;
+          background: linear-gradient(110deg, #ffdf62, #ffc84d) !important;
+          border: 1px solid #ffd34e !important;
+          border-radius: 20px !important;
+          box-shadow: 0 12px 28px rgba(255,197,55,.22) !important;
+          padding: 19px 30px !important;
+          font-size: 1.12rem !important;
+        }
+        #sainthetic-home #hero a[href="/register"]:hover { transform: translateY(-2px); }
+        #sainthetic-home #hero p[style*="color"] { color: #70788b !important; }
+        #sainthetic-home .hero-trust-strip { gap: 16px 26px !important; margin-top: 28px !important; }
+        #sainthetic-home .hero-trust-strip > div { color: #657087 !important; }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] {
+          background: #ffffff !important;
+          border: 1px solid #e9edf3 !important;
+          border-radius: 24px !important;
+          box-shadow: 0 24px 70px rgba(31,42,68,.10) !important;
+          color: #171b2b !important;
+          padding: 26px !important;
+        }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="rgba(255,255,255,0.04)"] {
+          background: #f5f7fb !important;
+        }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="color"] { color: #465066 !important; }
+        #sainthetic-home #features { gap: 18px !important; margin-top: 5rem !important; }
+        #sainthetic-home .feature-card {
+          background: #ffffff !important;
+          color: #171b2b !important;
+          border: 1px solid #e9edf3 !important;
+          border-radius: 22px !important;
+          box-shadow: 0 12px 36px rgba(31,42,68,.07) !important;
+          padding: 30px 24px !important;
+        }
+        #sainthetic-home .feature-card h3 { color: #171b2b !important; }
+        #sainthetic-home .feature-card p,
+        #sainthetic-home .feature-card li { color: #586176 !important; }
+        #sainthetic-home section { scroll-margin-top: 100px; }
+        #sainthetic-home section h2,
+        #sainthetic-home section h3,
+        #sainthetic-home section h4 { color: #171b2b !important; }
+        #sainthetic-home section p { color: #586176 !important; }
+        #sainthetic-home .how-step-wrapper { gap: 3.5rem !important; margin-bottom: 6rem !important; }
+        #sainthetic-home .step-image {
+          border: 1px solid #e7ebf2 !important;
+          box-shadow: 0 18px 45px rgba(31,42,68,.10) !important;
+          border-radius: 22px !important;
+          background: #fff !important;
+        }
+        #sainthetic-home .step-text h3 { color: #171b2b !important; }
+        #sainthetic-home .step-text p { color: #586176 !important; }
+        #sainthetic-home section > div[style*="linear-gradient(135deg,#13131f"],
+        #sainthetic-home section > div[style*="linear-gradient(135deg, #13131f"] {
+          background: #fff !important;
+          border: 1px solid #e8ecf2 !important;
+          box-shadow: 0 18px 55px rgba(31,42,68,.08) !important;
+        }
+        #sainthetic-home .cs-metric-cell { border-color: #e8ecf2 !important; }
+        #sainthetic-home .cs-metric-cell div[style*="color:"] { color: #343d53 !important; }
+        #sainthetic-home #pricing > div[style*="linear-gradient"] {
+          background: #fff8df !important;
+          color: #3c455b !important;
+          border-color: #ffe69a !important;
+        }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div {
+          background: #fff !important;
+          color: #171b2b !important;
+          border: 1px solid #e6eaf1 !important;
+          border-radius: 22px !important;
+          box-shadow: 0 14px 40px rgba(31,42,68,.07) !important;
+        }
+        #sainthetic-home #pricing h3 { color: #171b2b !important; }
+        #sainthetic-home #pricing ul { color: #586176 !important; }
+        #sainthetic-home #pricing ul li { color: #586176 !important; }
+        #sainthetic-home #pricing button,
+        #sainthetic-home #pricing a[href="/register"] {
+          color: #171b2b !important;
+          background: #ffdc60 !important;
+          border: 0 !important;
+          border-radius: 12px !important;
+        }
+        #sainthetic-home #pricing > p { color: #697287 !important; }
+        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
+          background: #fff !important;
+          border: 1px solid #e8ecf2 !important;
+          box-shadow: 0 16px 50px rgba(31,42,68,.07) !important;
+        }
+        #sainthetic-home section[style*="max-width: 1000px"] > div > div[style*="rgba(23,22,29"] {
+          background: #f7f8fb !important;
+          border: 1px solid #edf0f5 !important;
+        }
+        #sainthetic-home #case-study > div[style*="linear-gradient(135deg,#13131f"] {
+          background: #fff !important;
+          border: 1px solid #e8ecf2 !important;
+          box-shadow: 0 18px 55px rgba(31,42,68,.08) !important;
+        }
+        #sainthetic-home #case-study [style*="rgba(255,255,255,0.06)"] { border-color: #e9edf3 !important; }
+        #sainthetic-home #case-study [style*="color:"] { color: #4c566c !important; }
+        #sainthetic-home #case-study h2,
+        #sainthetic-home #case-study h3,
+        #sainthetic-home #case-study h4 { color: #171b2b !important; }
+        #sainthetic-home #case-study a { color: #171b2b !important; }
+        #sainthetic-home #faq > div > div > div {
+          background: #fff !important;
+          border: 1px solid #e8ecf2 !important;
+          box-shadow: 0 8px 24px rgba(31,42,68,.04);
+        }
+        #sainthetic-home #faq button { color: #171b2b !important; background: #fff !important; }
+        #sainthetic-home #faq p { color: #586176 !important; }
+        #sainthetic-home footer {
+          background: transparent !important;
+          color: #657087 !important;
+          border-color: #e8ecf2 !important;
+        }
+        #sainthetic-home footer div { color: #657087 !important; }
+        #sainthetic-home button { color: #171b2b; }
+        #sainthetic-home [style*="background: rgba(255,255,255"] { background: #f5f7fb !important; }
+        #sainthetic-home [style*="background: rgba(24,24,36"],
+        #sainthetic-home [style*="background: linear-gradient(135deg,rgba(24,24,36"] {
+          background: #fff !important;
+          border-color: #e8ecf2 !important;
+        }
+
+        #sainthetic-home .persona-try-demo {
+          background: #ffffff !important;
+          color: #171b2b !important;
+          border: 1px solid #e8ecf2 !important;
+          box-shadow: 0 18px 55px rgba(31,42,68,.07);
+          padding: clamp(22px, 4vw, 42px) !important;
+        }
+        #sainthetic-home .persona-try-demo h2,
+        #sainthetic-home .persona-try-demo h3 { color: #171b2b !important; }
+        #sainthetic-home .persona-try-demo p,
+        #sainthetic-home .persona-try-demo li { color: #586176 !important; }
+        #sainthetic-home .persona-try-demo input,
+        #sainthetic-home .persona-try-demo select {
+          background: #f7f8fb !important;
+          color: #171b2b !important;
+          border: 1px solid #e1e6ef !important;
+        }
+        #sainthetic-home .persona-try-demo input::placeholder { color: #9299a8 !important; }
+        #sainthetic-home .persona-try-demo > button,
+        #sainthetic-home .persona-try-demo button {
+          background: #ffdc60 !important;
+          color: #171b2b !important;
+          border-radius: 12px !important;
+          box-shadow: none !important;
+        }
+        #sainthetic-home .persona-try-demo > div[style*="rgba(255,255,255"] {
+          background: #f7f8fb !important;
+          border-color: #e4e8ef !important;
+        }
+        @media (max-width: 800px) {
+          #sainthetic-home nav.main-nav { padding: 14px 20px !important; flex-direction: row !important; }
+          #sainthetic-home .nav-left { justify-content: flex-start !important; margin: 0 !important; }
+          #sainthetic-home .nav-spacer { display: block !important; }
+          #sainthetic-home .sainthetic-menu-toggle {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            padding: 0 !important;            margin: 0 !important;
+            border: 1px solid #e4e8ef !important;
+            border-radius: 50% !important;
+            background: #fff !important;
+            color: #171b2b !important;
+            box-shadow: none !important;
+          }
+          #sainthetic-home .mobile-dropdown {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            width: 100% !important;
+            background: #fff !important;
+            border: 1px solid #edf0f5 !important;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 18px 30px rgba(31,42,68,.08);
+            padding: 14px 20px 20px !important;
+          }
+          #sainthetic-home .mobile-dropdown a { color: #30384d !important; background: transparent !important; }
+          #sainthetic-home .mobile-dropdown a.cta { color: #fff !important; background: #171b2b !important; }
+          #sainthetic-home header#hero { padding: 48px 20px 24px !important; }
+          #sainthetic-home #hero h1 { font-size: clamp(2.45rem, 10vw, 3.7rem) !important; line-height: 1.04 !important; }
+          #sainthetic-home #hero a[href="/register"] { width: 100%; box-sizing: border-box; padding: 18px 16px !important; }
+          #sainthetic-home .hero-trust-strip { gap: 12px 18px !important; }
+          #sainthetic-home header#hero > div[style*="radial-gradient"] { padding: 20px !important; }
+          #sainthetic-home #features { margin-top: 3rem !important; padding: 0 18px !important; }
+          #sainthetic-home .feature-card { min-width: 0 !important; max-width: none !important; flex-basis: 100% !important; }
+          #sainthetic-home section { margin-top: 4.5rem !important; padding-left: 18px !important; padding-right: 18px !important; }
+          #sainthetic-home .how-step-wrapper { display: flex !important; flex-direction: column !important; gap: 20px !important; margin-bottom: 4rem !important; }
+          #sainthetic-home .how-step-wrapper .step-text { order: 1 !important; text-align: left !important; }
+          #sainthetic-home .how-step-wrapper .step-image { order: 2 !important; width: 100% !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] { gap: 18px !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] > div { width: 100%; max-width: 420px !important; min-width: 0 !important; box-sizing: border-box; }
+          #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] { margin-left: 18px !important; margin-right: 18px !important; padding: 26px 18px !important; }
+          #sainthetic-home #case-study > div[style*="linear-gradient(135deg,#13131f"] { overflow: hidden; }
+          #sainthetic-home #faq button { padding: 18px 16px !important; font-size: 1rem !important; }
+          #sainthetic-home #faq [style*="padding: 0px 2rem"] { padding-left: 16px !important; padding-right: 16px !important; }
+        }
+        @media (min-width: 801px) {
+          #sainthetic-home .sainthetic-menu-toggle { display: none !important; }
+        }
+      `}</style>
+
+      <style>{`
+        .hero-trust-strip { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 20px; }
+        .logo-strip { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; margin-top: 12px; opacity: 0.5; }
+        .how-step-wrapper { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 5rem; text-align: left; }
+        @media (min-width: 768px) {
+          .how-step-wrapper { grid-template-columns: 1fr 1fr; align-items: center; }
+          .how-step-wrapper:nth-child(even) .step-image { order: 2; }
+          .how-step-wrapper:nth-child(even) .step-text { order: 1; }
+        }
+        .cs-metrics { display: grid; grid-template-columns: 1fr 1fr; }
+        .cs-metric-cell { border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .cs-metric-cell:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.06); }
+        .cs-body { display: grid; grid-template-columns: 1fr; }
+        .cs-challenge { padding: 1.8rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .cs-steps { padding: 1.8rem 1.5rem; }
+        @media (min-width: 700px) {
+          .cs-metrics { grid-template-columns: repeat(4, 1fr); }
+          .cs-metric-cell { border-bottom: none; }
+          .cs-metric-cell:nth-child(odd) { border-right: none; }
+          .cs-metric-cell:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.06); }
+          .cs-body { grid-template-columns: 1fr 1fr; }
+          .cs-challenge { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.06); padding: 2.5rem; }
+          .cs-steps { padding: 2.5rem; }
+        }
+        .feature-card { background: linear-gradient(120deg,#191924b7 85%,#232845c7 100%); min-width: 300px; max-width: 340px; flex: 1 1 260px; border-radius: 1.3rem; padding: 2.4rem 1.6rem 1.8rem 1.6rem; color: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+      `}</style>
+
+      <style>{`
+        /* Editorial visual refinement inspired by the supplied HeyCatch reference.
+           Intentionally visual-only: all existing sAInthetic copy and functionality remain unchanged. */
+        #sainthetic-home {
+          font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+          background: #fff !important;
+          color: #191b29 !important;
+        }
+        #sainthetic-home nav.main-nav {
+          width: min( calc(100% - 40px), 1440px ) !important;
+          margin: 18px auto 0 !important;
+          padding: 14px 22px !important;
+          border: 1px solid rgba(25,27,41,.045) !important;
+          border-radius: 999px !important;
+          background: rgba(255,255,255,.92) !important;
+          box-shadow: 0 12px 40px rgba(29,34,58,.055) !important;
+        }
+        #sainthetic-home .nav-logo { border-radius: 13px !important; }
+        #sainthetic-home .nav-brand { letter-spacing: -.045em !important; }
+        #sainthetic-home header#hero {
+          max-width: 1120px !important;
+          padding: clamp(90px, 13vw, 176px) 28px 90px !important;
+          text-align: center !important;
+        }
+        #sainthetic-home header#hero > div:first-child {
+          background: #f7f7f9 !important;
+          border: 1px solid #ededf1 !important;
+          box-shadow: none !important;
+          color: #4d5265 !important;
+          padding: 10px 18px !important;
+          font-size: .88rem !important;
+          letter-spacing: .01em !important;
+        }
+        #sainthetic-home #hero h1 {
+          max-width: 1040px !important;
+          font-size: clamp(3.25rem, 8.3vw, 7.2rem) !important;
+          font-weight: 650 !important;
+          line-height: .99 !important;
+          letter-spacing: -.078em !important;
+          margin: 30px auto 28px !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home #hero h1 span {
+          background: none !important;
+          color: #45495f !important;
+          -webkit-text-fill-color: #45495f !important;
+        }
+        #sainthetic-home #hero > p {
+          max-width: 690px !important;
+          font-size: clamp(1.15rem, 2vw, 1.5rem) !important;
+          line-height: 1.55 !important;
+          color: #50556a !important;
+          margin: 0 auto 34px !important;
+        }
+        #sainthetic-home #hero a[href="/register"] {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          min-height: 64px !important;
+          min-width: 220px !important;
+          padding: 18px 34px !important;
+          border-radius: 999px !important;
+          background: #191b29 !important;
+          border: 1px solid #191b29 !important;
+          color: #fff !important;
+          box-shadow: none !important;
+          font-weight: 650 !important;
+        }
+        #sainthetic-home #hero a[href="/register"]:hover,
+        #sainthetic-home a[href="/register"]:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 28px rgba(25,27,41,.12) !important;
+        }
+        #sainthetic-home .hero-trust-strip { margin-top: 42px !important; }
+        #sainthetic-home .hero-trust-strip > div { color: #777d91 !important; }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] {
+          border-radius: 30px !important;
+          box-shadow: 0 24px 80px rgba(29,34,58,.075) !important;
+        }
+        #sainthetic-home section {
+          margin-top: clamp(88px, 11vw, 156px) !important;
+        }
+        #sainthetic-home section h2 {
+          font-size: clamp(2.35rem, 5vw, 4.5rem) !important;
+          font-weight: 600 !important;
+          line-height: 1.04 !important;
+          letter-spacing: -.065em !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home #features {
+          max-width: 1180px !important;
+          padding: 0 24px !important;
+          gap: 22px !important;
+        }
+        #sainthetic-home .feature-card {
+          border-radius: 30px !important;
+          padding: 36px 30px !important;
+          box-shadow: 0 14px 50px rgba(29,34,58,.055) !important;
+          border: 1px solid #f0f0f3 !important;
+          text-align: left !important;
+          align-items: flex-start !important;
+          transition: transform .25s ease, box-shadow .25s ease !important;
+        }
+        #sainthetic-home .feature-card:hover {
+          transform: translateY(-5px) !important;
+          box-shadow: 0 20px 60px rgba(29,34,58,.09) !important;
+        }
+        #sainthetic-home .how-step-wrapper { margin-bottom: 8rem !important; }
+        #sainthetic-home .step-image {
+          border-radius: 30px !important;
+          box-shadow: 0 18px 60px rgba(29,34,58,.075) !important;
+        }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div {
+          border-radius: 30px !important;
+          padding: 2.6rem 2rem !important;
+          box-shadow: 0 14px 50px rgba(29,34,58,.06) !important;
+        }
+        #sainthetic-home #pricing button,
+        #sainthetic-home #pricing a[href="/register"] {
+          border-radius: 999px !important;
+          min-height: 54px !important;
+          background: #191b29 !important;
+          color: #fff !important;
+          font-weight: 650 !important;
+        }
+        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
+          border-radius: 32px !important;
+        }
+        #sainthetic-home #case-study > div {
+          border-radius: 32px !important;
+          box-shadow: 0 18px 65px rgba(29,34,58,.065) !important;
+        }
+        #sainthetic-home #faq > div > div > div {
+          border-radius: 22px !important;
+          box-shadow: 0 8px 30px rgba(29,34,58,.035) !important;
+        }
+        #sainthetic-home #faq button {
+          padding: 24px 28px !important;
+          font-size: 1.12rem !important;
+          font-weight: 550 !important;
+        }
+        #sainthetic-home footer {
+          padding-top: 30px !important;
+          margin-top: 90px !important;
+        }
+        @media (max-width: 800px) {
+          #sainthetic-home nav.main-nav {
+            width: calc(100% - 28px) !important;
+            margin-top: 14px !important;
+            padding: 12px 16px !important;
+            min-height: 76px !important;
+            border-radius: 999px !important;
+          }
+          #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; }
+          #sainthetic-home .nav-brand { font-size: 1.32rem !important; }
+          #sainthetic-home header#hero {
+            padding: 112px 24px 60px !important;
+          }
+          #sainthetic-home #hero h1 {
+            font-size: clamp(3rem, 12vw, 5.2rem) !important;
+            line-height: 1.02 !important;
+            letter-spacing: -.075em !important;
+            margin: 28px auto 24px !important;
+          }
+          #sainthetic-home #hero > p {
+            font-size: 1.16rem !important;
+            line-height: 1.55 !important;
+            margin-bottom: 30px !important;
+          }
+          #sainthetic-home #hero a[href="/register"] {
+            width: 100% !important;
+            min-height: 64px !important;
+            border-radius: 999px !important;
+          }
+          #sainthetic-home .hero-trust-strip { margin-top: 32px !important; }
+          #sainthetic-home section { margin-top: 92px !important; }
+          #sainthetic-home section h2 {
+            font-size: clamp(2.5rem, 10vw, 3.6rem) !important;
+            line-height: 1.04 !important;
+          }
+          #sainthetic-home #features { padding: 0 20px !important; }
+          #sainthetic-home .feature-card {
+            border-radius: 28px !important;
+            padding: 30px 24px !important;
+          }
+          #sainthetic-home .how-step-wrapper { margin-bottom: 5rem !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] > div {
+            border-radius: 28px !important;
+            padding: 2.1rem 1.5rem !important;
+          }
+          #sainthetic-home #faq button { padding: 20px 18px !important; }
+          #sainthetic-home footer { margin-top: 64px !important; }
+        }
+      `}</style>
+
+      <style>{`
+        /* Premium visual system — presentation only; all page copy and behaviour stay intact. */
+        #sainthetic-home {
+          --ink: #171925;
+          --muted: #697083;
+          --line: #e9eaf0;
+          --paper: #ffffff;
+          --canvas: #f7f8fb;
+          --accent: #f4c94f;
+          font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+          color: var(--ink) !important;
+          background: var(--canvas) !important;
+          overflow: clip !important;
+        }
+        #sainthetic-home > div[style*="linear-gradient"] {
+          background: var(--canvas) !important;
+          overflow: visible !important;
+          isolation: isolate;
+        }
+        #sainthetic-home > div > div[style*="position: fixed"] { display: none !important; }
+        #sainthetic-home nav.main-nav {
+          width: min(calc(100% - 64px), 1320px) !important;
+          min-height: 76px;
+          margin: 18px auto 0 !important;
+          padding: 12px 24px !important;
+          border: 1px solid rgba(23,25,37,.07) !important;
+          border-radius: 20px !important;
+          background: rgba(255,255,255,.88) !important;
+          box-shadow: 0 8px 30px rgba(22,28,45,.045) !important;
+          backdrop-filter: blur(18px);
+        }
+        #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; border-radius: 12px !important; }
+        #sainthetic-home .nav-brand { color: var(--ink) !important; font-size: 1.38rem !important; font-weight: 760 !important; letter-spacing: -.055em !important; }
+        #sainthetic-home .nav-right { gap: 5px !important; }
+        #sainthetic-home .nav-right a,
+        #sainthetic-home .desktop-nav .nav-link {
+          color: #555b6c !important; font-size: .9rem !important; font-weight: 600 !important;
+          padding: 11px 14px !important; border-radius: 10px !important;
+        }
+        #sainthetic-home .nav-right a:hover { background: #f4f5f8 !important; color: var(--ink) !important; }
+        #sainthetic-home .nav-right a.cta {
+          color: #fff !important; background: var(--ink) !important; padding: 12px 20px !important;
+          border-radius: 11px !important; box-shadow: 0 5px 14px rgba(23,25,37,.12) !important;
+        }
+        #sainthetic-home header#hero {
+          max-width: 1120px !important;
+          padding: clamp(82px, 10vw, 132px) 28px 72px !important;
+        }
+        #sainthetic-home header#hero > div:first-child {
+          background: #fff !important; border: 1px solid #ececf1 !important;
+          color: #555b6c !important; box-shadow: 0 3px 12px rgba(23,25,37,.035) !important;
+          padding: 9px 16px !important; font-size: .82rem !important; font-weight: 650 !important;
+        }
+        #sainthetic-home #hero h1 {
+          max-width: 1020px !important; margin: 28px auto 24px !important;
+          color: var(--ink) !important; -webkit-text-fill-color: var(--ink) !important;
+          background: none !important; font-size: clamp(3.5rem, 7.1vw, 6.7rem) !important;
+          line-height: .99 !important; letter-spacing: -.082em !important; font-weight: 680 !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home #hero h1 span {
+          color: #62677a !important; -webkit-text-fill-color: #62677a !important;
+          background: none !important;
+        }
+        #sainthetic-home #hero > p {
+          max-width: 690px !important; color: #62697b !important;
+          font-size: clamp(1.08rem, 1.7vw, 1.28rem) !important;
+          line-height: 1.7 !important; margin: 0 auto 30px !important;
+        }
+        #sainthetic-home #hero a[href="/register"] {
+          display: inline-flex !important; align-items: center !important; justify-content: center !important;
+          min-height: 58px !important; padding: 16px 26px !important; border-radius: 12px !important;
+          background: var(--ink) !important; border: 1px solid var(--ink) !important;
+          color: #fff !important; box-shadow: 0 8px 22px rgba(23,25,37,.13) !important;
+          font-size: 1rem !important; font-weight: 650 !important;
+        }
+        #sainthetic-home #hero a[href="/register"]:hover,
+        #sainthetic-home a[href="/register"]:hover { background: #303449 !important; }
+        #sainthetic-home #hero p[style*="color"] { color: #8a8f9e !important; }
+        #sainthetic-home .hero-trust-strip { gap: 12px 25px !important; margin-top: 28px !important; }
+        #sainthetic-home .hero-trust-strip > div { color: #777e8f !important; font-size: .78rem !important; }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] {
+          max-width: 850px !important; margin: 54px auto 0 !important; padding: 26px !important;
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 22px !important; box-shadow: 0 26px 75px rgba(30,36,57,.09) !important;
+          color: var(--ink) !important;
+        }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="rgba(255,255,255"] {
+          background: #f6f7fa !important; border-color: #eceef3 !important;
+        }
+        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="color"] { color: #555d70 !important; }
+        #sainthetic-home .persona-try-demo {
+          max-width: 1080px !important; margin: 28px auto 0 !important;
+          padding: clamp(24px, 4vw, 48px) !important; background: #fff !important;
+          border: 1px solid var(--line) !important; border-radius: 24px !important;
+          box-shadow: 0 18px 60px rgba(30,36,57,.055) !important;
+        }
+        #sainthetic-home .persona-try-demo h2 { font-size: clamp(2rem,4vw,3rem) !important; letter-spacing: -.06em !important; }
+        #sainthetic-home .persona-try-demo input,
+        #sainthetic-home .persona-try-demo select {
+          min-height: 54px !important; background: #f8f9fb !important; color: var(--ink) !important;
+          border: 1px solid #e5e7ed !important; border-radius: 11px !important;
+        }
+        #sainthetic-home .persona-try-demo > button,
+        #sainthetic-home .persona-try-demo button {
+          min-height: 50px !important; padding: 13px 22px !important; border-radius: 11px !important;
+          background: var(--ink) !important; color: #fff !important; box-shadow: none !important;
+        }
+        #sainthetic-home .persona-try-demo > div[style*="rgba(255,255,255"],
+        #sainthetic-home .persona-try-demo [style*="rgba(255,255,255"] {
+          background: #f7f8fa !important; border-color: #e9ebf0 !important; color: var(--ink) !important;
+        }
+        #sainthetic-home .persona-try-demo [style*="color: #aaa"],
+        #sainthetic-home .persona-try-demo [style*="color: #888"] { color: #737a8b !important; }
+        #sainthetic-home #features {
+          max-width: 1160px !important; padding: 0 28px !important;
+          margin: 105px auto 0 !important; gap: 18px !important;
+        }
+        #sainthetic-home .feature-card {
+          min-width: 0 !important; max-width: none !important; flex: 1 1 280px !important;
+          padding: 30px !important; align-items: flex-start !important; text-align: left !important;
+          color: var(--ink) !important; background: #fff !important;
+          border: 1px solid #e9eaf0 !important; border-radius: 18px !important;
+          box-shadow: 0 8px 28px rgba(30,36,57,.035) !important;
+        }
+        #sainthetic-home .feature-card h3 { color: var(--ink) !important; font-size: 1.18rem !important; letter-spacing: -.035em !important; }
+        #sainthetic-home .feature-card p,
+        #sainthetic-home .feature-card li { color: #697083 !important; text-align: left !important; line-height: 1.65 !important; }
+        #sainthetic-home .feature-card li:last-child { color: #777d8d !important; }
+        #sainthetic-home section {
+          scroll-margin-top: 110px; color: var(--ink) !important;
+          margin-top: clamp(92px, 10vw, 142px) !important;
+        }
+        #sainthetic-home section h2 {
+          color: var(--ink) !important; font-size: clamp(2.5rem,5vw,4.25rem) !important;
+          font-weight: 650 !important; letter-spacing: -.07em !important; line-height: 1.04 !important;
+          text-wrap: balance !important;
+        }
+        #sainthetic-home section h3,
+        #sainthetic-home section h4 { color: var(--ink) !important; }
+        #sainthetic-home section p { color: #697083 !important; }
+        #sainthetic-home #how-it-works,
+        #sainthetic-home #pricing,
+        #sainthetic-home #case-study,
+        #sainthetic-home #faq { max-width: 1160px !important; }
+        #sainthetic-home #how-it-works > p { color: #777d8d !important; }
+        #sainthetic-home .how-step-wrapper { gap: clamp(32px,6vw,90px) !important; margin-bottom: 7rem !important; }
+        #sainthetic-home .step-image {
+          border: 1px solid #e8eaf0 !important; border-radius: 20px !important;
+          box-shadow: 0 18px 55px rgba(30,36,57,.075) !important; overflow: hidden !important;
+        }
+        #sainthetic-home .step-image img { display: block; width: 100%; }
+        #sainthetic-home .step-text h3 { font-size: clamp(1.8rem,3vw,2.55rem) !important; letter-spacing: -.055em !important; }
+        #sainthetic-home .step-text p { color: #697083 !important; line-height: 1.75 !important; }
+        #sainthetic-home .step-text > div:first-child {
+          background: #f6f1df !important; color: #67531c !important;
+          border: 1px solid #eee4c5 !important; border-radius: 8px !important;
+          font-size: .72rem !important; letter-spacing: .08em !important;
+        }
+        #sainthetic-home section > div[style*="paddingBottom: \"56.25%\""] {
+          border: 1px solid #e6e8ee !important; border-radius: 20px !important;
+          box-shadow: 0 18px 55px rgba(30,36,57,.08) !important;
+        }
+        #sainthetic-home section > div[style*="linear-gradient(135deg,#13131f"],
+        #sainthetic-home section > div[style*="linear-gradient(135deg, #13131f"],
+        #sainthetic-home #case-study > div {
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 22px !important; box-shadow: 0 16px 55px rgba(30,36,57,.055) !important;
+        }
+        #sainthetic-home .cs-metric-cell { border-color: #eceef2 !important; }
+        #sainthetic-home .cs-metric-cell div[style*="color:"] { color: #30364a !important; }
+        #sainthetic-home #pricing > div[style*="linear-gradient"] {
+          background: #f7f3e7 !important; border: 1px solid #eee5cd !important;
+          color: #62552f !important; border-radius: 999px !important;
+        }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div {
+          min-width: 250px !important; max-width: 340px !important; flex: 1 1 270px !important;
+          padding: 34px 28px !important; background: #fff !important; color: var(--ink) !important;
+          border: 1px solid #e7e9ef !important; border-radius: 20px !important;
+          box-shadow: 0 10px 35px rgba(30,36,57,.045) !important;
+        }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div[style*="border: 2px solid"] {
+          border-color: #d8bd66 !important; box-shadow: 0 18px 48px rgba(30,36,57,.09) !important;
+        }
+        #sainthetic-home #pricing h3 { color: var(--ink) !important; }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div > div[style*="fontSize: 32"] { color: var(--ink) !important; }
+        #sainthetic-home #pricing ul,
+        #sainthetic-home #pricing ul li { color: #646b7d !important; line-height: 1.9 !important; }
+        #sainthetic-home #pricing button,
+        #sainthetic-home #pricing a[href="/register"] {
+          background: var(--ink) !important; color: #fff !important; border: 0 !important;
+          border-radius: 10px !important; min-height: 50px !important;
+        }
+        #sainthetic-home #pricing > p { color: #777d8d !important; }
+        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 22px !important; box-shadow: 0 16px 55px rgba(30,36,57,.05) !important;
+        }
+        #sainthetic-home section[style*="max-width: 1000px"] > div > div > div[style*="rgba(23,22,29"] {
+          background: #f8f9fb !important; border: 1px solid #eceef2 !important;
+        }
+        #sainthetic-home #case-study > div { overflow: hidden !important; }
+        #sainthetic-home #case-study > div > div:first-child,
+        #sainthetic-home #case-study > div > div:last-child {
+          background: #fafafc !important; border-color: #eceef2 !important;
+        }
+        #sainthetic-home #case-study [style*="rgba(255,255,255"] { border-color: #e8eaf0 !important; }
+        #sainthetic-home #case-study [style*="color:"] { color: #626a7d !important; }
+        #sainthetic-home #case-study h2,
+        #sainthetic-home #case-study h3,
+        #sainthetic-home #case-study h4 { color: var(--ink) !important; }
+        #sainthetic-home #case-study a { color: var(--ink) !important; }
+        #sainthetic-home #faq > div > div > div {
+          background: #fff !important; border: 1px solid #e8eaf0 !important;
+          border-radius: 14px !important; box-shadow: 0 5px 18px rgba(30,36,57,.025) !important;
+        }
+        #sainthetic-home #faq button {
+          background: #fff !important; color: var(--ink) !important;
+          padding: 21px 24px !important; font-size: 1rem !important; font-weight: 620 !important;
+        }
+        #sainthetic-home #faq button span:last-child { color: #8b7440 !important; }
+        #sainthetic-home #faq p { color: #697083 !important; }
+        #sainthetic-home footer {
+          background: transparent !important; color: #858b99 !important;
+          border-color: #e8eaf0 !important; padding-top: 28px !important;
+        }
+        #sainthetic-home footer div { color: #858b99 !important; }
+        #sainthetic-home section[style*="padding: \"6rem 20px 3rem 20px\""] {
+          padding-top: 110px !important;
+        }
+        #sainthetic-home section[style*="padding: \"6rem 20px 3rem 20px\""] a[href="/register"] {
+          background: var(--ink) !important; color: #fff !important; border-radius: 12px !important;
+          box-shadow: 0 8px 22px rgba(23,25,37,.12) !important;
+        }
+        @media (max-width: 800px) {
+          #sainthetic-home nav.main-nav {
+            width: calc(100% - 28px) !important; margin-top: 12px !important;
+            min-height: 66px !important; padding: 10px 14px !important; border-radius: 15px !important;
+          }
+          #sainthetic-home .nav-brand { font-size: 1.2rem !important; }
+          #sainthetic-home .sainthetic-menu-toggle {
+            display: inline-flex !important; align-items: center; justify-content: center;
+            width: 42px; height: 42px; border: 1px solid #e8eaf0 !important;
+            border-radius: 10px !important; background: #fff !important; color: var(--ink) !important;
+          }
+          #sainthetic-home .mobile-dropdown {
+            background: #fff !important; border: 1px solid #e8eaf0 !important;
+            border-radius: 0 0 16px 16px !important; box-shadow: 0 16px 30px rgba(30,36,57,.08) !important;
+          }
+          #sainthetic-home .mobile-dropdown a { color: var(--ink) !important; }
+          #sainthetic-home .mobile-dropdown a.cta { color: #fff !important; background: var(--ink) !important; }
+          #sainthetic-home header#hero { padding: 88px 22px 48px !important; }
+          #sainthetic-home #hero h1 { font-size: clamp(3.05rem, 12vw, 5rem) !important; letter-spacing: -.075em !important; }
+          #sainthetic-home #hero > p { font-size: 1.05rem !important; }
+          #sainthetic-home #hero a[href="/register"] { width: 100% !important; box-sizing: border-box; }
+          #sainthetic-home .hero-trust-strip { gap: 11px 16px !important; }
+          #sainthetic-home header#hero > div[style*="radial-gradient"] { padding: 18px !important; margin-top: 38px !important; }
+          #sainthetic-home .persona-try-demo { margin: 20px 16px 0 !important; padding: 24px 18px !important; }
+          #sainthetic-home #features { margin-top: 76px !important; padding: 0 18px !important; }
+          #sainthetic-home .feature-card { flex-basis: 100% !important; padding: 25px !important; }
+          #sainthetic-home section { margin-top: 82px !important; padding-left: 18px !important; padding-right: 18px !important; }
+          #sainthetic-home section h2 { font-size: clamp(2.35rem, 10vw, 3.4rem) !important; }
+          #sainthetic-home .how-step-wrapper { display: flex !important; flex-direction: column !important; gap: 22px !important; margin-bottom: 4.5rem !important; }
+          #sainthetic-home .how-step-wrapper .step-text { order: 1 !important; text-align: left !important; }
+          #sainthetic-home .how-step-wrapper .step-image { order: 2 !important; width: 100% !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] { gap: 14px !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] > div { width: 100% !important; max-width: 440px !important; min-width: 0 !important; }
+          #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] { margin-left: 16px !important; margin-right: 16px !important; padding: 26px 18px !important; }
+          #sainthetic-home #faq button { padding: 18px 16px !important; }
+          #sainthetic-home footer { margin-top: 55px !important; }
+        }
+      `}</style>
+
+      <style>{`
+        /* Reference-led sAInthetic landing page composition */
+        #sainthetic-home { background:#fff !important; color:#111827 !important; min-width:0 !important; overflow:hidden; }
+        #sainthetic-home > div[style*="flex: 1"] { background:#fff !important; overflow:visible !important; }
+        #sainthetic-home > div[style*="flex: 1"] > div[style*="position: fixed"] { display:none !important; }
+        #sainthetic-home nav.main-nav {
+          box-sizing:border-box; width:calc(100% - 64px); max-width:1280px; margin:12px auto 0;
+          padding:12px 18px !important; min-height:74px; border:1px solid #edf0f5 !important;
+          border-radius:28px !important; background:rgba(255,255,255,.94) !important;
+          box-shadow:0 12px 36px rgba(18,27,48,.07) !important; backdrop-filter:blur(18px);
+          position:relative !important; z-index:20;
+        }
+        #sainthetic-home .nav-left { align-items:center; gap:12px !important; margin:0 !important; }
+        #sainthetic-home .nav-logo { width:38px !important; height:38px !important; border-radius:11px !important; object-fit:cover; }
+        #sainthetic-home .nav-brand { color:#111827 !important; font-size:1.45rem !important; font-weight:850 !important; letter-spacing:-.05em; }
+        #sainthetic-home .nav-spacer { display:none !important; }
+        #sainthetic-home .nav-right { align-items:center; gap:5px !important; }
+        #sainthetic-home .desktop-nav { margin-left:auto; }
+        #sainthetic-home .nav-right a, #sainthetic-home .desktop-nav .nav-link {
+          color:#273044 !important; padding:11px 13px !important; border-radius:999px !important;
+          font-size:.94rem !important; font-weight:600 !important; text-decoration:none;
+        }
+        #sainthetic-home .nav-right a:hover { background:#fff7dc !important; color:#111827 !important; }
+        #sainthetic-home .nav-right a.cta { background:#111827 !important; color:#fff !important; padding:13px 22px !important; border-radius:999px !important; box-shadow:none !important; }
+        #sainthetic-home .nav-right a.cta:hover { background:#273044 !important; }
+        #sainthetic-home .sainthetic-menu-toggle { color:#111827 !important; border:1px solid #e8ebf1 !important; background:#fff !important; border-radius:14px !important; }
+        #sainthetic-home header#hero {
+          display:grid !important; grid-template-columns:minmax(0,1.02fr) minmax(420px,.98fr);
+          grid-template-areas:"badge preview" "headline preview" "copy preview" "actions preview" "trust preview";
+          align-items:center; column-gap:clamp(34px,5vw,76px); row-gap:0;
+          width:100% !important; max-width:1280px !important; box-sizing:border-box;
+          padding:74px 28px 52px !important; margin:0 auto !important; text-align:left !important;
+        }
+        #sainthetic-home header#hero > :nth-child(1) { grid-area:badge; justify-self:start; margin:0 0 24px !important; }
+        #sainthetic-home #hero h1 {
+          grid-area:headline; max-width:650px; margin:0 0 22px !important;
+          color:#111827 !important; background:none !important; -webkit-text-fill-color:#111827 !important;
+          font-size:clamp(3rem,5.4vw,5.2rem) !important; font-weight:850 !important;
+          letter-spacing:-.075em !important; line-height:.99 !important; text-align:left !important;
+        }
+        #sainthetic-home #hero h1 span {
+          color:#111827 !important; -webkit-text-fill-color:#111827 !important;
+          background:linear-gradient(transparent 64%,#ffe58b 64%) !important;
+          box-decoration-break:clone; -webkit-box-decoration-break:clone;
+        }
+        #sainthetic-home #hero > p { grid-area:copy; max-width:600px !important; margin:0 0 26px !important; color:#48536a !important; font-size:1.12rem !important; line-height:1.6 !important; text-align:left !important; }
+        #sainthetic-home #hero > div:nth-of-type(2) { grid-area:actions; align-items:flex-start !important; flex-direction:row !important; flex-wrap:wrap; gap:14px !important; }
+        #sainthetic-home #hero > div:nth-of-type(2) > a {
+          background:#111827 !important; color:#fff !important; border:1px solid #111827 !important;
+          border-radius:999px !important; box-shadow:0 9px 24px rgba(17,24,39,.15) !important;
+          padding:16px 25px !important; font-size:1rem !important;
+        }
+        #sainthetic-home #hero > div:nth-of-type(2) > p { flex-basis:100%; color:#566176 !important; text-align:left !important; margin:0 !important; }
+        #sainthetic-home #hero > div:nth-of-type(2) > div { justify-content:flex-start !important; }
+        #sainthetic-home #hero > div:nth-of-type(2) > div span { color:#69748a !important; }
+        #sainthetic-home #hero .hero-trust-strip { grid-area:trust; justify-content:flex-start !important; gap:10px 18px !important; margin-top:18px !important; flex-wrap:wrap; }
+        #sainthetic-home #hero .hero-trust-strip > div { color:#657087 !important; font-size:.78rem !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) {
+          grid-area:preview; align-self:center; width:100%; box-sizing:border-box; position:relative;
+          margin:0 !important; padding:56px 22px 24px 158px !important;
+          background:#fff !important; color:#111827 !important; border:1px solid #e7ebf2 !important;
+          border-radius:26px !important; box-shadow:0 26px 70px rgba(31,42,68,.14) !important;
+          transform:rotate(-1.2deg); min-height:360px;
+        }
+        #sainthetic-home #hero > div:nth-of-type(4)::before {
+          content:"●  ●  ●"; position:absolute; top:17px; left:22px; right:22px; height:25px;
+          border-bottom:1px solid #edf0f5; color:#f46b68; font-size:13px; letter-spacing:5px;
+        }
+        #sainthetic-home #hero .hero-app-sidebar {
+          position:absolute; top:58px; bottom:20px; left:18px; width:124px;
+          display:flex; flex-direction:column; gap:14px; padding:8px 7px;
+          color:#4a556b; font-size:.72rem; font-weight:600; border-right:1px solid #edf0f5;
+        }
+        #sainthetic-home #hero .hero-app-sidebar strong { color:#111827; font-size:.83rem; margin-bottom:10px; }
+        #sainthetic-home #hero .hero-app-sidebar span { padding:8px 7px; border-radius:9px; white-space:nowrap; }
+        #sainthetic-home #hero .hero-app-sidebar span.active { background:#fff1b8; color:#111827; }
+        #sainthetic-home #hero > div:nth-of-type(4) > div:not(.hero-app-sidebar) { position:relative; z-index:1; }
+        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) { margin-bottom:16px !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:first-child { background:#fff0bd !important; color:#111827 !important; box-shadow:none !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:nth-child(2) div { color:#111827 !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:nth-child(2) div:nth-child(2) { color:#b08000 !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) [style*="rgba(255,255,255,0.04)"] { background:#f5f7fb !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) [style*="color:"] { color:#273044 !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) > div:last-child { background:#f5f7fb !important; border:1px solid #e9edf3 !important; }
+        #sainthetic-home #hero > div:nth-of-type(4) > div:last-child span { color:#364158 !important; }
+        #sainthetic-home #features { max-width:1200px !important; margin:28px auto 0 !important; gap:18px !important; align-items:stretch; }
+        #sainthetic-home .feature-card {
+          min-width:0 !important; max-width:none !important; flex:1 1 250px !important;
+          align-items:flex-start !important; text-align:left !important; justify-content:flex-start !important;
+          background:#fff !important; color:#111827 !important; border:1px solid #edf0f5 !important;
+          border-radius:22px !important; box-shadow:0 12px 32px rgba(31,42,68,.06) !important;
+          padding:28px 24px !important;
+        }
+        #sainthetic-home .feature-card h3 { color:#111827 !important; }
+        #sainthetic-home .feature-card p, #sainthetic-home .feature-card li { color:#59647a !important; text-align:left !important; }
+        #sainthetic-home #how-it-works, #sainthetic-home #pricing, #sainthetic-home #case-study, #sainthetic-home #faq { scroll-margin-top:100px; }
+        #sainthetic-home section h2, #sainthetic-home section h3, #sainthetic-home section h4 { color:#111827 !important; }
+        #sainthetic-home section p { color:#59647a !important; }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) > div:first-child {
+          background:#fff !important; border:1px solid #e9edf3 !important; border-radius:24px !important;
+          box-shadow:0 12px 34px rgba(31,42,68,.07) !important; padding:24px 20px !important;
+        }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) > div:first-child > div:first-child {
+          color:#59647a !important; letter-spacing:.08em;
+        }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) .cs-metric-cell { border-color:#e9edf3 !important; }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) .cs-metric-cell div { color:#111827 !important; }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) a { color:#8a6500 !important; }
+        #sainthetic-home #pricing { max-width:1180px !important; margin-top:6rem !important; }
+        #sainthetic-home #pricing h2 { color:#111827 !important; font-size:clamp(2.1rem,4vw,3rem) !important; letter-spacing:-.06em !important; }
+        #sainthetic-home #pricing > div[style*="display: flex"] > div {
+          background:#fff !important; color:#111827 !important; border:1px solid #e9edf3 !important;
+          border-radius:24px !important; box-shadow:0 12px 36px rgba(31,42,68,.07) !important;
+        }
+        #sainthetic-home #pricing h3 { color:#111827 !important; }
+        #sainthetic-home #pricing ul, #sainthetic-home #pricing ul li { color:#4e596f !important; }
+        #sainthetic-home #pricing button, #sainthetic-home #pricing a[href="/register"] { border-radius:999px !important; }
+        #sainthetic-home #case-study > div[style*="linear-gradient"], #sainthetic-home #faq > div > div > div {
+          background:#fff !important; border:1px solid #e9edf3 !important; box-shadow:0 12px 34px rgba(31,42,68,.06) !important;
+        }
+        #sainthetic-home footer { color:#5b6579 !important; border-color:#e9edf3 !important; }
+        @media (max-width:900px) {
+          #sainthetic-home nav.main-nav { width:calc(100% - 28px); margin-top:10px; border-radius:22px !important; }
+          #sainthetic-home header#hero {
+            grid-template-columns:minmax(0,1fr); grid-template-areas:"badge" "headline" "copy" "actions" "preview" "trust";
+            max-width:720px !important; padding:54px 24px 36px !important; row-gap:0;
+          }
+          #sainthetic-home #hero h1 { font-size:clamp(2.8rem,9vw,4.3rem) !important; }
+          #sainthetic-home #hero > div:nth-of-type(4) { margin-top:38px !important; transform:none; }
+          #sainthetic-home #hero .hero-trust-strip { margin-top:24px !important; }
+          #sainthetic-home #features { padding:0 22px !important; }
+        }
+        @media (max-width:560px) {
+          #sainthetic-home nav.main-nav { min-height:62px; padding:9px 12px !important; }
+          #sainthetic-home .nav-brand { font-size:1.2rem !important; }
+          #sainthetic-home .nav-logo { width:34px !important; height:34px !important; }
+          #sainthetic-home header#hero { padding:42px 20px 30px !important; }
+          #sainthetic-home #hero > div:nth-of-type(2) { flex-direction:column !important; align-items:stretch !important; }
+          #sainthetic-home #hero > div:nth-of-type(2) > a { text-align:center; }
+          #sainthetic-home #hero > div:nth-of-type(4) { padding:54px 14px 18px 14px !important; min-height:0; }
+          #sainthetic-home #hero .hero-app-sidebar { display:none; }
+          #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) { gap:8px; }
+          #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:last-child { display:none; }
+          #sainthetic-home .feature-card { flex-basis:100% !important; }
+          #sainthetic-home #pricing > div[style*="display: flex"] > div { min-width:0 !important; width:100%; }
+        }
+      `}</style>
+      <style>{`
         #sainthetic-home { --ref-ink:#111827; --ref-muted:#33415f; --ref-yellow:#ffeaa3; background:#fff !important; color:var(--ref-ink) !important; min-width:0 !important; overflow:hidden; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
         #sainthetic-home > div[style*="flex: 1"] { background:#fff !important; overflow:visible !important; }
         #sainthetic-home > div[style*="flex: 1"] > div[style*="position: fixed"] { display:none !important; }
