@@ -2517,7 +2517,7 @@ export default function LandingPage() {
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
             </div>
             <div className="reference-visual reference-hero-dashboard" aria-label="sAInthetic buyer persona product preview">
-              <img className="reference-hero-dashboard-image" src="/sainthetic-hero-dashboard.webp" alt="sAInthetic dashboard preview with buyer persona profile and the exact questions buyers ask AI" fetchPriority="high" />
+              <img className="reference-hero-dashboard-image" src="/step-2-personas.jpg" alt="sAInthetic buyer persona dashboard showing customer profiles and buyer insights" fetchPriority="high" />
             </div>
           </header>
 
