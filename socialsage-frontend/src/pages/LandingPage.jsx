@@ -197,15 +197,15 @@ export default function LandingPage() {
         #sainthetic-home .reference-actions a.reference-secondary:hover { background:#f8f9fc !important; transform:translateY(-2px) !important; }
         /* Use the uploaded high-resolution community portrait strip. */
         #sainthetic-home#sainthetic-home .growth-avatars span {
-          background-image:url('/community-avatars.png?v=20261101') !important;
+          background-image:url('/community-avatars-clean.webp?v=20261102') !important;
           background-repeat:no-repeat !important;
-          background-size:auto 135% !important;
+          background-size:400% 100% !important;
           background-position-y:50% !important;
         }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(1) { background-position-x:7.7% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(2) { background-position-x:34.1% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(3) { background-position-x:60.8% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(4) { background-position-x:87.6% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(1) { background-position-x:0% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(2) { background-position-x:33.333% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(3) { background-position-x:66.667% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(4) { background-position-x:100% !important; }
         #sainthetic-home#sainthetic-home .growth-avatars img { display:none !important; }
         /* Keep visible breathing room between the feature row and community bar. */
         #sainthetic-home#sainthetic-home .reference-features {
@@ -2378,7 +2378,7 @@ export default function LandingPage() {
           }
           #sainthetic-home .reference-hero-photo-image {
             width:100% !important; max-height:480px !important;
-            object-fit:cover !important; object-position:center 43% !important;
+            object-fit:cover !important; object-position:33.333% center !important;
           }
           #sainthetic-home .reference-linkedin-credit { min-height:40px !important; font-size:.8rem !important; }
         }
@@ -2865,7 +2865,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/hero-community-avatar.webp?v=20261101" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
+                    <div className="reference-persona-avatar"><img src="/community-avatars-clean.webp?v=20261102" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">High-value questions they ask AI</div>
