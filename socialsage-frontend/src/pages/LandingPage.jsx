@@ -2980,7 +2980,7 @@ export default function LandingPage() {
                 <a className="reference-primary" href="/register">See your first buyer persona <span>→</span></a>
                 <a className="reference-secondary" href="#product-demo"><span className="play-icon">▷</span> Watch demo</a>
               </div>
-              <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
+              <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card</span><span>✓&nbsp; Cancel anytime</span><span>✓&nbsp; Setup in 60 sec</span></div>
             </div>
             <div className="reference-visual" aria-label="Preview of the sAInthetic buyer persona dashboard">
               <div className="reference-app-window">
@@ -3789,6 +3789,27 @@ export default function LandingPage() {
           }
           #sainthetic-home .final-cta-section p { margin-bottom:20px !important; font-size:1rem !important; line-height:1.5 !important; }
           #sainthetic-home .final-cta-section footer { margin-top:1.75rem !important; }
+        }
+      `}</style>
+      <style>{`
+        /* Keep all four hero reassurance points balanced and visible. */
+        #sainthetic-home header#hero .reference-reassurance {
+          display:flex !important; flex-wrap:wrap !important; align-items:center !important;
+          gap:9px 18px !important; max-width:100% !important;
+        }
+        #sainthetic-home header#hero .reference-reassurance span {
+          display:inline-flex !important; align-items:center !important; white-space:nowrap !important;
+        }
+        @media (max-width:760px) {
+          #sainthetic-home header#hero .reference-reassurance {
+            display:grid !important; grid-template-columns:repeat(2,minmax(0,max-content)) !important;
+            justify-content:start !important; align-items:center !important; column-gap:16px !important;
+            row-gap:9px !important; width:100% !important; font-size:.72rem !important;
+          }
+          #sainthetic-home header#hero .reference-reassurance span { white-space:nowrap !important; }
+        }
+        @media (max-width:370px) {
+          #sainthetic-home header#hero .reference-reassurance { grid-template-columns:minmax(0,1fr) !important; row-gap:7px !important; }
         }
       `}</style>
       </div>
