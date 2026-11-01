@@ -2810,6 +2810,20 @@ export default function LandingPage() {
           #sainthetic-home .reference-persona-avatar { width:38px !important; height:38px !important; flex-basis:38px !important; }
         }
 
+        /* High-resolution standalone portrait for the hero buyer persona. */
+        #sainthetic-home#sainthetic-home .reference-persona-avatar img.hero-persona-portrait {
+          position:absolute !important;
+          top:0 !important;
+          left:0 !important;
+          width:100% !important;
+          height:100% !important;
+          max-width:100% !important;
+          object-fit:cover !important;
+          object-position:center 43% !important;
+          transform:none !important;
+          border-radius:50% !important;
+          image-rendering:auto !important;
+        }
       `}</style>
 
       <div
@@ -2851,7 +2865,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="Buyer persona portrait" /></div>
+                    <div className="reference-persona-avatar"><img src="/hero-community-avatar.webp?v=20261101" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">High-value questions they ask AI</div>
