@@ -1563,6 +1563,101 @@ export default function LandingPage() {
             display:none !important;
           }
         }
+
+        /* Product walkthrough redesign */
+        #sainthetic-home #product-walkthrough {
+          max-width:1280px !important; margin:76px auto 0 !important;
+          padding:0 clamp(20px,4vw,54px) !important; text-align:left !important;
+        }
+        #sainthetic-home #product-walkthrough > h2 {
+          max-width:760px !important; margin:0 auto 12px !important;
+          color:#111827 !important; font-size:clamp(2.25rem,4.2vw,3.45rem) !important;
+          line-height:1.04 !important; letter-spacing:-.065em !important; text-align:center !important;
+        }
+        #sainthetic-home #product-walkthrough > p {
+          max-width:680px !important; margin:0 auto 64px !important;
+          color:#536078 !important; font-size:clamp(1rem,1.6vw,1.18rem) !important;
+          line-height:1.6 !important; text-align:center !important;
+        }
+        #sainthetic-home .how-step-wrapper {
+          display:grid !important; grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr) !important;
+          align-items:center !important; gap:clamp(34px,5vw,76px) !important;
+          margin:0 auto 78px !important; padding:0 !important;
+          border:0 !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important;
+        }
+        #sainthetic-home .how-step-wrapper:nth-child(even) .step-image { order:2 !important; }
+        #sainthetic-home .how-step-wrapper:nth-child(even) .step-text { order:1 !important; }
+        #sainthetic-home .step-image {
+          width:100% !important; min-width:0 !important; padding:0 !important; overflow:hidden !important;
+          border:1px solid #dfe4ed !important; border-radius:24px !important; background:#111827 !important;
+          box-shadow:0 22px 55px rgba(24,35,60,.16) !important; transform:translateZ(0);
+        }
+        #sainthetic-home .step-image img {
+          display:block !important; width:100% !important; height:auto !important;
+          max-width:100% !important; object-fit:contain !important;
+        }
+        #sainthetic-home .step-text { min-width:0 !important; padding:8px 0 !important; text-align:left !important; }
+        #sainthetic-home .step-text > div:first-child {
+          display:inline-flex !important; align-items:center !important; justify-content:center !important;
+          min-width:88px !important; min-height:42px !important; box-sizing:border-box !important;
+          margin:0 0 24px !important; padding:8px 17px !important; border:1px solid #f1dfaa !important;
+          border-radius:12px !important; background:#fbf5e4 !important; color:#80601b !important;
+          font-size:.88rem !important; font-weight:800 !important; letter-spacing:.08em !important;
+        }
+        #sainthetic-home .step-text h3 {
+          margin:0 0 18px !important; color:#111827 !important;
+          font-size:clamp(2.2rem,4.1vw,3.35rem) !important; line-height:1.04 !important;
+          font-weight:850 !important; letter-spacing:-.065em !important; text-wrap:balance !important;
+        }
+        #sainthetic-home .step-text > p {
+          max-width:640px !important; margin:0 !important; color:#536078 !important;
+          font-size:clamp(1.02rem,1.65vw,1.2rem) !important; line-height:1.62 !important;
+        }
+        #sainthetic-home .step-highlights {
+          display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+          gap:12px !important; margin-top:28px !important;
+        }
+        #sainthetic-home .step-highlight {
+          display:flex !important; align-items:flex-start !important; gap:10px !important;
+          min-width:0 !important; min-height:92px !important; box-sizing:border-box !important;
+          padding:14px 12px !important; border:1px solid #e8edf4 !important; border-radius:17px !important;
+          background:linear-gradient(180deg,#fff 0%,#fbfcfe 100%) !important;
+          box-shadow:0 6px 18px rgba(26,39,67,.045) !important;
+        }
+        #sainthetic-home .step-highlight-icon {
+          display:grid !important; place-items:center !important; flex:0 0 34px !important;
+          width:34px !important; height:34px !important; border-radius:11px !important;
+          background:#fff2c9 !important; color:#936600 !important; font-size:1.1rem !important; font-weight:800 !important;
+        }
+        #sainthetic-home .step-highlight-copy { display:flex !important; flex-direction:column !important; gap:4px !important; min-width:0 !important; }
+        #sainthetic-home .step-highlight-copy strong { color:#111827 !important; font-size:.82rem !important; line-height:1.2 !important; font-weight:800 !important; }
+        #sainthetic-home .step-highlight-copy small { color:#5b667b !important; font-size:.72rem !important; line-height:1.35 !important; }
+        @media (max-width:1000px) {
+          #sainthetic-home .how-step-wrapper { grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important; gap:28px !important; margin-bottom:62px !important; }
+          #sainthetic-home .step-highlights { grid-template-columns:1fr !important; gap:9px !important; margin-top:22px !important; }
+          #sainthetic-home .step-highlight { min-height:0 !important; padding:10px 12px !important; }
+          #sainthetic-home .step-highlight-icon { flex-basis:30px !important; width:30px !important; height:30px !important; }
+        }
+        @media (max-width:700px) {
+          #sainthetic-home #product-walkthrough { margin-top:54px !important; padding:0 18px !important; }
+          #sainthetic-home #product-walkthrough > p { margin-bottom:38px !important; }
+          #sainthetic-home .how-step-wrapper { display:flex !important; flex-direction:column !important; align-items:stretch !important; gap:24px !important; margin-bottom:54px !important; }
+          #sainthetic-home .how-step-wrapper:nth-child(even) .step-image,
+          #sainthetic-home .how-step-wrapper:nth-child(even) .step-text { order:initial !important; }
+          #sainthetic-home .step-image { border-radius:18px !important; }
+          #sainthetic-home .step-text { padding:0 2px !important; }
+          #sainthetic-home .step-text > div:first-child { margin-bottom:16px !important; }
+          #sainthetic-home .step-text h3 { font-size:clamp(2rem,9vw,2.8rem) !important; margin-bottom:13px !important; }
+          #sainthetic-home .step-text > p { font-size:1rem !important; }
+          #sainthetic-home .step-highlights { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:9px !important; margin-top:20px !important; }
+          #sainthetic-home .step-highlight { min-height:88px !important; padding:11px 9px !important; gap:8px !important; }
+          #sainthetic-home .step-highlight-copy strong { font-size:.78rem !important; }
+          #sainthetic-home .step-highlight-copy small { font-size:.68rem !important; }
+        }
+        @media (max-width:390px) {
+          #sainthetic-home .step-highlights { grid-template-columns:1fr !important; }
+          #sainthetic-home .step-highlight { min-height:0 !important; }
+        }
       `}</style>
 
 
@@ -1681,10 +1776,10 @@ export default function LandingPage() {
           <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Generate customer personas, content ideas, and conversion-ready copy in minutes</p>
 
           {[
-            { ref: step1Ref, inView: step1InView, img: "step-1-industry.jpg", alt: "Select Industry", step: "STEP 1", title: "Choose Your Industry", desc: "Select from 5+ industries: from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors everything to your specific market." },
-            { ref: step2Ref, inView: step2InView, img: "step-2-personas.jpg", alt: "AI Persona", step: "STEP 2", title: "Meet Your Customers", desc: "sAInthetic instantly generates detailed customer personas with goals, pain points, and behaviors — like having a marketing team in your pocket." },
-            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "Content Ideas", step: "STEP 3", title: "Prompt Library On Demand", desc: "Every persona unlocks a focused library of powerful, ready-to-use prompts that reflect realistic synthetic persona queries." },
-            { ref: step4Ref, inView: step4InView, img: "step-4-content.jpg", alt: "Generated Content", step: "STEP 4", title: "Professional Copy, Instantly", desc: "One click generates 1,000–1,500 words of conversion-ready copy that speaks directly to your customers' needs." },
+            { ref: step1Ref, inView: step1InView, img: "step-1-industry.jpg", alt: "Select Industry", step: "STEP 1", title: "Choose Your Industry", desc: "Select from 5+ industries: from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors everything to your specific market.", highlights: [{ icon: "⚡", title: "Multiple industries", detail: "SaaS, retail, healthcare and more" }, { icon: "◎", title: "Market-specific", detail: "Personas tailored to your niche" }, { icon: "✦", title: "Ready in seconds", detail: "Go from industry to insight instantly" }] },
+            { ref: step2Ref, inView: step2InView, img: "step-2-personas.jpg", alt: "AI Persona", step: "STEP 2", title: "Meet Your Customers", desc: "sAInthetic instantly generates detailed customer personas with goals, pain points, and behaviors — like having a marketing team in your pocket.", highlights: [{ icon: "♙", title: "Realistic personas", detail: "Built around customer behaviour and intent" }, { icon: "▥", title: "Actionable insights", detail: "Goals, pain points and motivations" }, { icon: "▤", title: "Content-ready", detail: "Ideas and angles that drive results" }] },
+            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "Content Ideas", step: "STEP 3", title: "Prompt Library On Demand", desc: "Every persona unlocks a focused library of powerful, ready-to-use prompts that reflect realistic synthetic persona queries.", highlights: [{ icon: "⌕", title: "Intent-led prompts", detail: "Questions grounded in buyer needs" }, { icon: "▤", title: "Reusable library", detail: "A consistent source for your team" }, { icon: "↗", title: "Fresh angles", detail: "Explore topics competitors overlook" }] },
+            { ref: step4Ref, inView: step4InView, img: "step-4-content.jpg", alt: "Generated Content", step: "STEP 4", title: "Professional Copy, Instantly", desc: "One click generates 1,000–1,500 words of conversion-ready copy that speaks directly to your customers' needs.", highlights: [{ icon: "✦", title: "Conversion-ready", detail: "Copy shaped around customer needs" }, { icon: "✓", title: "On-message output", detail: "Aligned to your persona and angle" }, { icon: "↗", title: "Ready to use", detail: "Save, edit and publish faster" }] },
           ].map((s, i) => (
             <div key={i} ref={s.ref} className="how-step-wrapper">
               <motion.div className="step-image" initial={{ opacity: 0, x: -50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8 }} style={{ borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.2)", border: "2px solid rgba(255,217,69,0.3)" }}>
@@ -1694,6 +1789,14 @@ export default function LandingPage() {
                 <div style={{ background: "linear-gradient(135deg,#ffd945 0%,#ffed4e 100%)", color: "#000", padding: "8px 20px", borderRadius: 20, fontSize: "0.875rem", fontWeight: 700, display: "inline-block", marginBottom: 20 }}>{s.step}</div>
                 <h3 style={{ fontSize: "2.2rem", fontWeight: 800, margin: "0 0 20px 0", letterSpacing: "-1px", color: "#fff" }}>{s.title}</h3>
                 <p style={{ fontSize: "1.15rem", color: "#bbb", lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
+                <div className="step-highlights">
+                  {s.highlights.map((item) => (
+                    <div className="step-highlight" key={item.title}>
+                      <span className="step-highlight-icon" aria-hidden="true">{item.icon}</span>
+                      <span className="step-highlight-copy"><strong>{item.title}</strong><small>{item.detail}</small></span>
+                    </div>
+                  ))}
+                </div>
               </motion.div>
             </div>
           ))}
