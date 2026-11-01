@@ -92,30 +92,37 @@ return res
 
 // >>> GOOGLE LOGIN ROUTE <<<
 app.post('/api/auth/google-login', async (req, res) => {
+const requestStarted = Date.now();
 try {
 const { access_token } = req.body;
 if (!access_token) {
 return res.status(400).json({ error: 'Missing access_token' });
 }
 
+const googleStarted = Date.now();
 const googleRes = await axios.get(
 'https://www.googleapis.com/oauth2/v3/userinfo',
 {
 headers: {
 Authorization: `Bearer ${access_token}`,
 },
+timeout: 8000,
 }
 );
-
+const googleMs = Date.now() - googleStarted;
 const profile = googleRes.data;
 
 if (!profile.email) {
 return res.status(400).json({ error: 'Google account has no email' });
 }
 
+const dbStarted = Date.now();
 let user = await User.findOne({ email: profile.email });
+const lookupMs = Date.now() - dbStarted;
+let createMs = 0;
 
 if (!user) {
+const createStarted = Date.now();
 user = await User.create({
 email: profile.email,
 name: profile.name || 'Google User',
@@ -125,6 +132,7 @@ googleId: profile.sub,
 plan: 'free',
 isPremium: false,
 });
+createMs = Date.now() - createStarted;
 }
 
 const token = jwt.sign(
@@ -132,6 +140,13 @@ const token = jwt.sign(
 process.env.JWT_SECRET || 'SECRET_KEY',
 { expiresIn: '7d' }
 );
+
+console.info('[auth/google-login] timings', {
+googleProfileMs: googleMs,
+databaseLookupMs: lookupMs,
+databaseCreateMs: createMs,
+totalMs: Date.now() - requestStarted,
+});
 
 return res.json({
 token,
@@ -146,7 +161,10 @@ plan: user.plan,
 },
 });
 } catch (err) {
-console.error('❌ Google login error:', err.response?.data || err.message);
+console.error('[auth/google-login] failed', {
+message: err.message,
+totalMs: Date.now() - requestStarted,
+});
 return res.status(500).json({ error: 'Google login failed' });
 }
 });
