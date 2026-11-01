@@ -25,15 +25,37 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 
+function AuthLoadingScreen() {
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      style={{
+        minHeight: "100vh",
+        display: "grid",
+        placeItems: "center",
+        background: "#0b0b0b",
+        color: "#ffd945",
+        fontFamily: "inherit",
+        fontSize: "0.95rem",
+      }}
+    >
+      Restoring your sAInthetic session…
+    </div>
+  );
+}
+
 function PrivateRoute({ children }) {
-  const { token } = useAuth();
+  const { token, authReady } = useAuth();
+  if (!authReady) return <AuthLoadingScreen />;
   if (!token) return <Navigate to="/login" replace />;
   return children;
 }
 
 function PublicRoute({ children }) {
-  const { token, user } = useAuth();
+  const { token, user, authReady } = useAuth();
 
+  if (!authReady) return <AuthLoadingScreen />;
   if (!token) return children;
 
   const email = user?.email;
