@@ -3168,9 +3168,9 @@ export default function LandingPage() {
 
         {/* The remaining product proof, demo, case study, FAQs and conversion CTA follow below. */}
         <section id="product-walkthrough" className="product-walkthrough" style={{ margin: "3.5rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
-          <div className="walkthrough-eyebrow"><span>⚡</span> How it works</div>
-          <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>From industry to buyer insights in three simple steps</h2>
-          <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Turn market context into AI-ready buyer intelligence.</p>
+          <div className="walkthrough-eyebrow"><span>✦</span> Inside the product</div>
+          <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>See sAInthetic in action</h2>
+          <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>A closer look at the workspace, from industry selection to buyer insights and content opportunities.</p>
 
           {[
             { ref: step1Ref, inView: step1InView, img: "step-1-industry.jpg", alt: "Select industry", step: "STEP 1", title: "Choose your industry", desc: "Select from 5+ industries, from SaaS and e-commerce to healthcare and fitness. Our AI tailors the insights to your market.", highlights: [{ icon: "⚡", title: "Multiple industries", detail: "SaaS, retail, healthcare and more" }, { icon: "◎", title: "Market-specific", detail: "Personas tailored to your niche" }, { icon: "✦", title: "Ready in seconds", detail: "Go from industry to insight instantly" }] },
