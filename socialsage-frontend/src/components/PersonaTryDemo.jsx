@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const personaAvatar = "data:image/jpeg;base64,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";
+const personaAvatar = "/community-avatars-clean.webp?v=20261103";
 
 const personas = {
   SaaS: {
@@ -33,11 +33,13 @@ const personas = {
     topPrompt: "Identify the questions patients ask when evaluating a provider. Organise by symptoms, treatment options, credentials and appointment decisions, while keeping information evidence-led and appropriately cautious."
   },
   RealEstate: {
-    name: "Marcus Reid", role: "Head of Growth, Real Estate Group",
-    goals: ["Generate qualified buyer leads", "Increase listing views", "Shorten sales cycle"],
-    painPoints: ["Seasonal demand swings", "High cost per lead", "Low agent follow-up rates"],
-    questions: ["Which areas offer the best balance of commute, schools, amenities and property value?", "What should I compare between similar properties beyond asking price?", "What are the likely total purchase costs, including tax, legal fees, surveys and ongoing charges?", "How can I assess the condition of a property and identify costly issues before making an offer?", "How have comparable properties in this area performed, and what could affect future resale?"],
-    topPrompt: "Map a buyer's decision journey from area research to offer. Identify the questions that signal intent, the evidence buyers need and the content that reduces uncertainty at each stage."
+    name: "Marcus Reid", role: "Head of Growth, Residential Property Group",
+    goals: ["Increase valuation and viewing enquiries", "Convert more portal traffic into qualified leads", "Improve viewing-to-offer conversion"],
+    painPoints: ["High portal lead costs and low intent", "Buyers struggle to compare total ownership costs", "Slow follow-up causes qualified enquiries to go cold"],
+    questions: ["Which neighbourhoods match my budget, commute and school requirements, and what evidence supports the comparison?", "How does this property compare with recent sold prices for similar homes nearby, adjusted for condition and size?", "What will the full monthly and upfront cost be after mortgage payments, council tax, energy, maintenance and legal fees?", "What should I look for during a viewing, and which survey findings could materially change the asking price?", "How competitive is the local market right now, how long are comparable homes taking to sell, and what would be a credible offer strategy?"],
+    contentOpportunities: ["Neighbourhood comparison guides built around commute, schools and budget", "Property comparison pages using recent sold-price evidence and total ownership costs", "Viewing and survey checklists that answer buyer objections before an enquiry"],
+    decisionStages: ["Area research", "Property comparison", "Viewing and offer"],
+    topPrompt: "Build a buyer-intent content plan for a residential property group. Segment demand into area research, property comparison and viewing-to-offer. For each stage, specify the buyer question, evidence required, recommended content format and conversion action. Prioritise opportunities by commercial intent and ability to reduce purchase uncertainty."
   },
   Education: {
     name: "Priya Shah", role: "Enrollment Marketing Director",
@@ -51,7 +53,9 @@ const personas = {
     goals: ["Increase direct bookings", "Reduce OTA dependency", "Improve repeat travel rate"],
     painPoints: ["High seasonality", "Price-driven comparison shopping", "Low brand loyalty"],
     questions: ["Which destinations offer the best value for a family holiday in September?", "How do direct flights, baggage, transfers and cancellation terms change the true trip cost?", "Which hotels are best for families, based on location, recent reviews and facilities?", "When is the best time to book, and how flexible are the fares if plans change?", "What is included in the direct booking rate that may not be included through an online travel agency?"],
-    topPrompt: "Map a traveller's decision journey from destination discovery to booking. Identify comparison criteria, booking objections and trust signals, then recommend content that makes the direct-booking proposition compelling."
+    topPrompt: "Map a traveller's decision journey from destination discovery to booking. Identify comparison criteria, booking objections and trust signals, then recommend content that makes the direct-booking proposition compelling.",
+    contentOpportunities: ["Comparison content that clarifies decision criteria", "Evidence-led guides that address common objections", "Practical checklists that help buyers take the next step"],
+    decisionStages: ["Research", "Compare", "Decide"]
   }
 };
 
@@ -99,6 +103,14 @@ export default function PersonaTryDemo() {
         .persona-result-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:22px; border-bottom:1px solid #e9edf3; }
         .persona-result-identity { display:flex; align-items:center; gap:15px; min-width:0; }
         .persona-result-avatar { width:76px; height:76px; flex:0 0 76px; display:block; object-fit:cover; object-position:center 30%; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); }
+        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background-image:url("/community-avatars-clean.webp?v=20261103"); background-repeat:no-repeat; background-size:500% 130%; background-position:3.125% 50%; }
+        .persona-result-insights { margin-top:14px; padding:18px; border:1px solid #dcebe3; border-radius:16px; background:linear-gradient(145deg,#f3faf6,#fff); }
+        .persona-result-insights h4 { margin:0 0 12px; color:#203b30; font-size:1rem; letter-spacing:-.02em; }
+        .persona-result-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-bottom:14px; }
+        .persona-result-stage { padding:11px; border:1px solid #dcebe3; border-radius:11px; background:#fff; color:#355b49; font-size:.82rem; font-weight:750; }
+        .persona-result-stage span { display:block; margin-bottom:4px; color:#89978f; font-size:.65rem; letter-spacing:.1em; }
+        .persona-result-insights ul { display:grid; gap:8px; margin:0; padding-left:18px; color:#43516a; font-size:.9rem; line-height:1.45; }
+        .persona-demo-evidence { margin-top:10px; color:#788294; font-size:.76rem; line-height:1.45; }
         .persona-result-name { margin:0; color:#171b2b; font-size:clamp(1.35rem,3vw,1.8rem); line-height:1.15; letter-spacing:-.04em; }
         .persona-result-role { margin-top:5px; color:#667085; font-size:.95rem; line-height:1.4; }
         .persona-result-badge { flex:0 0 auto; border:1px solid #f0df9d; border-radius:999px; padding:7px 11px; background:#fff9e5; color:#80620b; font-size:.76rem; font-weight:750; }
@@ -130,7 +142,10 @@ export default function PersonaTryDemo() {
           .persona-result { margin-top:22px; padding:17px 14px; border-radius:18px; }
           .persona-result-head { align-items:flex-start; gap:10px; padding-bottom:17px; }
           .persona-result-identity { gap:11px; }
-          .persona-result-avatar { width:48px; height:48px; flex-basis:48px; border-radius:14px; font-size:23px; }
+           .persona-result-avatar { width:48px; height:48px; flex-basis:48px; border-radius:14px; font-size:23px; }
+          .persona-result-avatar-wrap { width:48px; height:48px; flex-basis:48px; border-radius:14px; }
+          .persona-result-stages { grid-template-columns:1fr; gap:7px; }
+          .persona-result-stage { padding:9px 10px; }
           .persona-result-name { font-size:1.35rem; }
           .persona-result-role { font-size:.84rem; }
           .persona-result-badge { padding:6px 8px; font-size:.67rem; }
@@ -174,7 +189,7 @@ export default function PersonaTryDemo() {
         <div className="persona-result" aria-live="polite">
           <div className="persona-result-head">
             <div className="persona-result-identity">
-              <img className="persona-result-avatar" src={personaAvatar} alt={`${persona.name}, sample buyer persona`} />
+              <div className="persona-result-avatar-wrap" role="img" aria-label={`${persona.name}, sample buyer persona`}><img className="persona-result-avatar" src={personaAvatar} alt="" /></div>
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
@@ -197,6 +212,13 @@ export default function PersonaTryDemo() {
           <div className="persona-result-panel persona-questions">
             <div className="persona-result-label">BUYER DECISION QUESTIONS</div>
             <ul className="persona-result-list">{persona.questions.map(x => <li key={x}>{x}</li>)}</ul>
+          </div>
+
+          <div className="persona-result-insights">
+            <h4>What your team should create next</h4>
+            <div className="persona-result-stages">{(persona.decisionStages || ["Research", "Compare", "Decide"]).map((stage, index) => <div className="persona-result-stage" key={stage}><span>STAGE 0{index+1}</span>{stage}</div>)}</div>
+            <ul>{(persona.contentOpportunities || ["Comparison content that clarifies decision criteria", "Evidence-led guides that address common objections", "Practical checklists that help buyers take the next step"]).map(item => <li key={item}>{item}</li>)}</ul>
+            <p className="persona-demo-evidence">Illustrative AI-generated recommendations based on this sample persona, not verified search-volume or customer research data.</p>
           </div>
 
           <div className="persona-prompt">
