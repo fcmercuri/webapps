@@ -11,7 +11,6 @@ export default function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState(""); // NEW: success message
   const [loading, setLoading] = useState(false);
@@ -61,12 +60,8 @@ export default function Register() {
     setError("");
     setSuccessMsg(""); // Clear previous messages
 
-    if (!email || !password || !confirmPassword) {
-      setError("All fields are required");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
+    if (!email || !password) {
+      setError("Enter your email address and password to continue.");
       return;
     }
     if (password.length < 6) {
@@ -99,12 +94,9 @@ export default function Register() {
       }
 
       // ✅ NEW: Show email confirmation message - NO AUTO LOGIN
-      setSuccessMsg("Check your email to confirm your account!");
+      setSuccessMsg("Your account is created. Check your inbox for the verification link, then return here to sign in and build your first buyer persona.");
       
       // Clear form for better UX
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
 
       const upgradePriceId = localStorage.getItem("upgradePriceId");
       if (upgradePriceId) {
@@ -200,10 +192,39 @@ export default function Register() {
             sAInthetic
           </h1>
           <p style={{ color: "#bbb", fontSize: "1rem", margin: 0 }}>
-            Create your account to get started
+            Create your free account
           </p>
         </div>
 
+        <button
+          type="button"
+          onClick={() => loginWithGoogle()}
+          style={{
+            width: "100%",
+            background: "#fff",
+            color: "#171717",
+            border: "1.5px solid #e5e7eb",
+            borderRadius: "10px",
+            padding: "12px 16px",
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <img
+            src="/google-icon.svg"
+            alt="Google logo"
+            style={{ width: 18, height: 18 }}
+          />
+          <span>Continue with Google</span>
+        </button>
+        <div style={{ textAlign: "center", margin: "0 0 18px", color: "#777", fontSize: ".85rem" }}>
+          Or continue with email
+        </div>
         <form
           onSubmit={handleSubmit}
           style={{
@@ -230,6 +251,8 @@ export default function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
+              autoComplete="email"
+              required
               style={inputStyle}
             />
           </div>
@@ -250,28 +273,10 @@ export default function Register() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password (6 characters)"
-              style={inputStyle}
-            />
-          </div>
-
-          <div>
-            <label
-              style={{
-                display: "block",
-                color: "#ffd945",
-                fontSize: "0.9rem",
-                fontWeight: 600,
-                marginBottom: "8px",
-              }}
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirm your password"
+              placeholder="At least 6 characters"
+              autoComplete="new-password"
+              minLength={6}
+              required
               style={inputStyle}
             />
           </div>
@@ -356,32 +361,7 @@ export default function Register() {
           />
         </div>
 
-        <button
-          type="button"
-          onClick={() => loginWithGoogle()}
-          style={{
-            width: "100%",
-            background: "#0B0B0B",
-            color: "#fff",
-            border: "1.5px solid #232323",
-            borderRadius: "10px",
-            padding: "12px 16px",
-            fontWeight: 600,
-            fontSize: "0.95rem",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
-          }}
-        >
-          <img
-            src="/google-icon.svg"
-            alt="Google logo"
-            style={{ width: 18, height: 18 }}
-          />
-          <span>Sign up with Google</span>
-        </button>
+
 
         <p
           style={{
