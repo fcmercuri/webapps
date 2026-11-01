@@ -1076,8 +1076,6 @@ export default function LandingPage() {
         </header>
 
         
-  <PersonaTryDemo />
-
         {/* ============ FEATURES ============ */}
         <main id="features" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "0.6rem", margin: "4rem auto 0 auto", maxWidth: 1200, zIndex: 2, position: "relative", padding: "0 20px" }}>
           {cards.map((card, i) => {
@@ -1124,46 +1122,6 @@ export default function LandingPage() {
             );
           })}
         </main>
-
-        {/* ============ HOW IT WORKS ============ */}
-        <section id="how-it-works" style={{ margin: "7rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
-          <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>AI-Powered Content That Converts</h2>
-          <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Generate customer personas, content ideas, and conversion-ready copy in minutes</p>
-
-          {[
-            { ref: step1Ref, inView: step1InView, img: "step-1-industry.jpg", alt: "Select Industry", step: "STEP 1", title: "Choose Your Industry", desc: "Select from 5+ industries: from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors everything to your specific market." },
-            { ref: step2Ref, inView: step2InView, img: "step-2-personas.jpg", alt: "AI Persona", step: "STEP 2", title: "Meet Your Customers", desc: "sAInthetic instantly generates detailed customer personas with goals, pain points, and behaviors — like having a marketing team in your pocket." },
-            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "Content Ideas", step: "STEP 3", title: "Prompt Library On Demand", desc: "Every persona unlocks a focused library of powerful, ready-to-use prompts that reflect realistic synthetic persona queries." },
-            { ref: step4Ref, inView: step4InView, img: "step-4-content.jpg", alt: "Generated Content", step: "STEP 4", title: "Professional Copy, Instantly", desc: "One click generates 1,000–1,500 words of conversion-ready copy that speaks directly to your customers' needs." },
-          ].map((s, i) => (
-            <div key={i} ref={s.ref} className="how-step-wrapper">
-              <motion.div className="step-image" initial={{ opacity: 0, x: -50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8 }} style={{ borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.2)", border: "2px solid rgba(255,217,69,0.3)" }}>
-                <img src={s.img} alt={s.alt} style={{ width: "100%", display: "block" }} />
-              </motion.div>
-              <motion.div className="step-text" initial={{ opacity: 0, x: 50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }}>
-                <div style={{ background: "linear-gradient(135deg,#ffd945 0%,#ffed4e 100%)", color: "#000", padding: "8px 20px", borderRadius: 20, fontSize: "0.875rem", fontWeight: 700, display: "inline-block", marginBottom: 20 }}>{s.step}</div>
-                <h3 style={{ fontSize: "2.2rem", fontWeight: 800, margin: "0 0 20px 0", letterSpacing: "-1px", color: "#fff" }}>{s.title}</h3>
-                <p style={{ fontSize: "1.15rem", color: "#bbb", lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
-              </motion.div>
-            </div>
-          ))}
-        </section>
-        
-        {/* ============ DEMO VIDEO ============ */}
-<section style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2, textAlign: "center" }}>
-  <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.6rem", letterSpacing: "-1px" }}>See It in Action</h2>
-  <p style={{ color: "#bbb", fontSize: "1.1rem", marginBottom: "2rem" }}>Watch how sAInthetic turns your ICP into conversion-ready content in minutes</p>
-  <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.15)", border: "2px solid rgba(255,217,69,0.25)" }}>
-    <iframe
-      src="https://www.youtube.com/embed/NSoS4gFd360"
-      title="sAInthetic Product Demo"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowFullScreen
-      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-    />
-  </div>
-</section>
-
 
         {/* ============ RESULTS METRICS STRIP ============ */}
         <section style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2 }}>
@@ -1265,6 +1223,48 @@ export default function LandingPage() {
             ))}
           </div>
         </section>
+
+  <PersonaTryDemo />
+
+        {/* ============ HOW IT WORKS ============ */}
+        <section id="how-it-works" style={{ margin: "7rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
+          <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>AI-Powered Content That Converts</h2>
+          <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Generate customer personas, content ideas, and conversion-ready copy in minutes</p>
+
+          {[
+            { ref: step1Ref, inView: step1InView, img: "step-1-industry.jpg", alt: "Select Industry", step: "STEP 1", title: "Choose Your Industry", desc: "Select from 5+ industries: from SaaS to E-commerce, Healthcare to Fitness. Our AI tailors everything to your specific market." },
+            { ref: step2Ref, inView: step2InView, img: "step-2-personas.jpg", alt: "AI Persona", step: "STEP 2", title: "Meet Your Customers", desc: "sAInthetic instantly generates detailed customer personas with goals, pain points, and behaviors — like having a marketing team in your pocket." },
+            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "Content Ideas", step: "STEP 3", title: "Prompt Library On Demand", desc: "Every persona unlocks a focused library of powerful, ready-to-use prompts that reflect realistic synthetic persona queries." },
+            { ref: step4Ref, inView: step4InView, img: "step-4-content.jpg", alt: "Generated Content", step: "STEP 4", title: "Professional Copy, Instantly", desc: "One click generates 1,000–1,500 words of conversion-ready copy that speaks directly to your customers' needs." },
+          ].map((s, i) => (
+            <div key={i} ref={s.ref} className="how-step-wrapper">
+              <motion.div className="step-image" initial={{ opacity: 0, x: -50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8 }} style={{ borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.2)", border: "2px solid rgba(255,217,69,0.3)" }}>
+                <img src={s.img} alt={s.alt} style={{ width: "100%", display: "block" }} />
+              </motion.div>
+              <motion.div className="step-text" initial={{ opacity: 0, x: 50 }} animate={s.inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }}>
+                <div style={{ background: "linear-gradient(135deg,#ffd945 0%,#ffed4e 100%)", color: "#000", padding: "8px 20px", borderRadius: 20, fontSize: "0.875rem", fontWeight: 700, display: "inline-block", marginBottom: 20 }}>{s.step}</div>
+                <h3 style={{ fontSize: "2.2rem", fontWeight: 800, margin: "0 0 20px 0", letterSpacing: "-1px", color: "#fff" }}>{s.title}</h3>
+                <p style={{ fontSize: "1.15rem", color: "#bbb", lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
+              </motion.div>
+            </div>
+          ))}
+        </section>
+        
+        {/* ============ DEMO VIDEO ============ */}
+<section style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2, textAlign: "center" }}>
+  <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.6rem", letterSpacing: "-1px" }}>See It in Action</h2>
+  <p style={{ color: "#bbb", fontSize: "1.1rem", marginBottom: "2rem" }}>Watch how sAInthetic turns your ICP into conversion-ready content in minutes</p>
+  <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, borderRadius: 16, overflow: "hidden", boxShadow: "0 20px 60px rgba(255,217,69,0.15)", border: "2px solid rgba(255,217,69,0.25)" }}>
+    <iframe
+      src="https://www.youtube.com/embed/NSoS4gFd360"
+      title="sAInthetic Product Demo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+    />
+  </div>
+</section>
+
 
         {/* ============ CASE STUDY ============ */}
         <section id="case-study" style={{ margin: "8rem auto 0 auto", maxWidth: 1000, position: "relative", zIndex: 2, padding: "0 20px" }}>
