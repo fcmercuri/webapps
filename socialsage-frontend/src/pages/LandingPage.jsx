@@ -2489,6 +2489,19 @@ export default function LandingPage() {
           #sainthetic-home .reference-founder-banner { padding:0 12px !important; margin:22px auto 4px !important; }
           #sainthetic-home .reference-founder-banner-link, #sainthetic-home .reference-founder-banner img { border-radius:18px !important; }
         }
+        /* Replace the blurry stock-photo strip with restrained, crisp community monograms. */
+        #sainthetic-home .growth-avatars { display:flex !important; align-items:center !important; justify-content:flex-end !important; padding:0 3px 0 0 !important; }
+        #sainthetic-home .growth-avatars .growth-avatar-initial {
+          display:grid !important; place-items:center !important; flex:0 0 46px !important;
+          width:46px !important; height:46px !important; margin-left:-9px !important;
+          border:2px solid #fff !important; border-radius:50% !important; overflow:hidden !important;
+          color:#34415f !important; font-size:11px !important; line-height:1 !important;
+          font-weight:800 !important; letter-spacing:.02em !important;
+          background:#f2f4f7 !important; box-shadow:0 2px 7px rgba(20,32,55,.09) !important;
+        }
+        #sainthetic-home .growth-avatars .growth-avatar-initial:nth-child(2) { background:#fff3d6 !important; color:#775b1e !important; }
+        #sainthetic-home .growth-avatars .growth-avatar-initial:nth-child(3) { background:#eaf1f7 !important; color:#3e5b73 !important; }
+        #sainthetic-home .growth-avatars .growth-avatar-initial:nth-child(4) { background:#f4edf5 !important; color:#705477 !important; } 
       `}</style>
 
       <div
@@ -2530,7 +2543,7 @@ export default function LandingPage() {
           <section className="reference-growth-bar" aria-label="sAInthetic community growth">
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
-            <div className="growth-avatars" aria-hidden="true"><span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span><span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span><span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span><span><img src="/reference-people-sprite.jpg" className="reference-person-4" alt="" /></span></div>
+            <div className="growth-avatars" aria-label="A community of marketers"><span className="growth-avatar-initial">AM</span><span className="growth-avatar-initial">JL</span><span className="growth-avatar-initial">RK</span><span className="growth-avatar-initial">SC</span></div>
           </section>
 
           <section id="pricing" className="reference-pricing">
