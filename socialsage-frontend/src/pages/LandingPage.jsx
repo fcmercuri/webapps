@@ -3262,7 +3262,7 @@ export default function LandingPage() {
           </div>
         </section>
         {/* ============ FINAL CTA ============ */}
-        <section style={{ padding: "6rem 20px 3rem 20px", textAlign: "center", position: "relative", zIndex: 2 }}>
+        <section className="final-cta-section" style={{ padding: "3rem 20px 2rem", textAlign: "center", position: "relative", zIndex: 2 }}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} style={{ maxWidth: 700, margin: "0 auto" }}>
             <h2 style={{ fontSize: "clamp(2rem,5vw,2.8rem)", fontWeight: 900, margin: "0 0 20px 0", letterSpacing: "-1px", color: "#fff" }}>
               Start publishing content your buyers actually search for.
@@ -3768,6 +3768,27 @@ export default function LandingPage() {
           #sainthetic-home #case-study .cs-achievement-card > div:first-child { font-size:.82rem !important; }
           #sainthetic-home #case-study .cs-achievement-card > div:nth-child(2) { font-size:.61rem !important; }
           #sainthetic-home #case-study .cs-achievement-card > div:nth-child(3) { font-size:.53rem !important; }
+        }
+      `}</style>
+      <style>{`
+        /* Pull the final CTA closer to the FAQ; avoid an oversized blank transition. */
+        #sainthetic-home .final-cta-section {
+          margin-top:0 !important; padding:3rem 20px 2rem !important;
+          min-height:0 !important; height:auto !important;
+        }
+        #sainthetic-home .final-cta-section > div:first-child { margin-top:0 !important; }
+        #sainthetic-home .final-cta-section footer { margin-top:2rem !important; }
+        @media (max-width:760px) {
+          #sainthetic-home .final-cta-section {
+            margin-top:0 !important; padding:1.5rem 16px 1.5rem !important;
+            min-height:0 !important; height:auto !important;
+          }
+          #sainthetic-home .final-cta-section h2 {
+            margin-bottom:12px !important; font-size:clamp(1.8rem,7.4vw,2.35rem) !important;
+            line-height:1.06 !important; letter-spacing:-.055em !important;
+          }
+          #sainthetic-home .final-cta-section p { margin-bottom:20px !important; font-size:1rem !important; line-height:1.5 !important; }
+          #sainthetic-home .final-cta-section footer { margin-top:1.75rem !important; }
         }
       `}</style>
       </div>
