@@ -196,11 +196,11 @@ export default function LandingPage() {
         #sainthetic-home .reference-actions a.reference-primary:hover { background:#252735 !important; transform:translateY(-2px) !important; }
         #sainthetic-home .reference-actions a.reference-secondary:hover { background:#f8f9fc !important; transform:translateY(-2px) !important; }
         /* New high-resolution four-person portrait strip. */
-        #sainthetic-home#sainthetic-home .growth-avatars img { width:400% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-1 { transform:translateX(0) !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-2 { transform:translateX(-25%) !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-3 { transform:translateX(-50%) !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-4 { transform:translateX(-75%) !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img { width:500% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-1 { transform:translateX(-20%) !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-2 { transform:translateX(-40%) !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-3 { transform:translateX(-60%) !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-4 { transform:translateX(-80%) !important; }
         /* Clean white FAQ cards — remove the old grey gradient treatment. */
         #sainthetic-home#sainthetic-home #faq > div > div > div {
           background:#fff !important; background-image:none !important; border:1px solid #e4e9f0 !important;
@@ -2840,7 +2840,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/community-people-sprite.webp?v=20261101" className="reference-person-0" alt="Buyer persona portrait" /></div>
+                    <div className="reference-persona-avatar"><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
                   <div className="reference-question-title">High-value questions they ask AI</div>
@@ -2862,10 +2862,10 @@ export default function LandingPage() {
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
             <div className="growth-avatars" aria-hidden="true">
-              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-1" alt="" /></span>
-              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-2" alt="" /></span>
-              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-3" alt="" /></span>
-              <span><img src="/community-people-sprite.webp?v=20261101" className="reference-person-4" alt="" /></span>
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span>
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span>
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span>
+              <span><img src="/reference-people-sprite.jpg" className="reference-person-4" alt="" /></span>
             </div>
           </section>
 
