@@ -41,7 +41,7 @@ export default function BlogPost() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Canonical is always derived from slug — available immediately, before fetch
+  // Canonical is always derived from slug, available immediately, before fetch
   const canonicalUrl = `https://sainthetic.com/blog/${slug}`;
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function BlogPost() {
   const rawHtml = post?.contentHtml ? clean(post.contentHtml) : post?.content ? blocksToHtml(post.content) : "";
   const htmlContent = wrapTables(rawHtml);
 
-  // Resolved meta values — fall back to slug-based defaults so Helmet always has something unique
+  // Resolved meta values, fall back to slug-based defaults so Helmet always has something unique
   const metaTitle = post?.metaTitle || post?.title || `sAInthetic Blog | ${slug}`;
   const metaDescription = post?.metaDescription || post?.excerpt || "AI-powered buyer personas and marketing strategies for SaaS growth.";
 
@@ -80,7 +80,7 @@ export default function BlogPost() {
       {/*
         IMPORTANT SEO FIX:
         Helmet is rendered unconditionally so Googlebot always sees the canonical,
-        title, and meta description — even before the Sanity fetch completes.
+        title, and meta description, even before the Sanity fetch completes.
         The canonical is derived from `slug` (from useParams) which is available
         immediately, guaranteeing each page gets its own unique canonical URL.
       */}
