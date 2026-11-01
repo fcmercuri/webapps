@@ -124,7 +124,7 @@ export default function PersonaTryDemo() {
         .persona-demo-website-field small { color:#667085; font-size:11px; line-height:1.35; }
         .persona-demo-website-field small[role="alert"] { color:#b42318; }
         .persona-demo-website-field input[aria-invalid="true"] { border-color:#d92d20; }
-        .persona-demo-controls input,.persona-demo-controls select { width:100%; min-width:0; min-height:44px; border:1px solid #dce2eb; border-radius:10px; padding:10px 12px; background:#fff; color:#20283b; font-size:15px; outline:none; }
+        .persona-demo-controls input,.persona-demo-controls select { box-sizing:border-box; display:block; width:100%; min-width:0; height:48px; min-height:48px; max-height:48px; border:1px solid #dce2eb; border-radius:10px; padding:0 12px; background:#fff; color:#20283b; font-size:15px; line-height:48px; outline:none; }
         .persona-demo-controls input:focus,.persona-demo-controls select:focus { border-color:#d9aa12; box-shadow:0 0 0 3px rgba(255,217,69,.2); }
         .persona-demo-generate { display:flex; justify-content:center; margin-top:16px; }
         .persona-demo-button { min-height:50px; border:0; border-radius:12px; padding:13px 23px; background:#ffd945; color:#151927; font-size:15px; font-weight:800; cursor:pointer; transition:transform .2s ease,background .2s ease; }
