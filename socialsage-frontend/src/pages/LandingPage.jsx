@@ -1950,6 +1950,57 @@ export default function LandingPage() {
           aspect-ratio:1.48 / 1 !important;
           background:linear-gradient(145deg,#f3f1eb,#faf8f2) !important;
         }
+        #sainthetic-home .reference-how-screenshot-wrap {
+          position:relative !important;
+          flex:1 1 0 !important;
+          min-height:0 !important;
+          width:100% !important;
+          height:62% !important;
+          display:flex !important;
+          align-items:center !important;
+          justify-content:center !important;
+        }
+        #sainthetic-home .reference-how-screenshot-wrap .reference-how-persona-screenshot {
+          width:100% !important;
+          height:100% !important;
+          object-fit:contain !important;
+          object-position:center !important;
+        }
+        #sainthetic-home .reference-how-screenshot-portraits {
+          position:absolute !important;
+          inset:0 !important;
+          pointer-events:none !important;
+        }
+        #sainthetic-home .reference-how-screenshot-portraits > span {
+          position:absolute !important;
+          top:7.2% !important;
+          display:block !important;
+          width:5.9% !important;
+          aspect-ratio:1 !important;
+          overflow:hidden !important;
+          border-radius:50% !important;
+          background:#d9c7ae !important;
+          box-shadow:0 0 0 1px rgba(245,213,110,.6),0 2px 5px rgba(0,0,0,.22) !important;
+        }
+        #sainthetic-home .reference-how-screenshot-portraits .portrait-one { left:19.8% !important; }
+        #sainthetic-home .reference-how-screenshot-portraits .portrait-two { left:47.3% !important; }
+        #sainthetic-home .reference-how-screenshot-portraits .portrait-three { left:74.8% !important; }
+        #sainthetic-home .reference-how-screenshot-portraits img {
+          position:absolute !important;
+          top:0 !important;
+          left:0 !important;
+          display:block !important;
+          width:500% !important;
+          max-width:none !important;
+          height:100% !important;
+          object-fit:fill !important;
+          border:0 !important;
+          border-radius:0 !important;
+          box-shadow:none !important;
+        }
+        #sainthetic-home .reference-how-screenshot-portraits .portrait-one img { transform:translateX(0) !important; }
+        #sainthetic-home .reference-how-screenshot-portraits .portrait-two img { transform:translateX(-20%) !important; }
+        #sainthetic-home .reference-how-screenshot-portraits .portrait-three img { transform:translateX(-40%) !important; }
         #sainthetic-home .reference-how-persona-screenshot {
           flex:1 1 0 !important;
           min-height:0 !important;
@@ -2296,7 +2347,14 @@ export default function LandingPage() {
             <article className="reference-how-card">
               <div className="reference-how-card-top"><span>01 / AUDIENCE</span><span className="reference-how-live"><i /> PRODUCT PREVIEW</span></div>
               <div className="reference-how-image reference-how-persona-preview">
-                <img className="reference-how-persona-screenshot" src="/step-2-personas.jpg" alt="sAInthetic buyer persona dashboard" loading="lazy" />
+                <div className="reference-how-screenshot-wrap">
+                  <img className="reference-how-persona-screenshot" src="/step-2-personas.jpg" alt="sAInthetic buyer persona dashboard with customer profiles" loading="lazy" />
+                  <div className="reference-how-screenshot-portraits" aria-hidden="true">
+                    <span className="portrait-one"><img src="/reference-people-sprite.jpg" alt="" loading="lazy" /></span>
+                    <span className="portrait-two"><img src="/reference-people-sprite.jpg" alt="" loading="lazy" /></span>
+                    <span className="portrait-three"><img src="/reference-people-sprite.jpg" alt="" loading="lazy" /></span>
+                  </div>
+                </div>
                 <div className="reference-how-people" aria-label="Example buyer personas">
                   <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="" loading="lazy" /></span><div><strong>Growth marketer</strong><small>Goals &amp; challenges</small></div></div>
                   <div className="reference-how-person"><span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" loading="lazy" /></span><div><strong>Product lead</strong><small>Needs &amp; priorities</small></div></div>
