@@ -107,6 +107,31 @@ export default function LandingPage() {
   const step2Ref = useRef(null);
   const step3Ref = useRef(null);
   const step4Ref = useRef(null);
+  const caseMetricsRef = useRef(null);
+  const caseMetricsInView = useInView(caseMetricsRef, { once: true, margin: "-80px" });
+  const [caseMetricCounts, setCaseMetricCounts] = useState([0, 0, 0, 0]);
+
+  useEffect(() => {
+    if (!caseMetricsInView) return undefined;
+    const targets = [3, 68, 41, 5];
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (reduceMotion) {
+      setCaseMetricCounts(targets);
+      return undefined;
+    }
+    let frame;
+    const duration = 1600;
+    let startTime;
+    const animate = (timestamp) => {
+      if (startTime === undefined) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCaseMetricCounts(targets.map((target) => Math.round(target * eased)));
+      if (progress < 1) frame = window.requestAnimationFrame(animate);
+    };
+    frame = window.requestAnimationFrame(animate);
+    return () => window.cancelAnimationFrame(frame);
+  }, [caseMetricsInView]);
 
   const step1InView = useInView(step1Ref, { once: false, margin: "-100px" });
   const step2InView = useInView(step2Ref, { once: false, margin: "-100px" });
@@ -3191,15 +3216,17 @@ export default function LandingPage() {
             </div>
 
             {/* Metrics */}
-            <div className="cs-metrics">
+            <div className="cs-metrics" ref={caseMetricsRef}>
               {[
-                { metric: "3×", label: "Organic traffic", sublabel: "vs prior 60 days", color: "#4ade80" },
-                { metric: "68%", label: "Lower bounce rate", sublabel: "content-to-fit", color: "#60a5fa" },
-                { metric: "41%", label: "More trial signups", sublabel: "from blog content", color: "#ffd945" },
-                { metric: "5h", label: "Saved per week", sublabel: "on content research", color: "#f472b6" },
+                { value: 3, suffix: "×", label: "Organic traffic", sublabel: "vs prior 60 days", color: "#4ade80" },
+                { value: 68, suffix: "%", label: "Lower bounce rate", sublabel: "content-to-fit", color: "#60a5fa" },
+                { value: 41, suffix: "%", label: "More trial signups", sublabel: "from blog content", color: "#ffd945" },
+                { value: 5, suffix: "h", label: "Saved per week", sublabel: "on content research", color: "#f472b6" },
               ].map((item, i) => (
                 <div key={i} className="cs-metric-cell" style={{ padding: "1.4rem 1rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "clamp(1.8rem,5vw,2.6rem)", fontWeight: 900, color: item.color, lineHeight: 1, marginBottom: 4, letterSpacing: "-1px" }}>{item.metric}</div>
+                  <div style={{ fontSize: "clamp(1.8rem,5vw,2.6rem)", fontWeight: 900, color: item.color, lineHeight: 1, marginBottom: 4, letterSpacing: "-1px" }} aria-label={`${item.value}${item.suffix}`}>
+                    <span>{caseMetricCounts[i]}</span>{item.suffix}
+                  </div>
                   <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{item.label}</div>
                   <div style={{ color: "#666", fontSize: "0.75rem", marginTop: 2 }}>{item.sublabel}</div>
                 </div>
