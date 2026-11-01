@@ -3015,9 +3015,9 @@ export default function LandingPage() {
         <section className="sainthetic-reference-top">
           <header id="hero" className="reference-hero">
             <div className="reference-hero-copy">
-              <div className="reference-eyebrow"><span>⚡</span> Buyer Intelligence for Growth</div>
-              <h1>Stop guessing<br/>what your buyers<br/>want. Know exactly<br/><span>what they ask AI.</span></h1>
-              <p className="reference-subtitle">sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.</p>
+              <div className="reference-eyebrow"><span>⚡</span> Buyer intelligence for content teams</div>
+              <h1>Understand your buyers.<br/>Find the questions<br/><span>that move them to act.</span></h1>
+              <p className="reference-subtitle">Build a clearer picture of your buyers, map the questions shaping their decisions, and turn those insights into focused content briefs. sAInthetic connects audience research with practical content planning.</p>
               <div className="reference-actions">
                 <a className="reference-primary" href="/register">Create my free account <span>→</span></a>
                 <a className="reference-secondary" href="#try-persona"><span className="play-icon">▷</span> Preview a sample persona</a>
@@ -3089,13 +3089,13 @@ export default function LandingPage() {
           </header>
 
           <section id="features" className="reference-features" aria-label="Product benefits">
-            <article><div className="reference-feature-icon">♧</div><h3>Understand buyers</h3><p>AI personas built from<br/>real LLM behaviour<br/>and buyer intent</p></article>
-            <article><div className="reference-feature-icon">▢</div><h3>Discover AI questions</h3><p>The exact questions your<br/>audience asks in ChatGPT,<br/>Google and more</p></article>
-            <article><div className="reference-feature-icon">✧</div><h3>Create better content</h3><p>Data-backed ideas that<br/>rank, convert and drive<br/>revenue</p></article>
+            <article><div className="reference-feature-icon">♧</div><h3>Understand buyers</h3><p>Structured buyer profiles<br/>built around goals,<br/>needs and objections</p></article>
+            <article><div className="reference-feature-icon">▢</div><h3>Discover AI questions</h3><p>Explore AI-generated<br/>buyer questions across<br/>discovery to decision</p></article>
+            <article><div className="reference-feature-icon">✧</div><h3>Create better content</h3><p>Prioritised content angles<br/>and briefs shaped by<br/>buyer intent</p></article>
           </section>
 
           <section className="reference-growth-bar" aria-label="sAInthetic community and illustrative results">
-            <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
+            <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn buyer insight into<br/>content action.</strong></div>
             <div className="growth-count"><strong>Built for marketers</strong><span>who want to understand buyer intent</span></div>
             <div className="growth-count growth-savings">
               <strong>$150<span className="growth-period">/wk</span></strong>
@@ -3114,8 +3114,8 @@ export default function LandingPage() {
           </section>
 
           <section id="pricing" className="reference-pricing">
-            <h2>Start free. Grow when you are ready.</h2>
-            <p className="pricing-intro">Create your first buyer persona for £0. No credit card required.</p>
+            <h2>Turn buyer insight into better content.</h2>
+            <p className="pricing-intro">Start with a buyer persona, explore decision-stage questions and build your first content ideas. Free to try, no credit card required.</p>
             <div className="reference-pricing-grid">
               <article className="reference-price-card">
                 <h3>Free</h3><p>Your first step to understanding<br/>what your buyers care about.</p>
@@ -3147,9 +3147,9 @@ export default function LandingPage() {
           <h2 id="reference-how-title">How it works</h2>
           <p>From audience insight to content that converts, in three simple steps.</p>
           <div className="reference-how-steps">
-            <article><span>1</span><div><h3>Create your buyer persona</h3><p>Generate AI personas based on your real audience.</p></div></article>
-            <article><span>2</span><div><h3>See the exact questions</h3><p>Discover what your buyers ask in ChatGPT, Google and more.</p></div></article>
-            <article><span>3</span><div><h3>Turn insight into content</h3><p>Get data-backed ideas, briefs and topics that drive results.</p></div></article>
+            <article><span>1</span><div><h3>Create your buyer persona</h3><p>Create a structured starting profile from your industry, audience and business context.</p></div></article>
+            <article><span>2</span><div><h3>See the exact questions</h3><p>Explore the questions buyers may ask AI as they research, compare and choose.</p></div></article>
+            <article><span>3</span><div><h3>Turn insight into content</h3><p>Turn buyer needs and objections into focused content ideas and practical briefs.</p></div></article>
           </div>
         </section>
 
@@ -3169,7 +3169,7 @@ export default function LandingPage() {
           {[
             { ref: step1Ref, inView: step1InView, img: "step-1-industry.jpg", alt: "Select industry", step: "STEP 1", title: "Choose your industry", desc: "Select from 5+ industries, from SaaS and e-commerce to healthcare and fitness. Our AI tailors the insights to your market.", highlights: [{ icon: "⚡", title: "Multiple industries", detail: "SaaS, retail, healthcare and more" }, { icon: "◎", title: "Market-specific", detail: "Personas tailored to your niche" }, { icon: "✦", title: "Ready in seconds", detail: "Go from industry to insight instantly" }] },
             { ref: step2Ref, inView: step2InView, img: "step-2-personas.jpg", alt: "AI buyer personas", step: "STEP 2", title: "Meet your customers", desc: "Generate detailed buyer personas with goals, pain points and behaviours, giving your team a clearer picture of the people you want to reach.", highlights: [{ icon: "♙", title: "Realistic personas", detail: "Built around customer behaviour and intent" }, { icon: "▥", title: "Actionable insights", detail: "Goals, pain points and motivations" }, { icon: "▤", title: "Content-ready", detail: "Ideas and angles that drive results" }] },
-            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "AI buyer questions and content ideas", step: "STEP 3", title: "Turn buyer questions into content", desc: "Discover the questions your audience asks AI, then turn those insights into useful, search-ready content.", highlights: [{ icon: "⌕", title: "Intent-led questions", detail: "Understand what buyers really want to know" }, { icon: "✦", title: "Content opportunities", detail: "Find useful angles your competitors miss" }, { icon: "↗", title: "Ready to create", detail: "Build briefs and copy around buyer intent" }] },
+            { ref: step3Ref, inView: step3InView, img: "step-5-prompts.jpg", alt: "AI buyer questions and content ideas", step: "STEP 3", title: "Turn buyer questions into content", desc: "Explore AI-generated questions that reflect buyer research and decision stages, then turn them into useful, search-ready content.", highlights: [{ icon: "⌕", title: "Intent-led questions", detail: "Understand what buyers really want to know" }, { icon: "✦", title: "Content opportunities", detail: "Find useful angles your competitors miss" }, { icon: "↗", title: "Ready to create", detail: "Build briefs and copy around buyer intent" }] },
           ].map((s, i) => (
             <div key={i} ref={s.ref} className="how-step-wrapper">
               <motion.div className="step-text" initial={{ opacity: 0, y: 18 }} animate={s.inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.08 }}>
