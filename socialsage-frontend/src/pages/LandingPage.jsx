@@ -101,7 +101,7 @@ export default function LandingPage() {
   const [hovered, setHovered] = useState(null);
   const [expanded, setExpanded] = useState(null);
   const [selectedPlan, setSelectedPlan] = useState(1);
-  const [userCount] = useState(847);
+  
 
   const step1Ref = useRef(null);
   const step2Ref = useRef(null);
@@ -3019,8 +3019,8 @@ export default function LandingPage() {
               <h1>Stop guessing<br/>what your buyers<br/>want. Know exactly<br/><span>what they ask AI.</span></h1>
               <p className="reference-subtitle">sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.</p>
               <div className="reference-actions">
-                <a className="reference-primary" href="/register">See your first buyer persona <span>→</span></a>
-                <a className="reference-secondary" href="#product-demo"><span className="play-icon">▷</span> Watch demo</a>
+                <a className="reference-primary" href="/register">Create my free account <span>→</span></a>
+                <a className="reference-secondary" href="#try-persona"><span className="play-icon">▷</span> Preview a sample persona</a>
               </div>
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card</span><span>✓&nbsp; Cancel anytime</span><span>✓&nbsp; Setup in 60 sec</span></div>
             </div>
@@ -3096,7 +3096,7 @@ export default function LandingPage() {
 
           <section className="reference-growth-bar" aria-label="sAInthetic community and illustrative results">
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
-            <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
+            <div className="growth-count"><strong>Built for marketers</strong><span>who want to understand buyer intent</span></div>
             <div className="growth-count growth-savings">
               <strong>$150<span className="growth-period">/wk</span></strong>
               <span>illustrative time value saved</span>
@@ -3114,14 +3114,14 @@ export default function LandingPage() {
           </section>
 
           <section id="pricing" className="reference-pricing">
-            <h2>Simple, flexible pricing</h2>
-            <p className="pricing-intro">Choose the plan that fits your goals.</p>
+            <h2>Start free. Grow when you are ready.</h2>
+            <p className="pricing-intro">Create your first buyer persona for £0. No credit card required.</p>
             <div className="reference-pricing-grid">
               <article className="reference-price-card">
-                <h3>Free</h3><p>Get started and explore<br/>sAInthetic.</p>
+                <h3>Free</h3><p>Your first step to understanding<br/>what your buyers care about.</p>
                 <div className="reference-price">£0 <span>/month</span></div>
                 <ul><li>1 buyer persona</li><li>Limited AI questions</li><li>Basic content ideas</li></ul>
-                <a href="/register">Get started free</a>
+                <a href="/register">Create my free account →</a>
               </article>
               <article className="reference-price-card">
                 <h3>Starter</h3><p>For individuals and small teams<br/>building with AI insights.</p>
@@ -3243,7 +3243,7 @@ export default function LandingPage() {
           ))}
         </section>
         
-        <PersonaTryDemo />
+        <div id="try-persona"><PersonaTryDemo /></div>
 
         {/* ============ DEMO VIDEO ============ */}
 <section id="product-demo" style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2, textAlign: "center" }}>
@@ -3344,10 +3344,10 @@ export default function LandingPage() {
             {/* CTA bar */}
             <div style={{ padding: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,217,69,0.04)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
               <div>
-                <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.97rem" }}>Want results like NexusFlow?</div>
-                <div style={{ color: "#888", fontSize: "0.85rem", marginTop: 3 }}>Start building your persona library today. It's free, and no credit card is needed.</div>
+                <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.97rem" }}>Ready to understand your buyers?</div>
+                <div style={{ color: "#888", fontSize: "0.85rem", marginTop: 3 }}>Create your first buyer persona free. No credit card required.</div>
               </div>
-              <a href="/register" style={{ background: "linear-gradient(135deg,#ffd945,#ff9f43)", color: "#000", fontWeight: 800, padding: "0.85rem 1.8rem", borderRadius: 12, textDecoration: "none", fontSize: "0.92rem", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(255,217,69,0.3)" }}>Start Free Trial →</a>
+              <a href="/register" style={{ background: "linear-gradient(135deg,#ffd945,#ff9f43)", color: "#000", fontWeight: 800, padding: "0.85rem 1.8rem", borderRadius: 12, textDecoration: "none", fontSize: "0.92rem", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(255,217,69,0.3)" }}>Create my free account →</a>
             </div>
           </div>
         </section>
@@ -3390,13 +3390,13 @@ export default function LandingPage() {
               Start publishing content your buyers actually search for.
             </h2>
             <p style={{ fontSize: "1.15rem", color: "#bbb", margin: "0 0 36px 0", lineHeight: 1.6 }}>
-              Join {userCount.toLocaleString()}+ marketers creating better content in less time.<br />Start free. No credit card required.
+              Create your first buyer persona and discover the questions your audience asks AI.<br />Start free. No credit card required.
             </p>
             <a
               href="/register"
               style={{ background: "linear-gradient(135deg,#ffd945,#ff9f43)", border: "none", color: "#000", padding: "1.2rem 3rem", borderRadius: "12px", fontSize: "1.15rem", fontWeight: 800, cursor: "pointer", boxShadow: "0 10px 40px rgba(255,217,69,0.35)", display: "inline-block", textDecoration: "none" }}
             >
-              Get your free persona now →
+              Create my free account →
             </a>
             <div style={{ marginTop: 16, display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
               {["✓ Free plan available", "✓ No credit card", "✓ Cancel anytime", "✓ Setup in 60 sec"].map(t => (
@@ -4137,6 +4137,15 @@ export default function LandingPage() {
           #sainthetic-home .reference-question-title > i { transform:none !important; }
           #sainthetic-home .reference-question { will-change:auto !important; }
         }
+
+        /* Conversion-focused CTA hierarchy and preview invitation. */
+        #sainthetic-home .reference-primary { font-weight:850 !important; }
+        #sainthetic-home .reference-reassurance { flex-wrap:wrap !important; }
+        #sainthetic-home .reference-pricing .pricing-intro { margin-bottom:24px !important; }
+        #sainthetic-home .reference-price-card:first-child { border-color:#f0d46a !important; box-shadow:0 12px 28px rgba(255,217,69,.13) !important; }
+        #sainthetic-home .reference-price-card:first-child > a { background:#ffd945 !important; border-color:#ffd945 !important; color:#111827 !important; }
+        #sainthetic-home .final-cta-section a { min-width:min(100%,300px) !important; }
+        #sainthetic-home .reference-growth-bar { margin-bottom:0 !important; }
       `}</style>
 
       </div>
