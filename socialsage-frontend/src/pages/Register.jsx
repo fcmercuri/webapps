@@ -14,6 +14,7 @@ export default function Register() {
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState(""); // NEW: success message
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -31,6 +32,7 @@ export default function Register() {
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
+      setGoogleLoading(true);
       try {
         setError("");
         setSuccessMsg(""); // Clear success
@@ -50,9 +52,18 @@ export default function Register() {
         navigate("/welcome");
       } catch (err) {
         setError(err.message || "Google sign up failed");
+      } finally {
+        setGoogleLoading(false);
       }
     },
-    onError: () => setError("Google sign up failed"),
+    onError: () => {
+      setGoogleLoading(false);
+      setError("Google sign up failed. Please try again.");
+    },
+    onNonOAuthError: () => {
+      setGoogleLoading(false);
+      setError("Google sign up was interrupted. Please try again.");
+    },
   });
 
   async function handleSubmit(e) {
@@ -198,7 +209,12 @@ export default function Register() {
 
         <button
           type="button"
-          onClick={() => loginWithGoogle()}
+          onClick={() => {
+            setError("");
+            setGoogleLoading(true);
+            loginWithGoogle();
+          }}
+          disabled={googleLoading}
           style={{
             width: "100%",
             background: "#fff",
@@ -208,7 +224,8 @@ export default function Register() {
             padding: "12px 16px",
             fontWeight: 600,
             fontSize: "0.95rem",
-            cursor: "pointer",
+            cursor: googleLoading ? "wait" : "pointer",
+            opacity: googleLoading ? 0.7 : 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -220,7 +237,7 @@ export default function Register() {
             alt="Google logo"
             style={{ width: 18, height: 18 }}
           />
-          <span>Continue with Google</span>
+          <span>{googleLoading ? "Connecting to Google…" : "Continue with Google"}</span>
         </button>
         <div style={{ textAlign: "center", margin: "0 0 18px", color: "#777", fontSize: ".85rem" }}>
           Or continue with email
