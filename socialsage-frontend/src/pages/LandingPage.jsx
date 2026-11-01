@@ -3514,6 +3514,48 @@ export default function LandingPage() {
           #sainthetic-home #product-walkthrough .step-highlight-copy small { font-size:.65rem !important; }
         }
       `}</style>
+      <style>{`
+        /* Premium product walkthrough mockup */
+        #sainthetic-home #product-walkthrough { max-width:1160px !important; margin:72px auto 0 !important; padding:0 24px !important; box-sizing:border-box !important; }
+        #sainthetic-home #product-walkthrough .how-step-wrapper { display:grid !important; grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr) !important; grid-template-rows:auto auto !important; grid-template-areas:"copy preview" "benefits benefits" !important; align-items:center !important; gap:22px 34px !important; margin:0 auto 26px !important; padding:30px !important; border:1px solid #e9e5da !important; border-radius:28px !important; background:linear-gradient(145deg,#fffdf7 0%,#fff 65%,#fffaf0 100%) !important; box-shadow:0 18px 48px rgba(31,42,68,.075) !important; text-align:left !important; overflow:hidden !important; }
+        #sainthetic-home #product-walkthrough .step-text { grid-area:copy !important; min-width:0 !important; padding:0 !important; text-align:left !important; }
+        #sainthetic-home #product-walkthrough .step-number-label { display:inline-flex !important; align-items:center !important; margin:0 0 16px !important; padding:8px 14px !important; border:1px solid #eddda8 !important; border-radius:999px !important; background:#fff2c8 !important; color:#755b1c !important; font-size:.72rem !important; font-weight:900 !important; letter-spacing:.15em !important; }
+        #sainthetic-home #product-walkthrough .step-text h3 { margin:0 0 13px !important; color:#111827 !important; font-size:clamp(1.75rem,3vw,2.45rem) !important; line-height:1.06 !important; letter-spacing:-.055em !important; font-weight:900 !important; }
+        #sainthetic-home #product-walkthrough .step-text p { margin:0 !important; color:#59647a !important; font-size:1rem !important; line-height:1.58 !important; }
+        #sainthetic-home #product-walkthrough .step-image { grid-area:preview !important; display:block !important; min-width:0 !important; width:100% !important; margin:0 !important; padding:0 !important; overflow:hidden !important; border:1px solid #dce2eb !important; border-radius:19px !important; background:#11131d !important; box-shadow:0 16px 36px rgba(26,32,48,.16) !important; }
+        #sainthetic-home #product-walkthrough .step-image-toolbar { display:flex !important; align-items:center !important; justify-content:space-between !important; gap:10px !important; min-height:34px !important; padding:0 12px !important; background:#f8f9fb !important; border-bottom:1px solid #e7ebf1 !important; color:#687287 !important; font-size:.65rem !important; font-weight:700 !important; }
+        #sainthetic-home #product-walkthrough .step-window-dots { display:flex !important; align-items:center !important; gap:5px !important; }
+        #sainthetic-home #product-walkthrough .step-window-dots i { display:block !important; width:7px !important; height:7px !important; border-radius:50% !important; background:#d8dce4 !important; }
+        #sainthetic-home #product-walkthrough .step-window-dots i:first-child { background:#f28b82 !important; }
+        #sainthetic-home #product-walkthrough .step-window-dots i:nth-child(2) { background:#fbbc04 !important; }
+        #sainthetic-home #product-walkthrough .step-window-dots i:nth-child(3) { background:#81c995 !important; }
+        #sainthetic-home #product-walkthrough .step-window-status { color:#8a7440 !important; font-size:.56rem !important; letter-spacing:.1em !important; }
+        #sainthetic-home #product-walkthrough .step-image img { display:block !important; width:100% !important; max-width:100% !important; height:auto !important; margin:0 !important; object-fit:contain !important; object-position:center !important; background:#11131d !important; }
+        #sainthetic-home #product-walkthrough .step-highlights { grid-area:benefits !important; display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:10px !important; margin:0 !important; }
+        #sainthetic-home #product-walkthrough .step-highlight { display:flex !important; align-items:center !important; gap:10px !important; min-width:0 !important; min-height:58px !important; padding:10px 12px !important; border:1px solid #eeeae0 !important; border-radius:14px !important; background:rgba(255,255,255,.9) !important; }
+        #sainthetic-home #product-walkthrough .step-highlight-icon { display:grid !important; place-items:center !important; flex:0 0 32px !important; width:32px !important; height:32px !important; border-radius:10px !important; background:#fff1bf !important; color:#755b1c !important; }
+        #sainthetic-home #product-walkthrough .step-highlight-copy { min-width:0 !important; }
+        #sainthetic-home #product-walkthrough .step-highlight-copy strong { display:block !important; color:#172033 !important; font-size:.78rem !important; line-height:1.2 !important; }
+        #sainthetic-home #product-walkthrough .step-highlight-copy small { display:block !important; margin-top:3px !important; color:#657087 !important; font-size:.68rem !important; line-height:1.3 !important; }
+        @media (max-width:760px) {
+          #sainthetic-home #product-walkthrough { margin:48px auto 0 !important; padding:0 16px !important; }
+          #sainthetic-home #product-walkthrough > h2 { font-size:clamp(1.9rem,7vw,2.4rem) !important; line-height:1.08 !important; }
+          #sainthetic-home #product-walkthrough > p { margin:0 auto 26px !important; font-size:.94rem !important; }
+          #sainthetic-home #product-walkthrough .how-step-wrapper { display:flex !important; flex-direction:column !important; align-items:stretch !important; gap:15px !important; margin:0 auto 20px !important; padding:17px !important; border-radius:22px !important; background:linear-gradient(150deg,#fffdf8,#fff) !important; box-shadow:0 12px 30px rgba(31,42,68,.07) !important; }
+          #sainthetic-home #product-walkthrough .step-text { order:1 !important; }
+          #sainthetic-home #product-walkthrough .step-image { order:2 !important; border-radius:14px !important; box-shadow:0 10px 24px rgba(26,32,48,.13) !important; }
+          #sainthetic-home #product-walkthrough .step-image-toolbar { min-height:29px !important; padding:0 9px !important; font-size:.58rem !important; }
+          #sainthetic-home #product-walkthrough .step-window-status { font-size:.49rem !important; }
+          #sainthetic-home #product-walkthrough .step-text h3 { margin:0 0 8px !important; font-size:1.55rem !important; line-height:1.1 !important; }
+          #sainthetic-home #product-walkthrough .step-text p { font-size:.9rem !important; line-height:1.48 !important; }
+          #sainthetic-home #product-walkthrough .step-number-label { margin:0 0 10px !important; padding:6px 11px !important; font-size:.66rem !important; }
+          #sainthetic-home #product-walkthrough .step-highlights { order:3 !important; grid-template-columns:1fr !important; gap:6px !important; }
+          #sainthetic-home #product-walkthrough .step-highlight { min-height:0 !important; padding:7px 9px !important; border-radius:11px !important; }
+          #sainthetic-home #product-walkthrough .step-highlight-icon { flex-basis:27px !important; width:27px !important; height:27px !important; }
+          #sainthetic-home #product-walkthrough .step-highlight-copy strong { font-size:.73rem !important; }
+          #sainthetic-home #product-walkthrough .step-highlight-copy small { font-size:.65rem !important; }
+        }
+      `}</style>
       </div>
     </div>
   );
