@@ -3039,10 +3039,34 @@ export default function LandingPage() {
                     <div className="reference-persona-avatar"><img src="/community-avatars-clean.webp?v=20261103" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
                     <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
-                  <div className="reference-question-title">High-value questions they ask AI</div>
-                  <div className="reference-question"><span>⌕</span> How can [product] improve organic acquisition, content productivity and conversion, and how soon could we see results?</div>
-                  <div className="reference-question"><span>⌕</span> How does [product] compare with leading alternatives on answer quality, workflow integration, scalability and total cost of ownership?</div>
-                  <div className="reference-question"><span>⌕</span> What is the investment case for a lean marketing team, including expected ROI, implementation effort and key adoption risks?</div>
+                  <motion.div
+                    className="reference-question-title"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.55, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <span>High-value questions they ask AI</span>
+                    <motion.i
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.65, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                  </motion.div>
+                  {[
+                    "How can [product] improve organic acquisition, content productivity and conversion, and how soon could we see results?",
+                    "How does [product] compare with leading alternatives on answer quality, workflow integration, scalability and total cost of ownership?",
+                    "What is the investment case for a lean marketing team, including expected ROI, implementation effort and key adoption risks?"
+                  ].map((question, index) => (
+                    <motion.div
+                      key={question}
+                      className="reference-question"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.48, delay: 1.05 + index * 0.24, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <span>⌕</span>{question}
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -4063,6 +4087,29 @@ export default function LandingPage() {
         @media (prefers-reduced-motion:reduce) {
           #sainthetic-home #product-walkthrough .step-live-pulse,
           #sainthetic-home #product-walkthrough .step-live-cursor { animation:none !important; }
+        }
+      `}</style>
+
+      <style>{`
+        /* Give the AI question heading a clear, intentional reveal. */
+        #sainthetic-home .reference-question-title {
+          display:block !important; position:relative !important;
+          padding-bottom:7px !important; overflow:hidden !important;
+        }
+        #sainthetic-home .reference-question-title > span {
+          display:inline-block !important;
+        }
+        #sainthetic-home .reference-question-title > i {
+          display:block !important; width:42px !important; height:3px !important;
+          margin-top:6px !important; border-radius:3px !important;
+          background:#ffd945 !important; transform-origin:left center !important;
+        }
+        #sainthetic-home .reference-question {
+          will-change:transform,opacity !important;
+        }
+        @media (prefers-reduced-motion:reduce) {
+          #sainthetic-home .reference-question-title > i { transform:none !important; }
+          #sainthetic-home .reference-question { will-change:auto !important; }
         }
       `}</style>
 
