@@ -3811,6 +3811,16 @@ export default function LandingPage() {
         #sainthetic-home #product-walkthrough .step-persona-portrait-three { left:77.3% !important; transform:translateX(-50%) !important; background-position-x:96.875% !important; }
       `}</style>
       <style>{`
+        /* Tighten the transition from the growth proof bar into pricing. */
+        #sainthetic-home .reference-growth-bar { margin-bottom: 0 !important; }
+        #sainthetic-home .reference-pricing {
+          margin-top: -215px !important;
+          padding-top: 0 !important;
+        }
+        @media (max-width:700px) {
+          #sainthetic-home .reference-pricing { margin-top: -90px !important; }
+        }
+
         /* Additional proof point: illustrative value of five hours saved weekly. */
         #sainthetic-home .reference-growth-bar {
           grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) minmax(0,1fr) auto !important;
