@@ -5,7 +5,7 @@ const personaAvatar = "/persona-people-sprite.webp?v=20261101";
 
 const personas = {
   SaaS: {
-    avatarIndex: 2,
+    avatarIndex: 1,
     name: "Sarah Johnson", role: "Growth Marketing Manager",
     goals: ["Increase SQLs", "Reduce CAC", "Improve retention"],
     painPoints: ["Low lead quality", "Generic AI content", "Weak positioning"],
@@ -55,7 +55,7 @@ const personas = {
     topPrompt: "Map a prospective student's decision journey from course discovery to application. Identify questions about outcomes, curriculum, entry requirements and funding, then recommend content that supports informed choice."
   },
   Travel: {
-    avatarIndex: 0,
+    avatarIndex: 2,
     name: "Jonas Weber", role: "Head of Digital Marketing, Travel Brand",
     goals: ["Increase direct bookings", "Reduce OTA dependency", "Improve repeat travel rate"],
     painPoints: ["High seasonality", "Price-driven comparison shopping", "Low brand loyalty"],
@@ -137,7 +137,7 @@ export default function PersonaTryDemo() {
         .persona-result-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:22px; border-bottom:1px solid #e9edf3; }
         .persona-result-identity { display:flex; align-items:center; gap:15px; min-width:0; }
         .persona-result-avatar { width:76px; height:76px; flex:0 0 76px; display:block; object-fit:cover; object-position:center 30%; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); }
-        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background-image:url("/persona-people-sprite.webp?v=20261101"); background-repeat:no-repeat; background-size:400% 100%; background-position:var(--persona-avatar-position, 33.333%) center; background-color:#f5f6f8; }
+        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background-image:url("/persona-people-clean.webp?v=20261101"); background-repeat:no-repeat; background-size:400% 100%; background-position:var(--persona-avatar-position, 33.333%) center; background-color:#f5f6f8; }
         .persona-result-insights { margin-top:14px; padding:18px; border:1px solid #dcebe3; border-radius:16px; background:linear-gradient(145deg,#f3faf6,#fff); }
         .persona-result-insights h4 { margin:0 0 12px; color:#203b30; font-size:1rem; letter-spacing:-.02em; }
         .persona-result-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-bottom:14px; }
