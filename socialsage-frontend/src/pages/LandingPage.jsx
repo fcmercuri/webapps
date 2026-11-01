@@ -148,6 +148,69 @@ export default function LandingPage() {
   return (
     <div id="sainthetic-home" style={{ minHeight: "100vh", minWidth: "100vw", margin: 0, padding: 0, background: "#fff", display: "flex", flexDirection: "column" }}>
       <NavigationBar />
+
+      <style>{`
+        /* Hero CTA buttons matched to the supplied reference image. */
+        #sainthetic-home .reference-actions {
+          display:flex !important; align-items:center !important; flex-wrap:wrap !important; gap:20px !important;
+        }
+        #sainthetic-home .reference-actions a.reference-primary {
+          box-sizing:border-box !important; display:inline-flex !important; align-items:center !important;
+          justify-content:space-between !important; gap:28px !important; width:610px !important;
+          max-width:100% !important; min-width:0 !important; min-height:116px !important;
+          padding:0 52px !important; border:1px solid #191a26 !important; border-radius:24px !important;
+          background:#191a26 !important; color:#fff !important;
+          box-shadow:0 14px 32px rgba(20,22,34,.12) !important;
+          font-size:clamp(22px,2.25vw,32px) !important; font-weight:800 !important;
+          line-height:1.15 !important; letter-spacing:-.025em !important; text-align:left !important;
+          white-space:nowrap !important; text-decoration:none !important;
+        }
+        #sainthetic-home .reference-actions a.reference-primary span {
+          flex:0 0 auto !important; color:#fff !important; font-size:42px !important;
+          font-weight:500 !important; line-height:1 !important; margin-left:auto !important;
+        }
+        #sainthetic-home .reference-actions a.reference-secondary {
+          box-sizing:border-box !important; display:inline-flex !important; align-items:center !important;
+          justify-content:center !important; gap:24px !important; min-width:290px !important;
+          min-height:80px !important; padding:0 32px !important; border:2px solid #1b263f !important;
+          border-radius:999px !important; background:#fff !important; color:#111a30 !important;
+          box-shadow:none !important; font-size:26px !important; font-weight:750 !important;
+          line-height:1 !important; letter-spacing:-.02em !important; text-decoration:none !important;
+        }
+        #sainthetic-home .reference-actions a.reference-secondary .play-icon {
+          position:relative !important; display:inline-block !important; flex:0 0 24px !important;
+          width:24px !important; height:26px !important; padding:0 !important;
+          overflow:visible !important; font-size:0 !important; line-height:0 !important;
+        }
+        #sainthetic-home .reference-actions a.reference-secondary .play-icon::before {
+          content:"" !important; position:absolute !important; left:1px !important; top:1px !important;
+          width:0 !important; height:0 !important; border-top:12px solid transparent !important;
+          border-bottom:12px solid transparent !important; border-left:23px solid #111a30 !important;
+        }
+        #sainthetic-home .reference-actions a.reference-secondary .play-icon::after {
+          content:"" !important; position:absolute !important; left:2px !important; top:6px !important;
+          width:0 !important; height:0 !important; border-top:7px solid transparent !important;
+          border-bottom:7px solid transparent !important; border-left:13px solid #fff !important;
+        }
+        #sainthetic-home .reference-actions a.reference-primary:hover {
+          background:#252735 !important; transform:translateY(-2px) !important;
+        }
+        #sainthetic-home .reference-actions a.reference-secondary:hover {
+          background:#f8f9fc !important; transform:translateY(-2px) !important;
+        }
+        @media (max-width:760px) {
+          #sainthetic-home .reference-actions { align-items:stretch !important; flex-direction:column !important; gap:12px !important; }
+          #sainthetic-home .reference-actions a.reference-primary {
+            width:100% !important; min-height:76px !important; padding:0 24px !important;
+            border-radius:18px !important; font-size:clamp(19px,5vw,24px) !important; gap:14px !important;
+          }
+          #sainthetic-home .reference-actions a.reference-primary span { font-size:32px !important; }
+          #sainthetic-home .reference-actions a.reference-secondary {
+            width:100% !important; min-width:0 !important; min-height:66px !important; font-size:21px !important;
+          }
+        }
+      `}</style>
+
       <style>{`
         /* sAInthetic white editorial redesign — homepage only */
         #sainthetic-home {
@@ -497,8 +560,7 @@ export default function LandingPage() {
           color: #4d5265 !important;
           padding: 10px 18px !important;
           font-size: .88rem !important;
-          letter-spacing: .01em !important;
-        }
+          letter-spacing: .01em !important;        }
         #sainthetic-home #hero h1 {
           max-width: 1040px !important;
           font-size: clamp(3.25rem, 8.3vw, 7.2rem) !important;
@@ -997,8 +1059,7 @@ export default function LandingPage() {
           background:#fff !important; color:#111827 !important; border:1px solid #e7ebf2 !important;
           border-radius:26px !important; box-shadow:0 26px 70px rgba(31,42,68,.14) !important;
           transform:rotate(-1.2deg); min-height:360px;
-        }
-        #sainthetic-home #hero > div:nth-of-type(4)::before {
+        }        #sainthetic-home #hero > div:nth-of-type(4)::before {
           content:"●  ●  ●"; position:absolute; top:17px; left:22px; right:22px; height:25px;
           border-bottom:1px solid #edf0f5; color:#f46b68; font-size:13px; letter-spacing:5px;
         }
@@ -1497,8 +1558,7 @@ export default function LandingPage() {
           height:100% !important;
           object-fit:fill !important;
           border-radius:0 !important;
-          image-rendering:auto !important;
-        }
+          image-rendering:auto !important;        }
         #sainthetic-home img.reference-person-0 { transform:translateX(0) !important; }
         #sainthetic-home img.reference-person-1 { transform:translateX(-20%) !important; }
         #sainthetic-home img.reference-person-2 { transform:translateX(-40%) !important; }
@@ -1997,8 +2057,7 @@ export default function LandingPage() {
           border:0 !important;
           border-radius:0 !important;
           box-shadow:none !important;
-        }
-        #sainthetic-home .reference-how-screenshot-portraits .portrait-one img { transform:translateX(0) !important; }
+        }        #sainthetic-home .reference-how-screenshot-portraits .portrait-one img { transform:translateX(0) !important; }
         #sainthetic-home .reference-how-screenshot-portraits .portrait-two img { transform:translateX(-20%) !important; }
         #sainthetic-home .reference-how-screenshot-portraits .portrait-three img { transform:translateX(-40%) !important; }
         #sainthetic-home .reference-how-persona-screenshot {
@@ -2497,8 +2556,7 @@ export default function LandingPage() {
         #sainthetic-home .reference-question-title {
           margin:12px 0 7px !important; font-size:.72rem !important;
           line-height:1.2 !important; font-weight:850 !important; color:#10182c !important;
-        }
-        #sainthetic-home .reference-question {
+        }        #sainthetic-home .reference-question {
           display:flex !important; align-items:flex-start !important; gap:7px !important;
           padding:7px 8px !important; margin:5px 0 !important;
           border:1px solid #e4e9f0 !important; border-radius:11px !important;
