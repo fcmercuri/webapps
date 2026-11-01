@@ -2362,6 +2362,53 @@ export default function LandingPage() {
         }
       `}</style>
 
+      <style>{`
+        /* Final accessibility and founder-hero presentation fixes. */
+        #sainthetic-home .reference-linkedin-credit {
+          min-height:64px !important;
+          padding:12px 26px 12px 18px !important;
+          gap:14px !important;
+          background:#111827 !important;
+          border:1px solid #111827 !important;
+          box-shadow:0 14px 32px rgba(17,24,39,.2) !important;
+          color:#fff !important;
+          font-size:1.02rem !important;
+        }
+        #sainthetic-home .reference-linkedin-credit strong {
+          color:#fff !important;
+          font-size:1.02rem !important;
+          font-weight:800 !important;
+        }
+        #sainthetic-home .reference-linkedin-external {
+          color:#dbe4f0 !important;
+          font-size:1.25rem !important;
+          font-weight:800 !important;
+        }
+        #sainthetic-home .reference-linkedin-icon {
+          flex-basis:34px !important;width:34px !important;height:34px !important;
+          border-radius:8px !important;font-size:22px !important;
+        }
+        #sainthetic-home .reference-hero-photo-image {
+          display:block !important;width:100% !important;height:auto !important;
+          aspect-ratio:1 / 1 !important;object-fit:cover !important;object-position:center !important;
+          border-radius:28px !important;background:#f6f4ee !important;
+          box-shadow:0 20px 50px rgba(25,35,55,.12) !important;
+        }
+        @media (max-width:760px) {
+          #sainthetic-home .reference-linkedin-credit {
+            max-width:100% !important;min-height:56px !important;
+            padding:10px 20px 10px 14px !important;gap:11px !important;
+          }
+          #sainthetic-home .reference-linkedin-credit strong { font-size:.9rem !important; }
+          #sainthetic-home .reference-linkedin-icon {
+            flex-basis:30px !important;width:30px !important;height:30px !important;font-size:20px !important;
+          }
+          #sainthetic-home .reference-hero-photo-image {
+            aspect-ratio:1 / 1 !important;max-height:none !important;object-fit:cover !important;
+          }
+        }
+      `}</style>
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
