@@ -3411,7 +3411,7 @@ export default function LandingPage() {
       `}</style>
 
 
-      <style>{\`
+      <style>{`
         /* Three-step walkthrough: consistent editorial cards and framed product screens. */
         #sainthetic-home #product-walkthrough {
           max-width:1120px !important; margin:76px auto 0 !important;
@@ -3508,7 +3508,7 @@ export default function LandingPage() {
           #sainthetic-home #product-walkthrough .step-highlight-copy strong { font-size:.73rem !important; }
           #sainthetic-home #product-walkthrough .step-highlight-copy small { font-size:.65rem !important; }
         }
-      \`}</style>
+      `}</style>
       </div>
     </div>
   );
