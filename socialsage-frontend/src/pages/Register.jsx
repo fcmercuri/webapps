@@ -28,6 +28,8 @@ export default function Register() {
     color: "white",
     fontSize: "1rem",
     fontFamily: "inherit",
+    margin: 0,
+    minHeight: "52px",
     boxSizing: "border-box",
   };
 
@@ -155,7 +157,9 @@ export default function Register() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #0B0B0B 0%, #1A1A2E 100%)",
+        background: "radial-gradient(ellipse at 50% 0%, #21183d 0%, #101015 48%, #0b0b0d 100%)",
+        padding: "28px 16px",
+        boxSizing: "border-box",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -170,17 +174,18 @@ export default function Register() {
         style={{
           background: "rgba(20, 20, 22, 0.8)",
           backdropFilter: "blur(20px)",
-          border: "1px solid rgba(255, 217, 69, 0.1)",
-          borderRadius: "20px",
-          padding: "50px 40px",
-          maxWidth: "420px",
-          width: "90%",
+          border: "1px solid rgba(255, 255, 255, 0.10)",
+          borderRadius: "22px",
+          padding: "38px 32px 30px",
+          maxWidth: "440px",
+          width: "100%",
+          boxSizing: "border-box",
           position: "relative",
           zIndex: 10,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+          boxShadow: "0 24px 80px rgba(0,0,0,0.48)",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: "24px" }}>
+        <div style={{ textAlign: "center", marginBottom: "28px" }}>
           <img
             src="/sainthetic-mark.svg"
             alt="SocialSage Logo"
@@ -244,7 +249,7 @@ export default function Register() {
           />
           <span>{googleLoading ? "Connecting to Google…" : "Continue with Google"}</span>
         </button>
-        <div style={{ textAlign: "center", margin: "0 0 18px", color: "#777", fontSize: ".85rem" }}>
+        <div style={{ textAlign: "center", margin: "14px 0 18px", color: "#92909b", fontSize: ".85rem" }}>
           Or continue with email
         </div>
         <form
@@ -252,7 +257,7 @@ export default function Register() {
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "20px",
+            gap: "17px",
             width: "100%",
           }}
         >
@@ -261,8 +266,8 @@ export default function Register() {
               style={{
                 display: "block",
                 color: "#ffd945",
-                fontSize: "0.9rem",
-                fontWeight: 600,
+                fontSize: "0.88rem",
+                fontWeight: 650,
                 marginBottom: "8px",
               }}
             >
@@ -343,14 +348,14 @@ export default function Register() {
               background: successMsg ? "#6b7280" : "#ffd945", // Gray when success
               color: "#191919",
               border: "none",
-              padding: "13px 20px",
-              borderRadius: "10px",
+              padding: "15px 20px",
+              borderRadius: "12px",
               fontWeight: 700,
               fontSize: "1rem",
               cursor: successMsg ? "not-allowed" : "pointer",
               opacity: loading ? 0.6 : 1,
-              marginTop: "10px",
-              boxShadow: "0 8px 20px rgba(255, 217, 69, 0.2)",
+              marginTop: "4px",
+              boxShadow: "0 8px 24px rgba(255, 217, 69, 0.18)",
             }}
           >
             {loading ? "Creating Account..." : successMsg ? "Account Created!" : "Create Account"}
