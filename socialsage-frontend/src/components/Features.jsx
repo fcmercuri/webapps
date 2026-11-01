@@ -13,7 +13,7 @@ const features = [
   },
   {
     title: "Topic Generator",
-    desc: "End writer’s block—get custom post topics every day based on your brand goals.",
+    desc: "End writer’s block. Get custom post topics every day based on your brand goals.",
   },
   {
     title: "Competitor Inbox",
