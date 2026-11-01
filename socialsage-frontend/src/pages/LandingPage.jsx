@@ -1665,6 +1665,281 @@ export default function LandingPage() {
 
 
 
+
+      <style>{`
+        /* Warm, human-centred finishing system for the full landing page */
+        #sainthetic-home {
+          background:#fffdf8 !important;
+          color:#172033 !important;
+          --human-ink:#172033;
+          --human-muted:#536078;
+          --human-cream:#fff7df;
+          --human-yellow:#f6d875;
+        }
+        #sainthetic-home > div[style*="flex: 1"] {
+          background:linear-gradient(180deg,#fffdf8 0%,#ffffff 42%,#fffdf8 100%) !important;
+        }
+        #sainthetic-home nav.main-nav {
+          background:rgba(255,255,255,.94) !important;
+          border-color:#f0eadb !important;
+          box-shadow:0 12px 32px rgba(47,48,55,.055) !important;
+        }
+        #sainthetic-home .reference-eyebrow,
+        #sainthetic-home .reference-feature-icon,
+        #sainthetic-home .growth-icon {
+          background:#fff1c4 !important;
+        }
+        #sainthetic-home .reference-hero h1 { color:#182033 !important; }
+        #sainthetic-home .reference-hero h1 span {
+          background:linear-gradient(transparent 64%,#f8df8d 64%,#f8df8d 92%,transparent 92%) !important;
+        }
+        #sainthetic-home .reference-subtitle,
+        #sainthetic-home .reference-reassurance,
+        #sainthetic-home .reference-features p,
+        #sainthetic-home .reference-how-it-works > p { color:#58647a !important; }
+        #sainthetic-home .reference-human-note {
+          display:flex !important;
+          align-items:center !important;
+          gap:13px !important;
+          margin-top:23px !important;
+          padding:12px 15px !important;
+          width:max-content !important;
+          max-width:100% !important;
+          border:1px solid #f0eadb !important;
+          border-radius:16px !important;
+          background:rgba(255,255,255,.82) !important;
+          box-shadow:0 7px 22px rgba(48,48,55,.045) !important;
+        }
+        #sainthetic-home .reference-human-faces {
+          display:flex !important;
+          flex:0 0 auto !important;
+          padding-left:4px !important;
+        }
+        #sainthetic-home .reference-human-faces span {
+          position:relative !important;
+          display:block !important;
+          width:37px !important;
+          height:37px !important;
+          margin-left:-5px !important;
+          overflow:hidden !important;
+          border:2px solid #fff !important;
+          border-radius:50% !important;
+          background:#f3e5cf !important;
+          box-shadow:0 2px 7px rgba(25,35,55,.12) !important;
+        }
+        #sainthetic-home .reference-human-faces img {
+          position:absolute !important;
+          top:0 !important;
+          left:0 !important;
+          width:500% !important;
+          max-width:none !important;
+          height:100% !important;
+          object-fit:fill !important;
+          border-radius:0 !important;
+        }
+        #sainthetic-home .reference-human-faces .reference-person-1 { transform:translateX(-20%) !important; }
+        #sainthetic-home .reference-human-faces .reference-person-2 { transform:translateX(-40%) !important; }
+        #sainthetic-home .reference-human-faces .reference-person-3 { transform:translateX(-60%) !important; }
+        #sainthetic-home .reference-human-note p {
+          margin:0 !important;
+          color:#667085 !important;
+          font-size:.78rem !important;
+          line-height:1.35 !important;
+        }
+        #sainthetic-home .reference-human-note strong {
+          color:#263149 !important;
+          font-size:.84rem !important;
+          font-weight:750 !important;
+        }
+        #sainthetic-home .reference-growth-bar,
+        #sainthetic-home .reference-price-card,
+        #sainthetic-home .feature-card {
+          border-color:#eee9df !important;
+          box-shadow:0 10px 28px rgba(54,49,38,.055) !important;
+        }
+        #sainthetic-home .reference-how-it-works {
+          max-width:1190px !important;
+          margin:46px auto 0 !important;
+          padding:34px 30px 30px !important;
+          border:1px solid #f0eadf !important;
+          border-radius:28px !important;
+          background:linear-gradient(180deg,#fffefa 0%,#fff 100%) !important;
+          box-shadow:0 18px 42px rgba(47,48,55,.055) !important;
+        }
+        #sainthetic-home .reference-how-it-works h2 {
+          font-size:clamp(2.15rem,3.5vw,2.8rem) !important;
+          letter-spacing:-.065em !important;
+        }
+        #sainthetic-home .reference-how-it-works > p {
+          margin-bottom:28px !important;
+          font-size:1.03rem !important;
+        }
+        #sainthetic-home .reference-how-grid {
+          display:grid !important;
+          grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+          gap:18px !important;
+          align-items:stretch !important;
+        }
+        #sainthetic-home .reference-how-grid .reference-how-card {
+          display:flex !important;
+          flex-direction:column !important;
+          min-width:0 !important;
+          overflow:hidden !important;
+          border:1px solid #e8eaf0 !important;
+          border-radius:21px !important;
+          background:#fff !important;
+          box-shadow:0 9px 24px rgba(31,42,68,.065) !important;
+          transition:transform .22s ease,box-shadow .22s ease !important;
+        }
+        #sainthetic-home .reference-how-grid .reference-how-card:hover {
+          transform:translateY(-4px) !important;
+          box-shadow:0 16px 32px rgba(31,42,68,.11) !important;
+        }
+        #sainthetic-home .reference-how-image {
+          position:relative !important;
+          width:100% !important;
+          aspect-ratio:1.55 / 1 !important;
+          overflow:hidden !important;
+          background:#171b2b !important;
+          border-bottom:1px solid #e8eaf0 !important;
+        }
+        #sainthetic-home .reference-how-image img {
+          display:block !important;
+          width:100% !important;
+          height:100% !important;
+          object-fit:cover !important;
+          object-position:top center !important;
+          transition:transform .35s ease !important;
+        }
+        #sainthetic-home .reference-how-card:hover .reference-how-image img {
+          transform:scale(1.035) !important;
+        }
+        #sainthetic-home .reference-how-card-copy {
+          display:flex !important;
+          align-items:flex-start !important;
+          gap:13px !important;
+          padding:20px 18px 21px !important;
+          text-align:left !important;
+        }
+        #sainthetic-home .reference-how-number {
+          display:grid !important;
+          place-items:center !important;
+          flex:0 0 36px !important;
+          width:36px !important;
+          height:36px !important;
+          border-radius:12px !important;
+          background:#fff0bd !important;
+          color:#624b13 !important;
+          font-size:.85rem !important;
+          font-weight:850 !important;
+        }
+        #sainthetic-home .reference-how-card-copy h3 {
+          margin:1px 0 6px !important;
+          color:#182033 !important;
+          font-size:1.08rem !important;
+          font-weight:800 !important;
+          letter-spacing:-.035em !important;
+        }
+        #sainthetic-home .reference-how-card-copy p {
+          margin:0 !important;
+          color:#657087 !important;
+          font-size:.9rem !important;
+          line-height:1.45 !important;
+        }
+        #sainthetic-home .reference-price-card.featured {
+          background:linear-gradient(150deg,#fff9e8,#fffdf7) !important;
+          border-color:#f1dc9d !important;
+        }
+        #sainthetic-home #product-walkthrough {
+          margin-top:76px !important;
+        }
+        #sainthetic-home .step-image {
+          border:1px solid #e9e5dc !important;
+          border-radius:24px !important;
+          background:#171b2b !important;
+          box-shadow:0 20px 48px rgba(39,43,55,.13) !important;
+        }
+        #sainthetic-home .step-text > div:first-child {
+          background:#fff3cd !important;
+          border:1px solid #f0dfa9 !important;
+          color:#755b1c !important;
+        }
+        #sainthetic-home #faq > div > div > div {
+          overflow:hidden !important;
+          border:1px solid #ece8df !important;
+          border-radius:20px !important;
+          box-shadow:0 8px 24px rgba(45,45,45,.045) !important;
+        }
+        #sainthetic-home #faq button {
+          display:flex !important;
+          align-items:center !important;
+          gap:14px !important;
+          min-height:76px !important;
+          padding:17px 20px !important;
+        }
+        #sainthetic-home .faq-question-icon {
+          display:grid !important;
+          place-items:center !important;
+          flex:0 0 42px !important;
+          width:42px !important;
+          height:42px !important;
+          border-radius:13px !important;
+          background:#fff2c8 !important;
+          color:#71581d !important;
+          font-size:1.25rem !important;
+        }
+        #sainthetic-home .faq-question-text {
+          flex:1 1 auto !important;
+          min-width:0 !important;
+          color:#202b40 !important;
+          font-size:1.03rem !important;
+          font-weight:750 !important;
+          line-height:1.35 !important;
+          text-align:left !important;
+        }
+        #sainthetic-home .faq-chevron {
+          flex:0 0 auto !important;
+          margin-left:6px !important;
+          color:#987a34 !important;
+          font-size:1.7rem !important;
+          line-height:1 !important;
+        }
+        #sainthetic-home #faq [style*="overflow: hidden"] p {
+          padding-left:56px !important;
+          color:#667085 !important;
+        }
+        #sainthetic-home footer {
+          background:transparent !important;
+          border-color:#eee9df !important;
+        }
+        @media (max-width:900px) {
+          #sainthetic-home .reference-how-grid { grid-template-columns:1fr !important; }
+          #sainthetic-home .reference-how-card { display:grid !important; grid-template-columns:minmax(0,.9fr) minmax(0,1fr) !important; }
+          #sainthetic-home .reference-how-image { height:100% !important; min-height:170px !important; aspect-ratio:auto !important; border-bottom:0 !important; border-right:1px solid #e8eaf0 !important; }
+          #sainthetic-home .reference-how-card-copy { align-items:center !important; padding:20px !important; }
+        }
+        @media (max-width:760px) {
+          #sainthetic-home .reference-human-note { margin-top:18px !important; }
+          #sainthetic-home .reference-how-it-works { margin:28px 16px 0 !important; padding:26px 16px 18px !important; }
+          #sainthetic-home .reference-how-grid { gap:13px !important; }
+          #sainthetic-home .reference-how-card { grid-template-columns:minmax(0,1fr) !important; }
+          #sainthetic-home .reference-how-image { min-height:0 !important; aspect-ratio:1.55 / 1 !important; border-right:0 !important; border-bottom:1px solid #e8eaf0 !important; }
+          #sainthetic-home .reference-how-card-copy { padding:15px 14px 17px !important; }
+          #sainthetic-home .reference-how-card-copy h3 { font-size:1rem !important; }
+          #sainthetic-home .reference-how-card-copy p { font-size:.84rem !important; }
+          #sainthetic-home .faq-question-icon { flex-basis:36px !important; width:36px !important; height:36px !important; }
+          #sainthetic-home #faq button { min-height:68px !important; padding:14px 13px !important; gap:10px !important; }
+          #sainthetic-home .faq-question-text { font-size:.92rem !important; }
+          #sainthetic-home #faq [style*="overflow: hidden"] p { padding-left:0 !important; }
+        }
+        @media (max-width:420px) {
+          #sainthetic-home .reference-human-note { width:100% !important; box-sizing:border-box !important; }
+          #sainthetic-home .reference-human-note p { font-size:.72rem !important; }
+          #sainthetic-home .reference-human-note strong { font-size:.76rem !important; }
+          #sainthetic-home .faq-question-text { font-size:.86rem !important; }
+        }
+      `}</style>
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
@@ -1689,6 +1964,14 @@ export default function LandingPage() {
                 <a className="reference-secondary" href="#product-demo"><span className="play-icon">▷</span> Watch demo</a>
               </div>
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
+              <div className="reference-human-note">
+                <div className="reference-human-faces" aria-hidden="true">
+                  <span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span>
+                  <span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span>
+                  <span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span>
+                </div>
+                <p><strong>Built around the people you want to reach.</strong><br/>Not another generic prompt.</p>
+              </div>
             </div>
             <div className="reference-visual" aria-label="Preview of the sAInthetic buyer persona dashboard">
               <div className="reference-glow reference-glow-one"></div>
@@ -1764,9 +2047,18 @@ export default function LandingPage() {
           <h2 id="reference-how-title">How it works</h2>
           <p>From audience insight to content that converts, in three simple steps.</p>
           <div className="reference-how-grid">
-            <article><span>1</span><div><h3>Create your buyer persona</h3><p>Generate AI personas based on your real audience.</p></div></article>
-            <article><span>2</span><div><h3>See the exact questions</h3><p>Discover what your buyers ask in ChatGPT, Google and more.</p></div></article>
-            <article><span>3</span><div><h3>Turn insight into content</h3><p>Get data-backed ideas, briefs and topics that drive results.</p></div></article>
+            <article className="reference-how-card">
+              <div className="reference-how-image"><img src="/step-2-personas.jpg" alt="sAInthetic buyer persona tool showing customer profiles" loading="lazy" /></div>
+              <div className="reference-how-card-copy"><span className="reference-how-number">01</span><div><h3>Create your buyer persona</h3><p>Generate AI personas based on your real audience.</p></div></div>
+            </article>
+            <article className="reference-how-card">
+              <div className="reference-how-image"><img src="/step-5-prompts.jpg" alt="sAInthetic AI questions and prompt library tool" loading="lazy" /></div>
+              <div className="reference-how-card-copy"><span className="reference-how-number">02</span><div><h3>See the exact questions</h3><p>Discover what your buyers ask in ChatGPT, Google and more.</p></div></div>
+            </article>
+            <article className="reference-how-card">
+              <div className="reference-how-image"><img src="/step-4-content.jpg" alt="sAInthetic content creation tool" loading="lazy" /></div>
+              <div className="reference-how-card-copy"><span className="reference-how-number">03</span><div><h3>Turn insight into content</h3><p>Get data-backed ideas, briefs and topics that drive results.</p></div></div>
+            </article>
           </div>
         </section>
 
@@ -1914,8 +2206,9 @@ export default function LandingPage() {
             {faqItems.map((item, index) => (
               <motion.div key={index} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.4, delay: index * 0.05 }} style={{ background: "linear-gradient(135deg,rgba(24,24,36,0.7) 0%,rgba(35,35,50,0.9) 100%)", borderRadius: "1.2rem", marginBottom: "1.2rem", border: "1px solid rgba(255,217,69,0.15)", overflow: "hidden" }}>
                 <button onClick={() => setOpenFaq(openFaq === index ? null : index)} style={{ width: "100%", padding: "1.6rem 2rem", background: "transparent", border: "none", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "1.1rem", fontWeight: 700, color: "#fff" }}>
-                  <span>{item.question}</span>
-                  <motion.span animate={{ rotate: openFaq === index ? 180 : 0 }} transition={{ duration: 0.3 }} style={{ fontSize: "1.2rem", color: "#ffd945", flexShrink: 0, marginLeft: 12 }}>▼</motion.span>
+                  <span className="faq-question-icon" aria-hidden="true">{["✧","▱","♙","◉","⌘","♡","✓","▤","◎","✎","↗"][index] || "✧"}</span>
+                  <span className="faq-question-text">{item.question}</span>
+                  <motion.span className="faq-chevron" animate={{ rotate: openFaq === index ? 180 : 0 }} transition={{ duration: 0.3 }}>⌄</motion.span>
                 </button>
                 <AnimatePresence>
                   {openFaq === index && (
