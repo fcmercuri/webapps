@@ -3055,3 +3055,60 @@ export default function LandingPage() {
         {/* ============ FAQ ============ */}
         <section id="faq" style={{ margin: "8rem auto 0 auto", maxWidth: 1000, textAlign: "left", position: "relative", zIndex: 2, padding: "0 20px" }}>
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.3rem", marginBottom: "0.8rem", letterSpacing: "-1px" }}>Frequently Asked Questions</h2>
+            <p style={{ color: "#bbb", fontSize: "1.15rem", maxWidth: 600, margin: "0 auto" }}>Everything you need to know about persona-driven AI content generation</p>
+          </div>
+          <div style={{ maxWidth: 900, margin: "0 auto" }}>
+            {faqItems.map((item, index) => (
+              <motion.div key={index} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.4, delay: index * 0.05 }} style={{ background: "linear-gradient(135deg,rgba(24,24,36,0.7) 0%,rgba(35,35,50,0.9) 100%)", borderRadius: "1.2rem", marginBottom: "1.2rem", border: "1px solid rgba(255,217,69,0.15)", overflow: "hidden" }}>
+                <button onClick={() => setOpenFaq(openFaq === index ? null : index)} style={{ width: "100%", padding: "1.6rem 2rem", background: "transparent", border: "none", textAlign: "left", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "1.1rem", fontWeight: 700, color: "#fff" }}>
+                  <span className="faq-question-icon" aria-hidden="true">{["✧","▱","♙","◉","⌘","♡","✓","▤","◎","✎","↗"][index] || "✧"}</span>
+                  <span className="faq-question-text">{item.question}</span>
+                  <motion.span className="faq-chevron" animate={{ rotate: openFaq === index ? 180 : 0 }} transition={{ duration: 0.3 }}>⌄</motion.span>
+                </button>
+                <AnimatePresence>
+                  {openFaq === index && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }} style={{ padding: "0 2rem 1.6rem 2rem", overflow: "hidden" }}>
+                      <p style={{ color: "#ccc", fontSize: "1rem", lineHeight: 1.6, margin: 0 }}>{item.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ============ FINAL CTA ============ */}
+        <section style={{ padding: "6rem 20px 3rem 20px", textAlign: "center", position: "relative", zIndex: 2 }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} style={{ maxWidth: 700, margin: "0 auto" }}>
+            <h2 style={{ fontSize: "clamp(2rem,5vw,2.8rem)", fontWeight: 900, margin: "0 0 20px 0", letterSpacing: "-1px", color: "#fff" }}>
+              Start publishing content your buyers actually search for.
+            </h2>
+            <p style={{ fontSize: "1.15rem", color: "#bbb", margin: "0 0 36px 0", lineHeight: 1.6 }}>
+              Join {userCount.toLocaleString()}+ marketers creating better content in less time.<br />Start free — no credit card required.
+            </p>
+            <a
+              href="/register"
+              style={{ background: "linear-gradient(135deg,#ffd945,#ff9f43)", border: "none", color: "#000", padding: "1.2rem 3rem", borderRadius: "12px", fontSize: "1.15rem", fontWeight: 800, cursor: "pointer", boxShadow: "0 10px 40px rgba(255,217,69,0.35)", display: "inline-block", textDecoration: "none" }}
+            >
+              Get your free persona now →
+            </a>
+            <div style={{ marginTop: 16, display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
+              {["✓ Free plan available", "✓ No credit card", "✓ Cancel anytime", "✓ Setup in 60 sec"].map(t => (
+                <span key={t} style={{ color: "#666", fontSize: "0.85rem", fontWeight: 600 }}>{t}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          <footer style={{ background: "rgba(11,11,11,0)", color: "#bbb", textAlign: "center", fontWeight: 500, padding: "1.1rem 0", borderTop: "1px solid #232323", marginTop: "3rem" }}>
+            © {new Date().getFullYear()} sAInthetic. All rights reserved
+            <div style={{ fontSize: ".85rem", color: "#999", marginTop: 2 }}>
+              Empowering AI-powered creators and brands · info@marketingpredictor.com
+            </div>
+            <USCookieConsent />
+          </footer>
+        </section>
+      </div>
+    </div>
+  );
+}
