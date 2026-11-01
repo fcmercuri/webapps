@@ -199,13 +199,14 @@ export default function LandingPage() {
         #sainthetic-home#sainthetic-home .growth-avatars span {
           background-image:url('/community-avatars-clean.webp?v=20261102') !important;
           background-repeat:no-repeat !important;
-          background-size:400% 100% !important;
+          /* Zoom into each portrait so the decorative halo baked into the source is cropped out. */
+          background-size:500% 130% !important;
           background-position-y:50% !important;
         }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(1) { background-position-x:0% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(2) { background-position-x:33.333% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(3) { background-position-x:66.667% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(4) { background-position-x:100% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(1) { background-position-x:3.125% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(2) { background-position-x:34.375% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(3) { background-position-x:65.625% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(4) { background-position-x:96.875% !important; }
         #sainthetic-home#sainthetic-home .growth-avatars img { display:none !important; }
         /* Keep visible breathing room between the feature row and community bar. */
         #sainthetic-home#sainthetic-home .reference-features {
