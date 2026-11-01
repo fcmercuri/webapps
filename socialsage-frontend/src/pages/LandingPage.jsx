@@ -2314,6 +2314,54 @@ export default function LandingPage() {
         }
       `}</style>
 
+
+      <style>{`
+        /* Final image rendering pass: keep product UI crisp and avoid enlarged, cropped thumbnails. */
+        #sainthetic-home .reference-hero-photo-image {
+          width:100% !important;
+          height:auto !important;
+          max-width:100% !important;
+          aspect-ratio:400 / 336 !important;
+          object-fit:contain !important;
+          object-position:center !important;
+          image-rendering:auto !important;
+          border-radius:22px !important;
+          background:#f6f4ee !important;
+          box-shadow:0 20px 50px rgba(25,35,55,.12) !important;
+        }
+        #sainthetic-home .reference-how-image {
+          background:#f8f9fb !important;
+        }
+        #sainthetic-home .reference-how-image > img,
+        #sainthetic-home .reference-how-screenshot-wrap > img {
+          width:100% !important;
+          height:100% !important;
+          max-width:100% !important;
+          object-fit:contain !important;
+          object-position:center !important;
+          image-rendering:auto !important;
+          background:#fff !important;
+        }
+        #sainthetic-home .step-image img {
+          width:100% !important;
+          height:auto !important;
+          max-width:100% !important;
+          object-fit:contain !important;
+          image-rendering:auto !important;
+        }
+        #sainthetic-home .growth-avatars img,
+        #sainthetic-home .reference-how-person > span img {
+          image-rendering:auto !important;
+          object-fit:cover !important;
+        }
+        @media (max-width:760px) {
+          #sainthetic-home .reference-hero-photo-image {
+            aspect-ratio:1.2 / 1 !important;
+            object-fit:contain !important;
+          }
+        }
+      `}</style>
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
