@@ -164,7 +164,7 @@ export default function Register() {
           boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <div style={{ textAlign: "center", marginBottom: "24px" }}>
           <img
             src="logo.jpg"
             alt="SocialSage Logo"
