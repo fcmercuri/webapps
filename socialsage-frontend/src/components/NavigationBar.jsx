@@ -47,7 +47,7 @@ export default function NavigationBar() {
           <span aria-hidden="true" style={{ fontSize: 25, lineHeight: 1 }}>{mobileOpen ? "×" : "☰"}</span>
         </button>
         <div className="nav-right desktop-nav">
-          <a href="#how-it-works">Product</a>
+          <a href="#features">Product</a>
           <a href="#features">Use Cases</a>
           <a href="#pricing">Pricing</a>
           {/* NEW: FAQ link desktop */}
@@ -67,7 +67,7 @@ export default function NavigationBar() {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.33 }}
             >
-              <a href="#how-it-works" onClick={closeMobileMenu}>Product</a>
+              <a href="#features" onClick={closeMobileMenu}>Product</a>
               <a href="#features" onClick={closeMobileMenu}>Use Cases</a>
               <a href="#pricing" onClick={closeMobileMenu}>Pricing</a>
               {/* NEW: FAQ link mobile */}
@@ -88,8 +88,8 @@ export default function NavigationBar() {
             display: flex !important;
             flex-direction: column;
             align-items: stretch;
-            background: #0B0B0B;
-            border-bottom: 1px solid #232323;
+            background: #ffffff;
+            border: 1px solid #e9edf3;
             position: absolute;
             top: 100%; left: 0; right: 0;
             width: 100%;
@@ -105,7 +105,7 @@ export default function NavigationBar() {
             width: 100%;
             text-align: center;
             font-size: 1.11rem;
-            color: #fff;
+            color: #111827;
             border: none;
             background: none;
             font-weight: 600;
@@ -119,14 +119,14 @@ export default function NavigationBar() {
           .mobile-dropdown a:hover, 
           .mobile-dropdown .mobile-nav-link:hover,
           .mobile-dropdown a:focus {
-            background: #171717;
-            color: #ffd945;
+            background: #fff7dc;
+            color: #111827;
           }
           .mobile-dropdown .cta {
             background: #ffd945;
             color: #191919 !important;
             font-weight: 700;
-            box-shadow: 0 6px 28px #ffd94540;
+            box-shadow: none;
             padding: 0.8rem 2rem !important;
             text-align: center;
           }
