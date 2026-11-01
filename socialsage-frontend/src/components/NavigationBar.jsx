@@ -20,7 +20,7 @@ export default function NavigationBar() {
       <nav className="main-nav" style={{ position: "relative" }}>
         <div className="nav-left">
           <motion.img
-            src="/logo.jpg"
+            src="/sainthetic-mark.svg"
             alt="sainthetic"
             className="nav-logo"
             animate={logoSpin ? { rotate: 360, scale: 1.13 } : { rotate: 0, scale: 1 }}
