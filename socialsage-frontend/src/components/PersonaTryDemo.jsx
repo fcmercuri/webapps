@@ -135,7 +135,7 @@ export default function PersonaTryDemo() {
         .persona-result-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:22px; border-bottom:1px solid #e9edf3; }
         .persona-result-identity { display:flex; align-items:center; gap:15px; min-width:0; }
         .persona-result-avatar { width:76px; height:76px; flex:0 0 76px; display:block; object-fit:cover; object-position:center 30%; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); }
-        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background:#f5f6f8; } .persona-result-avatar-strip { display:block; width:400%; max-width:none; height:100%; object-fit:fill; transform:translateX(calc(var(--persona-avatar-index, 1) * -25%)); }
+        .persona-result-avatar-icon { width:76px; height:76px; flex:0 0 76px; display:flex; align-items:center; justify-content:center; border:1px solid #e8dfbd; border-radius:18px; background:linear-gradient(145deg,#fff8df,#fffdf6); color:#9b7a19; box-shadow:0 4px 14px rgba(23,27,43,.08); } .persona-result-avatar-icon svg { display:block; width:38px; height:38px; }
         .persona-result-insights { margin-top:14px; padding:18px; border:1px solid #dcebe3; border-radius:16px; background:linear-gradient(145deg,#f3faf6,#fff); }
         .persona-result-insights h4 { margin:0 0 12px; color:#203b30; font-size:1rem; letter-spacing:-.02em; }
         .persona-result-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-bottom:14px; }
@@ -175,7 +175,7 @@ export default function PersonaTryDemo() {
           .persona-result-head { align-items:flex-start; gap:10px; padding-bottom:17px; }
           .persona-result-identity { gap:11px; }
            .persona-result-avatar { width:48px; height:48px; flex-basis:48px; border-radius:14px; font-size:23px; }
-          .persona-result-avatar-wrap { width:48px; height:48px; flex-basis:48px; border-radius:14px; }
+          .persona-result-avatar-icon { width:48px; height:48px; flex-basis:48px; border-radius:14px; } .persona-result-avatar-icon svg { width:26px; height:26px; }
           .persona-result-stages { grid-template-columns:1fr; gap:7px; }
           .persona-result-stage { padding:9px 10px; }
           .persona-result-name { font-size:1.35rem; }
@@ -225,7 +225,7 @@ export default function PersonaTryDemo() {
         <div className="persona-result" aria-live="polite">
           <div className="persona-result-head">
             <div className="persona-result-identity">
-              <div className="persona-result-avatar-wrap" role="img" aria-label={`${persona.name}, sample buyer persona`}><img className="persona-result-avatar-strip" src="/persona-people-clean.webp?v=20261105" alt="" aria-hidden="true" style={{ "--persona-avatar-index": persona.avatarIndex ?? 1 }} /></div>
+              <div className="persona-result-avatar-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.7"/><path d="M4.8 20c.55-3.55 3.45-5.7 7.2-5.7s6.65 2.15 7.2 5.7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg></div>
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
