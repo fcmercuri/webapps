@@ -5,7 +5,7 @@ const personas = {
   SaaS: {
     name: "Sarah Johnson",
     role: "Growth Marketing Manager",
-    leadScore: 87,
+    
     goals: ["Increase SQLs","Reduce CAC","Improve retention"],
     painPoints: ["Low lead quality","Generic AI content","Weak positioning"],
     questions: [
@@ -18,7 +18,7 @@ const personas = {
   Finance: {
     name: "David Carter",
     role: "Digital Banking Lead",
-    leadScore: 82,
+    
     goals: ["Acquire deposits","Increase trust","Grow applications"],
     painPoints: ["Compliance","Long approval cycles","Low engagement"],
     questions: [
@@ -31,7 +31,7 @@ const personas = {
   Ecommerce: {
     name: "Emily Brown",
     role: "E-commerce Director",
-    leadScore: 91,
+    
     goals: ["Increase AOV","Boost repeat purchases","Reduce cart abandonment"],
     painPoints: ["Creative fatigue","High CAC","Low loyalty"],
     questions: [
@@ -44,7 +44,7 @@ const personas = {
   Healthcare: {
     name: "Dr. Lisa Nguyen",
     role: "Patient Acquisition Manager",
-    leadScore: 79,
+    
     goals: ["Increase appointment bookings","Build patient trust","Expand service line awareness"],
     painPoints: ["Strict compliance rules","Low online visibility","High patient acquisition cost"],
     questions: [
@@ -57,7 +57,7 @@ const personas = {
   RealEstate: {
     name: "Marcus Reid",
     role: "Head of Growth, Real Estate Group",
-    leadScore: 84,
+    
     goals: ["Generate qualified buyer leads","Increase listing views","Shorten sales cycle"],
     painPoints: ["Seasonal demand swings","High cost per lead","Low agent follow-up rates"],
     questions: [
@@ -70,7 +70,7 @@ const personas = {
   Education: {
     name: "Priya Shah",
     role: "Enrollment Marketing Director",
-    leadScore: 76,
+    
     goals: ["Increase enrollment applications","Improve program awareness","Boost student engagement"],
     painPoints: ["Long decision cycles","Low content differentiation","Difficulty reaching Gen Z"],
     questions: [
@@ -83,7 +83,7 @@ const personas = {
   Travel: {
     name: "Jonas Weber",
     role: "Head of Digital Marketing, Travel Brand",
-    leadScore: 80,
+    
     goals: ["Increase direct bookings","Reduce OTA dependency","Improve repeat travel rate"],
     painPoints: ["High seasonality","Price-driven comparison shopping","Low brand loyalty"],
     questions: [
@@ -155,8 +155,8 @@ const cardStyle = {
 
   return (
     <section className="persona-try-demo" style={{maxWidth:1100,margin:"80px auto",padding:"40px",background:"#fff",borderRadius:20,color:"#171b2b"}}>
-      <h2>Try sAInthetic Free</h2>
-      <p>Generate a sample AI persona before creating an account.</p>
+      <h2>Preview your first buyer persona</h2>
+      <p>Choose an industry to explore an illustrative sample. Create a free account to build and save your own persona.</p>
 
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:16}}>
         <select style={inputStyle} value={industry} onChange={e=>setIndustry(e.target.value)}>
@@ -178,11 +178,11 @@ const cardStyle = {
         />
       </div>
 
-      <button style={buttonStyle} onClick={generate}>Generate Persona</button>
+      <button style={buttonStyle} onClick={generate}>Preview sample persona</button>
 
       {loading && (
         <div style={{marginTop:30}}>
-          <h3>🤖 AI is generating your persona...</h3>
+          <h3>Preparing your sample preview...</h3>
           <progress style={{width:"100%"}}/>
         </div>
       )}
@@ -195,10 +195,10 @@ const cardStyle = {
               <div>
                 <h2 style={{margin:0}}>{persona.name}</h2>
                 <div style={{color:"#aaa",fontSize:14}}>{persona.role}</div>
-                <div style={{color:"#FFD945",fontSize:13,marginTop:2}}>AI-generated buyer persona · Lead score: {persona.leadScore}/100</div>
+                <div style={{color:"#FFD945",fontSize:13,marginTop:2}}>Illustrative buyer persona preview</div>
               </div>
             </div>
-            <span style={{background:"rgba(34,197,94,.12)",color:"#4ade80",border:"1px solid rgba(74,222,128,.3)",padding:"6px 14px",borderRadius:20,fontSize:13,fontWeight:700,whiteSpace:"nowrap"}}>High intent ↑</span>
+            <span style={{background:"rgba(255,217,69,.12)",color:"#FFD945",border:"1px solid rgba(255,217,69,.3)",padding:"6px 14px",borderRadius:20,fontSize:13,fontWeight:700,whiteSpace:"nowrap"}}>Sample output</span>
           </div>
 
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:14,marginTop:24}}>
@@ -222,10 +222,10 @@ const cardStyle = {
           </div>
 
           <div style={{marginTop:24,padding:24,borderRadius:12,background:"rgba(255,255,255,.05)"}}>
-            <strong>+48 Premium Insights unlock when you register</strong>
-            <p>Synthetic AI questions • Lead intent scoring • GEO content ideas • Ready-to-answer prompts • LLM search gaps</p>
+            <strong>Build and save your own persona</strong>
+            <p>Discover buyer questions, uncover pain points and turn audience insight into content ideas tailored to your business.</p>
             <p style={{fontSize:13,color:"#888",margin:"4px 0 16px"}}>Free plan available · No credit card required · Cancel anytime</p>
-            <button style={buttonStyle} onClick={unlock}>Unlock Free →</button>
+            <button style={buttonStyle} onClick={unlock}>Create my free account →</button>
           </div>
         </div>
       )}
