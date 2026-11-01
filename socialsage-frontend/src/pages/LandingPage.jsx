@@ -2566,12 +2566,15 @@ export default function LandingPage() {
         #sainthetic-home .reference-founder-banner-link { display:block !important; width:100% !important; border-radius:28px !important; overflow:hidden !important; line-height:0 !important; box-shadow:0 12px 30px rgba(31,42,68,.08) !important; transition:transform .2s ease,box-shadow .2s ease !important; }
         #sainthetic-home .reference-founder-banner-link { position:relative !important; }
         #sainthetic-home .reference-founder-cta-label {
-          position:absolute !important; left:10.8% !important; top:66.5% !important;
-          width:17.5% !important; height:19.8% !important; display:flex !important;
-          align-items:center !important; justify-content:flex-start !important;
-          border-radius:0 !important; background:transparent !important; color:#fff !important;
-          font-size:clamp(9px,1.18vw,18px) !important; font-weight:700 !important;
-          line-height:1 !important; white-space:nowrap !important; pointer-events:none !important;
+          position:absolute !important; z-index:2 !important;
+          left:10.8% !important; top:66.5% !important;
+          width:17.5% !important; height:19.8% !important;
+          box-sizing:border-box !important; display:flex !important;
+          align-items:center !important; justify-content:center !important;
+          border-radius:0 !important; background:#111a2f !important;
+          color:#fff !important; font-size:clamp(9px,1.18vw,18px) !important;
+          font-weight:700 !important; line-height:1 !important;
+          white-space:nowrap !important; pointer-events:none !important;
         }
         #sainthetic-home .reference-founder-banner-link:hover { transform:translateY(-2px) !important; box-shadow:0 18px 38px rgba(31,42,68,.12) !important; }
         #sainthetic-home .reference-founder-banner img { display:block !important; width:100% !important; max-width:none !important; height:auto !important; aspect-ratio:1600 / 388 !important; object-fit:contain !important; border-radius:28px !important; }
