@@ -3022,11 +3022,12 @@ export default function LandingPage() {
               <span>illustrative time value saved</span>
               <small>Based on 5 hours × $30/hour</small>
             </div>
-            <div className="growth-avatars" aria-hidden="true">
-              <span className="community-avatar-1" />
-              <span className="community-avatar-2" />
-              <span className="community-avatar-3" />
-              <span className="community-avatar-4" />
+            <div className="growth-avatars">
+              <span className="community-avatar-1" aria-hidden="true" />
+              <span className="community-avatar-2" aria-hidden="true" />
+              <span className="community-avatar-3" aria-hidden="true" />
+              <span className="community-avatar-4" aria-hidden="true" />
+              <span className="growth-avatars-caption">Meet the people behind your next growth opportunity.</span>
             </div>
           </section>
 
@@ -3843,6 +3844,26 @@ export default function LandingPage() {
         @media (max-width:360px) {
           #sainthetic-home header#hero .reference-actions { gap:7px !important; }
           #sainthetic-home header#hero .reference-actions a { padding:8px 6px !important; font-size:.66rem !important; }
+        }
+      `}</style>
+      <style>{`
+        /* Caption the community portraits with a concise buyer-persona message. */
+        #sainthetic-home .growth-avatars {
+          display:flex !important; align-items:center !important; justify-content:flex-start !important;
+          gap:0 !important; min-width:0 !important;
+        }
+        #sainthetic-home .growth-avatars-caption {
+          display:block !important; max-width:190px !important; margin-left:13px !important;
+          color:#35425d !important; font-size:.76rem !important; font-weight:650 !important;
+          line-height:1.35 !important; letter-spacing:-.01em !important;
+        }
+        @media (max-width:700px) {
+          #sainthetic-home .growth-avatars { grid-column:1/-1 !important; justify-content:center !important; flex-wrap:wrap !important; row-gap:9px !important; }
+          #sainthetic-home .growth-avatars-caption { max-width:230px !important; margin-left:10px !important; font-size:.72rem !important; }
+        }
+        @media (max-width:380px) {
+          #sainthetic-home .growth-avatars { justify-content:flex-start !important; }
+          #sainthetic-home .growth-avatars-caption { max-width:170px !important; font-size:.68rem !important; }
         }
       `}</style>
       </div>
