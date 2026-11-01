@@ -163,13 +163,12 @@ export default function Login() {
       >
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <img
-            src="/logo.jpg"
+            src="/sainthetic-mark.svg"
             alt="SocialSage Logo"
             style={{
-              width: 40,
-              height: 40,
-              borderRadius: "12px",
-              objectFit: "cover",
+              width: 48,
+              height: 48,
+              objectFit: "contain",
               marginBottom: "15px",
             }}
           />
