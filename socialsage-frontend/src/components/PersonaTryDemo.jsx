@@ -78,10 +78,10 @@ export default function PersonaTryDemo() {
   const normaliseWebsite = (value) => {
     const trimmed = value.trim();
     if (!trimmed) return "";
-    const candidate = /^https?:\\/\\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : \`https://\${trimmed}\`;
     try {
       const parsed = new URL(candidate);
-      return parsed.hostname.includes(".") ? parsed.toString().replace(/\\/$/, "") : "";
+      return parsed.hostname.includes(".") ? parsed.toString().replace(/\/$/, "") : "";
     } catch { return ""; }
   };
 
