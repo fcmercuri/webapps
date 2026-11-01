@@ -32,24 +32,24 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       style={{
-        background: 'linear-gradient(135deg, rgba(20, 20, 22, 0.8) 0%, rgba(35, 40, 69, 0.6) 100%)',
-        border: '1px solid rgba(255, 217, 69, 0.15)',
-        backdropFilter: 'blur(10px)',
-        padding: '40px',
-        borderRadius: '16px',
-        marginBottom: '30px'
+        background: '#ffffff',
+        border: '1px solid #e9e6f2',
+        padding: '28px',
+        borderRadius: '20px',
+        marginBottom: '30px',
+        boxShadow: '0 12px 34px rgba(35, 24, 70, 0.06)'
       }}
     >
       <h2 style={{
         fontSize: '1.8rem',
         fontWeight: 800,
-        color: '#fff',
+        color: '#17132a',
         margin: '0 0 10px 0',
         letterSpacing: '-0.5px'
       }}>
         {currentIndustry ? 'Select Your Industry' : 'Select Your Industry'}
       </h2>
-      <p style={{ color: '#bbb', margin: '0 0 30px 0', fontSize: '1rem' }}>
+      <p style={{ color: '#6f6a80', margin: '0 0 30px 0', fontSize: '1rem' }}>
         We'll generate AI-powered customer personas and prompts tailored to your market
       </p>
 
@@ -69,11 +69,11 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
               style={{
                 padding: '20px',
                 background: selected === industry.value
-                  ? 'rgba(255, 217, 69, 0.15)'
-                  : 'rgba(11, 11, 11, 0.5)',
+                  ? 'rgba(128, 83, 255, 0.09)'
+                  : '#fbfaff',
                 border: selected === industry.value
-                  ? '2px solid #ffd945'
-                  : '1px solid #232323',
+                  ? '2px solid #8b5cf6'
+                  : '1px solid #e9e6f2',
                 borderRadius: '12px',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
@@ -82,7 +82,7 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
             >
               <div style={{ fontSize: '2rem', marginBottom: '8px' }}>{industry.emoji}</div>
               <div style={{
-                color: selected === industry.value ? '#ffd945' : '#fff',
+                color: selected === industry.value ? '#7041db' : '#28243a',
                 fontWeight: selected === industry.value ? 700 : 500,
                 fontSize: '0.9rem'
               }}>
@@ -99,8 +99,8 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
           whileTap={{ scale: 0.98 }}
           style={{
             width: '100%',
-            background: '#ffd945',
-            color: '#191919',
+            background: 'linear-gradient(100deg, #8b5cf6, #7041db)',
+            color: '#fff',
             border: 'none',
             padding: '16px',
             borderRadius: '12px',
@@ -108,7 +108,7 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
             fontSize: '1.05rem',
             cursor: 'pointer',
             opacity: !selected || loading ? 0.5 : 1,
-            boxShadow: '0 8px 20px rgba(255, 217, 69, 0.2)'
+            boxShadow: '0 8px 20px rgba(112, 65, 219, 0.22)'
           }}
         >
           {loading ? 'Generating Personas...' : currentIndustry ? 'Update & Regenerate' : 'Generate My Personas'}
