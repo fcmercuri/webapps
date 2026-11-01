@@ -3160,10 +3160,11 @@ export default function LandingPage() {
                 <div style={{ color: "#888", fontSize: "0.82rem", marginTop: 2 }}>Team size: 12 · Industry: SaaS · Use case: Organic content growth</div>
               </div>
               <div style={{ display: "flex", gap: 10 }}>
-                {[{ label: "Time to results", value: "60 days" }, { label: "Plan used", value: "Pro" }].map(s => (
-                  <div key={s.label} style={{ background: "rgba(255,217,69,0.1)", border: "1px solid rgba(255,217,69,0.25)", borderRadius: 10, padding: "6px 14px", textAlign: "center" }}>
-                    <div style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.9rem" }}>{s.value}</div>
-                    <div style={{ color: "#888", fontSize: "0.7rem" }}>{s.label}</div>
+                {[{ label: "Time to results", value: "60 days" }, { label: "Plan used", value: "Pro" }, { label: "Estimated value saved", value: "$150 / week", note: "5h × $30/hour" }].map(s => (
+                  <div key={s.label} style={{ background: "rgba(255,217,69,0.1)", border: "1px solid rgba(255,217,69,0.25)", borderRadius: 10, padding: "8px 14px", textAlign: "center", minWidth: 92 }}>
+                    <div style={{ color: "#ffd945", fontWeight: 800, fontSize: "0.9rem", whiteSpace: "nowrap" }}>{s.value}</div>
+                    <div style={{ color: "#888", fontSize: "0.7rem", lineHeight: 1.25 }}>{s.label}</div>
+                    {s.note && <div style={{ color: "#777", fontSize: "0.62rem", marginTop: 3, whiteSpace: "nowrap" }}>{s.note}</div>}
                   </div>
                 ))}
               </div>
