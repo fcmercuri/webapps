@@ -1505,6 +1505,16 @@ export default function LandingPage() {
         #sainthetic-home #how-it-works, #sainthetic-home #pricing, #sainthetic-home #case-study, #sainthetic-home #faq { scroll-margin-top:100px; }
         #sainthetic-home section h2, #sainthetic-home section h3, #sainthetic-home section h4 { color:#111827 !important; }
         #sainthetic-home section p { color:#59647a !important; }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) > div:first-child {
+          background:#fff !important; border:1px solid #e9edf3 !important; border-radius:24px !important;
+          box-shadow:0 12px 34px rgba(31,42,68,.07) !important; padding:24px 20px !important;
+        }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) > div:first-child > div:first-child {
+          color:#59647a !important; letter-spacing:.08em;
+        }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) .cs-metric-cell { border-color:#e9edf3 !important; }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) .cs-metric-cell div { color:#111827 !important; }
+        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) a { color:#8a6500 !important; }
         #sainthetic-home #pricing { max-width:1180px !important; margin-top:6rem !important; }
         #sainthetic-home #pricing h2 { color:#111827 !important; font-size:clamp(2.1rem,4vw,3rem) !important; letter-spacing:-.06em !important; }
         #sainthetic-home #pricing > div[style*="display: flex"] > div {
