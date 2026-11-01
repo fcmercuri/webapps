@@ -195,12 +195,23 @@ export default function LandingPage() {
         }
         #sainthetic-home .reference-actions a.reference-primary:hover { background:#252735 !important; transform:translateY(-2px) !important; }
         #sainthetic-home .reference-actions a.reference-secondary:hover { background:#f8f9fc !important; transform:translateY(-2px) !important; }
-        /* New high-resolution four-person portrait strip. */
-        #sainthetic-home#sainthetic-home .growth-avatars img { width:500% !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-1 { transform:translateX(-20%) !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-2 { transform:translateX(-40%) !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-3 { transform:translateX(-60%) !important; }
-        #sainthetic-home#sainthetic-home .growth-avatars img.reference-person-4 { transform:translateX(-80%) !important; }
+        /* Use the uploaded high-resolution community portrait strip. */
+        #sainthetic-home#sainthetic-home .growth-avatars span {
+          background-image:url('/community-avatars.png?v=20261101') !important;
+          background-repeat:no-repeat !important;
+          background-size:auto 135% !important;
+          background-position-y:50% !important;
+        }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(1) { background-position-x:7.7% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(2) { background-position-x:34.1% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(3) { background-position-x:60.8% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars span:nth-child(4) { background-position-x:87.6% !important; }
+        #sainthetic-home#sainthetic-home .growth-avatars img { display:none !important; }
+        /* Keep visible breathing room between the feature row and community bar. */
+        #sainthetic-home#sainthetic-home .reference-features {
+          padding-bottom:24px !important;
+          margin-bottom:24px !important;
+        }
         /* Clean white FAQ cards — remove the old grey gradient treatment. */
         #sainthetic-home#sainthetic-home #faq > div > div > div {
           background:#fff !important; background-image:none !important; border:1px solid #e4e9f0 !important;
@@ -2862,10 +2873,10 @@ export default function LandingPage() {
             <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
             <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
             <div className="growth-avatars" aria-hidden="true">
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span>
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span>
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span>
-              <span><img src="/reference-people-sprite.jpg" className="reference-person-4" alt="" /></span>
+              <span className="community-avatar-1" />
+              <span className="community-avatar-2" />
+              <span className="community-avatar-3" />
+              <span className="community-avatar-4" />
             </div>
           </section>
 
