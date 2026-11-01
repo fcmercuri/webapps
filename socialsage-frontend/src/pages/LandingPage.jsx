@@ -1244,7 +1244,7 @@ export default function LandingPage() {
         #sainthetic-home .reference-persona-panel { margin-left:12px; padding:8px 12px 10px; border:1px solid #eceff4; border-radius:18px; background:rgba(255,255,255,.88); box-shadow:0 7px 22px rgba(28,38,60,.08); color:#101522; }
         #sainthetic-home .reference-persona-panel h3 { margin:0 0 17px !important; font-size:1rem !important; font-weight:800 !important; color:#101522 !important; letter-spacing:-.03em; }
         #sainthetic-home .reference-persona-profile { display:flex; align-items:center; gap:12px; padding-bottom:14px; border-bottom:1px solid #e9edf2; }
-        #sainthetic-home .reference-persona-avatar { display:grid; place-items:center; width:54px; height:54px; flex:0 0 54px; border-radius:50%; background:linear-gradient(135deg,#f8d5b6,#d99c70); font-size:32px; overflow:hidden; }
+        #sainthetic-home .reference-persona-avatar { position:relative; display:block; width:54px; height:54px; flex:0 0 54px; border-radius:50%; overflow:hidden; background-color:#e8e9ec; background-image:url("/community-avatars-clean.webp?v=20261106"); background-repeat:no-repeat; background-size:500% 130%; background-position:3.125% 50%; }
         #sainthetic-home .reference-persona-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
         #sainthetic-home .reference-person-0 { object-position:0% 50%; }
         #sainthetic-home .reference-person-1 { object-position:25% 50%; }
@@ -2853,20 +2853,16 @@ export default function LandingPage() {
           #sainthetic-home .reference-persona-avatar { width:38px !important; height:38px !important; flex-basis:38px !important; }
         }
 
-        /* High-resolution standalone portrait for the hero buyer persona. */
-        #sainthetic-home#sainthetic-home .reference-persona-avatar img.hero-persona-portrait {
-          position:absolute !important;
-          top:0 !important;
-          left:0 !important;
-          width:100% !important;
-          height:100% !important;
-          max-width:100% !important;
-          object-fit:cover !important;
-          object-position:0% 43% !important;
-          transform:none !important;
-          border-radius:50% !important;
-          image-rendering:auto !important;
+        /* Hero avatar: show only the first (male) portrait from the community strip. */
+        #sainthetic-home#sainthetic-home .reference-persona-avatar {
+          position:relative !important;
+          overflow:hidden !important;
+          background-image:url("/community-avatars-clean.webp?v=20261106") !important;
+          background-repeat:no-repeat !important;
+          background-size:500% 130% !important;
+          background-position:3.125% 50% !important;
         }
+        #sainthetic-home#sainthetic-home .reference-persona-avatar img { display:none !important; }
       `}</style>
 
 
@@ -3038,7 +3034,7 @@ export default function LandingPage() {
                 <div className="reference-persona-panel">
                   <h3>Buyer Persona</h3>
                   <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/community-avatars-clean.webp?v=20261103" className="hero-persona-portrait" alt="Buyer persona portrait" /></div>
+                    <div className="reference-persona-avatar" role="img" aria-label="Illustrative male buyer persona portrait" />
                     <div>
                       <motion.strong
                         ref={personaTitleRef}
