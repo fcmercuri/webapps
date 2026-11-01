@@ -149,791 +149,144 @@ export default function LandingPage() {
     <div id="sainthetic-home" style={{ minHeight: "100vh", minWidth: "100vw", margin: 0, padding: 0, background: "#fff", display: "flex", flexDirection: "column" }}>
       <NavigationBar />
       <style>{`
-        /* sAInthetic white editorial redesign — homepage only */
-        #sainthetic-home {
-          background: #ffffff !important;
-          color: #171b2b !important;
-          min-height: 100vh;
-          overflow: hidden;
+        #sainthetic-home { --ref-ink:#111827; --ref-muted:#33415f; --ref-yellow:#ffeaa3; background:#fff !important; color:var(--ref-ink) !important; min-width:0 !important; overflow:hidden; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+        #sainthetic-home > div[style*="flex: 1"] { background:#fff !important; overflow:visible !important; }
+        #sainthetic-home > div[style*="flex: 1"] > div[style*="position: fixed"] { display:none !important; }
+        #sainthetic-home nav.main-nav { box-sizing:border-box; width:calc(100% - 80px); max-width:1240px; min-height:74px; margin:4px auto 0; padding:10px 18px !important; border:1px solid #eef0f5 !important; border-radius:32px !important; background:rgba(255,255,255,.96) !important; box-shadow:0 12px 34px rgba(25,35,60,.08) !important; position:relative !important; z-index:30; display:flex !important; flex-direction:row !important; align-items:center !important; justify-content:space-between !important; }
+        #sainthetic-home .nav-left { align-items:center; gap:12px !important; margin:0 !important; }
+        #sainthetic-home .nav-logo { width:38px !important; height:38px !important; border-radius:10px !important; object-fit:cover; }
+        #sainthetic-home .nav-brand { color:#111827 !important; font-size:1.45rem !important; font-weight:850 !important; letter-spacing:-.05em; }
+        #sainthetic-home .nav-spacer { display:none !important; }
+        #sainthetic-home .nav-right { display:flex !important; flex-direction:row !important; align-items:center !important; gap:6px !important; margin-left:auto; }
+        #sainthetic-home .nav-right a,#sainthetic-home .desktop-nav .nav-link { color:#111827 !important; padding:11px 13px !important; border-radius:999px !important; font-size:.94rem !important; font-weight:550 !important; text-decoration:none; white-space:nowrap; }
+        #sainthetic-home .nav-right a:hover { background:#fff7dc !important; }
+        #sainthetic-home .nav-right a.cta { color:#fff !important; background:#090e1d !important; padding:13px 22px !important; border-radius:999px !important; margin-left:8px; }
+        #sainthetic-home .sainthetic-menu-toggle { display:none; color:#111827 !important; background:#fff !important; border:1px solid #e8ebf1 !important; border-radius:12px !important; }
+        #sainthetic-home .sainthetic-reference-top { width:100%; max-width:1240px; margin:0 auto; padding:0 28px 30px; box-sizing:border-box; }
+        #sainthetic-home .reference-hero { position:relative; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.06fr); align-items:center; gap:20px; min-height:610px; padding:48px 12px 24px; box-sizing:border-box; }
+        #sainthetic-home .reference-hero-copy { position:relative; z-index:2; min-width:0; }
+        #sainthetic-home .reference-eyebrow { display:inline-flex; align-items:center; gap:9px; padding:9px 15px; border-radius:999px; background:#fff5cf; color:#111827; font-size:14px; font-weight:700; margin:0 0 24px; box-shadow:0 5px 16px rgba(243,205,93,.12); }
+        #sainthetic-home .reference-eyebrow span { display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:#ffe18a; color:#d89b00; font-size:15px; }
+        #sainthetic-home .reference-hero h1 { margin:0 0 24px !important; max-width:540px; color:#101522 !important; font-size:clamp(2.9rem,5.2vw,4.15rem) !important; line-height:1.02 !important; font-weight:850 !important; letter-spacing:-.065em !important; background:none !important; -webkit-text-fill-color:#101522 !important; text-align:left !important; }
+        #sainthetic-home .reference-hero h1 span { display:inline; color:#101522 !important; -webkit-text-fill-color:#101522 !important; background:linear-gradient(transparent 61%,#ffe28a 61%,#ffe28a 92%,transparent 92%) !important; padding:0 .02em; }
+        #sainthetic-home .reference-subtitle { max-width:540px; margin:0 0 22px !important; color:#34415f !important; font-size:1.06rem !important; line-height:1.48 !important; font-weight:450; }
+        #sainthetic-home .reference-actions { display:flex; align-items:center; flex-wrap:wrap; gap:14px; }
+        #sainthetic-home .reference-actions a { min-height:48px; display:inline-flex; align-items:center; justify-content:center; gap:13px; box-sizing:border-box; padding:0 23px; border-radius:999px; font-size:.98rem; font-weight:750; text-decoration:none; white-space:nowrap; }
+        #sainthetic-home .reference-primary { background:#090e1d; color:#fff !important; box-shadow:0 5px 12px rgba(17,24,39,.12); }
+        #sainthetic-home .reference-primary span { font-size:1.2rem; }
+        #sainthetic-home .reference-secondary { border:1.5px solid #111827; color:#111827 !important; background:#fff; }
+        #sainthetic-home .play-icon { font-size:1.2rem; }
+        #sainthetic-home .reference-reassurance { display:flex; flex-wrap:wrap; gap:12px 22px; margin-top:21px; color:#27334d; font-size:.83rem; font-weight:500; }
+        #sainthetic-home .reference-visual { position:relative; min-height:470px; display:flex; align-items:center; justify-content:center; }
+        #sainthetic-home .reference-glow { position:absolute; border-radius:50%; background:linear-gradient(135deg,#fff4c8,#ffedaa); opacity:.8; z-index:0; }
+        #sainthetic-home .reference-glow-one { width:210px; height:330px; right:0; top:-20px; transform:rotate(25deg); }
+        #sainthetic-home .reference-glow-two { width:230px; height:270px; left:5px; bottom:-5px; transform:rotate(35deg); }
+        #sainthetic-home .reference-app-window { position:relative; z-index:1; display:grid; grid-template-columns:140px minmax(0,1fr); width:100%; max-width:560px; min-height:345px; padding:45px 16px 18px; box-sizing:border-box; border:1px solid #e6e9ef; border-radius:28px; background:linear-gradient(135deg,#fff,#f6f7fa); box-shadow:0 25px 55px rgba(35,44,65,.18); transform:rotate(-2.5deg); }
+        #sainthetic-home .reference-window-dots { position:absolute; top:16px; left:24px; display:flex; gap:7px; }
+        #sainthetic-home .reference-window-dots i { width:10px; height:10px; border-radius:50%; background:#fa625c; }
+        #sainthetic-home .reference-window-dots i:nth-child(2) { background:#ffc43d; }
+        #sainthetic-home .reference-window-dots i:nth-child(3) { background:#39bd36; }
+        #sainthetic-home .reference-app-sidebar { display:flex; flex-direction:column; gap:13px; padding:4px 10px 0 0; border-right:1px solid #edf0f4; color:#172033; font-size:.73rem; font-weight:550; }
+        #sainthetic-home .reference-mini-brand { display:flex; align-items:center; gap:7px; margin-bottom:15px; font-size:.85rem; font-weight:800; white-space:nowrap; }
+        #sainthetic-home .mini-logo { display:grid; place-items:center; width:19px; height:19px; border-radius:6px; background:#ffe28a; color:#111827; font-size:10px; }
+        #sainthetic-home .reference-app-sidebar > div:not(:first-child) { padding:8px 7px; border-radius:8px; white-space:nowrap; }
+        #sainthetic-home .reference-app-sidebar .active { background:#ffedac; font-weight:750; }
+        #sainthetic-home .reference-persona-panel { margin-left:12px; padding:8px 12px 10px; border:1px solid #eceff4; border-radius:18px; background:rgba(255,255,255,.88); box-shadow:0 7px 22px rgba(28,38,60,.08); color:#101522; }
+        #sainthetic-home .reference-persona-panel h3 { margin:0 0 17px !important; font-size:1rem !important; font-weight:800 !important; color:#101522 !important; letter-spacing:-.03em; }
+        #sainthetic-home .reference-persona-profile { display:flex; align-items:center; gap:12px; padding-bottom:14px; border-bottom:1px solid #e9edf2; }
+        #sainthetic-home .reference-persona-avatar { display:grid; place-items:center; width:54px; height:54px; flex:0 0 54px; border-radius:50%; background:linear-gradient(135deg,#f8d5b6,#d99c70); font-size:32px; }
+        #sainthetic-home .reference-persona-profile strong { font-size:.82rem; letter-spacing:-.03em; white-space:nowrap; }
+        #sainthetic-home .reference-tags { display:flex; gap:5px; margin-top:8px; }
+        #sainthetic-home .reference-tags span { padding:5px 9px; border-radius:999px; background:#f0f2f6; color:#253149; font-size:.66rem; }
+        #sainthetic-home .reference-question-title { margin:17px 0 9px; font-size:.9rem; font-weight:800; letter-spacing:-.03em; }
+        #sainthetic-home .reference-question { display:flex; align-items:center; gap:9px; padding:7px 0; color:#172033; font-size:.73rem; white-space:nowrap; }
+        #sainthetic-home .reference-question span { display:grid; place-items:center; width:24px; height:24px; flex:0 0 24px; border-radius:50%; background:#f1f3f7; color:#34415c; font-size:1.1rem; }
+        #sainthetic-home .reference-features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; padding:0 30px; margin:4px 0 35px; }
+        #sainthetic-home .reference-features article { text-align:left; }
+        #sainthetic-home .reference-feature-icon { display:grid; place-items:center; width:52px; height:52px; border-radius:14px; margin-bottom:9px; background:#fff0b9; color:#101522; font-size:1.8rem; font-weight:700; }
+        #sainthetic-home .reference-features h3 { margin:0 0 5px !important; color:#101522 !important; font-size:1.42rem !important; font-weight:850 !important; letter-spacing:-.055em !important; }
+        #sainthetic-home .reference-features p { margin:0 !important; color:#34415f !important; font-size:1.03rem !important; line-height:1.38 !important; }
+        #sainthetic-home .reference-growth-bar { display:grid; grid-template-columns:1.15fr 1.1fr .9fr; align-items:center; gap:20px; min-height:104px; padding:16px 30px; margin:0 0 38px; box-sizing:border-box; border:1px solid #edf0f5; border-radius:24px; background:rgba(255,255,255,.9); box-shadow:0 10px 26px rgba(31,42,68,.07); }
+        #sainthetic-home .growth-message { display:flex; align-items:center; gap:16px; padding-right:24px; border-right:1px solid #d9deea; }
+        #sainthetic-home .growth-icon { display:grid; place-items:center; flex:0 0 52px; width:52px; height:52px; border-radius:14px; background:#fff0b9; font-size:1.8rem; }
+        #sainthetic-home .growth-message strong { color:#101522; font-size:1.28rem; line-height:1.12; letter-spacing:-.05em; }
+        #sainthetic-home .growth-count { display:flex; flex-direction:column; gap:3px; }
+        #sainthetic-home .growth-count strong { color:#101522; font-size:1.8rem; font-weight:850; letter-spacing:-.06em; }
+        #sainthetic-home .growth-count span { color:#34415f; font-size:.98rem; }
+        #sainthetic-home .growth-avatars { display:flex; justify-content:flex-end; padding-right:8px; }
+        #sainthetic-home .growth-avatars span { display:grid; place-items:center; width:55px; height:55px; margin-left:-8px; border:2px solid white; border-radius:50%; background:#f1dfcf; box-shadow:0 3px 8px #1b27401c; font-size:1.8rem; }
+        #sainthetic-home .growth-avatars span:nth-child(2) { background:#f4d7c2; }
+        #sainthetic-home .growth-avatars span:nth-child(3) { background:#e9d7c7; }
+        #sainthetic-home .growth-avatars span:nth-child(4) { background:#e8d6c9; }
+        #sainthetic-home .reference-pricing { max-width:1160px; margin:0 auto; padding:0 10px; text-align:center; }
+        #sainthetic-home .reference-pricing h2 { margin:0 0 10px !important; color:#101522 !important; font-size:clamp(2.3rem,4vw,3rem) !important; line-height:1.1 !important; font-weight:850 !important; letter-spacing:-.065em !important; }
+        #sainthetic-home .pricing-intro { margin:0 0 28px !important; color:#34415f !important; font-size:1.12rem !important; }
+        #sainthetic-home .reference-pricing-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; align-items:stretch; text-align:left; }
+        #sainthetic-home .reference-price-card { position:relative; display:flex; flex-direction:column; min-height:350px; padding:22px 25px 20px; box-sizing:border-box; border:1px solid #e9edf3; border-radius:25px; background:#fff; box-shadow:0 9px 20px rgba(27,38,64,.06); }
+        #sainthetic-home .reference-price-card.featured { background:linear-gradient(145deg,#fff9e4,#fffdf5); border-color:#fff2c8; }
+        #sainthetic-home .reference-price-card h3 { margin:0 0 5px !important; color:#101522 !important; font-size:1.65rem !important; font-weight:850 !important; letter-spacing:-.06em; }
+        #sainthetic-home .reference-price-card p { margin:0 0 15px !important; min-height:44px; color:#34415f !important; font-size:.95rem !important; line-height:1.4 !important; }
+        #sainthetic-home .reference-price { margin:0 0 14px; color:#101522; font-size:2.65rem; font-weight:850; letter-spacing:-.06em; }
+        #sainthetic-home .reference-price span { font-size:.95rem; font-weight:450; letter-spacing:-.02em; }
+        #sainthetic-home .reference-price-card ul { display:flex; flex-direction:column; gap:8px; list-style:none; margin:0 0 22px !important; padding:0 !important; color:#111827 !important; font-size:.88rem; }
+        #sainthetic-home .reference-price-card li { display:flex; align-items:flex-start; gap:10px; color:#111827 !important; }
+        #sainthetic-home .reference-price-card li:before { content:"✓"; font-weight:800; }
+        #sainthetic-home .reference-price-card > a,#sainthetic-home .reference-price-card > button { display:flex; align-items:center; justify-content:center; gap:12px; min-height:44px; width:100%; box-sizing:border-box; margin-top:auto; border:1.4px solid #111827; border-radius:999px; background:#fff; color:#111827 !important; font:700 .88rem Inter,ui-sans-serif,system-ui,sans-serif; text-decoration:none; cursor:pointer; }
+        #sainthetic-home .reference-price-card.featured > button { background:#090e1d; color:#fff !important; border-color:#090e1d; }
+        #sainthetic-home .reference-popular { position:absolute; top:16px; right:16px; padding:7px 13px; border-radius:999px; background:#ffe28a; color:#111827; font-size:.72rem; font-weight:750; }
+        #sainthetic-home .reference-price-card.featured h3 { padding-right:112px; }
+        #sainthetic-home .reference-price-card.featured > button span { color:#ffe28a; font-size:1.1rem; }
+        #sainthetic-home #product-demo { scroll-margin-top:100px; }
+        #sainthetic-home #product-demo + section, #sainthetic-home #how-it-works, #sainthetic-home #case-study, #sainthetic-home #faq { scroll-margin-top:100px; }
+        #sainthetic-home #how-it-works, #sainthetic-home #case-study, #sainthetic-home #faq { color:#111827; }
+        #sainthetic-home #how-it-works h2, #sainthetic-home #case-study h2, #sainthetic-home #faq h2 { color:#111827 !important; }
+        #sainthetic-home #how-it-works p, #sainthetic-home #case-study p, #sainthetic-home #faq p { color:#4b5872 !important; }
+        #sainthetic-home #case-study > div[style*="linear-gradient"], #sainthetic-home #faq > div > div > div { background:#fff !important; border:1px solid #e9edf3 !important; box-shadow:0 12px 34px rgba(31,42,68,.06) !important; }
+        #sainthetic-home footer { color:#5b6579 !important; border-color:#e9edf3 !important; }
+        @media (max-width:900px) {
+          #sainthetic-home nav.main-nav { width:calc(100% - 32px); }
+          #sainthetic-home .reference-hero { grid-template-columns:1fr 1fr; gap:12px; min-height:560px; }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.5rem,5.6vw,3.3rem) !important; }
+          #sainthetic-home .reference-app-window { grid-template-columns:112px minmax(0,1fr); padding-left:12px; padding-right:10px; }
+          #sainthetic-home .reference-app-sidebar { font-size:.65rem; }
+          #sainthetic-home .reference-persona-panel { margin-left:8px; padding:8px; }
+          #sainthetic-home .reference-question { font-size:.64rem; }
+          #sainthetic-home .reference-features { padding:0 15px; }
+          #sainthetic-home .reference-growth-bar { padding:15px 18px; grid-template-columns:1fr 1fr .8fr; }
         }
-        #sainthetic-home > div {
-          background: #ffffff !important;
-          color: #171b2b !important;
+        @media (max-width:700px) {
+          #sainthetic-home nav.main-nav { width:calc(100% - 24px); min-height:62px; padding:8px 12px !important; }
+          #sainthetic-home .desktop-nav { display:none !important; }
+          #sainthetic-home .sainthetic-menu-toggle { display:block !important; }
+          #sainthetic-home .reference-hero { grid-template-columns:1fr; padding:38px 0 16px; }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.7rem,11vw,4rem) !important; }
+          #sainthetic-home .reference-visual { min-height:360px; margin-top:20px; }
+          #sainthetic-home .reference-app-window { max-width:560px; transform:rotate(-1deg); }
+          #sainthetic-home .reference-features { grid-template-columns:1fr; gap:24px; padding:0 6px; }
+          #sainthetic-home .reference-features p br { display:none; }
+          #sainthetic-home .reference-growth-bar { grid-template-columns:1fr 1fr; gap:12px; }
+          #sainthetic-home .growth-message { border:0; padding:0; }
+          #sainthetic-home .growth-avatars { grid-column:1/-1; justify-content:flex-start; }
+          #sainthetic-home .reference-pricing-grid { grid-template-columns:1fr; }
+          #sainthetic-home .reference-price-card { min-height:0; }
+          #sainthetic-home .sainthetic-reference-top { padding:0 20px 24px; }
         }
-        #sainthetic-home > div > div[style*="position: fixed"] { display: none !important; }
-        #sainthetic-home nav.main-nav {
-          position: sticky !important;
-          top: 0;
-          z-index: 100;
-          display: flex !important;
-          flex-direction: row !important;
-          align-items: center !important;
-          justify-content: space-between !important;
-          gap: 20px;
-          padding: 18px clamp(20px, 5vw, 64px) !important;
-          background: rgba(255,255,255,.94) !important;
-          border: 0 !important;
-          border-bottom: 1px solid #edf0f5 !important;
-          box-shadow: 0 8px 30px rgba(22,30,55,.035);
-          backdrop-filter: blur(16px);
-        }
-        #sainthetic-home .nav-left { justify-content: flex-start !important; margin: 0 !important; gap: 12px; }
-        #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; border-radius: 12px !important; }
-        #sainthetic-home .nav-brand { color: #171b2b !important; font-size: 1.5rem !important; font-weight: 800 !important; }
-        #sainthetic-home .nav-spacer { display: block !important; }
-        #sainthetic-home .nav-right { flex-direction: row; align-items: center; gap: 10px !important; width: auto; }
-        #sainthetic-home .nav-right a,
-        #sainthetic-home .desktop-nav .nav-link {
-          color: #3f4658 !important;
-          font-size: .96rem !important;
-          font-weight: 650 !important;
-          padding: 11px 13px !important;
-          text-decoration: none;
-          border-radius: 999px !important;
-        }
-        #sainthetic-home .nav-right a:hover { background: #fff8dc !important; color: #171b2b !important; }
-        #sainthetic-home .nav-right a.cta {
-          color: #fff !important;
-          background: #171b2b !important;
-          padding: 13px 22px !important;
-          border-radius: 999px !important;
-          box-shadow: none !important;        }
-        #sainthetic-home .nav-right a.cta:hover { background: #30384d !important; }
-        #sainthetic-home .sainthetic-menu-toggle { display: none; }
-        #sainthetic-home header#hero {
-          max-width: 1080px !important;
-          padding: clamp(54px, 8vw, 100px) 24px 36px !important;
-        }
-        #sainthetic-home header#hero > div:first-child {
-          background: #fff8df !important;
-          color: #22283a !important;
-          border: 1px solid #ffe69a !important;
-          border-radius: 999px !important;
-          padding: 10px 22px !important;
-          box-shadow: 0 5px 0 rgba(255,217,69,.12);
-          font-size: .95rem !important;
-        }
-        #sainthetic-home #hero h1 {
-          color: #171b2b !important;
-          background: none !important;
-          -webkit-text-fill-color: #171b2b !important;
-          font-size: clamp(2.8rem, 6.5vw, 5.2rem) !important;
-          line-height: 1.02 !important;
-          letter-spacing: -.065em !important;
-          max-width: 950px;
-          margin: 24px auto 22px !important;
-        }
-        #sainthetic-home #hero h1 span {
-          color: #171b2b !important;
-          -webkit-text-fill-color: #171b2b !important;
-          background: linear-gradient(transparent 64%, #ffedaa 64%) !important;
-        }
-        #sainthetic-home #hero > p {
-          color: #555d70 !important;
-          font-size: clamp(1.05rem, 2vw, 1.3rem) !important;
-          line-height: 1.7 !important;
-          max-width: 720px !important;
-        }
-        #sainthetic-home #hero a[href="/register"] {
-          color: #171b2b !important;
-          background: linear-gradient(110deg, #ffdf62, #ffc84d) !important;
-          border: 1px solid #ffd34e !important;
-          border-radius: 20px !important;
-          box-shadow: 0 12px 28px rgba(255,197,55,.22) !important;
-          padding: 19px 30px !important;
-          font-size: 1.12rem !important;
-        }
-        #sainthetic-home #hero a[href="/register"]:hover { transform: translateY(-2px); }
-        #sainthetic-home #hero p[style*="color"] { color: #70788b !important; }
-        #sainthetic-home .hero-trust-strip { gap: 16px 26px !important; margin-top: 28px !important; }
-        #sainthetic-home .hero-trust-strip > div { color: #657087 !important; }
-        #sainthetic-home header#hero > div[style*="radial-gradient"] {
-          background: #ffffff !important;
-          border: 1px solid #e9edf3 !important;
-          border-radius: 24px !important;
-          box-shadow: 0 24px 70px rgba(31,42,68,.10) !important;
-          color: #171b2b !important;
-          padding: 26px !important;
-        }
-        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="rgba(255,255,255,0.04)"] {
-          background: #f5f7fb !important;
-        }
-        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="color"] { color: #465066 !important; }
-        #sainthetic-home #features { gap: 18px !important; margin-top: 5rem !important; }
-        #sainthetic-home .feature-card {
-          background: #ffffff !important;
-          color: #171b2b !important;
-          border: 1px solid #e9edf3 !important;
-          border-radius: 22px !important;
-          box-shadow: 0 12px 36px rgba(31,42,68,.07) !important;
-          padding: 30px 24px !important;
-        }
-        #sainthetic-home .feature-card h3 { color: #171b2b !important; }
-        #sainthetic-home .feature-card p,
-        #sainthetic-home .feature-card li { color: #586176 !important; }
-        #sainthetic-home section { scroll-margin-top: 100px; }
-        #sainthetic-home section h2,
-        #sainthetic-home section h3,
-        #sainthetic-home section h4 { color: #171b2b !important; }
-        #sainthetic-home section p { color: #586176 !important; }
-        #sainthetic-home .how-step-wrapper { gap: 3.5rem !important; margin-bottom: 6rem !important; }
-        #sainthetic-home .step-image {
-          border: 1px solid #e7ebf2 !important;
-          box-shadow: 0 18px 45px rgba(31,42,68,.10) !important;
-          border-radius: 22px !important;
-          background: #fff !important;
-        }
-        #sainthetic-home .step-text h3 { color: #171b2b !important; }
-        #sainthetic-home .step-text p { color: #586176 !important; }
-        #sainthetic-home section > div[style*="linear-gradient(135deg,#13131f"],
-        #sainthetic-home section > div[style*="linear-gradient(135deg, #13131f"] {
-          background: #fff !important;
-          border: 1px solid #e8ecf2 !important;
-          box-shadow: 0 18px 55px rgba(31,42,68,.08) !important;
-        }
-        #sainthetic-home .cs-metric-cell { border-color: #e8ecf2 !important; }
-        #sainthetic-home .cs-metric-cell div[style*="color:"] { color: #343d53 !important; }
-        #sainthetic-home #pricing > div[style*="linear-gradient"] {
-          background: #fff8df !important;
-          color: #3c455b !important;
-          border-color: #ffe69a !important;
-        }
-        #sainthetic-home #pricing > div[style*="display: flex"] > div {
-          background: #fff !important;
-          color: #171b2b !important;
-          border: 1px solid #e6eaf1 !important;
-          border-radius: 22px !important;
-          box-shadow: 0 14px 40px rgba(31,42,68,.07) !important;
-        }
-        #sainthetic-home #pricing h3 { color: #171b2b !important; }
-        #sainthetic-home #pricing ul { color: #586176 !important; }
-        #sainthetic-home #pricing ul li { color: #586176 !important; }
-        #sainthetic-home #pricing button,
-        #sainthetic-home #pricing a[href="/register"] {
-          color: #171b2b !important;
-          background: #ffdc60 !important;
-          border: 0 !important;
-          border-radius: 12px !important;
-        }
-        #sainthetic-home #pricing > p { color: #697287 !important; }
-        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
-          background: #fff !important;
-          border: 1px solid #e8ecf2 !important;
-          box-shadow: 0 16px 50px rgba(31,42,68,.07) !important;
-        }
-        #sainthetic-home section[style*="max-width: 1000px"] > div > div[style*="rgba(23,22,29"] {
-          background: #f7f8fb !important;
-          border: 1px solid #edf0f5 !important;
-        }
-        #sainthetic-home #case-study > div[style*="linear-gradient(135deg,#13131f"] {
-          background: #fff !important;
-          border: 1px solid #e8ecf2 !important;
-          box-shadow: 0 18px 55px rgba(31,42,68,.08) !important;
-        }
-        #sainthetic-home #case-study [style*="rgba(255,255,255,0.06)"] { border-color: #e9edf3 !important; }
-        #sainthetic-home #case-study [style*="color:"] { color: #4c566c !important; }
-        #sainthetic-home #case-study h2,
-        #sainthetic-home #case-study h3,
-        #sainthetic-home #case-study h4 { color: #171b2b !important; }
-        #sainthetic-home #case-study a { color: #171b2b !important; }
-        #sainthetic-home #faq > div > div > div {
-          background: #fff !important;
-          border: 1px solid #e8ecf2 !important;
-          box-shadow: 0 8px 24px rgba(31,42,68,.04);
-        }
-        #sainthetic-home #faq button { color: #171b2b !important; background: #fff !important; }
-        #sainthetic-home #faq p { color: #586176 !important; }
-        #sainthetic-home footer {
-          background: transparent !important;
-          color: #657087 !important;
-          border-color: #e8ecf2 !important;
-        }
-        #sainthetic-home footer div { color: #657087 !important; }
-        #sainthetic-home button { color: #171b2b; }
-        #sainthetic-home [style*="background: rgba(255,255,255"] { background: #f5f7fb !important; }
-        #sainthetic-home [style*="background: rgba(24,24,36"],
-        #sainthetic-home [style*="background: linear-gradient(135deg,rgba(24,24,36"] {
-          background: #fff !important;
-          border-color: #e8ecf2 !important;
-        }
-
-        #sainthetic-home .persona-try-demo {
-          background: #ffffff !important;
-          color: #171b2b !important;
-          border: 1px solid #e8ecf2 !important;
-          box-shadow: 0 18px 55px rgba(31,42,68,.07);
-          padding: clamp(22px, 4vw, 42px) !important;
-        }
-        #sainthetic-home .persona-try-demo h2,
-        #sainthetic-home .persona-try-demo h3 { color: #171b2b !important; }
-        #sainthetic-home .persona-try-demo p,
-        #sainthetic-home .persona-try-demo li { color: #586176 !important; }
-        #sainthetic-home .persona-try-demo input,
-        #sainthetic-home .persona-try-demo select {
-          background: #f7f8fb !important;
-          color: #171b2b !important;
-          border: 1px solid #e1e6ef !important;
-        }
-        #sainthetic-home .persona-try-demo input::placeholder { color: #9299a8 !important; }
-        #sainthetic-home .persona-try-demo > button,
-        #sainthetic-home .persona-try-demo button {
-          background: #ffdc60 !important;
-          color: #171b2b !important;
-          border-radius: 12px !important;
-          box-shadow: none !important;
-        }
-        #sainthetic-home .persona-try-demo > div[style*="rgba(255,255,255"] {
-          background: #f7f8fb !important;
-          border-color: #e4e8ef !important;
-        }
-        @media (max-width: 800px) {
-          #sainthetic-home nav.main-nav { padding: 14px 20px !important; flex-direction: row !important; }
-          #sainthetic-home .nav-left { justify-content: flex-start !important; margin: 0 !important; }
-          #sainthetic-home .nav-spacer { display: block !important; }
-          #sainthetic-home .sainthetic-menu-toggle {
-            display: inline-flex !important;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            padding: 0 !important;            margin: 0 !important;
-            border: 1px solid #e4e8ef !important;
-            border-radius: 50% !important;
-            background: #fff !important;
-            color: #171b2b !important;
-            box-shadow: none !important;
-          }
-          #sainthetic-home .mobile-dropdown {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            width: 100% !important;
-            background: #fff !important;
-            border: 1px solid #edf0f5 !important;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 18px 30px rgba(31,42,68,.08);
-            padding: 14px 20px 20px !important;
-          }
-          #sainthetic-home .mobile-dropdown a { color: #30384d !important; background: transparent !important; }
-          #sainthetic-home .mobile-dropdown a.cta { color: #fff !important; background: #171b2b !important; }
-          #sainthetic-home header#hero { padding: 48px 20px 24px !important; }
-          #sainthetic-home #hero h1 { font-size: clamp(2.45rem, 10vw, 3.7rem) !important; line-height: 1.04 !important; }
-          #sainthetic-home #hero a[href="/register"] { width: 100%; box-sizing: border-box; padding: 18px 16px !important; }
-          #sainthetic-home .hero-trust-strip { gap: 12px 18px !important; }
-          #sainthetic-home header#hero > div[style*="radial-gradient"] { padding: 20px !important; }
-          #sainthetic-home #features { margin-top: 3rem !important; padding: 0 18px !important; }
-          #sainthetic-home .feature-card { min-width: 0 !important; max-width: none !important; flex-basis: 100% !important; }
-          #sainthetic-home section { margin-top: 4.5rem !important; padding-left: 18px !important; padding-right: 18px !important; }
-          #sainthetic-home .how-step-wrapper { display: flex !important; flex-direction: column !important; gap: 20px !important; margin-bottom: 4rem !important; }
-          #sainthetic-home .how-step-wrapper .step-text { order: 1 !important; text-align: left !important; }
-          #sainthetic-home .how-step-wrapper .step-image { order: 2 !important; width: 100% !important; }
-          #sainthetic-home #pricing > div[style*="display: flex"] { gap: 18px !important; }
-          #sainthetic-home #pricing > div[style*="display: flex"] > div { width: 100%; max-width: 420px !important; min-width: 0 !important; box-sizing: border-box; }
-          #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] { margin-left: 18px !important; margin-right: 18px !important; padding: 26px 18px !important; }
-          #sainthetic-home #case-study > div[style*="linear-gradient(135deg,#13131f"] { overflow: hidden; }
-          #sainthetic-home #faq button { padding: 18px 16px !important; font-size: 1rem !important; }
-          #sainthetic-home #faq [style*="padding: 0px 2rem"] { padding-left: 16px !important; padding-right: 16px !important; }
-        }
-        @media (min-width: 801px) {
-          #sainthetic-home .sainthetic-menu-toggle { display: none !important; }
+        @media (max-width:420px) {
+          #sainthetic-home .reference-app-window { grid-template-columns:92px minmax(0,1fr); padding:42px 8px 12px; }
+          #sainthetic-home .reference-app-sidebar { font-size:.58rem; gap:10px; }
+          #sainthetic-home .reference-persona-profile { gap:7px; }
+          #sainthetic-home .reference-persona-avatar { width:40px; height:40px; flex-basis:40px; font-size:24px; }
+          #sainthetic-home .reference-persona-profile strong { font-size:.67rem; }
+          #sainthetic-home .reference-tags span { font-size:.55rem; padding:4px 6px; }
+          #sainthetic-home .reference-question { font-size:.56rem; white-space:normal; }
+          #sainthetic-home .reference-reassurance { gap:9px 13px; font-size:.75rem; }
         }
       `}</style>
 
-      <style>{`
-        .hero-trust-strip { display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 20px; }
-        .logo-strip { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; margin-top: 12px; opacity: 0.5; }
-        .how-step-wrapper { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 5rem; text-align: left; }
-        @media (min-width: 768px) {
-          .how-step-wrapper { grid-template-columns: 1fr 1fr; align-items: center; }
-          .how-step-wrapper:nth-child(even) .step-image { order: 2; }
-          .how-step-wrapper:nth-child(even) .step-text { order: 1; }
-        }
-        .cs-metrics { display: grid; grid-template-columns: 1fr 1fr; }
-        .cs-metric-cell { border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .cs-metric-cell:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.06); }
-        .cs-body { display: grid; grid-template-columns: 1fr; }
-        .cs-challenge { padding: 1.8rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .cs-steps { padding: 1.8rem 1.5rem; }
-        @media (min-width: 700px) {
-          .cs-metrics { grid-template-columns: repeat(4, 1fr); }
-          .cs-metric-cell { border-bottom: none; }
-          .cs-metric-cell:nth-child(odd) { border-right: none; }
-          .cs-metric-cell:not(:last-child) { border-right: 1px solid rgba(255,255,255,0.06); }
-          .cs-body { grid-template-columns: 1fr 1fr; }
-          .cs-challenge { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.06); padding: 2.5rem; }
-          .cs-steps { padding: 2.5rem; }
-        }
-        .feature-card { background: linear-gradient(120deg,#191924b7 85%,#232845c7 100%); min-width: 300px; max-width: 340px; flex: 1 1 260px; border-radius: 1.3rem; padding: 2.4rem 1.6rem 1.8rem 1.6rem; color: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
-      `}</style>
 
 
-      <style>{`
-        /* Editorial visual refinement inspired by the supplied HeyCatch reference.
-           Intentionally visual-only: all existing sAInthetic copy and functionality remain unchanged. */
-        #sainthetic-home {
-          font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-          background: #fff !important;
-          color: #191b29 !important;
-        }
-        #sainthetic-home nav.main-nav {
-          width: min( calc(100% - 40px), 1440px ) !important;
-          margin: 18px auto 0 !important;
-          padding: 14px 22px !important;
-          border: 1px solid rgba(25,27,41,.045) !important;
-          border-radius: 999px !important;
-          background: rgba(255,255,255,.92) !important;
-          box-shadow: 0 12px 40px rgba(29,34,58,.055) !important;
-        }
-        #sainthetic-home .nav-logo { border-radius: 13px !important; }
-        #sainthetic-home .nav-brand { letter-spacing: -.045em !important; }
-        #sainthetic-home header#hero {
-          max-width: 1120px !important;
-          padding: clamp(90px, 13vw, 176px) 28px 90px !important;
-          text-align: center !important;
-        }
-        #sainthetic-home header#hero > div:first-child {
-          background: #f7f7f9 !important;
-          border: 1px solid #ededf1 !important;
-          box-shadow: none !important;
-          color: #4d5265 !important;
-          padding: 10px 18px !important;
-          font-size: .88rem !important;
-          letter-spacing: .01em !important;
-        }
-        #sainthetic-home #hero h1 {
-          max-width: 1040px !important;
-          font-size: clamp(3.25rem, 8.3vw, 7.2rem) !important;
-          font-weight: 650 !important;
-          line-height: .99 !important;
-          letter-spacing: -.078em !important;
-          margin: 30px auto 28px !important;
-          text-wrap: balance !important;
-        }
-        #sainthetic-home #hero h1 span {
-          background: none !important;
-          color: #45495f !important;
-          -webkit-text-fill-color: #45495f !important;
-        }
-        #sainthetic-home #hero > p {
-          max-width: 690px !important;
-          font-size: clamp(1.15rem, 2vw, 1.5rem) !important;
-          line-height: 1.55 !important;
-          color: #50556a !important;
-          margin: 0 auto 34px !important;
-        }
-        #sainthetic-home #hero a[href="/register"] {
-          display: inline-flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          min-height: 64px !important;
-          min-width: 220px !important;
-          padding: 18px 34px !important;
-          border-radius: 999px !important;
-          background: #191b29 !important;
-          border: 1px solid #191b29 !important;
-          color: #fff !important;
-          box-shadow: none !important;
-          font-weight: 650 !important;
-        }
-        #sainthetic-home #hero a[href="/register"]:hover,
-        #sainthetic-home a[href="/register"]:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 28px rgba(25,27,41,.12) !important;
-        }
-        #sainthetic-home .hero-trust-strip { margin-top: 42px !important; }
-        #sainthetic-home .hero-trust-strip > div { color: #777d91 !important; }
-        #sainthetic-home header#hero > div[style*="radial-gradient"] {
-          border-radius: 30px !important;
-          box-shadow: 0 24px 80px rgba(29,34,58,.075) !important;
-        }
-        #sainthetic-home section {
-          margin-top: clamp(88px, 11vw, 156px) !important;
-        }
-        #sainthetic-home section h2 {
-          font-size: clamp(2.35rem, 5vw, 4.5rem) !important;
-          font-weight: 600 !important;
-          line-height: 1.04 !important;
-          letter-spacing: -.065em !important;
-          text-wrap: balance !important;
-        }
-        #sainthetic-home #features {
-          max-width: 1180px !important;
-          padding: 0 24px !important;
-          gap: 22px !important;
-        }
-        #sainthetic-home .feature-card {
-          border-radius: 30px !important;
-          padding: 36px 30px !important;
-          box-shadow: 0 14px 50px rgba(29,34,58,.055) !important;
-          border: 1px solid #f0f0f3 !important;
-          text-align: left !important;
-          align-items: flex-start !important;
-          transition: transform .25s ease, box-shadow .25s ease !important;
-        }
-        #sainthetic-home .feature-card:hover {
-          transform: translateY(-5px) !important;
-          box-shadow: 0 20px 60px rgba(29,34,58,.09) !important;
-        }
-        #sainthetic-home .how-step-wrapper { margin-bottom: 8rem !important; }
-        #sainthetic-home .step-image {
-          border-radius: 30px !important;
-          box-shadow: 0 18px 60px rgba(29,34,58,.075) !important;
-        }
-        #sainthetic-home #pricing > div[style*="display: flex"] > div {
-          border-radius: 30px !important;
-          padding: 2.6rem 2rem !important;
-          box-shadow: 0 14px 50px rgba(29,34,58,.06) !important;
-        }
-        #sainthetic-home #pricing button,
-        #sainthetic-home #pricing a[href="/register"] {
-          border-radius: 999px !important;
-          min-height: 54px !important;
-          background: #191b29 !important;
-          color: #fff !important;
-          font-weight: 650 !important;
-        }
-        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
-          border-radius: 32px !important;
-        }
-        #sainthetic-home #case-study > div {
-          border-radius: 32px !important;
-          box-shadow: 0 18px 65px rgba(29,34,58,.065) !important;
-        }
-        #sainthetic-home #faq > div > div > div {
-          border-radius: 22px !important;
-          box-shadow: 0 8px 30px rgba(29,34,58,.035) !important;
-        }
-        #sainthetic-home #faq button {
-          padding: 24px 28px !important;
-          font-size: 1.12rem !important;
-          font-weight: 550 !important;
-        }
-        #sainthetic-home footer {
-          padding-top: 30px !important;
-          margin-top: 90px !important;
-        }
-        @media (max-width: 800px) {
-          #sainthetic-home nav.main-nav {
-            width: calc(100% - 28px) !important;
-            margin-top: 14px !important;
-            padding: 12px 16px !important;
-            min-height: 76px !important;
-            border-radius: 999px !important;
-          }
-          #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; }
-          #sainthetic-home .nav-brand { font-size: 1.32rem !important; }
-          #sainthetic-home header#hero {
-            padding: 112px 24px 60px !important;
-          }
-          #sainthetic-home #hero h1 {
-            font-size: clamp(3rem, 12vw, 5.2rem) !important;
-            line-height: 1.02 !important;
-            letter-spacing: -.075em !important;
-            margin: 28px auto 24px !important;
-          }
-          #sainthetic-home #hero > p {
-            font-size: 1.16rem !important;
-            line-height: 1.55 !important;
-            margin-bottom: 30px !important;
-          }
-          #sainthetic-home #hero a[href="/register"] {
-            width: 100% !important;
-            min-height: 64px !important;
-            border-radius: 999px !important;
-          }
-          #sainthetic-home .hero-trust-strip { margin-top: 32px !important; }
-          #sainthetic-home section { margin-top: 92px !important; }
-          #sainthetic-home section h2 {
-            font-size: clamp(2.5rem, 10vw, 3.6rem) !important;
-            line-height: 1.04 !important;
-          }
-          #sainthetic-home #features { padding: 0 20px !important; }
-          #sainthetic-home .feature-card {
-            border-radius: 28px !important;
-            padding: 30px 24px !important;
-          }
-          #sainthetic-home .how-step-wrapper { margin-bottom: 5rem !important; }
-          #sainthetic-home #pricing > div[style*="display: flex"] > div {
-            border-radius: 28px !important;
-            padding: 2.1rem 1.5rem !important;
-          }
-          #sainthetic-home #faq button { padding: 20px 18px !important; }
-          #sainthetic-home footer { margin-top: 64px !important; }
-        }
-      `}</style>
 
-      <style>{`
-        /* Premium visual system — presentation only; all page copy and behaviour stay intact. */
-        #sainthetic-home {
-          --ink: #171925;
-          --muted: #697083;
-          --line: #e9eaf0;
-          --paper: #ffffff;
-          --canvas: #f7f8fb;
-          --accent: #f4c94f;
-          font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-          color: var(--ink) !important;
-          background: var(--canvas) !important;
-          overflow: clip !important;
-        }
-        #sainthetic-home > div[style*="linear-gradient"] {
-          background: var(--canvas) !important;
-          overflow: visible !important;
-          isolation: isolate;
-        }
-        #sainthetic-home > div > div[style*="position: fixed"] { display: none !important; }
-        #sainthetic-home nav.main-nav {
-          width: min(calc(100% - 64px), 1320px) !important;
-          min-height: 76px;
-          margin: 18px auto 0 !important;
-          padding: 12px 24px !important;
-          border: 1px solid rgba(23,25,37,.07) !important;
-          border-radius: 20px !important;
-          background: rgba(255,255,255,.88) !important;
-          box-shadow: 0 8px 30px rgba(22,28,45,.045) !important;
-          backdrop-filter: blur(18px);
-        }
-        #sainthetic-home .nav-logo { width: 42px !important; height: 42px !important; border-radius: 12px !important; }
-        #sainthetic-home .nav-brand { color: var(--ink) !important; font-size: 1.38rem !important; font-weight: 760 !important; letter-spacing: -.055em !important; }
-        #sainthetic-home .nav-right { gap: 5px !important; }
-        #sainthetic-home .nav-right a,
-        #sainthetic-home .desktop-nav .nav-link {
-          color: #555b6c !important; font-size: .9rem !important; font-weight: 600 !important;
-          padding: 11px 14px !important; border-radius: 10px !important;
-        }
-        #sainthetic-home .nav-right a:hover { background: #f4f5f8 !important; color: var(--ink) !important; }
-        #sainthetic-home .nav-right a.cta {
-          color: #fff !important; background: var(--ink) !important; padding: 12px 20px !important;
-          border-radius: 11px !important; box-shadow: 0 5px 14px rgba(23,25,37,.12) !important;
-        }
-        #sainthetic-home header#hero {
-          max-width: 1120px !important;
-          padding: clamp(82px, 10vw, 132px) 28px 72px !important;
-        }
-        #sainthetic-home header#hero > div:first-child {
-          background: #fff !important; border: 1px solid #ececf1 !important;
-          color: #555b6c !important; box-shadow: 0 3px 12px rgba(23,25,37,.035) !important;
-          padding: 9px 16px !important; font-size: .82rem !important; font-weight: 650 !important;
-        }
-        #sainthetic-home #hero h1 {
-          max-width: 1020px !important; margin: 28px auto 24px !important;
-          color: var(--ink) !important; -webkit-text-fill-color: var(--ink) !important;
-          background: none !important; font-size: clamp(3.5rem, 7.1vw, 6.7rem) !important;
-          line-height: .99 !important; letter-spacing: -.082em !important; font-weight: 680 !important;
-          text-wrap: balance !important;
-        }
-        #sainthetic-home #hero h1 span {
-          color: #62677a !important; -webkit-text-fill-color: #62677a !important;
-          background: none !important;
-        }
-        #sainthetic-home #hero > p {
-          max-width: 690px !important; color: #62697b !important;
-          font-size: clamp(1.08rem, 1.7vw, 1.28rem) !important;
-          line-height: 1.7 !important; margin: 0 auto 30px !important;
-        }
-        #sainthetic-home #hero a[href="/register"] {
-          display: inline-flex !important; align-items: center !important; justify-content: center !important;
-          min-height: 58px !important; padding: 16px 26px !important; border-radius: 12px !important;
-          background: var(--ink) !important; border: 1px solid var(--ink) !important;
-          color: #fff !important; box-shadow: 0 8px 22px rgba(23,25,37,.13) !important;
-          font-size: 1rem !important; font-weight: 650 !important;
-        }
-        #sainthetic-home #hero a[href="/register"]:hover,
-        #sainthetic-home a[href="/register"]:hover { background: #303449 !important; }
-        #sainthetic-home #hero p[style*="color"] { color: #8a8f9e !important; }
-        #sainthetic-home .hero-trust-strip { gap: 12px 25px !important; margin-top: 28px !important; }
-        #sainthetic-home .hero-trust-strip > div { color: #777e8f !important; font-size: .78rem !important; }
-        #sainthetic-home header#hero > div[style*="radial-gradient"] {
-          max-width: 850px !important; margin: 54px auto 0 !important; padding: 26px !important;
-          background: #fff !important; border: 1px solid #e8eaf0 !important;
-          border-radius: 22px !important; box-shadow: 0 26px 75px rgba(30,36,57,.09) !important;
-          color: var(--ink) !important;
-        }
-        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="rgba(255,255,255"] {
-          background: #f6f7fa !important; border-color: #eceef3 !important;
-        }
-        #sainthetic-home header#hero > div[style*="radial-gradient"] [style*="color"] { color: #555d70 !important; }
-        #sainthetic-home .persona-try-demo {
-          max-width: 1080px !important; margin: 28px auto 0 !important;
-          padding: clamp(24px, 4vw, 48px) !important; background: #fff !important;
-          border: 1px solid var(--line) !important; border-radius: 24px !important;
-          box-shadow: 0 18px 60px rgba(30,36,57,.055) !important;
-        }
-        #sainthetic-home .persona-try-demo h2 { font-size: clamp(2rem,4vw,3rem) !important; letter-spacing: -.06em !important; }
-        #sainthetic-home .persona-try-demo input,
-        #sainthetic-home .persona-try-demo select {
-          min-height: 54px !important; background: #f8f9fb !important; color: var(--ink) !important;
-          border: 1px solid #e5e7ed !important; border-radius: 11px !important;
-        }
-        #sainthetic-home .persona-try-demo > button,
-        #sainthetic-home .persona-try-demo button {
-          min-height: 50px !important; padding: 13px 22px !important; border-radius: 11px !important;
-          background: var(--ink) !important; color: #fff !important; box-shadow: none !important;
-        }
-        #sainthetic-home .persona-try-demo > div[style*="rgba(255,255,255"],
-        #sainthetic-home .persona-try-demo [style*="rgba(255,255,255"] {
-          background: #f7f8fa !important; border-color: #e9ebf0 !important; color: var(--ink) !important;
-        }
-        #sainthetic-home .persona-try-demo [style*="color: #aaa"],
-        #sainthetic-home .persona-try-demo [style*="color: #888"] { color: #737a8b !important; }
-        #sainthetic-home #features {
-          max-width: 1160px !important; padding: 0 28px !important;
-          margin: 105px auto 0 !important; gap: 18px !important;
-        }
-        #sainthetic-home .feature-card {
-          min-width: 0 !important; max-width: none !important; flex: 1 1 280px !important;
-          padding: 30px !important; align-items: flex-start !important; text-align: left !important;
-          color: var(--ink) !important; background: #fff !important;
-          border: 1px solid #e9eaf0 !important; border-radius: 18px !important;
-          box-shadow: 0 8px 28px rgba(30,36,57,.035) !important;
-        }
-        #sainthetic-home .feature-card h3 { color: var(--ink) !important; font-size: 1.18rem !important; letter-spacing: -.035em !important; }
-        #sainthetic-home .feature-card p,
-        #sainthetic-home .feature-card li { color: #697083 !important; text-align: left !important; line-height: 1.65 !important; }
-        #sainthetic-home .feature-card li:last-child { color: #777d8d !important; }
-        #sainthetic-home section {
-          scroll-margin-top: 110px; color: var(--ink) !important;
-          margin-top: clamp(92px, 10vw, 142px) !important;
-        }
-        #sainthetic-home section h2 {
-          color: var(--ink) !important; font-size: clamp(2.5rem,5vw,4.25rem) !important;
-          font-weight: 650 !important; letter-spacing: -.07em !important; line-height: 1.04 !important;
-          text-wrap: balance !important;
-        }
-        #sainthetic-home section h3,
-        #sainthetic-home section h4 { color: var(--ink) !important; }
-        #sainthetic-home section p { color: #697083 !important; }
-        #sainthetic-home #how-it-works,
-        #sainthetic-home #pricing,
-        #sainthetic-home #case-study,
-        #sainthetic-home #faq { max-width: 1160px !important; }
-        #sainthetic-home #how-it-works > p { color: #777d8d !important; }
-        #sainthetic-home .how-step-wrapper { gap: clamp(32px,6vw,90px) !important; margin-bottom: 7rem !important; }
-        #sainthetic-home .step-image {
-          border: 1px solid #e8eaf0 !important; border-radius: 20px !important;
-          box-shadow: 0 18px 55px rgba(30,36,57,.075) !important; overflow: hidden !important;
-        }
-        #sainthetic-home .step-image img { display: block; width: 100%; }
-        #sainthetic-home .step-text h3 { font-size: clamp(1.8rem,3vw,2.55rem) !important; letter-spacing: -.055em !important; }
-        #sainthetic-home .step-text p { color: #697083 !important; line-height: 1.75 !important; }
-        #sainthetic-home .step-text > div:first-child {
-          background: #f6f1df !important; color: #67531c !important;
-          border: 1px solid #eee4c5 !important; border-radius: 8px !important;
-          font-size: .72rem !important; letter-spacing: .08em !important;
-        }
-        #sainthetic-home section > div[style*="paddingBottom: \"56.25%\""] {
-          border: 1px solid #e6e8ee !important; border-radius: 20px !important;
-          box-shadow: 0 18px 55px rgba(30,36,57,.08) !important;
-        }
-        #sainthetic-home section > div[style*="linear-gradient(135deg,#13131f"],
-        #sainthetic-home section > div[style*="linear-gradient(135deg, #13131f"],
-        #sainthetic-home #case-study > div {
-          background: #fff !important; border: 1px solid #e8eaf0 !important;
-          border-radius: 22px !important; box-shadow: 0 16px 55px rgba(30,36,57,.055) !important;
-        }
-        #sainthetic-home .cs-metric-cell { border-color: #eceef2 !important; }
-        #sainthetic-home .cs-metric-cell div[style*="color:"] { color: #30364a !important; }
-        #sainthetic-home #pricing > div[style*="linear-gradient"] {
-          background: #f7f3e7 !important; border: 1px solid #eee5cd !important;
-          color: #62552f !important; border-radius: 999px !important;
-        }
-        #sainthetic-home #pricing > div[style*="display: flex"] > div {
-          min-width: 250px !important; max-width: 340px !important; flex: 1 1 270px !important;
-          padding: 34px 28px !important; background: #fff !important; color: var(--ink) !important;
-          border: 1px solid #e7e9ef !important; border-radius: 20px !important;
-          box-shadow: 0 10px 35px rgba(30,36,57,.045) !important;
-        }
-        #sainthetic-home #pricing > div[style*="display: flex"] > div[style*="border: 2px solid"] {
-          border-color: #d8bd66 !important; box-shadow: 0 18px 48px rgba(30,36,57,.09) !important;
-        }
-        #sainthetic-home #pricing h3 { color: var(--ink) !important; }
-        #sainthetic-home #pricing > div[style*="display: flex"] > div > div[style*="fontSize: 32"] { color: var(--ink) !important; }
-        #sainthetic-home #pricing ul,
-        #sainthetic-home #pricing ul li { color: #646b7d !important; line-height: 1.9 !important; }
-        #sainthetic-home #pricing button,
-        #sainthetic-home #pricing a[href="/register"] {
-          background: var(--ink) !important; color: #fff !important; border: 0 !important;
-          border-radius: 10px !important; min-height: 50px !important;
-        }
-        #sainthetic-home #pricing > p { color: #777d8d !important; }
-        #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] {
-          background: #fff !important; border: 1px solid #e8eaf0 !important;
-          border-radius: 22px !important; box-shadow: 0 16px 55px rgba(30,36,57,.05) !important;
-        }
-        #sainthetic-home section[style*="max-width: 1000px"] > div > div > div[style*="rgba(23,22,29"] {
-          background: #f8f9fb !important; border: 1px solid #eceef2 !important;
-        }
-        #sainthetic-home #case-study > div { overflow: hidden !important; }
-        #sainthetic-home #case-study > div > div:first-child,
-        #sainthetic-home #case-study > div > div:last-child {
-          background: #fafafc !important; border-color: #eceef2 !important;
-        }
-        #sainthetic-home #case-study [style*="rgba(255,255,255"] { border-color: #e8eaf0 !important; }
-        #sainthetic-home #case-study [style*="color:"] { color: #626a7d !important; }
-        #sainthetic-home #case-study h2,
-        #sainthetic-home #case-study h3,
-        #sainthetic-home #case-study h4 { color: var(--ink) !important; }
-        #sainthetic-home #case-study a { color: var(--ink) !important; }
-        #sainthetic-home #faq > div > div > div {
-          background: #fff !important; border: 1px solid #e8eaf0 !important;
-          border-radius: 14px !important; box-shadow: 0 5px 18px rgba(30,36,57,.025) !important;
-        }
-        #sainthetic-home #faq button {
-          background: #fff !important; color: var(--ink) !important;
-          padding: 21px 24px !important; font-size: 1rem !important; font-weight: 620 !important;
-        }
-        #sainthetic-home #faq button span:last-child { color: #8b7440 !important; }
-        #sainthetic-home #faq p { color: #697083 !important; }
-        #sainthetic-home footer {
-          background: transparent !important; color: #858b99 !important;
-          border-color: #e8eaf0 !important; padding-top: 28px !important;
-        }
-        #sainthetic-home footer div { color: #858b99 !important; }
-        #sainthetic-home section[style*="padding: \"6rem 20px 3rem 20px\""] {
-          padding-top: 110px !important;
-        }
-        #sainthetic-home section[style*="padding: \"6rem 20px 3rem 20px\""] a[href="/register"] {
-          background: var(--ink) !important; color: #fff !important; border-radius: 12px !important;
-          box-shadow: 0 8px 22px rgba(23,25,37,.12) !important;
-        }
-        @media (max-width: 800px) {
-          #sainthetic-home nav.main-nav {
-            width: calc(100% - 28px) !important; margin-top: 12px !important;
-            min-height: 66px !important; padding: 10px 14px !important; border-radius: 15px !important;
-          }
-          #sainthetic-home .nav-brand { font-size: 1.2rem !important; }
-          #sainthetic-home .sainthetic-menu-toggle {
-            display: inline-flex !important; align-items: center; justify-content: center;
-            width: 42px; height: 42px; border: 1px solid #e8eaf0 !important;
-            border-radius: 10px !important; background: #fff !important; color: var(--ink) !important;
-          }
-          #sainthetic-home .mobile-dropdown {
-            background: #fff !important; border: 1px solid #e8eaf0 !important;
-            border-radius: 0 0 16px 16px !important; box-shadow: 0 16px 30px rgba(30,36,57,.08) !important;
-          }
-          #sainthetic-home .mobile-dropdown a { color: var(--ink) !important; }
-          #sainthetic-home .mobile-dropdown a.cta { color: #fff !important; background: var(--ink) !important; }
-          #sainthetic-home header#hero { padding: 88px 22px 48px !important; }
-          #sainthetic-home #hero h1 { font-size: clamp(3.05rem, 12vw, 5rem) !important; letter-spacing: -.075em !important; }
-          #sainthetic-home #hero > p { font-size: 1.05rem !important; }
-          #sainthetic-home #hero a[href="/register"] { width: 100% !important; box-sizing: border-box; }
-          #sainthetic-home .hero-trust-strip { gap: 11px 16px !important; }
-          #sainthetic-home header#hero > div[style*="radial-gradient"] { padding: 18px !important; margin-top: 38px !important; }
-          #sainthetic-home .persona-try-demo { margin: 20px 16px 0 !important; padding: 24px 18px !important; }
-          #sainthetic-home #features { margin-top: 76px !important; padding: 0 18px !important; }
-          #sainthetic-home .feature-card { flex-basis: 100% !important; padding: 25px !important; }
-          #sainthetic-home section { margin-top: 82px !important; padding-left: 18px !important; padding-right: 18px !important; }
-          #sainthetic-home section h2 { font-size: clamp(2.35rem, 10vw, 3.4rem) !important; }
-          #sainthetic-home .how-step-wrapper { display: flex !important; flex-direction: column !important; gap: 22px !important; margin-bottom: 4.5rem !important; }
-          #sainthetic-home .how-step-wrapper .step-text { order: 1 !important; text-align: left !important; }
-          #sainthetic-home .how-step-wrapper .step-image { order: 2 !important; width: 100% !important; }
-          #sainthetic-home #pricing > div[style*="display: flex"] { gap: 14px !important; }
-          #sainthetic-home #pricing > div[style*="display: flex"] > div { width: 100% !important; max-width: 440px !important; min-width: 0 !important; }
-          #sainthetic-home section[style*="max-width: 1000px"][style*="borderRadius"] { margin-left: 16px !important; margin-right: 16px !important; padding: 26px 18px !important; }
-          #sainthetic-home #faq button { padding: 18px 16px !important; }
-          #sainthetic-home footer { margin-top: 55px !important; }
-        }
-      `}</style>
+
 
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
@@ -947,284 +300,87 @@ export default function LandingPage() {
         <div style={{ position: "fixed", bottom: -180, right: -130, width: 530, height: 350, background: "radial-gradient(circle at 60% 18%, #7b7bad33 0%, transparent 77%)", zIndex: 0, filter: "blur(99px)" }} />
 
         {/* ============ HERO ============ */}
-        <header id="hero" style={{ width: "100%", maxWidth: 860, margin: "0 auto", padding: "68px 20px 32px 20px", position: "relative", zIndex: 3, boxSizing: "border-box", textAlign: "center" }}>
-
-          {/* Social proof pill */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,217,69,0.12)", border: "1px solid rgba(255,217,69,0.3)", borderRadius: 999, padding: "6px 16px", marginBottom: 28, fontSize: "0.82rem", color: "#ffd945", fontWeight: 700 }}
-          >
-            <span>⚡</span>
-            <span>Join {userCount.toLocaleString()}+ marketers already using sAInthetic</span>
-          </motion.div>
-
-          {/* H1 */}
-          <motion.h1
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.1 }}
-            style={{ fontSize: "clamp(2.2rem, 5.5vw, 3.6rem)", fontWeight: 900, letterSpacing: "-1.5px", lineHeight: 1.1, background: "linear-gradient(96deg, #fff 55%, #ffd945 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", margin: "0 0 1rem 0" }}
-          >
-            Stop guessing what your buyers want.{" "}
-            <span style={{ background: "linear-gradient(96deg, #ffd945, #ff9f43)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              Know exactly what they ask AI.
-            </span>
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.25 }}
-            style={{ fontSize: "clamp(1rem, 2.4vw, 1.3rem)", color: "#bbb", margin: "0 auto 32px auto", maxWidth: 580, lineHeight: 1.65 }}
-          >
-            sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.
-          </motion.p>
-
-          {/* CTA buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.38 }}
-            style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}
-          >
-            <a
-              href="/register"
-              style={{ background: "linear-gradient(135deg, #ffd945, #ff9f43)", color: "#19191a", fontWeight: 800, fontSize: "1.1rem", padding: "1.05rem 2.6rem", borderRadius: 13, boxShadow: "0 8px 32px #ffd94550", display: "inline-block", textDecoration: "none", transition: "transform 0.2s, box-shadow 0.2s" }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 14px 40px #ffd94570"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 32px #ffd94550"; }}
-            >
-              See your first buyer persona in 60 seconds →
-            </a>
-            <p style={{ margin: 0, fontSize: "0.85rem", color: "#666", fontWeight: 500 }}>
-              Free plan available · No credit card required · Cancel anytime
-            </p>
-            {/* Star rating social proof under CTA */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
-              <div style={{ display: "flex", gap: 2 }}>
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} style={{ color: "#ffd945", fontSize: "1rem" }}>★</span>
-                ))}
+                {/* Reference-matched hero, feature summary, social proof and pricing */}
+        <section className="sainthetic-reference-top">
+          <header id="hero" className="reference-hero">
+            <div className="reference-hero-copy">
+              <div className="reference-eyebrow"><span>⚡</span> AI Buyer Intelligence for Growth</div>
+              <h1>Stop guessing<br/>what your buyers<br/>want.<br/>Know exactly<br/><span>what they ask AI.</span></h1>
+              <p className="reference-subtitle">sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.</p>
+              <div className="reference-actions">
+                <a className="reference-primary" href="/register">See your first buyer persona <span>→</span></a>
+                <a className="reference-secondary" href="#product-demo"><span className="play-icon">▷</span> Watch demo</a>
               </div>
-              <span style={{ color: "#888", fontSize: "0.83rem", fontWeight: 600 }}>Rated 4.8/5 by 200+ marketers</span>
-              <span style={{ color: "#555", fontSize: "0.75rem" }}>·</span>
-              <span style={{ color: "#888", fontSize: "0.83rem", fontStyle: "italic" }}>"Finally, content that actually matches what buyers search for."</span>
+              <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
             </div>
-          </motion.div>
-
-          {/* Trust strip */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="hero-trust-strip"
-          >
-            {[
-              { icon: "🔒", text: "SOC2 Ready" },
-              { icon: "⚡", text: "Setup in 60 seconds" },
-              { icon: "🎯", text: "No prompt engineering needed" },
-              { icon: "🔄", text: "Cancel anytime" },
-            ].map((item) => (
-              <div key={item.text} style={{ display: "flex", alignItems: "center", gap: 6, color: "#777", fontSize: "0.82rem", fontWeight: 600 }}>
-                <span>{item.icon}</span>
-                <span>{item.text}</span>
-              </div>
-            ))}
-          </motion.div>
-
-    
-
-          {/* Persona preview card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            style={{ marginTop: 40, background: "radial-gradient(circle at 0% 0%, #ffd94522, transparent 60%), #14141f", borderRadius: 20, padding: "1.6rem 1.8rem", boxShadow: "0 24px 80px rgba(0,0,0,0.7)", border: "1px solid rgba(255,217,69,0.3)", textAlign: "left" }}
-          >
-            <div className="hero-app-sidebar" aria-hidden="true">
-              <strong>sAInthetic</strong>
-              <span>⌂&nbsp; Dashboard</span>
-              <span className="active">♙&nbsp; Buyer Personas</span>
-              <span>◎&nbsp; AI Questions</span>
-              <span>▤&nbsp; Content Ideas</span>
-              <span>◷&nbsp; Tracking</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 12 }}>
-              <div style={{ width: 48, height: 48, borderRadius: "999px", background: "radial-gradient(circle at 30% 20%, #ffd945, #ffb347 45%, #23243a 100%)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 0 3px rgba(255,217,69,0.25)", fontSize: 22, flexShrink: 0 }}>🧠</div>
-              <div>
-                <div style={{ fontWeight: 800, fontSize: "0.95rem", color: "#fff" }}>Sofia, SaaS Marketing Lead</div>
-                <div style={{ fontSize: "0.82rem", color: "#ffd945", fontWeight: 600 }}>AI-generated buyer persona · Lead score: 87/100</div>
-              </div>
-              <div style={{ marginLeft: "auto", background: "rgba(74,222,128,0.15)", border: "1px solid rgba(74,222,128,0.4)", borderRadius: 8, padding: "4px 12px", fontSize: "0.75rem", color: "#4ade80", fontWeight: 700, whiteSpace: "nowrap" }}>High intent ↑</div>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 12 }}>
-              <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: 10, padding: "10px 14px" }}>
-                <div style={{ color: "#888", fontSize: "0.72rem", fontWeight: 600, marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.5px" }}>Goal</div>
-                <div style={{ color: "#ddd", fontSize: "0.84rem", lineHeight: 1.4 }}>Launch landing page that drives organic trial sign-ups</div>
-              </div>
-              <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: 10, padding: "10px 14px" }}>
-                <div style={{ color: "#888", fontSize: "0.72rem", fontWeight: 600, marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.5px" }}>Pain point</div>
-                <div style={{ color: "#ddd", fontSize: "0.84rem", lineHeight: 1.4 }}>Guesswork about what prospects ask LLMs</div>
-              </div>
-            </div>
-            <div style={{ background: "rgba(12,180,120,0.12)", border: "1px solid rgba(12,180,120,0.35)", borderRadius: 12, padding: "10px 14px", display: "flex", alignItems: "center", gap: 8 }}>
-              <span>✨</span>
-              <span style={{ color: "#a5ffcf", fontSize: "0.84rem" }}>"Show me 5 content ideas that answer Sofia's top synthetic questions this week"</span>
-            </div>          </motion.div>
-        </header>
-
-        
-        {/* ============ FEATURES ============ */}
-        <main id="features" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "0.6rem", margin: "4rem auto 0 auto", maxWidth: 1200, zIndex: 2, position: "relative", padding: "0 20px" }}>
-          {cards.map((card, i) => {
-            const isExpanded = expanded === i;
-            return (
-              <motion.div
-                key={card.title}
-                className="feature-card"
-                initial="rest"
-                animate={hovered === i && !isExpanded ? "hover" : "rest"}
-                variants={{ rest: { scale: 1, boxShadow: "0 6px 36px #0004" }, hover: { scale: 1.05, boxShadow: "0 18px 58px #ffd94544, 0 10px 40px #0008", transition: { type: "spring", stiffness: 230, damping: 18 } } }}
-                onHoverStart={() => !isExpanded && setHovered(i)}
-                onHoverEnd={() => setHovered(null)}
-                style={{ background: isExpanded ? "linear-gradient(120deg,#1a1a28 85%,#2a2a45 100%)" : "linear-gradient(120deg,#191924b7 85%,#232845c7 100%)", minWidth: 300, maxWidth: isExpanded ? 700 : 340, flex: isExpanded ? "1 1 700px" : "1 1 260px", borderRadius: "1.3rem", padding: "2.4rem 1.6rem 1.8rem 1.6rem", color: "#fff", position: "relative", boxShadow: isExpanded ? "0 20px 80px #ffd94555, 0 10px 40px #0008" : "0 3px 28px #0009", cursor: "pointer", transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", border: isExpanded ? "2px solid #ffd94544" : "none", zIndex: isExpanded ? 10 : 2 }}
-                onClick={() => setExpanded(isExpanded ? null : i)}
-                whileTap={{ scale: 0.98 }}
-                layout
-              >
-                <h3 style={{ fontWeight: 800, marginBottom: 11, fontSize: "1.22rem", letterSpacing: "-0.5px", color: isExpanded ? "#ffd945" : "#fff", transition: "color 0.3s" }}>{card.title}</h3>
-                <p style={{ color: "#ccc", marginBottom: isExpanded ? 20 : 12, fontWeight: 500, textAlign: "center" }}>{card.desc}</p>
-                {/* Always show top 2 bullets as a teaser */}
-                {!isExpanded && (
-                  <ul style={{ listStyle: "none", padding: 0, margin: "0 0 12px 0", textAlign: "left", width: "100%" }}>
-                    {card.expandedContent.slice(0, 2).map((item, idx) => (
-                      <li key={idx} style={{ padding: "0.45rem 0", fontSize: "0.87rem", color: "#aaa", fontWeight: 500 }}>{item}</li>
-                    ))}
-                    <li style={{ padding: "0.35rem 0", fontSize: "0.82rem", color: "#ffd945", fontWeight: 600 }}>+ {card.expandedContent.length - 2} more — click to expand</li>
-                  </ul>
-                )}
-                <AnimatePresence>
-                  {isExpanded && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.4 }} style={{ width: "100%", overflow: "hidden" }}>
-                      <div style={{ borderTop: "1px solid rgba(255,217,69,0.2)", paddingTop: "1.5rem", marginTop: "1rem" }}>
-                        <ul style={{ listStyle: "none", padding: 0, margin: 0, textAlign: "left" }}>
-                          {card.expandedContent.map((item, idx) => (
-                            <motion.li key={idx} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.1 }} style={{ padding: "0.8rem 0", fontSize: "0.95rem", color: "#e0e0e0", fontWeight: 500, borderBottom: idx < card.expandedContent.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>{item}</motion.li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
-        </main>
-
-        {/* ============ RESULTS METRICS STRIP ============ */}
-        <section style={{ margin: "5rem auto 0 auto", maxWidth: 900, padding: "0 20px", position: "relative", zIndex: 2 }}>
-          <div style={{ background: "linear-gradient(135deg,#13131f 0%,#1e1e30 100%)", borderRadius: 20, border: "1px solid rgba(255,217,69,0.2)", padding: "2rem 1.5rem", textAlign: "center" }}>
-            <div style={{ color: "#888", fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.5px", marginBottom: "1.5rem" }}>Real results from sAInthetic customers</div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0 }} className="cs-metrics">
-              {[
-                { metric: "3×", label: "Organic traffic growth", sublabel: "in 60 days", color: "#4ade80" },
-                { metric: "68%", label: "Lower bounce rate", sublabel: "content-to-fit match", color: "#60a5fa" },
-                { metric: "41%", label: "More trial signups", sublabel: "from blog content", color: "#ffd945" },
-                { metric: "5h", label: "Saved per week", sublabel: "on content research", color: "#f472b6" },
-              ].map((item, i) => (
-                <div key={i} className="cs-metric-cell" style={{ padding: "1.2rem 1rem", textAlign: "center" }}>
-                  <div style={{ fontSize: "clamp(1.8rem,5vw,2.4rem)", fontWeight: 900, color: item.color, lineHeight: 1, marginBottom: 4, letterSpacing: "-1px" }}>{item.metric}</div>
-                  <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{item.label}</div>
-                  <div style={{ color: "#666", fontSize: "0.75rem", marginTop: 2 }}>{item.sublabel}</div>
+            <div className="reference-visual" aria-label="Preview of the sAInthetic buyer persona dashboard">
+              <div className="reference-glow reference-glow-one"></div>
+              <div className="reference-glow reference-glow-two"></div>
+              <div className="reference-app-window">
+                <div className="reference-window-dots"><i></i><i></i><i></i></div>
+                <div className="reference-app-sidebar">
+                  <div className="reference-mini-brand"><span className="mini-logo">●</span> sAInthetic</div>
+                  <div>⌂ &nbsp;Dashboard</div>
+                  <div className="active">♙ &nbsp;Buyer Personas</div>
+                  <div>◎ &nbsp;AI Questions</div>
+                  <div>▣ &nbsp;Content Ideas</div>
+                  <div>◷ &nbsp;Tracking</div>
                 </div>
-              ))}
-            </div>
-            <div style={{ marginTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "1.2rem" }}>
-              <a href="#case-study" style={{ color: "#ffd945", fontSize: "0.85rem", fontWeight: 700, textDecoration: "none" }}>Read the full NexusFlow case study →</a>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ PRICING ============ */}
-        <section id="pricing" style={{ margin: "5rem auto 0 auto", maxWidth: 1100, textAlign: "center", position: "relative", zIndex: 2, padding: "0 20px" }}>
-          <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>Simple, Fair Pricing</h2>
-          <p style={{ color: "#bbb", marginBottom: "1.5rem", fontSize: "1.15rem" }}>Start for free. Every plan has access to the AI Persona Builder, Synthetic Prompts, Topic Generation</p>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(74,222,128,0.1)", border: "1px solid rgba(74,222,128,0.3)", borderRadius: 999, padding: "6px 16px", marginBottom: "3.5rem", fontSize: "0.82rem", color: "#4ade80", fontWeight: 700 }}>
-            <span>🔥</span>
-            <span>47 new signups this week · Join {847}+ marketers</span>
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "2rem", marginBottom: "3rem" }}>
-            {/* FREE */}
-            <motion.div whileHover={{ scale: 1.03 }} onClick={() => setSelectedPlan(0)} style={{ minWidth: 260, maxWidth: 320, padding: "2.3rem 1.3rem", background: selectedPlan === 0 ? "linear-gradient(120deg,#1a1a28 85%,#2a2a45 100%)" : "linear-gradient(120deg,#191924b7 85%,#232845c7 100%)", borderRadius: "1.1rem", boxShadow: selectedPlan === 0 ? "0 8px 40px #ffd94555" : "0 3px 28px #0009", border: selectedPlan === 0 ? "2px solid #ffd945" : "2px solid transparent", cursor: "pointer", transition: "all 0.3s", position: "relative" }}>
-              {selectedPlan === 0 && <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#ffd945", color: "#000", padding: "4px 16px", borderRadius: "12px", fontSize: "0.75rem", fontWeight: 700 }}>SELECTED</div>}
-              <h3 style={{ color: "#fff", fontWeight: 800, fontSize: "1.4rem", marginBottom: "1rem" }}>Free</h3>
-              <div style={{ fontSize: 32, fontWeight: 800, margin: "18px 0", color: "#ffd945" }}>$0<span style={{ fontSize: 18, color: "#fff" }}>/mo</span></div>
-              <ul style={{ color: "#bbb", textAlign: "left", margin: "0 auto 18px auto", maxWidth: 240, paddingLeft: 20, listStyle: "none" }}>
-                {["1 Persona", "5 Content Ideas", "10 Prompts", "Basic Analytics", "Community Support"].map(f => <li key={f} style={{ marginBottom: "10px" }}>✓ {f}</li>)}
-              </ul>
-              <a href="/register" style={{ width: "100%", display: "block", background: selectedPlan === 0 ? "#ffd945" : "rgba(255,217,69,0.2)", color: selectedPlan === 0 ? "#000" : "#ffd945", fontWeight: 700, padding: "0.9rem 1.5rem", borderRadius: 8, textDecoration: "none", border: selectedPlan === 0 ? "none" : "1px solid #ffd945", transition: "all 0.2s", textAlign: "center", boxSizing: "border-box" }}>Get Started Free</a>
-            </motion.div>
-
-            {/* STARTER */}
-            <motion.div whileHover={{ scale: 1.03 }} onClick={() => setSelectedPlan(1)} style={{ minWidth: 260, maxWidth: 320, padding: "2.3rem 1.3rem", background: selectedPlan === 1 ? "linear-gradient(120deg,#1a1a28 85%,#2a2a45 100%)" : "linear-gradient(120deg,#191924b7 85%,#232845c7 100%)", borderRadius: "1.1rem", boxShadow: selectedPlan === 1 ? "0 8px 40px #ffd94555" : "0 3px 28px #0009", border: selectedPlan === 1 ? "2px solid #ffd945" : "2px solid transparent", cursor: "pointer", transition: "all 0.3s", position: "relative" }}>
-              {selectedPlan === 1 && <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#ffd945", color: "#000", padding: "4px 16px", borderRadius: "12px", fontSize: "0.75rem", fontWeight: 700 }}>SELECTED</div>}
-              <h3 style={{ color: "#fff", fontWeight: 800, fontSize: "1.4rem", marginBottom: "1rem" }}>Starter</h3>
-              <div style={{ fontSize: 32, fontWeight: 800, margin: "18px 0", color: "#ffd945" }}>$19<span style={{ fontSize: 18, color: "#fff" }}>/mo</span></div>
-              <ul style={{ color: "#bbb", textAlign: "left", margin: "0 auto 18px auto", maxWidth: 240, paddingLeft: 20, listStyle: "none" }}>
-                {["5 Personas", "50 Content Ideas/mo", "10 Prompts Per Persona", "Advanced Analytics", "Email Support"].map(f => <li key={f} style={{ marginBottom: "10px" }}>✓ {f}</li>)}
-              </ul>
-              <button onClick={(e) => { e.stopPropagation(); handleUpgrade("price_1SdH1fPwyyuQCEbaZt4loxPH"); }} style={{ width: "100%", display: "block", background: selectedPlan === 1 ? "#ffd945" : "rgba(255,217,69,0.2)", color: selectedPlan === 1 ? "#000" : "#ffd945", fontWeight: 700, padding: "0.9rem 1.5rem", borderRadius: 8, border: selectedPlan === 1 ? "none" : "1px solid #ffd945", transition: "all 0.2s", textAlign: "center", boxSizing: "border-box", cursor: "pointer", fontSize: "1.08rem" }}>Get Started</button>
-            </motion.div>
-
-            {/* PRO */}
-            <motion.div whileHover={{ scale: 1.03 }} onClick={() => setSelectedPlan(2)} style={{ minWidth: 260, maxWidth: 320, padding: "2.3rem 1.3rem", background: selectedPlan === 2 ? "linear-gradient(120deg,#1a1a28 85%,#2a2a45 100%)" : "linear-gradient(120deg,#191924b7 85%,#232845c7 100%)", borderRadius: "1.1rem", boxShadow: selectedPlan === 2 ? "0 8px 40px #ffd94555" : "0 3px 28px #0009", border: selectedPlan === 2 ? "2px solid #ffd945" : "2px solid transparent", cursor: "pointer", transition: "all 0.3s", position: "relative" }}>
-              {selectedPlan === 2 && <div style={{ position: "absolute", top: "-12px", left: "50%", transform: "translateX(-50%)", background: "#ffd945", color: "#000", padding: "4px 16px", borderRadius: "12px", fontSize: "0.75rem", fontWeight: 700 }}>SELECTED</div>}
-              <div style={{ position: "absolute", top: "16px", right: "16px", background: "#ffd945", color: "#000", padding: "4px 12px", borderRadius: "6px", fontSize: "0.7rem", fontWeight: 700 }}>POPULAR</div>
-              <h3 style={{ color: "#ffd945", fontWeight: 800, fontSize: "1.4rem", marginBottom: "1rem" }}>Pro</h3>
-              <div style={{ fontSize: 32, fontWeight: 800, margin: "18px 0", color: "#ffd945" }}>$49<span style={{ fontSize: 18, color: "#fff" }}>/mo</span></div>
-              <ul style={{ color: "#bbb", textAlign: "left", margin: "0 auto 18px auto", maxWidth: 240, paddingLeft: 20, listStyle: "none" }}>
-                {["Unlimited Personas", "Unlimited Content", "Unlimited Prompts", "Visual Analytics", "Priority Support"].map(f => <li key={f} style={{ marginBottom: "10px" }}>✓ {f}</li>)}
-              </ul>
-              <button onClick={(e) => { e.stopPropagation(); handleUpgrade("price_1SdH2yPwyyuQCEbacY3y1487"); }} style={{ width: "100%", display: "block", background: selectedPlan === 2 ? "#ffd945" : "rgba(255,217,69,0.2)", color: selectedPlan === 2 ? "#000" : "#ffd945", fontWeight: 700, padding: "0.9rem 1.5rem", borderRadius: 8, border: selectedPlan === 2 ? "none" : "1px solid #ffd945", transition: "all 0.2s", textAlign: "center", boxSizing: "border-box", cursor: "pointer", fontSize: "1.08rem" }}>Get Pro</button>
-            </motion.div>
-          </div>
-
-          <p style={{ color: "#bbb", fontSize: "0.9rem", marginTop: "1.5rem" }}>
-            💳 No credit card required to start · 🔄 Cancel anytime · 🔒 Secure payments via Stripe
-          </p>
-        </section>
-
-        {/* ============ SOCIAL PROOF ============ */}
-        <section style={{ maxWidth: 1000, margin: "5rem auto 0 auto", padding: "2.3rem 1.5rem", borderRadius: "1.3rem", background: "linear-gradient(138deg,#181824 90%,#232835 100%)", boxShadow: "0 3px 30px #0007", textAlign: "center", position: "relative", zIndex: 2 }}>
-          <h3 style={{ color: "#ffd945", fontSize: "1.45rem", fontWeight: 800, marginBottom: "0.5rem", letterSpacing: "-0.5px" }}>What Our Customers Say</h3>
-          <p style={{ color: "#666", fontSize: "0.88rem", marginBottom: "2rem" }}>Real results from real marketers</p>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "2rem" }}>
-            {[
-              { img: "/review1.png", name: "Elena S.", role: "SaaS Marketing Director", stars: "★ ★ ★ ★", quote: "I saw exactly what my prospects ask LLM tools and instantly turned it into content that brought in leads. No more guesswork." },
-              { img: "/review2.png", name: "Mason L.", role: "Head of Content Strategy", stars: "★ ★ ★ ★ ★", quote: "Finally, a tool that reveals what my buyer persona is curious about. I wrote content that users needed and engagement soared." },
-              { img: "/review3.png", name: "Priya K.", role: "B2B Content Lead", stars: "★ ★ ★ ★ ★", quote: "We already had writers — sAInthetic just tells them exactly what to write. Organic traffic tripled in two months. Worth every penny." },
-            ].map((r) => (
-              <div key={r.name} style={{ flex: "1 1 250px", maxWidth: 300, minWidth: 240, background: "rgba(23,22,29,0.97)", borderRadius: "1.1rem", boxShadow: "0 2px 10px #0002", padding: "1.7rem 1.2rem 1.3rem 1.2rem", textAlign: "left" }}>
-                <div style={{ display: "flex", alignItems: "center", marginBottom: 15 }}>
-                  <div style={{ width: 48, height: 48, borderRadius: "50%", marginRight: 14, background: "#ffd94533", overflow: "hidden", flexShrink: 0 }}>
-                    <img src={r.img} alt={r.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <div className="reference-persona-panel">
+                  <h3>Buyer Persona</h3>
+                  <div className="reference-persona-profile">
+                    <div className="reference-persona-avatar">👩🏻‍💼</div>
+                    <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
                   </div>
-                  <div>
-                    <div style={{ color: "#ffd945", fontWeight: 700, fontSize: ".98rem" }}>{r.name}</div>
-                    <div style={{ color: "#bbb", fontSize: ".88rem", fontWeight: 600 }}>{r.role}</div>
-                  </div>
+                  <div className="reference-question-title">Top questions they ask AI</div>
+                  <div className="reference-question"><span>⌕</span> What's the best AI tool for content marketing?</div>
+                  <div className="reference-question"><span>⌕</span> How does it compare to [competitor]?</div>
+                  <div className="reference-question"><span>⌕</span> Is it worth the price for a small team?</div>
                 </div>
-                <div style={{ fontSize: "1.1rem", color: "#ffd945", marginBottom: 6 }}>{r.stars}</div>
-                <div style={{ fontWeight: 600, color: "#fff", fontSize: "1rem", fontStyle: "italic", lineHeight: 1.55 }}>"{r.quote}"</div>
               </div>
-            ))}
-          </div>
+            </div>
+          </header>
+
+          <section id="features" className="reference-features" aria-label="Product benefits">
+            <article><div className="reference-feature-icon">♧</div><h3>Understand buyers</h3><p>AI personas based on<br/>real LLM behaviour</p></article>
+            <article><div className="reference-feature-icon">▢</div><h3>Discover AI questions</h3><p>The exact questions your<br/>audience asks in ChatGPT,<br/>Google and more</p></article>
+            <article><div className="reference-feature-icon">✧</div><h3>Create better content</h3><p>Data-backed ideas that<br/>rank, convert and drive<br/>revenue</p></article>
+          </section>
+
+          <section className="reference-growth-bar" aria-label="sAInthetic community growth">
+            <div className="growth-message"><span className="growth-icon">▥</span><strong>Turn AI intent into<br/>measurable growth.</strong></div>
+            <div className="growth-count"><strong>847+ marketers</strong><span>already growing with sAInthetic</span></div>
+            <div className="growth-avatars" aria-hidden="true"><span>👨🏻‍💼</span><span>👩🏻‍💼</span><span>👨🏽‍💻</span><span>👩🏽‍💼</span></div>
+          </section>
+
+          <section id="pricing" className="reference-pricing">
+            <h2>Simple, flexible pricing</h2>
+            <p className="pricing-intro">Choose the plan that fits your goals.</p>
+            <div className="reference-pricing-grid">
+              <article className="reference-price-card">
+                <h3>Free</h3><p>Get started and explore<br/>sAInthetic.</p>
+                <div className="reference-price">£0 <span>/month</span></div>
+                <ul><li>1 buyer persona</li><li>Limited AI questions</li><li>Basic content ideas</li></ul>
+                <a href="/register">Get started free</a>
+              </article>
+              <article className="reference-price-card">
+                <h3>Starter</h3><p>For individuals and small teams<br/>building with AI insights.</p>
+                <div className="reference-price">£19 <span>/month</span></div>
+                <ul><li>Up to 5 buyer personas</li><li>Full AI questions</li><li>Content ideas &amp; topics</li><li>Email support</li></ul>
+                <button type="button" onClick={() => handleUpgrade("price_1SdH1fPwyyuQCEbaZt4loxPH")}>Get started</button>
+              </article>
+              <article className="reference-price-card featured">
+                <div className="reference-popular">Most popular</div>
+                <h3>Pro</h3><p>For growing teams that want<br/>maximum visibility and control.</p>
+                <div className="reference-price">£49 <span>/month</span></div>
+                <ul><li>Unlimited buyer personas</li><li>Advanced AI questions</li><li>Content ideas, briefs &amp; tracking</li><li>Priority support</li></ul>
+                <button type="button" onClick={() => handleUpgrade("price_1SdH2yPwyyuQCEbacY3y1487")}>Get started <span>→</span></button>
+              </article>
+            </div>
+          </section>
         </section>
 
-  <PersonaTryDemo />
+<PersonaTryDemo />
 
         {/* ============ HOW IT WORKS ============ */}
         <section id="how-it-works" style={{ margin: "7rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
@@ -1407,153 +563,6 @@ export default function LandingPage() {
             <USCookieConsent />
           </footer>
         </section>
-      <style>{`
-        /* Reference-led sAInthetic landing page composition */
-        #sainthetic-home { background:#fff !important; color:#111827 !important; min-width:0 !important; overflow:hidden; }
-        #sainthetic-home > div[style*="flex: 1"] { background:#fff !important; overflow:visible !important; }
-        #sainthetic-home > div[style*="flex: 1"] > div[style*="position: fixed"] { display:none !important; }
-        #sainthetic-home nav.main-nav {
-          box-sizing:border-box; width:calc(100% - 64px); max-width:1280px; margin:12px auto 0;
-          padding:12px 18px !important; min-height:74px; border:1px solid #edf0f5 !important;
-          border-radius:28px !important; background:rgba(255,255,255,.94) !important;
-          box-shadow:0 12px 36px rgba(18,27,48,.07) !important; backdrop-filter:blur(18px);
-          position:relative !important; z-index:20;
-        }
-        #sainthetic-home .nav-left { align-items:center; gap:12px !important; margin:0 !important; }
-        #sainthetic-home .nav-logo { width:38px !important; height:38px !important; border-radius:11px !important; object-fit:cover; }
-        #sainthetic-home .nav-brand { color:#111827 !important; font-size:1.45rem !important; font-weight:850 !important; letter-spacing:-.05em; }
-        #sainthetic-home .nav-spacer { display:none !important; }
-        #sainthetic-home .nav-right { align-items:center; gap:5px !important; }
-        #sainthetic-home .desktop-nav { margin-left:auto; }
-        #sainthetic-home .nav-right a, #sainthetic-home .desktop-nav .nav-link {
-          color:#273044 !important; padding:11px 13px !important; border-radius:999px !important;
-          font-size:.94rem !important; font-weight:600 !important; text-decoration:none;
-        }
-        #sainthetic-home .nav-right a:hover { background:#fff7dc !important; color:#111827 !important; }
-        #sainthetic-home .nav-right a.cta { background:#111827 !important; color:#fff !important; padding:13px 22px !important; border-radius:999px !important; box-shadow:none !important; }
-        #sainthetic-home .nav-right a.cta:hover { background:#273044 !important; }
-        #sainthetic-home .sainthetic-menu-toggle { color:#111827 !important; border:1px solid #e8ebf1 !important; background:#fff !important; border-radius:14px !important; }
-        #sainthetic-home header#hero {
-          display:grid !important; grid-template-columns:minmax(0,1.02fr) minmax(420px,.98fr);
-          grid-template-areas:"badge preview" "headline preview" "copy preview" "actions preview" "trust preview";
-          align-items:center; column-gap:clamp(34px,5vw,76px); row-gap:0;
-          width:100% !important; max-width:1280px !important; box-sizing:border-box;
-          padding:74px 28px 52px !important; margin:0 auto !important; text-align:left !important;
-        }
-        #sainthetic-home header#hero > :nth-child(1) { grid-area:badge; justify-self:start; margin:0 0 24px !important; }
-        #sainthetic-home #hero h1 {
-          grid-area:headline; max-width:650px; margin:0 0 22px !important;
-          color:#111827 !important; background:none !important; -webkit-text-fill-color:#111827 !important;
-          font-size:clamp(3rem,5.4vw,5.2rem) !important; font-weight:850 !important;
-          letter-spacing:-.075em !important; line-height:.99 !important; text-align:left !important;
-        }
-        #sainthetic-home #hero h1 span {
-          color:#111827 !important; -webkit-text-fill-color:#111827 !important;
-          background:linear-gradient(transparent 64%,#ffe58b 64%) !important;
-          box-decoration-break:clone; -webkit-box-decoration-break:clone;
-        }
-        #sainthetic-home #hero > p { grid-area:copy; max-width:600px !important; margin:0 0 26px !important; color:#48536a !important; font-size:1.12rem !important; line-height:1.6 !important; text-align:left !important; }
-        #sainthetic-home #hero > div:nth-of-type(2) { grid-area:actions; align-items:flex-start !important; flex-direction:row !important; flex-wrap:wrap; gap:14px !important; }
-        #sainthetic-home #hero > div:nth-of-type(2) > a {
-          background:#111827 !important; color:#fff !important; border:1px solid #111827 !important;
-          border-radius:999px !important; box-shadow:0 9px 24px rgba(17,24,39,.15) !important;
-          padding:16px 25px !important; font-size:1rem !important;
-        }
-        #sainthetic-home #hero > div:nth-of-type(2) > p { flex-basis:100%; color:#566176 !important; text-align:left !important; margin:0 !important; }
-        #sainthetic-home #hero > div:nth-of-type(2) > div { justify-content:flex-start !important; }
-        #sainthetic-home #hero > div:nth-of-type(2) > div span { color:#69748a !important; }
-        #sainthetic-home #hero .hero-trust-strip { grid-area:trust; justify-content:flex-start !important; gap:10px 18px !important; margin-top:18px !important; flex-wrap:wrap; }
-        #sainthetic-home #hero .hero-trust-strip > div { color:#657087 !important; font-size:.78rem !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) {
-          grid-area:preview; align-self:center; width:100%; box-sizing:border-box; position:relative;
-          margin:0 !important; padding:56px 22px 24px 158px !important;
-          background:#fff !important; color:#111827 !important; border:1px solid #e7ebf2 !important;
-          border-radius:26px !important; box-shadow:0 26px 70px rgba(31,42,68,.14) !important;
-          transform:rotate(-1.2deg); min-height:360px;
-        }
-        #sainthetic-home #hero > div:nth-of-type(4)::before {
-          content:"●  ●  ●"; position:absolute; top:17px; left:22px; right:22px; height:25px;
-          border-bottom:1px solid #edf0f5; color:#f46b68; font-size:13px; letter-spacing:5px;
-        }
-        #sainthetic-home #hero .hero-app-sidebar {
-          position:absolute; top:58px; bottom:20px; left:18px; width:124px;
-          display:flex; flex-direction:column; gap:14px; padding:8px 7px;
-          color:#4a556b; font-size:.72rem; font-weight:600; border-right:1px solid #edf0f5;
-        }
-        #sainthetic-home #hero .hero-app-sidebar strong { color:#111827; font-size:.83rem; margin-bottom:10px; }
-        #sainthetic-home #hero .hero-app-sidebar span { padding:8px 7px; border-radius:9px; white-space:nowrap; }
-        #sainthetic-home #hero .hero-app-sidebar span.active { background:#fff1b8; color:#111827; }
-        #sainthetic-home #hero > div:nth-of-type(4) > div:not(.hero-app-sidebar) { position:relative; z-index:1; }
-        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) { margin-bottom:16px !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:first-child { background:#fff0bd !important; color:#111827 !important; box-shadow:none !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:nth-child(2) div { color:#111827 !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:nth-child(2) div:nth-child(2) { color:#b08000 !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) [style*="rgba(255,255,255,0.04)"] { background:#f5f7fb !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) [style*="color:"] { color:#273044 !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) > div:last-child { background:#f5f7fb !important; border:1px solid #e9edf3 !important; }
-        #sainthetic-home #hero > div:nth-of-type(4) > div:last-child span { color:#364158 !important; }
-        #sainthetic-home #features { max-width:1200px !important; margin:28px auto 0 !important; gap:18px !important; align-items:stretch; }
-        #sainthetic-home .feature-card {
-          min-width:0 !important; max-width:none !important; flex:1 1 250px !important;
-          align-items:flex-start !important; text-align:left !important; justify-content:flex-start !important;
-          background:#fff !important; color:#111827 !important; border:1px solid #edf0f5 !important;
-          border-radius:22px !important; box-shadow:0 12px 32px rgba(31,42,68,.06) !important;
-          padding:28px 24px !important;
-        }
-        #sainthetic-home .feature-card h3 { color:#111827 !important; }
-        #sainthetic-home .feature-card p, #sainthetic-home .feature-card li { color:#59647a !important; text-align:left !important; }
-        #sainthetic-home #how-it-works, #sainthetic-home #pricing, #sainthetic-home #case-study, #sainthetic-home #faq { scroll-margin-top:100px; }
-        #sainthetic-home section h2, #sainthetic-home section h3, #sainthetic-home section h4 { color:#111827 !important; }
-        #sainthetic-home section p { color:#59647a !important; }
-        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) > div:first-child {
-          background:#fff !important; border:1px solid #e9edf3 !important; border-radius:24px !important;
-          box-shadow:0 12px 34px rgba(31,42,68,.07) !important; padding:24px 20px !important;
-        }
-        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) > div:first-child > div:first-child {
-          color:#59647a !important; letter-spacing:.08em;
-        }
-        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) .cs-metric-cell { border-color:#e9edf3 !important; }
-        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) .cs-metric-cell div { color:#111827 !important; }
-        #sainthetic-home section[style*="max-width: 900px"]:has(.cs-metrics) a { color:#8a6500 !important; }
-        #sainthetic-home #pricing { max-width:1180px !important; margin-top:6rem !important; }
-        #sainthetic-home #pricing h2 { color:#111827 !important; font-size:clamp(2.1rem,4vw,3rem) !important; letter-spacing:-.06em !important; }
-        #sainthetic-home #pricing > div[style*="display: flex"] > div {
-          background:#fff !important; color:#111827 !important; border:1px solid #e9edf3 !important;
-          border-radius:24px !important; box-shadow:0 12px 36px rgba(31,42,68,.07) !important;
-        }
-        #sainthetic-home #pricing h3 { color:#111827 !important; }
-        #sainthetic-home #pricing ul, #sainthetic-home #pricing ul li { color:#4e596f !important; }
-        #sainthetic-home #pricing button, #sainthetic-home #pricing a[href="/register"] { border-radius:999px !important; }
-        #sainthetic-home #case-study > div[style*="linear-gradient"], #sainthetic-home #faq > div > div > div {
-          background:#fff !important; border:1px solid #e9edf3 !important; box-shadow:0 12px 34px rgba(31,42,68,.06) !important;
-        }
-        #sainthetic-home footer { color:#5b6579 !important; border-color:#e9edf3 !important; }
-        @media (max-width:900px) {
-          #sainthetic-home nav.main-nav { width:calc(100% - 28px); margin-top:10px; border-radius:22px !important; }
-          #sainthetic-home header#hero {
-            grid-template-columns:minmax(0,1fr); grid-template-areas:"badge" "headline" "copy" "actions" "preview" "trust";
-            max-width:720px !important; padding:54px 24px 36px !important; row-gap:0;
-          }
-          #sainthetic-home #hero h1 { font-size:clamp(2.8rem,9vw,4.3rem) !important; }
-          #sainthetic-home #hero > div:nth-of-type(4) { margin-top:38px !important; transform:none; }
-          #sainthetic-home #hero .hero-trust-strip { margin-top:24px !important; }
-          #sainthetic-home #features { padding:0 22px !important; }
-        }
-        @media (max-width:560px) {
-          #sainthetic-home nav.main-nav { min-height:62px; padding:9px 12px !important; }
-          #sainthetic-home .nav-brand { font-size:1.2rem !important; }
-          #sainthetic-home .nav-logo { width:34px !important; height:34px !important; }
-          #sainthetic-home header#hero { padding:42px 20px 30px !important; }
-          #sainthetic-home #hero > div:nth-of-type(2) { flex-direction:column !important; align-items:stretch !important; }
-          #sainthetic-home #hero > div:nth-of-type(2) > a { text-align:center; }
-          #sainthetic-home #hero > div:nth-of-type(4) { padding:54px 14px 18px 14px !important; min-height:0; }
-          #sainthetic-home #hero .hero-app-sidebar { display:none; }
-          #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) { gap:8px; }
-          #sainthetic-home #hero > div:nth-of-type(4) > div:nth-child(2) > div:last-child { display:none; }
-          #sainthetic-home .feature-card { flex-basis:100% !important; }
-          #sainthetic-home #pricing > div[style*="display: flex"] > div { min-width:0 !important; width:100%; }
-        }
-      `}</style>
       </div>
     </div>
   );
