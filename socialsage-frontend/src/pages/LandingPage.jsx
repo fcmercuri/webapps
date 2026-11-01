@@ -4144,7 +4144,27 @@ export default function LandingPage() {
         #sainthetic-home .reference-pricing .pricing-intro { margin-bottom:24px !important; }
         #sainthetic-home .reference-price-card:first-child { border-color:#f0d46a !important; box-shadow:0 12px 28px rgba(255,217,69,.13) !important; }
         #sainthetic-home .reference-price-card:first-child > a { background:#ffd945 !important; border-color:#ffd945 !important; color:#111827 !important; }
-        #sainthetic-home .final-cta-section a { min-width:min(100%,300px) !important; }
+        #sainthetic-home .final-cta-section a {
+          display:inline-flex !important;
+          align-items:center !important;
+          justify-content:center !important;
+          width:auto !important;
+          min-width:0 !important;
+          max-width:min(100%,380px) !important;
+          padding:1rem 1.7rem !important;
+          font-size:1.05rem !important;
+          line-height:1.25 !important;
+          white-space:nowrap !important;
+          box-sizing:border-box !important;
+        }
+        @media (max-width:760px) {
+          #sainthetic-home .final-cta-section a {
+            width:auto !important;
+            max-width:min(100%,340px) !important;
+            padding:.95rem 1.35rem !important;
+            font-size:1rem !important;
+          }
+        }
         #sainthetic-home .reference-growth-bar { margin-bottom:0 !important; }
 
         /* Centre the case-study headline group within its bordered intro panel. */
