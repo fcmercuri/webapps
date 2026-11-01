@@ -2237,6 +2237,83 @@ export default function LandingPage() {
         }
       `}</style>
 
+
+      <style>{`
+        /* Founder-led hero: supplied portrait-based artwork and live LinkedIn attribution. */
+        #sainthetic-home .reference-hero {
+          grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr) !important;
+          gap:18px !important;
+          min-height:570px !important;
+          padding-top:30px !important;
+          padding-bottom:18px !important;
+        }
+        #sainthetic-home .reference-hero h1 {
+          font-size:clamp(2.65rem,4.7vw,3.85rem) !important;
+          line-height:1.04 !important;
+        }
+        #sainthetic-home .reference-visual.reference-hero-photo {
+          display:flex !important; flex-direction:column !important;
+          align-items:center !important; justify-content:center !important;
+          gap:12px !important; width:100% !important; min-width:0 !important;
+          min-height:0 !important; padding:0 !important; overflow:visible !important;
+          border:0 !important; border-radius:0 !important;
+          background:transparent !important; box-shadow:none !important;
+        }
+        #sainthetic-home .reference-hero-photo-image {
+          display:block !important; width:100% !important; height:auto !important;
+          max-width:100% !important; aspect-ratio:400 / 336 !important;
+          object-fit:cover !important; object-position:center !important;
+          border:0 !important; border-radius:0 0 3px 3px !important; box-shadow:none !important;
+        }
+        #sainthetic-home .reference-linkedin-credit {
+          display:inline-flex !important; align-items:center !important; justify-content:center !important;
+          gap:10px !important; max-width:calc(100% - 20px) !important; min-height:42px !important;
+          padding:6px 15px 6px 9px !important; margin-top:-3px !important;
+          border:1px solid #e8ebf1 !important; border-radius:999px !important;
+          background:rgba(255,255,255,.97) !important;
+          box-shadow:0 8px 22px rgba(19,31,51,.11) !important;
+          color:#172033 !important; font-size:.84rem !important; line-height:1.1 !important;
+          text-decoration:none !important; transition:transform .2s ease,box-shadow .2s ease !important;
+        }
+        #sainthetic-home .reference-linkedin-credit:hover {
+          transform:translateY(-2px) !important; box-shadow:0 11px 25px rgba(19,31,51,.16) !important;
+        }
+        #sainthetic-home .reference-linkedin-icon {
+          display:grid !important; place-items:center !important; flex:0 0 25px !important;
+          width:25px !important; height:25px !important; border-radius:5px !important;
+          background:#0a66c2 !important; color:#fff !important; font-family:Arial,sans-serif !important;
+          font-size:17px !important; font-weight:800 !important; letter-spacing:-1.2px !important;
+        }
+        #sainthetic-home .reference-linkedin-credit strong {
+          color:#172033 !important; font-weight:750 !important; white-space:nowrap !important;
+        }
+        #sainthetic-home .reference-linkedin-external {
+          color:#647087 !important; font-size:1rem !important; font-weight:700 !important;
+        }
+        @media (max-width:900px) {
+          #sainthetic-home .reference-hero {
+            grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+            min-height:0 !important; gap:12px !important;
+          }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.15rem,5vw,3rem) !important; }
+        }
+        @media (max-width:760px) {
+          #sainthetic-home .reference-hero {
+            grid-template-columns:1fr !important; gap:22px !important; padding:30px 0 16px !important;
+          }
+          #sainthetic-home .reference-hero-copy { order:1 !important; }
+          #sainthetic-home .reference-visual.reference-hero-photo { order:2 !important; }
+          #sainthetic-home .reference-hero h1 {
+            max-width:620px !important; font-size:clamp(2.5rem,9vw,3.55rem) !important;
+          }
+          #sainthetic-home .reference-hero-photo-image {
+            width:100% !important; max-height:480px !important;
+            object-fit:cover !important; object-position:center 43% !important;
+          }
+          #sainthetic-home .reference-linkedin-credit { min-height:40px !important; font-size:.8rem !important; }
+        }
+      `}</style>
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
@@ -2253,48 +2330,22 @@ export default function LandingPage() {
         <section className="sainthetic-reference-top">
           <header id="hero" className="reference-hero">
             <div className="reference-hero-copy">
-              <div className="reference-eyebrow"><span>⚡</span> AI Buyer Intelligence for Growth</div>
-              <h1>Stop guessing<br/>what your<br/>buyers want.<br/>Know exactly<br/><span>what they ask AI.</span></h1>
-              <p className="reference-subtitle">sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.</p>
+              <div className="reference-eyebrow"><span>⚡</span> Buyer Intelligence for Growth</div>
+              <h1>Stop guessing<br/>what your buyers<br/>want. Know exactly<br/><span>what they ask AI.</span></h1>
+              <p className="reference-subtitle">Create real buyer personas, uncover the exact questions your audience asks in ChatGPT, Google and more, and turn them into content that converts.</p>
               <div className="reference-actions">
                 <a className="reference-primary" href="/register">See your first buyer persona <span>→</span></a>
                 <a className="reference-secondary" href="#product-demo"><span className="play-icon">▷</span> Watch demo</a>
               </div>
               <div className="reference-reassurance"><span>✓&nbsp; Free plan available</span><span>✓&nbsp; No credit card required</span><span>✓&nbsp; Cancel anytime</span></div>
-              <div className="reference-human-note">
-                <div className="reference-human-faces" aria-hidden="true">
-                  <span><img src="/reference-people-sprite.jpg" className="reference-person-1" alt="" /></span>
-                  <span><img src="/reference-people-sprite.jpg" className="reference-person-2" alt="" /></span>
-                  <span><img src="/reference-people-sprite.jpg" className="reference-person-3" alt="" /></span>
-                </div>
-                <p><strong>Built around the people you want to reach.</strong><br/>Not another generic prompt.</p>
               </div>
-            </div>
-            <div className="reference-visual" aria-label="Preview of the sAInthetic buyer persona dashboard">
-              <div className="reference-glow reference-glow-one"></div>
-              <div className="reference-glow reference-glow-two"></div>
-              <div className="reference-app-window">
-                <div className="reference-window-dots"><i></i><i></i><i></i></div>
-                <div className="reference-app-sidebar">
-                  <div className="reference-mini-brand"><span className="mini-logo">●</span> sAInthetic</div>
-                  <div>⌂ &nbsp;Dashboard</div>
-                  <div className="active">♙ &nbsp;Buyer Personas</div>
-                  <div>◎ &nbsp;AI Questions</div>
-                  <div>▣ &nbsp;Content Ideas</div>
-                  <div>◷ &nbsp;Tracking</div>
-                </div>
-                <div className="reference-persona-panel">
-                  <h3>Buyer Persona</h3>
-                  <div className="reference-persona-profile">
-                    <div className="reference-persona-avatar"><img src="/reference-people-sprite.jpg" className="reference-person-0" alt="Buyer persona portrait" /></div>
-                    <div><strong>The Growth-Minded Marketer</strong><div className="reference-tags"><span>B2B</span><span>AI Tools</span><span>Growth</span></div></div>
-                  </div>
-                  <div className="reference-question-title">Top questions they ask AI</div>
-                  <div className="reference-question"><span>⌕</span> What's the best AI tool for content marketing?</div>
-                  <div className="reference-question"><span>⌕</span> How does it compare to [competitor]?</div>
-                  <div className="reference-question"><span>⌕</span> Is it worth the price for a small team?</div>
-                </div>
-              </div>
+            <div className="reference-visual reference-hero-photo" aria-label="Francesco Mercuri, founder of sAInthetic">
+              <img className="reference-hero-photo-image" src="/sainthetic-francesco-hero.jpg" alt="Francesco Mercuri at a laptop with a preview of the sAInthetic buyer persona tool" fetchPriority="high" />
+              <a className="reference-linkedin-credit" href="https://www.linkedin.com/in/francescomercuri" target="_blank" rel="noopener noreferrer" aria-label="Connect with Francesco Mercuri on LinkedIn">
+                <span className="reference-linkedin-icon" aria-hidden="true">in</span>
+                <strong>Built by Francesco Mercuri</strong>
+                <span className="reference-linkedin-external" aria-hidden="true">↗</span>
+              </a>
             </div>
           </header>
 
