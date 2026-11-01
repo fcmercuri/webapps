@@ -4163,12 +4163,13 @@ export default function LandingPage() {
         }
         #sainthetic-home .reference-growth-bar { margin-bottom:0 !important; }
 
-        /* Centre the case-study headline group within its bordered intro panel. */
+        /* Keep the case-study intro compact on desktop while retaining centred content. */
         #sainthetic-home #case-study .cs-intro-header {
-          min-height:560px !important;
+          min-height:320px !important;
+          height:auto !important;
           box-sizing:border-box !important;
-          padding:38px 32px 42px !important;
-          margin:0 auto 3rem !important;
+          padding:32px 30px !important;
+          margin:0 auto 2rem !important;
           display:flex !important;
           flex-direction:column !important;
           align-items:center !important;
