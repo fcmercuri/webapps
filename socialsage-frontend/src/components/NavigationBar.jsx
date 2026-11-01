@@ -17,7 +17,7 @@ export default function NavigationBar() {
 
   return (
     <>
-      <nav className="main-nav" style={{ position: "relative" }}>
+      <nav className="main-nav">
         <div className="nav-left">
           <motion.img
             src="/sainthetic-mark.svg"
@@ -82,9 +82,9 @@ export default function NavigationBar() {
       {/* Responsive nav CSS */}
       <style>{`
         @media (max-width:800px) {
-          nav.main-nav { position: relative; z-index: 11; }
+          nav.main-nav { position: sticky !important; top: 0 !important; z-index: 1000 !important; }
           .desktop-nav { display: none !important; }
-          nav.main-nav { position: relative; z-index: 1000; overflow: visible; }
+          nav.main-nav { position: sticky !important; top: 0 !important; z-index: 1000 !important; overflow: visible; }
           .mobile-dropdown {
             display: flex !important;
             flex-direction: column !important;
