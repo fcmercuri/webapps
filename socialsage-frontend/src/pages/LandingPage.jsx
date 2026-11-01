@@ -3288,7 +3288,7 @@ export default function LandingPage() {
             letter-spacing:-.06em !important;
             text-wrap:pretty !important;
           }
-          #sainthetic-home .reference-hero h1 br { display:none !important; }
+          #sainthetic-home .reference-hero h1 br { display:block !important; content:"" !important; }
           #sainthetic-home .reference-subtitle {
             order:3 !important;
             max-width:100% !important;
