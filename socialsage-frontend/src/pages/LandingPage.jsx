@@ -1914,7 +1914,7 @@ export default function LandingPage() {
         }
         @media (max-width:900px) {
           #sainthetic-home .reference-how-grid { grid-template-columns:1fr !important; }
-          #sainthetic-home .reference-how-card { display:grid !important; grid-template-columns:minmax(0,.9fr) minmax(0,1fr) !important; }
+          #sainthetic-home .reference-how-grid .reference-how-card { display:grid !important; grid-template-columns:minmax(0,.9fr) minmax(0,1fr) !important; }
           #sainthetic-home .reference-how-image { height:100% !important; min-height:170px !important; aspect-ratio:auto !important; border-bottom:0 !important; border-right:1px solid #e8eaf0 !important; }
           #sainthetic-home .reference-how-card-copy { align-items:center !important; padding:20px !important; }
         }
@@ -1922,7 +1922,7 @@ export default function LandingPage() {
           #sainthetic-home .reference-human-note { margin-top:18px !important; }
           #sainthetic-home .reference-how-it-works { margin:28px 16px 0 !important; padding:26px 16px 18px !important; }
           #sainthetic-home .reference-how-grid { gap:13px !important; }
-          #sainthetic-home .reference-how-card { grid-template-columns:minmax(0,1fr) !important; }
+          #sainthetic-home .reference-how-grid .reference-how-card { grid-template-columns:minmax(0,1fr) !important; }
           #sainthetic-home .reference-how-image { min-height:0 !important; aspect-ratio:1.55 / 1 !important; border-right:0 !important; border-bottom:1px solid #e8eaf0 !important; }
           #sainthetic-home .reference-how-card-copy { padding:15px 14px 17px !important; }
           #sainthetic-home .reference-how-card-copy h3 { font-size:1rem !important; }
