@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const personaAvatar = "/community-avatars-clean.webp?v=20261103";
+const personaAvatar = "/persona-people-sprite.webp?v=20261101";
 
 const personas = {
   SaaS: {
+    avatarIndex: 2,
     name: "Sarah Johnson", role: "Growth Marketing Manager",
     goals: ["Increase SQLs", "Reduce CAC", "Improve retention"],
     painPoints: ["Low lead quality", "Generic AI content", "Weak positioning"],
@@ -12,6 +13,7 @@ const personas = {
     topPrompt: "Identify the five highest-intent questions a 50-person SaaS team would ask before choosing a platform. Group by discovery, comparison and purchase, then recommend content that addresses each decision criterion."
   },
   Finance: {
+    avatarIndex: 2,
     name: "David Carter", role: "Digital Banking Lead",
     goals: ["Acquire deposits", "Increase trust", "Grow applications"],
     painPoints: ["Compliance", "Long approval cycles", "Low engagement"],
@@ -19,6 +21,7 @@ const personas = {
     topPrompt: "Map the questions a finance decision-maker asks before choosing a business banking provider. Prioritise trust, eligibility, access, risk and total value, then identify the evidence content must provide."
   },
   Ecommerce: {
+    avatarIndex: 1,
     name: "Emily Brown", role: "E-commerce Director",
     goals: ["Increase AOV", "Boost repeat purchases", "Reduce cart abandonment"],
     painPoints: ["Creative fatigue", "High CAC", "Low loyalty"],
@@ -26,6 +29,7 @@ const personas = {
     topPrompt: "Map the questions shoppers ask from product discovery to purchase. Highlight comparison criteria, objections and trust signals, then recommend content that helps customers choose confidently."
   },
   Healthcare: {
+    avatarIndex: 3,
     name: "Dr. Lisa Nguyen", role: "Patient Acquisition Manager",
     goals: ["Increase appointment bookings", "Build patient trust", "Expand service line awareness"],
     painPoints: ["Strict compliance rules", "Low online visibility", "High patient acquisition cost"],
@@ -33,6 +37,7 @@ const personas = {
     topPrompt: "Identify the questions patients ask when evaluating a provider. Organise by symptoms, treatment options, credentials and appointment decisions, while keeping information evidence-led and appropriately cautious."
   },
   RealEstate: {
+    avatarIndex: 0,
     name: "Marcus Reid", role: "Head of Growth, Residential Property Group",
     goals: ["Increase valuation and viewing enquiries", "Convert more portal traffic into qualified leads", "Improve viewing-to-offer conversion"],
     painPoints: ["High portal lead costs and low intent", "Buyers struggle to compare total ownership costs", "Slow follow-up causes qualified enquiries to go cold"],
@@ -42,6 +47,7 @@ const personas = {
     topPrompt: "Build a buyer-intent content plan for a residential property group. Segment demand into area research, property comparison and viewing-to-offer. For each stage, specify the buyer question, evidence required, recommended content format and conversion action. Prioritise opportunities by commercial intent and ability to reduce purchase uncertainty."
   },
   Education: {
+    avatarIndex: 3,
     name: "Priya Shah", role: "Enrollment Marketing Director",
     goals: ["Increase enrollment applications", "Improve program awareness", "Boost student engagement"],
     painPoints: ["Long decision cycles", "Low content differentiation", "Difficulty reaching Gen Z"],
@@ -49,6 +55,7 @@ const personas = {
     topPrompt: "Map a prospective student's decision journey from course discovery to application. Identify questions about outcomes, curriculum, entry requirements and funding, then recommend content that supports informed choice."
   },
   Travel: {
+    avatarIndex: 0,
     name: "Jonas Weber", role: "Head of Digital Marketing, Travel Brand",
     goals: ["Increase direct bookings", "Reduce OTA dependency", "Improve repeat travel rate"],
     painPoints: ["High seasonality", "Price-driven comparison shopping", "Low brand loyalty"],
@@ -103,7 +110,7 @@ export default function PersonaTryDemo() {
         .persona-result-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:22px; border-bottom:1px solid #e9edf3; }
         .persona-result-identity { display:flex; align-items:center; gap:15px; min-width:0; }
         .persona-result-avatar { width:76px; height:76px; flex:0 0 76px; display:block; object-fit:cover; object-position:center 30%; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); }
-        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background-image:url("/community-avatars-clean.webp?v=20261103"); background-repeat:no-repeat; background-size:500% 130%; background-position:3.125% 50%; }
+        .persona-result-avatar-wrap { width:76px; height:76px; flex:0 0 76px; overflow:hidden; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; box-shadow:0 4px 14px rgba(23,27,43,.12); background-image:url("/persona-people-sprite.webp?v=20261101"); background-repeat:no-repeat; background-size:400% 100%; background-position:var(--persona-avatar-position, 33.333%) center; background-color:#f5f6f8; }
         .persona-result-insights { margin-top:14px; padding:18px; border:1px solid #dcebe3; border-radius:16px; background:linear-gradient(145deg,#f3faf6,#fff); }
         .persona-result-insights h4 { margin:0 0 12px; color:#203b30; font-size:1rem; letter-spacing:-.02em; }
         .persona-result-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-bottom:14px; }
@@ -189,7 +196,7 @@ export default function PersonaTryDemo() {
         <div className="persona-result" aria-live="polite">
           <div className="persona-result-head">
             <div className="persona-result-identity">
-              <div className="persona-result-avatar-wrap" role="img" aria-label={`${persona.name}, sample buyer persona`}><img className="persona-result-avatar" src={personaAvatar} alt="" /></div>
+              <div className="persona-result-avatar-wrap" role="img" aria-label={`${persona.name}, sample buyer persona`} style={{ "--persona-avatar-position": `${(persona.avatarIndex ?? 1) * 33.333}%` }} />
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
