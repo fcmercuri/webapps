@@ -2827,6 +2827,136 @@ export default function LandingPage() {
         }
       `}</style>
 
+
+      <style>{`
+        /* Mobile hero: keep the headline compact enough to bring the buyer-persona
+           preview into the first screen, while preserving the desktop composition. */
+        @media (max-width:700px) {
+          #sainthetic-home .sainthetic-reference-top {
+            padding:0 16px 20px !important;
+          }
+          #sainthetic-home header#hero.reference-hero {
+            grid-template-columns:minmax(0,1fr) !important;
+            gap:0 !important;
+            padding:22px 2px 10px !important;
+          }
+          #sainthetic-home .reference-eyebrow {
+            margin-bottom:12px !important;
+            padding:7px 12px !important;
+            font-size:.76rem !important;
+          }
+          #sainthetic-home .reference-hero h1 {
+            max-width:100% !important;
+            margin:0 0 12px !important;
+            font-size:clamp(1.9rem,7.4vw,2.3rem) !important;
+            line-height:1.04 !important;
+            letter-spacing:-.06em !important;
+            text-wrap:pretty !important;
+          }
+          #sainthetic-home .reference-subtitle {
+            max-width:100% !important;
+            margin:0 0 14px !important;
+            font-size:.88rem !important;
+            line-height:1.42 !important;
+          }
+          #sainthetic-home .reference-actions {
+            display:flex !important;
+            flex-direction:column !important;
+            align-items:stretch !important;
+            gap:8px !important;
+          }
+          #sainthetic-home .reference-actions a {
+            width:100% !important;
+            min-height:44px !important;
+            justify-content:space-between !important;
+            padding:0 16px !important;
+            font-size:.84rem !important;
+            white-space:normal !important;
+          }
+          #sainthetic-home .reference-reassurance {
+            gap:6px 12px !important;
+            margin-top:10px !important;
+            font-size:.66rem !important;
+          }
+          #sainthetic-home .reference-visual {
+            width:100% !important;
+            min-height:0 !important;
+            margin:14px 0 0 !important;
+            padding:0 !important;
+          }
+          #sainthetic-home .reference-app-window {
+            display:grid !important;
+            grid-template-columns:minmax(0,1fr) !important;
+            width:100% !important;
+            max-width:none !important;
+            min-height:0 !important;
+            padding:38px 11px 11px !important;
+            transform:none !important;
+            border-radius:19px !important;
+            box-shadow:0 12px 30px rgba(35,44,65,.11) !important;
+          }
+          #sainthetic-home .reference-app-sidebar { display:none !important; }
+          #sainthetic-home .reference-persona-panel {
+            min-width:0 !important;
+            margin:0 !important;
+            padding:10px 11px 9px !important;
+            border-radius:14px !important;
+          }
+          #sainthetic-home .reference-persona-panel h3 {
+            margin-bottom:10px !important;
+            font-size:.9rem !important;
+          }
+          #sainthetic-home .reference-persona-profile {
+            gap:9px !important;
+            padding-bottom:9px !important;
+          }
+          #sainthetic-home .reference-persona-avatar {
+            flex:0 0 42px !important;
+            width:42px !important;
+            height:42px !important;
+          }
+          #sainthetic-home .reference-persona-profile strong {
+            font-size:.75rem !important;
+            line-height:1.2 !important;
+          }
+          #sainthetic-home .reference-tags { gap:5px !important; }
+          #sainthetic-home .reference-tags span {
+            padding:4px 7px !important;
+            font-size:.6rem !important;
+          }
+          #sainthetic-home .reference-question-title {
+            margin:11px 0 6px !important;
+            font-size:.75rem !important;
+          }
+          #sainthetic-home .reference-question {
+            align-items:flex-start !important;
+            gap:7px !important;
+            margin:5px 0 !important;
+            padding:7px 8px !important;
+            border:1px solid #e7ebf1 !important;
+            border-radius:9px !important;
+            background:#fafbfd !important;
+            font-size:.68rem !important;
+            line-height:1.3 !important;
+            white-space:normal !important;
+          }
+          #sainthetic-home .reference-question span {
+            flex:0 0 19px !important;
+            width:19px !important;
+            height:19px !important;
+            font-size:.85rem !important;
+          }
+        }
+        @media (max-width:390px) {
+          #sainthetic-home .reference-hero h1 {
+            font-size:1.82rem !important;
+            letter-spacing:-.058em !important;
+          }
+          #sainthetic-home .reference-subtitle { font-size:.84rem !important; }
+          #sainthetic-home .reference-question { font-size:.65rem !important; }
+        }
+      `}</style>
+
       <div
         style={{ flex: 1, background: "linear-gradient(135deg, #0b0b0b 84%, #261e45 100%)", overflow: "hidden" }}
         onMouseMove={(e) => {
