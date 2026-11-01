@@ -1,5 +1,5 @@
 // src/pages/Register.jsx
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -15,6 +15,7 @@ export default function Register() {
   const [successMsg, setSuccessMsg] = useState(""); // NEW: success message
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const googleClickStarted = useRef(null);
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -32,6 +33,9 @@ export default function Register() {
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
+      const oauthMs = googleClickStarted.current == null ? null : Math.round(performance.now() - googleClickStarted.current);
+      console.info("[sAInthetic auth] Google OAuth completed", { oauthMs });
+      const backendStarted = performance.now();
       setGoogleLoading(true);
       try {
         setError("");
@@ -44,6 +48,7 @@ export default function Register() {
         });
 
         const data = await res.json();
+        console.info("[sAInthetic auth] Google backend response", { backendMs: Math.round(performance.now() - backendStarted), status: res.status });
         if (!res.ok) throw new Error(data?.error || "Google sign up failed");
 
         // Google sign‑up logs in immediately, then goes to welcome
@@ -211,6 +216,7 @@ export default function Register() {
           type="button"
           onClick={() => {
             setError("");
+            googleClickStarted.current = performance.now();
             setGoogleLoading(true);
             loginWithGoogle();
           }}
