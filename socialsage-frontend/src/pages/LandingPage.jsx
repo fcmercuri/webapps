@@ -3095,7 +3095,16 @@ export default function LandingPage() {
                   <span>sAInthetic workspace</span>
                   <span className="step-window-status">LIVE PREVIEW</span>
                 </div>
-                <img src={s.img} alt={s.alt} loading="lazy" decoding="async" />
+                <div className="step-image-canvas">
+                  <img src={s.img} alt={s.alt} loading="lazy" decoding="async" />
+                  {i === 1 && (
+                    <div className="step-persona-portrait-overlay" aria-hidden="true">
+                      <span className="step-persona-portrait step-persona-portrait-one" />
+                      <span className="step-persona-portrait step-persona-portrait-two" />
+                      <span className="step-persona-portrait step-persona-portrait-three" />
+                    </div>
+                  )}
+                </div>
               </motion.div>
               <div className="step-highlights">
                 {s.highlights.map((item) => (
@@ -3650,6 +3659,23 @@ export default function LandingPage() {
           #sainthetic-home #faq.reference-faq .reference-faq-question { gap:7px !important; padding:10px 8px !important; }
           #sainthetic-home #faq.reference-faq .reference-faq-question-text { font-size:.81rem !important; }
         }
+      `}</style>
+      <style>{`
+        /* Replace the generic silhouette avatars in the Step 2 product screenshot with real portraits. */
+        #sainthetic-home #product-walkthrough .step-image-canvas { position:relative !important; width:100% !important; line-height:0 !important; }
+        #sainthetic-home #product-walkthrough .step-image-canvas > img { display:block !important; width:100% !important; height:auto !important; }
+        #sainthetic-home #product-walkthrough .step-persona-portrait-overlay { position:absolute !important; inset:0 !important; pointer-events:none !important; }
+        #sainthetic-home #product-walkthrough .step-persona-portrait {
+          position:absolute !important; top:8.2% !important; display:block !important;
+          width:5.8% !important; aspect-ratio:1 / 1 !important; height:auto !important;
+          border:2px solid rgba(255,255,255,.92) !important; border-radius:50% !important;
+          box-shadow:0 2px 8px rgba(0,0,0,.28) !important;
+          background-image:url("/community-avatars-clean.webp?v=20261103") !important;
+          background-repeat:no-repeat !important; background-size:500% 100% !important;
+        }
+        #sainthetic-home #product-walkthrough .step-persona-portrait-one { left:23% !important; transform:translate(-50%,-2%) !important; background-position:0% 50% !important; }
+        #sainthetic-home #product-walkthrough .step-persona-portrait-two { left:50% !important; transform:translate(-50%,-2%) !important; background-position:50% 50% !important; }
+        #sainthetic-home #product-walkthrough .step-persona-portrait-three { left:77.3% !important; transform:translate(-50%,-2%) !important; background-position:100% 50% !important; }
       `}</style>
       </div>
     </div>
