@@ -182,13 +182,12 @@ export default function Register() {
       >
         <div style={{ textAlign: "center", marginBottom: "24px" }}>
           <img
-            src="logo.jpg"
+            src="/sainthetic-mark.svg"
             alt="SocialSage Logo"
             style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "12px",
-              objectFit: "cover",
+              width: "48px",
+              height: "48px",
+              objectFit: "contain",
               marginBottom: "15px",
               boxShadow: "0 4px 12px rgba(255, 217, 69, 0.2)",
             }}
