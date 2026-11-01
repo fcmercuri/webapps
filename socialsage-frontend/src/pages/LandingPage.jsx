@@ -1330,6 +1330,134 @@ export default function LandingPage() {
           }
           #sainthetic-home .reference-visual { transform:translateY(-24px) !important; }
         }
+
+        /* Approved clean-white reference layout: final overrides for the homepage. */
+        #sainthetic-home { width:100% !important; min-width:0 !important; background:#fff !important; color:#101522 !important; overflow:hidden !important; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important; }
+        #sainthetic-home > div[style*="flex: 1"] { background:#fff !important; overflow:visible !important; }
+        #sainthetic-home nav.main-nav { display:flex !important; flex-direction:row !important; align-items:center !important; justify-content:space-between !important; width:calc(100% - 80px) !important; max-width:1240px !important; min-height:72px !important; margin:8px auto 0 !important; padding:10px 18px !important; border:1px solid #edf0f5 !important; border-radius:30px !important; background:rgba(255,255,255,.97) !important; box-shadow:0 12px 34px rgba(25,35,60,.07) !important; position:relative !important; z-index:30 !important; }
+        #sainthetic-home .nav-logo { width:38px !important; height:38px !important; border-radius:11px !important; object-fit:contain !important; }
+        #sainthetic-home .nav-brand { color:#101522 !important; font-size:1.45rem !important; font-weight:850 !important; letter-spacing:-.055em !important; }
+        #sainthetic-home .nav-spacer { display:none !important; }
+        #sainthetic-home .nav-right { display:flex !important; flex-direction:row !important; align-items:center !important; gap:6px !important; margin-left:auto !important; }
+        #sainthetic-home .nav-right a { color:#182033 !important; padding:11px 13px !important; border-radius:999px !important; font-size:.94rem !important; font-weight:600 !important; text-decoration:none !important; white-space:nowrap !important; }
+        #sainthetic-home .nav-right a:hover { background:#fff7dc !important; color:#101522 !important; }
+        #sainthetic-home .nav-right a.cta { color:#fff !important; background:#090e1d !important; padding:13px 22px !important; border-radius:999px !important; margin-left:8px !important; box-shadow:none !important; }
+        #sainthetic-home .sainthetic-reference-top { width:100% !important; max-width:1240px !important; margin:0 auto !important; padding:0 28px 24px !important; box-sizing:border-box !important; }
+        #sainthetic-home header#hero.reference-hero { display:grid !important; grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr) !important; grid-template-areas:none !important; align-items:center !important; gap:clamp(28px,4vw,54px) !important; min-height:0 !important; padding:34px 12px 26px !important; margin:0 auto !important; box-sizing:border-box !important; text-align:left !important; }
+        #sainthetic-home .reference-hero::before, #sainthetic-home .reference-hero::after, #sainthetic-home .reference-hero-copy::before, #sainthetic-home .reference-hero-copy::after { content:none !important; display:none !important; }
+        #sainthetic-home .reference-hero-copy { min-width:0 !important; }
+        #sainthetic-home .reference-eyebrow { margin:0 0 20px !important; }
+        #sainthetic-home .reference-hero h1 { max-width:590px !important; margin:0 0 20px !important; color:#101522 !important; -webkit-text-fill-color:#101522 !important; font-size:clamp(3.05rem,4.65vw,4.05rem) !important; line-height:1 !important; font-weight:850 !important; letter-spacing:-.068em !important; text-align:left !important; }
+        #sainthetic-home .reference-hero h1 span { color:#101522 !important; -webkit-text-fill-color:#101522 !important; background:linear-gradient(transparent 62%,#ffe28a 62%,#ffe28a 93%,transparent 93%) !important; }
+        #sainthetic-home .reference-subtitle { max-width:540px !important; margin:0 0 20px !important; color:#34415f !important; font-size:1.04rem !important; line-height:1.48 !important; }
+        #sainthetic-home .reference-actions { display:flex !important; flex-direction:row !important; align-items:center !important; flex-wrap:wrap !important; gap:13px !important; }
+        #sainthetic-home .reference-actions a { min-height:46px !important; display:inline-flex !important; align-items:center !important; justify-content:center !important; padding:0 22px !important; border-radius:999px !important; font-size:.96rem !important; font-weight:750 !important; white-space:nowrap !important; }
+        #sainthetic-home .reference-primary { background:#090e1d !important; color:#fff !important; }
+        #sainthetic-home .reference-secondary { background:#fff !important; color:#101522 !important; border:1.5px solid #111827 !important; }
+        #sainthetic-home .reference-reassurance { display:flex !important; flex-wrap:wrap !important; gap:10px 18px !important; margin-top:17px !important; color:#27334d !important; font-size:.82rem !important; }
+        #sainthetic-home .reference-visual { min-width:0 !important; min-height:390px !important; display:flex !important; align-items:center !important; justify-content:center !important; transform:translateY(-8px) !important; }
+        #sainthetic-home .reference-app-window { width:100% !important; max-width:560px !important; min-height:345px !important; display:grid !important; grid-template-columns:138px minmax(0,1fr) !important; padding:45px 16px 18px !important; border:1px solid #e6e9ef !important; border-radius:28px !important; background:linear-gradient(135deg,#fff,#f6f7fa) !important; box-shadow:0 25px 55px rgba(35,44,65,.16) !important; transform:rotate(-2deg) !important; box-sizing:border-box !important; }
+        #sainthetic-home .reference-persona-panel { min-width:0 !important; }
+        #sainthetic-home .reference-persona-avatar img, #sainthetic-home .growth-avatars img { image-rendering:auto !important; }
+        #sainthetic-home .reference-features { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:30px !important; padding:0 34px !important; margin:6px 0 30px !important; }
+        #sainthetic-home .reference-features article { min-width:0 !important; text-align:left !important; }
+        #sainthetic-home .reference-feature-icon { width:50px !important; height:50px !important; margin-bottom:9px !important; border-radius:14px !important; background:#fff0b9 !important; color:#101522 !important; }
+        #sainthetic-home .reference-features h3 { margin:0 0 5px !important; color:#101522 !important; font-size:1.35rem !important; font-weight:850 !important; letter-spacing:-.055em !important; }
+        #sainthetic-home .reference-features p { margin:0 !important; color:#34415f !important; font-size:1rem !important; line-height:1.38 !important; }
+        #sainthetic-home .reference-growth-bar { display:grid !important; grid-template-columns:1.15fr 1.1fr .9fr !important; align-items:center !important; gap:20px !important; min-height:98px !important; padding:15px 28px !important; margin:0 0 34px !important; border:1px solid #edf0f5 !important; border-radius:24px !important; background:#fff !important; box-shadow:0 10px 26px rgba(31,42,68,.065) !important; }
+        #sainthetic-home .growth-message { display:flex !important; align-items:center !important; gap:15px !important; padding-right:22px !important; border-right:1px solid #d9deea !important; }
+        #sainthetic-home .growth-message strong, #sainthetic-home .growth-count strong { color:#101522 !important; }
+        #sainthetic-home .growth-count span { color:#34415f !important; }
+        #sainthetic-home .growth-avatars { display:flex !important; justify-content:flex-end !important; }
+        #sainthetic-home .growth-avatars span { display:block !important; width:54px !important; height:54px !important; overflow:hidden !important; margin-left:-8px !important; border:2px solid #fff !important; border-radius:50% !important; }
+        #sainthetic-home .growth-avatars img { width:100% !important; height:100% !important; object-fit:cover !important; display:block !important; border-radius:50% !important; }
+        #sainthetic-home .reference-pricing { max-width:1160px !important; margin:0 auto !important; padding:0 10px !important; text-align:center !important; }
+        #sainthetic-home .reference-pricing h2 { margin:0 0 10px !important; color:#101522 !important; font-size:clamp(2.3rem,4vw,3rem) !important; line-height:1.1 !important; font-weight:850 !important; letter-spacing:-.065em !important; }
+        #sainthetic-home .pricing-intro { margin:0 0 28px !important; color:#34415f !important; font-size:1.1rem !important; }
+        #sainthetic-home .reference-pricing-grid { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:22px !important; align-items:stretch !important; }
+        #sainthetic-home .reference-price-card { display:flex !important; flex-direction:column !important; min-height:340px !important; padding:22px 24px 20px !important; border:1px solid #e9edf3 !important; border-radius:24px !important; background:#fff !important; box-shadow:0 9px 20px rgba(27,38,64,.055) !important; box-sizing:border-box !important; }
+        #sainthetic-home .reference-price-card.featured { background:linear-gradient(145deg,#fff9e4,#fffdf5) !important; border-color:#fff0c3 !important; }
+        #sainthetic-home .reference-price-card h3 { color:#101522 !important; font-size:1.6rem !important; }
+        #sainthetic-home .reference-price-card p { color:#34415f !important; }
+        #sainthetic-home .reference-price-card ul, #sainthetic-home .reference-price-card li { color:#111827 !important; }
+        #sainthetic-home .reference-price-card > a, #sainthetic-home .reference-price-card > button { min-height:44px !important; margin-top:auto !important; border-radius:999px !important; }
+        #sainthetic-home .reference-price-card.featured > button { background:#090e1d !important; color:#fff !important; }
+        #sainthetic-home .reference-how-it-works { max-width:1160px !important; margin:30px auto 0 !important; padding:25px 28px 24px !important; box-sizing:border-box !important; border:1px solid #e7ebf2 !important; border-radius:24px !important; background:#fff !important; box-shadow:0 12px 30px rgba(31,42,68,.065) !important; text-align:center !important; }
+        #sainthetic-home .reference-how-it-works h2 { margin:0 0 7px !important; color:#101522 !important; font-size:clamp(2rem,3.5vw,2.65rem) !important; font-weight:850 !important; letter-spacing:-.06em !important; }
+        #sainthetic-home .reference-how-it-works > p { margin:0 0 22px !important; color:#34415f !important; font-size:1rem !important; }
+        #sainthetic-home .reference-how-grid { display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:24px !important; text-align:left !important; }
+        #sainthetic-home .reference-how-grid article { display:flex !important; align-items:flex-start !important; gap:12px !important; min-width:0 !important; }
+        #sainthetic-home .reference-how-grid article > span { display:grid !important; place-items:center !important; flex:0 0 42px !important; width:42px !important; height:42px !important; border-radius:50% !important; background:#ffe28a !important; color:#101522 !important; font-size:1.2rem !important; font-weight:850 !important; }
+        #sainthetic-home .reference-how-grid h3 { margin:5px 0 !important; color:#101522 !important; font-size:1.05rem !important; font-weight:800 !important; }
+        #sainthetic-home .reference-how-grid p { margin:0 !important; color:#34415f !important; font-size:.92rem !important; line-height:1.42 !important; }
+        #sainthetic-home #product-walkthrough { max-width:1200px !important; margin:54px auto 0 !important; padding:0 20px !important; text-align:center !important; }
+        #sainthetic-home #product-walkthrough h2, #sainthetic-home #product-demo h2, #sainthetic-home #case-study h2, #sainthetic-home #faq h2 { color:#101522 !important; }
+        #sainthetic-home #product-walkthrough p, #sainthetic-home #product-demo p, #sainthetic-home #case-study p, #sainthetic-home #faq p { color:#4b5872 !important; }
+        #sainthetic-home .how-step-wrapper { display:grid !important; grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important; align-items:center !important; gap:44px !important; margin:0 auto 52px !important; text-align:left !important; }
+        #sainthetic-home .step-image { border:1px solid #e8edf4 !important; box-shadow:0 12px 30px rgba(31,42,68,.08) !important; }
+        #sainthetic-home .step-text h3 { color:#101522 !important; }
+        #sainthetic-home .step-text p { color:#4b5872 !important; }
+        #sainthetic-home #product-demo, #sainthetic-home #case-study, #sainthetic-home #faq { scroll-margin-top:100px; }
+        #sainthetic-home #product-demo { margin:58px auto 0 !important; }
+        #sainthetic-home #case-study, #sainthetic-home #faq { margin:70px auto 0 !important; }
+        #sainthetic-home #case-study > div[style*="linear-gradient"], #sainthetic-home #faq > div > div > div { background:#fff !important; border:1px solid #e9edf3 !important; box-shadow:0 12px 34px rgba(31,42,68,.06) !important; }
+        #sainthetic-home #case-study [style*="color:"], #sainthetic-home #faq [style*="color:"] { color:#34415f !important; }
+        #sainthetic-home #faq button { color:#101522 !important; background:#fff !important; }
+        #sainthetic-home footer { color:#5b6579 !important; border-color:#e9edf3 !important; background:#fff !important; }
+        #sainthetic-home section h2, #sainthetic-home section h3, #sainthetic-home section h4 { color:#101522 !important; }
+        #sainthetic-home section p { color:#4b5872 !important; }
+        #sainthetic-home .persona-try-demo { background:#fff !important; color:#101522 !important; border:1px solid #e7ebf2 !important; box-shadow:0 12px 30px rgba(31,42,68,.06) !important; }
+        #sainthetic-home .persona-try-demo h2, #sainthetic-home .persona-try-demo h3 { color:#101522 !important; }
+        #sainthetic-home .persona-try-demo p, #sainthetic-home .persona-try-demo li { color:#4b5872 !important; }
+        #sainthetic-home .persona-try-demo input, #sainthetic-home .persona-try-demo select { background:#fff !important; color:#101522 !important; border:1px solid #dfe5ee !important; }
+        #sainthetic-home .persona-try-demo input::placeholder { color:#7c879b !important; }
+        #sainthetic-home .persona-try-demo button { background:#090e1d !important; color:#fff !important; }
+        #sainthetic-home #pricing, #sainthetic-home #how-it-works, #sainthetic-home #product-walkthrough { scroll-margin-top:100px; }
+        @media (max-width:1000px) {
+          #sainthetic-home nav.main-nav { width:calc(100% - 40px) !important; }
+          #sainthetic-home header#hero.reference-hero { grid-template-columns:minmax(0,1fr) minmax(0,.95fr) !important; gap:24px !important; padding-top:28px !important; }
+          #sainthetic-home .reference-hero h1 { font-size:clamp(2.8rem,5.3vw,3.55rem) !important; }
+          #sainthetic-home .reference-app-window { grid-template-columns:108px minmax(0,1fr) !important; padding-left:12px !important; padding-right:10px !important; }
+          #sainthetic-home .reference-app-sidebar { font-size:.64rem !important; gap:10px !important; }
+          #sainthetic-home .reference-persona-panel { margin-left:8px !important; padding:8px !important; }
+          #sainthetic-home .reference-question { font-size:.62rem !important; }
+          #sainthetic-home .reference-growth-bar { padding:14px 18px !important; grid-template-columns:1fr 1fr .8fr !important; }
+        }
+        @media (max-width:760px) {
+          #sainthetic-home nav.main-nav { width:calc(100% - 24px) !important; min-height:62px !important; padding:8px 12px !important; }
+          #sainthetic-home .desktop-nav { display:none !important; }
+          #sainthetic-home .sainthetic-menu-toggle { display:block !important; }
+          #sainthetic-home header#hero.reference-hero { grid-template-columns:1fr !important; padding:34px 0 18px !important; gap:0 !important; }
+          #sainthetic-home .reference-hero h1 { max-width:620px !important; font-size:clamp(2.7rem,9vw,4rem) !important; }
+          #sainthetic-home .reference-visual { min-height:350px !important; margin-top:20px !important; transform:none !important; }
+          #sainthetic-home .reference-app-window { max-width:560px !important; transform:rotate(-1deg) !important; }
+          #sainthetic-home .reference-features { grid-template-columns:1fr !important; gap:22px !important; padding:0 8px !important; }
+          #sainthetic-home .reference-features p br { display:none; }
+          #sainthetic-home .reference-growth-bar { grid-template-columns:1fr 1fr !important; gap:12px !important; padding:16px !important; }
+          #sainthetic-home .growth-message { border:0 !important; padding:0 !important; }
+          #sainthetic-home .growth-avatars { grid-column:1/-1 !important; justify-content:flex-start !important; }
+          #sainthetic-home .reference-pricing-grid { grid-template-columns:1fr !important; }
+          #sainthetic-home .reference-price-card { min-height:0 !important; }
+          #sainthetic-home .reference-how-grid { grid-template-columns:1fr !important; gap:18px !important; }
+          #sainthetic-home .sainthetic-reference-top { padding:0 20px 22px !important; }
+          #sainthetic-home .reference-pricing { padding:0 !important; }
+          #sainthetic-home .how-step-wrapper { grid-template-columns:1fr !important; gap:20px !important; margin-bottom:40px !important; }
+          #sainthetic-home .how-step-wrapper:nth-of-type(even) .step-image { order:0 !important; }
+        }
+        @media (max-width:420px) {
+          #sainthetic-home .nav-brand { font-size:1.2rem !important; }
+          #sainthetic-home .nav-logo { width:34px !important; height:34px !important; }
+          #sainthetic-home .reference-app-window { grid-template-columns:88px minmax(0,1fr) !important; padding:42px 8px 12px !important; }
+          #sainthetic-home .reference-app-sidebar { font-size:.56rem !important; gap:9px !important; }
+          #sainthetic-home .reference-persona-profile { gap:7px !important; }
+          #sainthetic-home .reference-persona-avatar { width:40px !important; height:40px !important; flex-basis:40px !important; }
+          #sainthetic-home .reference-persona-profile strong { font-size:.65rem !important; }
+          #sainthetic-home .reference-tags span { font-size:.54rem !important; padding:4px 6px !important; }
+          #sainthetic-home .reference-question { font-size:.55rem !important; white-space:normal !important; }
+          #sainthetic-home .reference-reassurance { gap:8px 12px !important; font-size:.72rem !important; }
+          #sainthetic-home .growth-avatars span { width:46px !important; height:46px !important; }
+        }
+      `;
       `}</style>
 
 
@@ -1354,7 +1482,7 @@ export default function LandingPage() {
           <header id="hero" className="reference-hero">
             <div className="reference-hero-copy">
               <div className="reference-eyebrow"><span>⚡</span> AI Buyer Intelligence for Growth</div>
-              <h1>Stop guessing<br/>what your buyers<br/>want.<br/>Know exactly<br/><span>what they ask AI.</span></h1>
+              <h1>Stop guessing<br/>what your<br/>buyers want.<br/>Know exactly<br/><span>what they ask AI.</span></h1>
               <p className="reference-subtitle">sAInthetic generates AI buyer personas and reveals the exact questions your customers ask LLMs. Your content ranks, converts, and never feels generic again.</p>
               <div className="reference-actions">
                 <a className="reference-primary" href="/register">See your first buyer persona <span>→</span></a>
@@ -1432,7 +1560,18 @@ export default function LandingPage() {
 
 
         {/* ============ HOW IT WORKS ============ */}
-        <section id="how-it-works" style={{ margin: "7rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
+        <section id="how-it-works" className="reference-how-it-works" aria-labelledby="reference-how-title">
+          <h2 id="reference-how-title">How it works</h2>
+          <p>From audience insight to content that converts, in three simple steps.</p>
+          <div className="reference-how-grid">
+            <article><span>1</span><div><h3>Create your buyer persona</h3><p>Generate AI personas based on your real audience.</p></div></article>
+            <article><span>2</span><div><h3>See the exact questions</h3><p>Discover what your buyers ask in ChatGPT, Google and more.</p></div></article>
+            <article><span>3</span><div><h3>Turn insight into content</h3><p>Get data-backed ideas, briefs and topics that drive results.</p></div></article>
+          </div>
+        </section>
+
+        {/* Original detailed four-step product walkthrough retained below the compact overview. */}
+        <section id="product-walkthrough" className="product-walkthrough" style={{ margin: "3.5rem auto 0 auto", maxWidth: 1200, textAlign: "center", padding: "0 20px", position: "relative", zIndex: 2 }}>
           <h2 style={{ color: "#ffd945", fontWeight: 900, fontSize: "2.1rem", marginBottom: "0.9rem", letterSpacing: "-1px" }}>AI-Powered Content That Converts</h2>
           <p style={{ color: "#bbb", marginBottom: "5.2rem", fontSize: "1.15rem" }}>Generate customer personas, content ideas, and conversion-ready copy in minutes</p>
 
