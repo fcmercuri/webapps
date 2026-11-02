@@ -64,6 +64,73 @@ const personas = {
   }
 };
 
+
+const conversionPlaybooks = {
+  SaaS: {
+    headline: "Turn platform research into qualified demo requests",
+    items: [
+      ["Comparison landing page", "Compare implementation effort, integrations, adoption and total cost against spreadsheets and competing tools.", "Give evaluation-stage buyers a clear reason to shortlist your platform.", "View the comparison →"],
+      ["Migration and onboarding guide", "Show the first 30 days, who does what, how data moves and how disruption is reduced. Use only verified product capabilities.", "Remove the fear that switching will consume the team's time.", "Explore the migration plan →"],
+      ["ROI calculator and demo pathway", "Let a team estimate hours saved and workflow impact using its own inputs, then invite it to see the workflow in a tailored demo.", "Convert a quantified business case into a sales conversation.", "Calculate potential savings →"]
+    ],
+    close: "A buyer who can compare, de-risk and quantify the change is much closer to booking a demo."
+  },
+  Finance: {
+    headline: "Turn financial uncertainty into completed applications",
+    items: [
+      ["Business account comparison", "Explain eligibility, FSCS protection where applicable, access to funds, fees and service in a transparent side-by-side format.", "Help finance decision-makers understand whether the account fits their business.", "Compare account features →"],
+      ["Application readiness checklist", "List the documents, checks, decision points and realistic steps required to apply. Keep requirements aligned with the provider's current policy.", "Reduce abandonment caused by uncertainty about the application process.", "Check application requirements →"],
+      ["Cash-management decision guide", "Help businesses assess liquidity needs, access restrictions and risk before considering savings options.", "Move a researched prospect towards the right product conversation.", "Explore business savings options →"]
+    ],
+    close: "Make the next step feel clear and trustworthy: understand eligibility, prepare documents and start an application."
+  },
+  Ecommerce: {
+    headline: "Turn product research into confident purchases",
+    items: [
+      ["Needs-based product finder", "Guide shoppers by skin type, preferences, ingredients and budget, using only substantiated product information.", "Help visitors identify the product that fits their needs instead of leaving to research elsewhere.", "Find your best-fit product →"],
+      ["Ingredient and product comparison", "Compare the relevant ingredients, sizes, prices, usage and verified customer feedback without unsupported benefit claims.", "Resolve the 'why this one?' question at the point of consideration.", "Compare products →"],
+      ["Trust and returns explainer", "Answer questions about product claims, delivery, returns and how to use the product, with links to the actual policies.", "Remove last-minute purchase hesitation.", "Shop with confidence →"]
+    ],
+    close: "Give shoppers the confidence to choose a product and complete checkout, not just read another generic blog post."
+  },
+  Healthcare: {
+    headline: "Turn patient research into appropriate appointment enquiries",
+    items: [
+      ["Service and suitability guide", "Explain which services are offered, who they may be suitable for and when a different care pathway is needed. Avoid diagnosis or promises.", "Help visitors understand whether to contact the service.", "Explore the service →"],
+      ["First appointment guide", "Set out what happens, how to prepare, what information to bring and what follow-up may look like.", "Reduce anxiety and practical uncertainty before booking.", "Prepare for an appointment →"],
+      ["Credentials and care standards page", "Make practitioner qualifications, regulatory status, clinical governance and relevant policies easy to verify.", "Build trust with patients who are comparing providers.", "Check credentials and availability →"]
+    ],
+    close: "The goal is not to pressure patients. It is to help the right person make an informed decision about contacting a qualified provider."
+  },
+  RealEstate: {
+    headline: "Turn property research into qualified viewing enquiries",
+    items: [
+      ["Local area comparison", "Compare commute, amenities, schools and recent market evidence for the areas a buyer is considering.", "Attract buyers earlier and help them narrow their search.", "Explore the area →"],
+      ["Property total-cost breakdown", "Show asking price alongside estimated mortgage, council tax, energy and other ownership costs, with assumptions clearly stated.", "Answer the affordability question before it blocks an enquiry.", "Review the property details →"],
+      ["Viewing and offer toolkit", "Provide a viewing checklist, questions to ask and an evidence-led guide to making an offer.", "Turn serious research into a specific viewing request.", "Book a viewing →"]
+    ],
+    close: "Help buyers move from browsing listings to understanding a property and arranging a viewing."
+  },
+  Education: {
+    headline: "Turn course research into qualified applications",
+    items: [
+      ["Career-outcome course guide", "Connect curriculum, practical projects and verified graduate outcomes to the roles prospective students want.", "Help applicants understand the value of the programme beyond its title.", "Explore the programme →"],
+      ["Entry and funding roadmap", "Explain entry requirements, application milestones, scholarships and funding routes with clear eligibility notes.", "Remove uncertainty around whether applying is realistic.", "Check entry requirements →"],
+      ["Student experience and employer evidence", "Showcase verified student work, employer partnerships, placements and graduate stories with context.", "Give applicants evidence to support their shortlist.", "Request programme information →"]
+    ],
+    close: "Give prospective students a reason to shortlist the programme — and a clear next step to apply or speak to admissions."
+  },
+  Travel: {
+    headline: "Turn destination comparison into direct bookings",
+    items: [
+      ["True-trip-cost comparison", "Compare flights, baggage, transfers, board basis and cancellation terms so travellers can understand the real total.", "Make the direct offer easier to evaluate than a headline OTA price.", "Compare trip options →"],
+      ["Family-ready destination guide", "Match destinations and stays to family needs such as travel time, facilities, location and flexibility, using verified details.", "Help travellers move from inspiration to a shortlist.", "Find your ideal stay →"],
+      ["Direct-booking value page", "Explain the actual benefits, inclusions and terms of booking direct without implying perks that are not offered.", "Give ready-to-book visitors a reason to complete the reservation on your site.", "Check availability →"]
+    ],
+    close: "Make the direct-booking value tangible at the moment travellers are comparing options."
+  }
+};
+
 export default function PersonaTryDemo() {
   const navigate = useNavigate();
   const [industry, setIndustry] = useState("SaaS");
@@ -142,6 +209,15 @@ export default function PersonaTryDemo() {
         .persona-result-stage { padding:11px; border:1px solid #dcebe3; border-radius:11px; background:#fff; color:#355b49; font-size:.82rem; font-weight:750; }
         .persona-result-stage span { display:block; margin-bottom:4px; color:#89978f; font-size:.65rem; letter-spacing:.1em; }
         .persona-result-insights ul { display:grid; gap:8px; margin:0; padding-left:18px; color:#43516a; font-size:.9rem; line-height:1.45; }
+        .persona-result-commercial { background:linear-gradient(145deg,#f3faf6,#fff); }
+        .persona-result-commercial-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:14px; }
+        .persona-result-commercial-card { min-width:0; padding:15px; border:1px solid #dcebe3; border-radius:13px; background:#fff; }
+        .persona-result-commercial-number { color:#69917b; font-size:.68rem; font-weight:850; letter-spacing:.1em; }
+        .persona-result-commercial-card h5 { margin:8px 0; color:#203b30; font-size:.96rem; line-height:1.3; }
+        .persona-result-commercial-card p { margin:0 0 10px; color:#526477; font-size:.83rem; line-height:1.5; }
+        .persona-result-commercial-card .persona-result-commercial-outcome { padding-top:9px; border-top:1px solid #edf2ee; color:#315d49; }
+        .persona-result-commercial-action { display:inline-block; margin-top:2px; color:#72590c; font-size:.8rem; font-weight:800; }
+        .persona-result-commercial-close { margin:14px 0 0; color:#315d49; font-size:.9rem; font-weight:700; line-height:1.5; }
         .persona-demo-evidence { margin-top:10px; color:#788294; font-size:.76rem; line-height:1.45; }
         .persona-result-name { margin:0; color:#171b2b; font-size:clamp(1.35rem,3vw,1.8rem); line-height:1.15; letter-spacing:-.04em; }
         .persona-result-role { margin-top:5px; color:#667085; font-size:.95rem; line-height:1.4; }
@@ -177,6 +253,8 @@ export default function PersonaTryDemo() {
            .persona-result-avatar { width:48px; height:48px; flex-basis:48px; border-radius:14px; font-size:23px; }
           .persona-result-avatar-icon { width:48px; height:48px; flex-basis:48px; border-radius:14px; } .persona-result-avatar-icon svg { width:26px; height:26px; }
           .persona-result-stages { grid-template-columns:1fr; gap:7px; }
+          .persona-result-commercial-grid { grid-template-columns:1fr; gap:9px; }
+          .persona-result-commercial-card { padding:14px; }
           .persona-result-stage { padding:9px 10px; }
           .persona-result-name { font-size:1.35rem; }
           .persona-result-role { font-size:.84rem; }
@@ -198,7 +276,7 @@ export default function PersonaTryDemo() {
 
       <div className="persona-demo-intro">
         <h2>See what a buyer persona looks like</h2>
-        <p>Choose an industry to explore a sample. Then create a free account to build and save a persona for your own business.</p>
+        <p>Explore a worked example for your industry. Create a free account to analyse your own website, uncover buyer decisions and build a practical content-to-conversion plan.</p>
       </div>
 
       <div className="persona-demo-controls">
@@ -208,7 +286,7 @@ export default function PersonaTryDemo() {
         <input aria-label="Company name, optional" placeholder="Company (optional)" value={company} onChange={e => setCompany(e.target.value)} />
         <div className="persona-demo-website-field">
           <input aria-label="Company website, required" aria-required="true" aria-invalid={!!websiteError} aria-describedby="persona-website-help persona-website-error" type="url" placeholder="Website (e.g. yourcompany.com)" value={website} onChange={e => { setWebsite(e.target.value); setWebsiteError(""); }} />
-          <small id="persona-website-help">Your website is the differentiator: it gives Sainthetic your real products, positioning and content to build a persona around your brand, not just your industry.</small>
+          <small id="persona-website-help">Your website is used when you create your account and run your own analysis. This preview is an illustrative industry example.</small>
           {websiteError && <small id="persona-website-error" role="alert">{websiteError}</small>}
         </div>
       </div>
@@ -253,8 +331,25 @@ export default function PersonaTryDemo() {
           <div className="persona-result-insights">
             <h4>What your team should create next</h4>
             <div className="persona-result-stages">{(persona.decisionStages || ["Research", "Compare", "Decide"]).map((stage, index) => <div className="persona-result-stage" key={stage}><span>STAGE 0{index+1}</span>{stage}</div>)}</div>
-            <ul>{(persona.contentOpportunities || ["Comparison content that clarifies decision criteria", "Evidence-led guides that address common objections", "Practical checklists that help buyers take the next step"]).map(item => <li key={item}>{item}</li>)}</ul>
-            <p className="persona-demo-evidence">Illustrative AI-generated recommendations based on this sample persona, not verified search-volume or customer research data.</p>
+            <ul>{(persona.contentOpportunities || []).map(item => <li key={item}>{item}</li>)}</ul>
+            <p className="persona-demo-evidence">Illustrative recommendations for this sample industry. A live analysis uses your website and should validate opportunities against your actual offer and evidence.</p>
+          </div>
+
+          <div className="persona-result-insights persona-result-commercial">
+            <span className="persona-prompt-label">FROM INSIGHT TO CONVERSION</span>
+            <h4>{conversionPlaybooks[industry].headline}</h4>
+            <div className="persona-result-commercial-grid">
+              {conversionPlaybooks[industry].items.map(([asset, detail, outcome, action], index) => (
+                <article className="persona-result-commercial-card" key={asset}>
+                  <span className="persona-result-commercial-number">0{index + 1}</span>
+                  <h5>{asset}</h5>
+                  <p>{detail}</p>
+                  <p className="persona-result-commercial-outcome"><strong>Why it matters:</strong> {outcome}</p>
+                  <span className="persona-result-commercial-action">{action}</span>
+                </article>
+              ))}
+            </div>
+            <p className="persona-result-commercial-close">{conversionPlaybooks[industry].close}</p>
           </div>
 
           <div className="persona-prompt">
