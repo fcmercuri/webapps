@@ -18,14 +18,32 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
   const [selected, setSelected] = useState(currentIndustry || '');
   const [loading, setLoading] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState('');
+  const [websiteError, setWebsiteError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selected) return;
     
+    setWebsiteError('');
+    const enteredWebsite = websiteUrl.trim();
+    let normalizedWebsite = '';
+    if (enteredWebsite) {
+      const candidate = /^https?:\/\//i.test(enteredWebsite) ? enteredWebsite : 'https://' + enteredWebsite;
+      try {
+        const parsed = new URL(candidate);
+        if (!parsed.hostname.includes('.') || !['http:', 'https:'].includes(parsed.protocol)) throw new Error('invalid');
+        normalizedWebsite = parsed.href;
+      } catch {
+        setWebsiteError('Enter a valid website, for example www.santander.co.uk');
+        return;
+      }
+    }
     setLoading(true);
-    await onSelect(selected, websiteUrl.trim());
-    setLoading(false);
+    try {
+      await onSelect(selected, normalizedWebsite);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -59,13 +77,17 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
           <label htmlFor="business-website" style={{ display: 'block', color: '#28243a', fontWeight: 700, marginBottom: '8px' }}>Your website <span style={{ color: '#8b5cf6', fontWeight: 600 }}>(recommended)</span></label>
           <input
             id="business-website"
-            type="url"
+            type="text"
+            inputMode="url"
+            autoCapitalize="none"
+            spellCheck={false}
             value={websiteUrl}
             onChange={(e) => setWebsiteUrl(e.target.value)}
-            placeholder="https://www.yourbusiness.com"
+            placeholder="www.yourbusiness.com"
             autoComplete="url"
             style={{ width: '100%', boxSizing: 'border-box', padding: '14px 16px', border: '1px solid #ded8ed', borderRadius: '10px', background: '#fff', color: '#28243a', fontSize: '1rem' }}
           />
+          {websiteError && <p role="alert" style={{ color: '#dc2626', fontSize: '0.85rem', margin: '7px 0 0' }}>{websiteError}</p>}
           <p style={{ color: '#777187', fontSize: '0.85rem', margin: '7px 0 0' }}>We'll analyse your website to understand what you sell, who you serve and how you position your business. This makes the personas specific to your business, not just your industry.</p>
         </div>
         <div style={{
