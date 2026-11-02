@@ -61,7 +61,7 @@ export default function Login() {
       setError("Google login failed. Please try again.");
     },
     onNonOAuthError: () => {
-      setBackendConnecting(false);
+
       setGoogleLoading(false);
       setError("Google sign-in was interrupted. Please try again.");
     },
@@ -327,7 +327,7 @@ export default function Login() {
           onClick={() => {
             setError("");
             googleClickStarted.current = performance.now();
-            setBackendConnecting(true);
+
             setGoogleLoading(true);
             loginWithGoogle();
           }}
