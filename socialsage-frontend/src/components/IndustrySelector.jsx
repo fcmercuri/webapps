@@ -17,13 +17,14 @@ const industries = [
 export default function IndustrySelector({ onSelect, currentIndustry }) {
   const [selected, setSelected] = useState(currentIndustry || '');
   const [loading, setLoading] = useState(false);
+  const [websiteUrl, setWebsiteUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selected) return;
     
     setLoading(true);
-    await onSelect(selected);
+    await onSelect(selected, websiteUrl.trim());
     setLoading(false);
   };
 
@@ -54,6 +55,19 @@ export default function IndustrySelector({ onSelect, currentIndustry }) {
       </p>
 
       <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '22px' }}>
+          <label htmlFor="business-website" style={{ display: 'block', color: '#28243a', fontWeight: 700, marginBottom: '8px' }}>Your website <span style={{ color: '#8b5cf6', fontWeight: 600 }}>(recommended)</span></label>
+          <input
+            id="business-website"
+            type="url"
+            value={websiteUrl}
+            onChange={(e) => setWebsiteUrl(e.target.value)}
+            placeholder="https://www.yourbusiness.com"
+            autoComplete="url"
+            style={{ width: '100%', boxSizing: 'border-box', padding: '14px 16px', border: '1px solid #ded8ed', borderRadius: '10px', background: '#fff', color: '#28243a', fontSize: '1rem' }}
+          />
+          <p style={{ color: '#777187', fontSize: '0.85rem', margin: '7px 0 0' }}>We'll analyse your website to understand what you sell, who you serve and how you position your business. This makes the personas specific to your business, not just your industry.</p>
+        </div>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
