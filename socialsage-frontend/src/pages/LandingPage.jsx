@@ -5,6 +5,28 @@ import NavigationBar from "../components/NavigationBar";
 import Footer from '../components/Footer';
 import PersonaTryDemo from "../components/PersonaTryDemo";
 
+// --- Cookie Consent Banner ---
+function USCookieConsent() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    try {
+      const dismissed = localStorage.getItem("us_cookie_consent_dismissed");
+      if (!dismissed) setVisible(true);
+    } catch (e) { setVisible(true); }
+  }, []);
+  const dismiss = () => {
+    try { localStorage.setItem("us_cookie_consent_dismissed", "true"); } catch (e) {}
+    setVisible(false);
+  };
+  if (!visible) return null;
+  return (
+    <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "#1a1a2e", borderTop: "1px solid #333", padding: "1rem 1.5rem", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+      <span style={{ color: "#aaa", fontSize: "0.82rem" }}>We use cookies to improve your experience. By using this site you consent to our use of cookies.</span>
+      <button onClick={dismiss} style={{ background: "#ffd945", color: "#000", border: "none", borderRadius: 8, padding: "6px 18px", fontWeight: 700, cursor: "pointer", fontSize: "0.85rem" }}>Got it</button>
+    </div>
+  );
+}
+
 export default function LandingPage() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -73,27 +95,7 @@ export default function LandingPage() {
     window.location = url;
   }
 
-  // --- Cookie Consent Banner ---
-  function USCookieConsent() {
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-      try {
-        const dismissed = localStorage.getItem("us_cookie_consent_dismissed");
-        if (!dismissed) setVisible(true);
-      } catch (e) { setVisible(true); }
-    }, []);
-    const dismiss = () => {
-      try { localStorage.setItem("us_cookie_consent_dismissed", "true"); } catch (e) {}
-      setVisible(false);
-    };
-    if (!visible) return null;
-    return (
-      <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "#1a1a2e", borderTop: "1px solid #333", padding: "1rem 1.5rem", zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-        <span style={{ color: "#aaa", fontSize: "0.82rem" }}>We use cookies to improve your experience. By using this site you consent to our use of cookies.</span>
-        <button onClick={dismiss} style={{ background: "#ffd945", color: "#000", border: "none", borderRadius: 8, padding: "6px 18px", fontWeight: 700, cursor: "pointer", fontSize: "0.85rem" }}>Got it</button>
-      </div>
-    );
-  }
+
 
   const cards = [
     {
