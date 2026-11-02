@@ -4263,6 +4263,32 @@ export default function LandingPage() {
         }
       `}</style>
 
+      <style>{`
+        /* Keep the preview label and arrow fully inside the outlined CTA. */
+        @media (min-width:761px) {
+          #sainthetic-home header#hero .reference-actions a.reference-secondary {
+            box-sizing:border-box !important;
+            flex:0 0 auto !important;
+            width:max-content !important;
+            min-width:max-content !important;
+            max-width:100% !important;
+            justify-content:center !important;
+            gap:12px !important;
+            padding-left:20px !important;
+            padding-right:20px !important;
+            overflow:visible !important;
+          }
+          #sainthetic-home header#hero .reference-actions a.reference-secondary .preview-arrow {
+            display:inline-flex !important;
+            flex:0 0 auto !important;
+            align-items:center !important;
+            justify-content:center !important;
+            margin:0 !important;
+            line-height:1 !important;
+          }
+        }
+      `}</style>
+
       </div>
     </div>
   );
