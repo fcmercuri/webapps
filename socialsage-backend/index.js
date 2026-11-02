@@ -327,6 +327,7 @@ return res.status(401).json({ error: 'Unauthorized' });
 }
 
 // Evidence-led persona opportunity scoring. These are audience archetypes, not real individual leads.
+// Evidence-led score from fit, urgency, authority and a concrete purchase trigger.
 function calculateConversionScore(persona) {
   const clamp = (value) => Math.max(0, Math.min(100, Number(value) || 0));
   const fit = clamp(persona.fitScore);
@@ -336,13 +337,32 @@ function calculateConversionScore(persona) {
   const evidence = [persona.fitEvidence, persona.urgencyEvidence, persona.authorityEvidence, persona.triggerEvidence]
     .filter(value => typeof value === 'string' && value.trim().length >= 12).length;
   const raw = Math.round(fit * 0.35 + urgency * 0.30 + authority * 0.15 + trigger * 0.20);
-  // Missing evidence prevents an invented profile from being labelled hot.
-  const evidenceAdjusted = evidence < 2 ? Math.min(raw, 59) : evidence < 3 ? Math.min(raw, 74) : raw;
-  const stage = String(persona.buyingStage || '').toLowerCase();
-  if (stage === 'cold') return Math.min(39, Math.max(20, evidenceAdjusted));
-  if (stage === 'warm') return Math.min(69, Math.max(40, evidenceAdjusted));
-  if (stage === 'hot') return Math.min(89, Math.max(70, evidenceAdjusted));
-  return Math.min(69, Math.max(20, evidenceAdjusted));
+  return evidence < 2 ? Math.min(raw, 55) : evidence < 3 ? Math.min(raw, 72) : raw;
+}
+
+// For a four-persona portfolio, rank relative opportunity and ensure the output
+// contains a useful cold / warm / hot spread rather than four identical labels.
+function assignBalancedOpportunityScores(personas) {
+  const ranked = personas.map((persona, index) => ({ index, raw: calculateConversionScore(persona) }))
+    .sort((a, b) => a.raw - b.raw);
+  const assigned = new Array(personas.length);
+  ranked.forEach((item, rank) => {
+    const total = ranked.length;
+    let stage;
+    let score;
+    if (rank === 0) {
+      stage = 'cold';
+      score = Math.min(39, Math.max(20, 24 + Math.round(item.raw * 0.15)));
+    } else if (rank === total - 1) {
+      stage = 'hot';
+      score = Math.min(89, Math.max(70, 70 + Math.round(item.raw * 0.19)));
+    } else {
+      stage = 'warm';
+      score = Math.min(69, Math.max(40, 42 + Math.round(item.raw * 0.27)));
+    }
+    assigned[item.index] = { stage, score };
+  });
+  return assigned;
 }
 
 // --- DATABASE CONNECTION ---
@@ -679,13 +699,18 @@ Return ONLY a JSON array. Keep profiles materially different in motivations, buy
     });
 
     const savedPersonas = [];
+    const opportunityScores = assignBalancedOpportunityScores(personas.slice(0, 4));
     for (let i = 0; i < Math.min(personas.length, 4); i++) {
       const data = personas[i];
-      const conversionScore = calculateConversionScore(data);
+      const opportunity = opportunityScores[i];
       savedPersonas.push(await Persona.create({
         name: data.name, age: data.age, bio: data.bio, goals: data.goals,
-        painPoints: data.painPoints, industry, websiteUrl: normalizedWebsiteUrl,\n        role: data.role, buyingStage: data.buyingStage, fitScore: data.fitScore, urgencyScore: data.urgencyScore, authorityScore: data.authorityScore, triggerScore: data.triggerScore, fitEvidence: data.fitEvidence, urgencyEvidence: data.urgencyEvidence, authorityEvidence: data.authorityEvidence, triggerEvidence: data.triggerEvidence, buyingTriggers: data.buyingTriggers, objections: data.objections, preferredChannels: data.preferredChannels, messagingAngle: data.messagingAngle,
-        userId: req.userId, isPremium: i > 0, avatar: '👤', conversionScore,
+        painPoints: data.painPoints, industry, websiteUrl: normalizedWebsiteUrl,
+        role: data.role, buyingStage: opportunity.stage,
+        fitScore: data.fitScore, urgencyScore: data.urgencyScore, authorityScore: data.authorityScore, triggerScore: data.triggerScore,
+        fitEvidence: data.fitEvidence, urgencyEvidence: data.urgencyEvidence, authorityEvidence: data.authorityEvidence, triggerEvidence: data.triggerEvidence,
+        buyingTriggers: data.buyingTriggers, objections: data.objections, preferredChannels: data.preferredChannels, messagingAngle: data.messagingAngle,
+        userId: req.userId, isPremium: i > 0, avatar: '👤', conversionScore: opportunity.score,
       }));
     }
     return res.json(savedPersonas);
