@@ -219,13 +219,7 @@ export default function PersonaTryDemo() {
         .persona-result-commercial-action { display:inline-block; margin-top:2px; color:#72590c; font-size:.8rem; font-weight:800; }
         .persona-result-commercial-close { margin:14px 0 0; color:#315d49; font-size:.9rem; font-weight:700; line-height:1.5; }
         .persona-demo-evidence { margin-top:10px; color:#788294; font-size:.76rem; line-height:1.45; }
-        .persona-result-photo { width:76px; height:76px; flex:0 0 76px; position:relative; display:block; overflow:hidden; isolation:isolate; border:3px solid #fff; outline:1px solid #e5e9ef; border-radius:50%; background:#e8e9ec; box-shadow:0 4px 14px rgba(23,27,43,.12); }
-        .persona-result-photo-image { position:absolute; top:0; left:0; display:block; width:500%; max-width:none; height:100%; object-fit:fill; border:0; border-radius:0; }
-        .persona-result-photo-image-0 { transform:translateX(0); }
-        .persona-result-photo-image-1 { transform:translateX(-20%); }
-        .persona-result-photo-image-2 { transform:translateX(-40%); }
-        .persona-result-photo-image-3 { transform:translateX(-60%); }
-        .persona-result-photo-image-4 { transform:translateX(-80%); }
+        .persona-result-photo { width:88px; height:88px; flex:0 0 88px; display:block; object-fit:contain; object-position:center; border:1px solid #e5e9ef; border-radius:14px; background:#fff; box-shadow:0 4px 14px rgba(23,27,43,.12); }
         .persona-result-profile-head { align-items:center; }
         .persona-result-age { margin-top:5px; color:#8992a2; font-size:.76rem; }
         .persona-result-score { display:flex; flex-direction:column; align-items:flex-end; gap:6px; text-align:right; }
@@ -319,9 +313,7 @@ export default function PersonaTryDemo() {
         <div className="persona-result" aria-live="polite">
           <div className="persona-result-head persona-result-profile-head">
             <div className="persona-result-identity">
-              <div className="persona-result-photo" role="img" aria-label={`${persona.name}, illustrative customer persona`}>
-                <img className={`persona-result-photo-image persona-result-photo-image-${persona.avatarIndex ?? 0}`} src="/community-avatars-clean.webp?v=20261106" alt="" />
-              </div>
+              <img className="persona-result-photo" src="https://dl-file.cyberlink.com/web/content/sales_after_b9b7911202.jpg" alt="Illustrative customer portrait" />
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
