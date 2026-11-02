@@ -15,7 +15,6 @@ export default function Register() {
   const [successMsg, setSuccessMsg] = useState(""); // NEW: success message
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [backendConnecting, setBackendConnecting] = useState(false);
   const googleClickStarted = useRef(null);
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -40,7 +39,6 @@ export default function Register() {
       console.info("[sAInthetic auth] Google OAuth completed", { oauthMs });
       const backendStarted = performance.now();
       setGoogleLoading(true);
-      setBackendConnecting(true);
       try {
         setError("");
         setSuccessMsg(""); // Clear success
@@ -62,12 +60,10 @@ export default function Register() {
       } catch (err) {
         setError(err.message || "Google sign up failed");
       } finally {
-        setBackendConnecting(false);
         setGoogleLoading(false);
       }
     },
     onError: () => {
-      setBackendConnecting(false);
       setGoogleLoading(false);
       setError("Google sign up failed. Please try again.");
     },
@@ -333,25 +329,7 @@ export default function Register() {
           </div>
 
           {/* NEW: Success message */}
-          {(loading || backendConnecting) && (
-        <div
-          role="status"
-          style={{
-            background: "rgba(167, 139, 250, 0.10)",
-            border: "1px solid rgba(167, 139, 250, 0.28)",
-            color: "#d8c5ff",
-            padding: "11px 13px",
-            borderRadius: "8px",
-            fontSize: "0.88rem",
-            lineHeight: 1.45,
-            marginTop: "16px",
-          }}
-        >
-          Waking up sAInthetic — this can take up to a minute after inactivity.
-        </div>
-      )}
-
-      {successMsg && (
+          {successMsg && (
             <div
               style={{
                 background: "rgba(34, 197, 94, 0.1)",
