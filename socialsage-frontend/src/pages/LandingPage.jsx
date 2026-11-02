@@ -10,6 +10,40 @@ export default function LandingPage() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const personaCaption = "Build a buyer persona set that feels like your real customers.";
   const [typedPersonaCaption, setTypedPersonaCaption] = useState("");
+  const [typedBrand, setTypedBrand] = useState("");
+  useEffect(() => {
+    const brands = ["Notion", "HubSpot", "Shopify", "Salesforce", "Canva", "Monday.com"];
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTypedBrand("Notion");
+      return undefined;
+    }
+    let brandIndex = 0;
+    let characterIndex = 0;
+    let deleting = false;
+    let pause = 0;
+    let timer;
+    const tick = () => {
+      const brand = brands[brandIndex];
+      if (pause > 0) pause -= 1;
+      else if (!deleting) {
+        characterIndex += 1;
+        setTypedBrand(brand.slice(0, characterIndex));
+        if (characterIndex >= brand.length) { deleting = true; pause = 10; }
+      } else {
+        characterIndex -= 1;
+        setTypedBrand(brand.slice(0, characterIndex));
+        if (characterIndex <= 0) {
+          deleting = false;
+          let nextIndex = brandIndex;
+          while (nextIndex === brandIndex) nextIndex = Math.floor(Math.random() * brands.length);
+          brandIndex = nextIndex;
+        }
+      }
+      timer = window.setTimeout(tick, deleting ? 65 : 115);
+    };
+    timer = window.setTimeout(tick, 350);
+    return () => window.clearTimeout(timer);
+  }, []);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setTypedPersonaCaption(personaCaption);
@@ -1261,6 +1295,22 @@ export default function LandingPage() {
         #sainthetic-home .reference-question-title { margin:17px 0 9px; font-size:.9rem; font-weight:800; letter-spacing:-.03em; }
         #sainthetic-home .reference-question { display:flex; align-items:center; gap:9px; padding:7px 0; color:#172033; font-size:.73rem; white-space:nowrap; }
         #sainthetic-home .reference-question span { display:grid; place-items:center; width:24px; height:24px; flex:0 0 24px; border-radius:50%; background:#f1f3f7; color:#34415c; font-size:1.1rem; }
+        #sainthetic-home .reference-question .reference-typing-brand {
+          display:inline-flex !important; align-items:baseline !important; flex:0 0 auto !important;
+          width:auto !important; height:auto !important; min-width:5.2em !important;
+          padding:0 !important; border:0 !important; border-radius:0 !important;
+          background:transparent !important; color:#9a7410 !important;
+          font-size:inherit !important; font-weight:850 !important; white-space:nowrap !important;
+        }
+        #sainthetic-home .reference-question .reference-typing-brand i {
+          display:inline-block !important; width:2px !important; height:.92em !important;
+          margin-left:2px !important; vertical-align:-.08em !important;
+          background:#d3a92e !important; animation:referenceBrandCaret .8s steps(2,start) infinite !important;
+        }
+        @keyframes referenceBrandCaret { to { visibility:hidden; } }
+        @media (prefers-reduced-motion:reduce) {
+          #sainthetic-home .reference-question .reference-typing-brand i { animation:none !important; opacity:0 !important; }
+        }
         #sainthetic-home .reference-features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; padding:0 30px 18px; margin:4px 0 35px; }
         #sainthetic-home .reference-features article { text-align:left; }
         #sainthetic-home .reference-feature-icon { display:grid; place-items:center; width:52px; height:52px; border-radius:14px; margin-bottom:9px; background:#fff0b9; color:#101522; font-size:1.8rem; font-weight:700; }
@@ -3072,9 +3122,9 @@ export default function LandingPage() {
                     />
                   </motion.div>
                   {[
-                    "How can [product] improve organic acquisition, content productivity and conversion, and how soon could we see results?",
-                    "How does [product] compare with leading alternatives on answer quality, workflow integration, scalability and total cost of ownership?",
-                    "What is the investment case for a lean marketing team, including expected ROI, implementation effort and key adoption risks?"
+                    <>How can <span className="reference-typing-brand">{typedBrand}<i aria-hidden="true" /></span> improve organic acquisition, content productivity and conversion, and how soon could we see results?</>,
+                    <>How does <span className="reference-typing-brand">{typedBrand}<i aria-hidden="true" /></span> compare with leading alternatives on answer quality, workflow integration, scalability and total cost of ownership?</>,
+                    <>What is the investment case for a lean marketing team, including expected ROI, implementation effort and key adoption risks?</>
                   ].map((question, index) => (
                     <motion.div
                       key={question}
