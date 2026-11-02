@@ -9,6 +9,7 @@ const personaSchema = new mongoose.Schema({
   painPoints: { type: [String] },
   avatar: { type: String }, // URL or emoji
   industry: { type: String },
+  websiteUrl: { type: String },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
