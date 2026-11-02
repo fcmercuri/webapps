@@ -88,7 +88,7 @@ export default function Dashboard() {
 
   async function handlePersonaClick(persona) {
     if (persona.isPremium && user?.plan !== 'pro') {
-      await handleUpgrade('price_1SXpzjPwyyuQCEbaNxjlPgtA');
+      await handleUpgrade('price_1SdH2yPwyyuQCEbacY3y1487');
       return;
     }
     setSelectedPersona(persona);
@@ -156,9 +156,15 @@ export default function Dashboard() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ priceId, customerEmail: user.email }),
       });
-      const { url } = await res.json();
-      if (url) window.location = url;
-      else alert('Failed to start payment. Please try again later.');
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.error || `Payment setup failed (HTTP ${res.status}). Please try again.`);
+      }
+      if (data?.url) {
+        window.location.assign(data.url);
+      } else {
+        throw new Error('Stripe did not return a checkout link. Please try again.');
+      }
     } catch (err) {
       alert('Failed to start payment: ' + (err.message || 'Unknown error'));
     }
