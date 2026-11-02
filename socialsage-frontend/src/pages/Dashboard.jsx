@@ -105,7 +105,8 @@ export default function Dashboard() {
         });
       }, 120);
     } catch (err) {
-      setError('Failed to generate prompts');
+      console.error('Persona prompt generation failed:', err.response?.data || err);
+      setError(err.response?.data?.details || err.response?.data?.error || 'Failed to generate prompts. Please try again.');
     } finally {
       setLoading(false);
     }
