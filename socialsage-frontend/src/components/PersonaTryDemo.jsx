@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const personas = {
   SaaS: {
-    avatarIndex: 1,
+    photo: "https://randomuser.me/api/portraits/women/44.jpg",
     name: "Sarah Johnson", role: "Head of Operations · 50-person SaaS company", age: 38, conversionScore: 82, bio: "Her team has outgrown spreadsheets. Project updates are scattered, deadlines are slipping and leadership wants clearer visibility. She is actively comparing platforms and needs confidence that migration will not disrupt delivery.",
     goals: ["Increase SQLs", "Reduce CAC", "Improve retention"],
     painPoints: ["Low lead quality", "Generic AI content", "Weak positioning"],
@@ -11,7 +11,7 @@ const personas = {
     topPrompt: "Identify the five highest-intent questions a 50-person SaaS team would ask before choosing a platform. Group by discovery, comparison and purchase, then recommend content that addresses each decision criterion."
   },
   Finance: {
-    avatarIndex: 2,
+    photo: "https://randomuser.me/api/portraits/men/32.jpg",
     name: "David Carter", role: "Finance Director · Growing UK business", age: 45, conversionScore: 74, bio: "He manages cash reserves for a growing business and wants competitive returns without losing access to working capital. He is comparing providers, checking protection and eligibility, and needs transparent terms before applying.",
     goals: ["Acquire deposits", "Increase trust", "Grow applications"],
     painPoints: ["Compliance", "Long approval cycles", "Low engagement"],
@@ -19,7 +19,7 @@ const personas = {
     topPrompt: "Map the questions a finance decision-maker asks before choosing a business banking provider. Prioritise trust, eligibility, access, risk and total value, then identify the evidence content must provide."
   },
   Ecommerce: {
-    avatarIndex: 1,
+    photo: "https://randomuser.me/api/portraits/women/32.jpg",
     name: "Emily Brown", role: "Skincare shopper · Sensitive skin", age: 32, conversionScore: 68, bio: "She is looking for a skincare routine that suits sensitive skin. She compares ingredients, independent reviews and value, but hesitates when product claims are vague or returns information is hard to find.",
     goals: ["Increase AOV", "Boost repeat purchases", "Reduce cart abandonment"],
     painPoints: ["Creative fatigue", "High CAC", "Low loyalty"],
@@ -27,7 +27,7 @@ const personas = {
     topPrompt: "Map the questions shoppers ask from product discovery to purchase. Highlight comparison criteria, objections and trust signals, then recommend content that helps customers choose confidently."
   },
   Healthcare: {
-    avatarIndex: 3,
+    photo: "https://randomuser.me/api/portraits/women/68.jpg",
     name: "Lisa Nguyen", role: "Prospective patient · Considering specialist care", age: 41, conversionScore: 71, bio: "She is researching providers for a health concern and wants to understand credentials, treatment options and what an initial appointment involves. Trust, clarity and clinical suitability matter more than promotional claims.",
     goals: ["Increase appointment bookings", "Build patient trust", "Expand service line awareness"],
     painPoints: ["Strict compliance rules", "Low online visibility", "High patient acquisition cost"],
@@ -35,7 +35,7 @@ const personas = {
     topPrompt: "Identify the questions patients ask when evaluating a provider. Organise by symptoms, treatment options, credentials and appointment decisions, while keeping information evidence-led and appropriately cautious."
   },
   RealEstate: {
-    avatarIndex: 0,
+    photo: "https://randomuser.me/api/portraits/men/75.jpg",
     name: "Marcus Reid", role: "First-time homebuyer · Looking to move", age: 34, conversionScore: 79, bio: "He is shortlisting homes around his budget, commute and family needs. He wants credible local comparisons and a realistic view of total ownership costs before arranging a viewing or making an offer.",
     goals: ["Increase valuation and viewing enquiries", "Convert more portal traffic into qualified leads", "Improve viewing-to-offer conversion"],
     painPoints: ["High portal lead costs and low intent", "Buyers struggle to compare total ownership costs", "Slow follow-up causes qualified enquiries to go cold"],
@@ -45,7 +45,7 @@ const personas = {
     topPrompt: "Build a buyer-intent content plan for a residential property group. Segment demand into area research, property comparison and viewing-to-offer. For each stage, specify the buyer question, evidence required, recommended content format and conversion action. Prioritise opportunities by commercial intent and ability to reduce purchase uncertainty."
   },
   Education: {
-    avatarIndex: 3,
+    photo: "https://randomuser.me/api/portraits/women/47.jpg",
     name: "Priya Shah", role: "Prospective postgraduate student · Data analytics", age: 27, conversionScore: 76, bio: "She wants to move into a data analytics career and is comparing postgraduate programmes. Graduate outcomes, course content, entry requirements and funding will determine where she applies.",
     goals: ["Increase enrollment applications", "Improve program awareness", "Boost student engagement"],
     painPoints: ["Long decision cycles", "Low content differentiation", "Difficulty reaching Gen Z"],
@@ -53,7 +53,7 @@ const personas = {
     topPrompt: "Map a prospective student's decision journey from course discovery to application. Identify questions about outcomes, curriculum, entry requirements and funding, then recommend content that supports informed choice."
   },
   Travel: {
-    avatarIndex: 2,
+    photo: "https://randomuser.me/api/portraits/men/52.jpg",
     name: "Jonas Weber", role: "Family traveller · Planning a September holiday", age: 39, conversionScore: 73, bio: "He is planning a family trip and comparing destinations, hotels and booking options. Total trip cost, family facilities and flexible cancellation terms will influence whether he books directly.",
     goals: ["Increase direct bookings", "Reduce OTA dependency", "Improve repeat travel rate"],
     painPoints: ["High seasonality", "Price-driven comparison shopping", "Low brand loyalty"],
@@ -313,7 +313,7 @@ export default function PersonaTryDemo() {
         <div className="persona-result" aria-live="polite">
           <div className="persona-result-head persona-result-profile-head">
             <div className="persona-result-identity">
-              <img className="persona-result-photo" src="https://dl-file.cyberlink.com/web/content/sales_after_b9b7911202.jpg" alt="Illustrative customer portrait" />
+              <img className="persona-result-photo" src={persona.photo} alt={`Illustrative portrait of ${persona.name}`} />
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
