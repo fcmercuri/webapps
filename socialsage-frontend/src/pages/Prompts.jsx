@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import api from "../api/axios";
 import { useAuth } from "../auth/AuthContext";
+import ContentEditor from "../components/ContentEditor";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -15,6 +16,8 @@ export default function Prompts() {
   const [keywordLoading, setKeywordLoading] = useState(false);
   const [error, setError] = useState("");
   const [upgradeLoading, setUpgradeLoading] = useState(false);
+  const [generatingPromptId, setGeneratingPromptId] = useState(null);
+  const [generatedContent, setGeneratedContent] = useState(null);
 
   const { user } = useAuth();
 
@@ -140,6 +143,39 @@ export default function Prompts() {
 
     generatePromptsForPersona();
   }, [selectedPersonaId, language, isFreePlan, promptGenerationsUsed]);
+
+  async function handleGenerateContent(prompt) {
+    try {
+      setGeneratingPromptId(prompt._id);
+      setGeneratedContent(null);
+      setError("");
+      const res = await api.post("/api/content/generate", {
+        promptId: prompt._id,
+        type: prompt.category || "website",
+        language,
+      });
+      setGeneratedContent(res.data);
+      window.setTimeout(() => {
+        document.getElementById("prompt-generated-content")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 120);
+    } catch (err) {
+      setError(
+        err.response?.data?.details ||
+        err.response?.data?.error ||
+        "Failed to generate content. Please try again."
+      );
+    } finally {
+      setGeneratingPromptId(null);
+    }
+  }
+
+  async function handleSaveGeneratedContent() {
+    // Content is already saved by the generation endpoint.
+    setError("");
+  }
 
   async function handleUpgradeStarter() {
     try {
@@ -355,8 +391,36 @@ export default function Prompts() {
                       </span>
                     </div>
                   )}
+                  <button
+                    type="button"
+                    onClick={() => handleGenerateContent(p)}
+                    disabled={!!generatingPromptId}
+                    style={{
+                      width: "100%",
+                      marginTop: 14,
+                      padding: "12px 16px",
+                      border: "none",
+                      borderRadius: 10,
+                      background: "linear-gradient(100deg, #8b5cf6, #6d3de0)",
+                      color: "#fff",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      cursor: generatingPromptId ? "wait" : "pointer",
+                      opacity: generatingPromptId ? 0.65 : 1,
+                    }}
+                  >
+                    {generatingPromptId === p._id ? "Creating content…" : "Generate this content →"}
+                  </button>
                 </div>
               ))}
+            </div>
+          )}
+          {generatedContent && (
+            <div id="prompt-generated-content" style={{ marginTop: 24 }}>
+              <ContentEditor
+                content={generatedContent}
+                onSave={handleSaveGeneratedContent}
+              />
             </div>
           )}
 
