@@ -662,103 +662,75 @@ res.status(500).json({ error: 'Failed to fetch personas' });
 
 // --- PROMPTS (WITH PERPLEXITY, LANGUAGE-AWARE) ---
 app.post('/api/prompts/generate', authenticateToken, async (req, res) => {
-try {
-const { personaId, language = 'en' } = req.body;
+  try {
+    const { personaId, language = 'en' } = req.body;
+    if (!personaId) return res.status(400).json({ error: 'Persona ID is required' });
 
-if (!personaId) {
-return res.status(400).json({ error: 'Persona ID is required' });
-}
+    // A user can only generate insights from their own saved personas.
+    const persona = await Persona.findOne({ _id: personaId, userId: req.userId });
+    if (!persona) return res.status(404).json({ error: 'Persona not found in your account' });
 
-const persona = await Persona.findById(personaId);
-if (!persona) {
-return res.status(404).json({ error: 'Persona not found' });
-}
+    const goals = Array.isArray(persona.goals) ? persona.goals.filter(Boolean) : [];
+    const painPoints = Array.isArray(persona.painPoints) ? persona.painPoints.filter(Boolean) : [];
+    const langInstruction = language === 'it'
+      ? 'Write every prompt in natural Italian.'
+      : 'Write every prompt in natural English.';
 
-const langInstruction =
-language === 'it'
-? 'All prompts and text must be written in Italian.'
-: 'All prompts and text must be written in natural English.';
+    const systemPrompt = 'You are an expert content strategist. ' + langInstruction +
+      ' Return ONLY a valid JSON array, without markdown or commentary.';
+    const userPrompt = `Create exactly 5 practical prompts that a marketer can use to understand and reach this specific buyer persona.
 
-const systemPrompt =
-'You are a content strategist. ' +
-langInstruction +
-' You MUST respond with ONLY valid JSON - no markdown, no explanations, no code blocks. Just pure JSON array.';
+PERSONA
+Name: ${persona.name || 'Not specified'}
+Industry: ${persona.industry || 'Not specified'}
+Age: ${persona.age || 'Not specified'}
+Bio: ${persona.bio || 'Not specified'}
+Goals: ${goals.join('; ') || 'Not specified'}
+Pain points: ${painPoints.join('; ') || 'Not specified'}
 
-const userPrompt = `Based on this customer persona:
-Name: ${persona.name}
-Bio: ${persona.bio}
-Goals: ${persona.goals.join(', ')}
-Pain Points: ${persona.painPoints.join(', ')}
+Make each prompt specific to this person's context, motivations, goals and pain points. Cover different useful angles such as research, objections, messaging, content and conversion. Avoid generic prompts that could apply to any audience.
 
-Generate exactly 5 content prompts that this persona would personally type into an AI assistant (like ChatGPT).
-
-Each prompt must:
-- Be written in first person ("I", "my")
-- Be copy-paste ready for an LLM
-- Directly help the persona achieve their goals or solve pain points
-- NOT describe a content idea, but be the exact wording the persona would type
-
-Return ONLY a JSON array (no markdown, no code blocks) with this structure:
-
+Return ONLY this JSON structure:
 [
   {
-    "title": "Short actionable title (max 8 words)",
-    "description": "The exact prompt the persona would type into an LLM",
-    "category": "SEO | Social | Blog | Website | Email"
+    "title": "Short actionable title",
+    "description": "A complete, copy-ready prompt tailored to this persona",
+    "category": "SEO"
   }
 ]
+Use only these categories: SEO, Social, Blog, Website, Email.`;
 
-Category must be one of: SEO, Social, Blog, Website, Email.`;
+    console.log('Generating persona-specific prompts:', persona.name, 'user:', req.userId);
+    const content = await callPerplexity(systemPrompt, userPrompt, 'sonar');
+    let prompts;
+    try {
+      prompts = JSON.parse(content);
+    } catch {
+      const match = content.match(/\[\s*\{[\s\S]*\}\s*\]/);
+      if (!match) throw new Error('AI response was not valid JSON');
+      prompts = JSON.parse(match[0]);
+    }
 
-console.log('🔄 Generating prompts for persona:', persona.name, 'lang:', language);
+    if (!Array.isArray(prompts) || prompts.length === 0) {
+      throw new Error('AI returned an empty prompt list');
+    }
 
-const content = await callPerplexity(systemPrompt, userPrompt, 'sonar');
+    const savedPrompts = await Prompt.insertMany(prompts.slice(0, 5).map((item) => ({
+      title: String(item.title || 'Buyer insight prompt'),
+      description: String(item.description || ''),
+      category: ['SEO', 'Social', 'Blog', 'Website', 'Email'].includes(item.category) ? item.category : 'Website',
+      personaId,
+      userId: req.userId,
+    })));
 
-console.log('📥 Raw response:', content.substring(0, 200));
-
-let prompts;
-try {
-prompts = JSON.parse(content);
-} catch (e1) {
-try {
-const arrayMatch = content.match(/\[\s*\{[\s\S]*\}\s*\]/);
-if (arrayMatch) {
-prompts = JSON.parse(arrayMatch[0]);
-} else {
-throw new Error('Could not find valid JSON');
-}
-} catch (e2) {
-console.error('❌ Failed to parse prompts:', content);
-throw new Error('Failed to parse prompts from AI response');
-}
-}
-
-if (!Array.isArray(prompts) || prompts.length === 0) {
-throw new Error('Invalid prompts format');
-}
-
-const savedPrompts = [];
-for (const promptData of prompts) {
-const newPrompt = new Prompt({
-title: promptData.title,
-description: promptData.description,
-category: promptData.category,
-personaId,
-userId: req.userId,
-});
-await newPrompt.save();
-savedPrompts.push(newPrompt);
-}
-
-console.log(`✅ Generated ${savedPrompts.length} prompts for ${persona.name}`);
-res.json(savedPrompts);
-} catch (err) {
-console.error('❌ Prompt generation error:', err.message);
-res.status(500).json({
-error: 'Failed to generate prompts',
-details: err.message,
-});
-}
+    return res.json(savedPrompts);
+  } catch (err) {
+    console.error('Prompt generation failed:', err.response?.data || err.message || err);
+    return res.status(500).json({
+      error: 'Failed to generate prompts',
+      details: err.response?.data?.error?.message || err.response?.data?.message || err.message || 'Unknown server error',
+    });
+  }
 });
 
 app.get('/api/prompts', authenticateToken, async (req, res) => {
