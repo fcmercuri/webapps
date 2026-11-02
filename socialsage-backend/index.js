@@ -61,6 +61,89 @@ Authorization: `Bearer ${PERPLEXITY_API_KEY}`,
 return response.data.choices[0].message.content;
 }
 
+// Fetch a small, focused set of same-site pages to build a business profile.
+async function crawlBusinessWebsite(startUrl) {
+  const dns = require('dns').promises;
+  const net = require('net');
+  const isPublicAddress = (ip) => {
+    if (net.isIPv4(ip)) {
+      const parts = ip.split('.').map(Number);
+      return !(parts[0] === 10 || parts[0] === 127 || parts[0] === 0 ||
+        (parts[0] === 169 && parts[1] === 254) ||
+        (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) ||
+        (parts[0] === 192 && parts[1] === 168) || parts[0] >= 224);
+    }
+    if (net.isIPv6(ip)) {
+      const value = ip.toLowerCase();
+      return value === '::1' || value === '::' ||
+        !(value.startsWith('fc') || value.startsWith('fd') || value.startsWith('fe80:') || value.startsWith('ff'));
+    }
+    return false;
+  };
+  const validatePublicUrl = async (value) => {
+    const url = new URL(value);
+    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new Error('Unsupported website URL');
+    const host = url.hostname.toLowerCase();
+    if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.local')) throw new Error('Private website host');
+    const records = await dns.lookup(host, { all: true });
+    if (!records.length || records.some((record) => !isPublicAddress(record.address))) throw new Error('Website host is not public');
+    return url;
+  };
+  const cleanText = (html) => html
+    .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, ' ')
+    .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, ' ')
+    .replace(/<(nav|footer|header)\\b[^>]*>[\\s\\S]*?<\\/\\1>/gi, ' ')
+    .replace(/<(br|\\/p|\\/h[1-6]|\\/li|\\/section|\\/article)>/gi, '\\n')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'").replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
+    .replace(/\\s+/g, ' ').trim();
+  const origin = new URL(startUrl).origin;
+  const queue = [startUrl];
+  const seen = new Set();
+  const pages = [];
+  const preferred = /(product|service|solution|about|pricing|price|plan|shop|catalog|industry|who-we-serve|customer)/i;
+
+  while (queue.length && pages.length < 6) {
+    const candidate = queue.shift();
+    if (seen.has(candidate)) continue;
+    seen.add(candidate);
+    try {
+      const url = await validatePublicUrl(candidate);
+      if (url.origin !== origin) continue;
+      const response = await axios.get(url.href, {
+        timeout: 9000, maxRedirects: 0, maxContentLength: 1200000,
+        responseType: 'text',
+        headers: { 'User-Agent': 'sAIntheticBusinessResearch/1.0', Accept: 'text/html,application/xhtml+xml' },
+        validateStatus: status => status >= 200 && status < 300,
+      });
+      const html = typeof response.data === 'string' ? response.data : '';
+      if (!/text\\/html|application\\/xhtml/i.test(response.headers['content-type'] || 'text/html')) continue;
+      const title = (html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i) || [,''])[1];
+      const description = (html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i) ||
+        html.match(/<meta[^>]+content=["']([^"']*)["'][^>]+name=["']description["']/i) || [,''])[1];
+      const text = cleanText(html).slice(0, 5500);
+      if (text) pages.push({ url: url.href, title: cleanText(title), description, text });
+      if (pages.length < 6) {
+        const links = [...html.matchAll(/<a\\b[^>]+href=["']([^"'#]+)["'][^>]*>/gi)]
+          .map(match => match[1])
+          .map(href => { try { return new URL(href, url.href); } catch { return null; } })
+          .filter(link => link && link.origin === origin && !/\\.(pdf|jpg|jpeg|png|gif|svg|webp|zip|css|js)(?:$|\\?)/i.test(link.pathname))
+          .filter(link => !seen.has(link.href.split('#')[0]));
+        links.sort((a,b) => Number(preferred.test(b.pathname)) - Number(preferred.test(a.pathname)));
+        for (const link of links) {
+          const clean = link.href.split('#')[0];
+          if (!queue.includes(clean) && !seen.has(clean) && queue.length < 20) queue.push(clean);
+        }
+      }
+    } catch (err) {
+      console.warn('Skipping website page:', candidate, err.message);
+    }
+  }
+  if (!pages.length) throw new Error('No readable public website pages found');
+  return pages;
+}
+
 // --- STRIPE CHECKOUT SESSION ROUTE ---
 app.post('/api/create-checkout-session', async (req, res) => {
 try {
@@ -536,44 +619,22 @@ app.post('/api/personas/generate', authenticateToken, async (req, res) => {
 
     let websiteContext = '';
     let normalizedWebsiteUrl = '';
+    let websitePages = [];
     if (websiteUrl && websiteUrl.trim()) {
-      let parsed;
       try {
-        parsed = new URL(websiteUrl.trim().match(/^https?:\/\//i) ? websiteUrl.trim() : 'https://' + websiteUrl.trim());
-      } catch {
-        return res.status(400).json({ error: 'Please enter a valid website URL.' });
-      }
-      const host = parsed.hostname.toLowerCase();
-      const isPrivateHost = host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.local') ||
-        /^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host) ||
-        /^172\.(1[6-9]|2\d|3[01])\./.test(host) || host === '::1' || host.startsWith('fc') || host.startsWith('fd') || host.startsWith('fe80:');
-      if (!['http:', 'https:'].includes(parsed.protocol) || isPrivateHost) {
-        return res.status(400).json({ error: 'Please use a public website URL.' });
-      }
-      normalizedWebsiteUrl = parsed.href;
-      try {
-        const siteResponse = await axios.get(normalizedWebsiteUrl, {
-          timeout: 10000,
-          maxRedirects: 0,
-          maxContentLength: 1500000,
-          responseType: 'text',
-          headers: { 'User-Agent': 'sAIntheticBusinessResearch/1.0', Accept: 'text/html,application/xhtml+xml' },
-          validateStatus: (status) => status >= 200 && status < 400,
-        });
-        const html = typeof siteResponse.data === 'string' ? siteResponse.data : '';
-        websiteContext = html
-          .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
-          .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
-          .replace(/<(nav|footer|header)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
-          .replace(/<(br|\/p|\/h[1-6]|\/li|\/section|\/article)>/gi, '\n')
-          .replace(/<[^>]+>/g, ' ')
-          .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&quot;/gi, '"')
-          .replace(/&#39;|&apos;/gi, "'").replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
-          .replace(/\s+/g, ' ').trim().slice(0, 12000);
-        if (!websiteContext) websiteContext = 'The website returned no readable page text.';
+        const entered = websiteUrl.trim().match(/^https?:\\/\\//i) ? websiteUrl.trim() : 'https://' + websiteUrl.trim();
+        const parsed = new URL(entered);
+        normalizedWebsiteUrl = parsed.href;
+        websitePages = await crawlBusinessWebsite(normalizedWebsiteUrl);
+        websiteContext = websitePages.map((page, index) =>
+          `PAGE ${index + 1}: ${page.title || page.url}
+URL: ${page.url}
+META DESCRIPTION: ${page.description || 'Not provided'}
+CONTENT: ${page.text}`
+        ).join('\\n\\n').slice(0, 26000);
       } catch (siteErr) {
-        console.warn('Website analysis unavailable:', normalizedWebsiteUrl, siteErr.message);
-        return res.status(422).json({ error: 'We could not read that website. Check the URL is public and try again, or continue without a website.' });
+        console.warn('Website analysis unavailable:', normalizedWebsiteUrl || websiteUrl, siteErr.message);
+        return res.status(422).json({ error: 'We could not analyse that website. Check that it is public and try again, or continue without a website.', details: siteErr.message });
       }
     }
 
@@ -587,7 +648,7 @@ WEBSITE CONTENT EXTRACT:
 ${websiteContext}
 ` : 'No website was supplied. Base the personas on the industry, and do not invent a specific company or product.'}
 
-Use the website to understand the actual business: products or services, target audience, positioning, pricing cues, differentiators, language and customer problems. Connect those findings to the selected industry. Do not create generic industry personas if website evidence is available. Make clear, realistic personas who would plausibly buy from this specific business. Do not claim facts that the website does not support.
+Use the website to understand the actual business: products or services, target audience, positioning, pricing cues, differentiators, language and customer problems. Prioritise evidence repeated or clarified across the homepage, product/service pages, about page and pricing pages. Connect those findings to the selected industry. Do not create generic industry personas if website evidence is available. Make clear, realistic personas who would plausibly buy from this specific business. Do not claim facts that the website does not support.
 
 Return ONLY a JSON array with this structure:
 [
