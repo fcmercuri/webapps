@@ -19,6 +19,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [billing, setBilling] = useState(null);
 
   // Language state
   const [language, setLanguage] = useState('en'); // "en" or "it"
@@ -43,9 +44,19 @@ export default function Dashboard() {
 
   async function loadUserProfile() {
     try {
-      const res = await api.get('/api/user/profile');
-      console.log('profile res', res.data);
-      setUser(res.data);
+      const [profileRes, billingRes] = await Promise.all([
+        api.get('/api/user/profile'),
+        api.get('/api/billing').catch(() => null),
+      ]);
+      console.log('profile res', profileRes.data);
+      setUser(profileRes.data);
+      if (billingRes?.data) {
+        setBilling(billingRes.data);
+        // Stripe billing status is authoritative for the displayed subscription plan.
+        if (billingRes.data.plan && billingRes.data.plan !== profileRes.data.plan) {
+          setUser({ ...profileRes.data, plan: billingRes.data.plan });
+        }
+      }
     } catch (err) {
       console.error('Failed to load profile', err);
     }
@@ -170,7 +181,8 @@ export default function Dashboard() {
   }
 
   const firstName = user?.name?.split(" ")[0] || user?.email?.split("@")[0] || "there";
-  const planLabel = (user?.plan || "free").toUpperCase();
+  const planLabel = (billing?.plan || user?.plan || "free").toUpperCase();
+  const planStatusLabel = billing?.status === 'active' ? 'ACTIVE' : billing?.status === 'cancelled' ? 'CANCELS AT PERIOD END' : 'FREE PLAN';
   const recentPersonas = personas.slice(0, 3);
 
   return (
@@ -183,7 +195,7 @@ export default function Dashboard() {
             <img src="/sainthetic-mark.svg" alt="sAInthetic" />
             <span>Menu</span>
           </button>
-          <span className="mobile-plan-pill">{planLabel} PLAN</span>
+          <span className="mobile-plan-pill">{planLabel} · {planStatusLabel}</span>
         </div>
 
         <div className="dashboard-content sainthetic-dashboard-content">
