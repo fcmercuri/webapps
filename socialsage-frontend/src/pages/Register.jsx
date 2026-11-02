@@ -23,7 +23,7 @@ export default function Register() {
     width: "100%",
     padding: "12px 16px",
     background: "#ffffff",
-    border: "1.5px solid #232323",
+    border: "1.5px solid #e5e0ed",
     borderRadius: "10px",
     color: "#211a35",
     fontSize: "1rem",
@@ -158,7 +158,7 @@ export default function Register() {
     <div
       style={{
         minHeight: "100vh",
-        background: "radial-gradient(ellipse at 50% 0%, #21183d 0%, #101015 48%, #0b0b0d 100%)",
+        background: "linear-gradient(180deg, #f7f5fc 0%, #f2effa 100%)",
         padding: "28px 16px",
         boxSizing: "border-box",
         display: "flex",
@@ -173,9 +173,10 @@ export default function Register() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         style={{
-          background: "rgba(20, 20, 22, 0.8)",
-          backdropFilter: "blur(20px)",
-          border: "1px solid rgba(255, 255, 255, 0.10)",
+          background: "#ffffff",
+          backdropFilter: "none",
+          WebkitBackdropFilter: "none",
+          border: "1px solid #e8e2f3",
           borderRadius: "22px",
           padding: "38px 32px 30px",
           maxWidth: "440px",
@@ -183,7 +184,7 @@ export default function Register() {
           boxSizing: "border-box",
           position: "relative",
           zIndex: 10,
-          boxShadow: "0 24px 80px rgba(0,0,0,0.48)",
+          boxShadow: "0 20px 60px rgba(48, 34, 83, 0.10)",
         }}
       >
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
@@ -204,7 +205,7 @@ export default function Register() {
               fontWeight: 900,
               color: "#211a35",
               margin: "0 0 10px 0",
-              background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
+              background: "linear-gradient(96deg, #211a35 35%, #7041db 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               letterSpacing: "-1px",
@@ -220,8 +221,8 @@ export default function Register() {
         <div
           role="note"
           style={{
-            background: "rgba(167, 139, 250, 0.10)",
-            border: "1px solid rgba(167, 139, 250, 0.28)",
+            background: "#f5f0ff",
+            border: "1px solid #e5d9ff",
             color: "#59418b",
             padding: "11px 13px",
             borderRadius: "8px",
@@ -332,8 +333,8 @@ export default function Register() {
           {successMsg && (
             <div
               style={{
-                background: "rgba(34, 197, 94, 0.1)",
-                border: "1px solid rgba(34, 197, 94, 0.3)",
+                background: "#ecfdf5",
+                border: "1px solid #a7f3d0",
                 color: "#047857",
                 padding: "12px 14px",
                 borderRadius: "8px",
@@ -348,8 +349,8 @@ export default function Register() {
           {error && (
             <div
               style={{
-                background: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
+                background: "#fff1f2",
+                border: "1px solid #fecdd3",
                 color: "#be123c",
                 padding: "12px 14px",
                 borderRadius: "8px",
@@ -395,7 +396,7 @@ export default function Register() {
             style={{
               flex: 1,
               height: 1,
-              background: "rgba(255,255,255,0.08)",
+              background: "#e9e4f0",
             }}
           />
           <span style={{ color: "#8a8496", fontSize: "0.85rem" }}>or</span>
@@ -403,7 +404,7 @@ export default function Register() {
             style={{
               flex: 1,
               height: 1,
-              background: "rgba(255,255,255,0.08)",
+              background: "#e9e4f0",
             }}
           />
         </div>
