@@ -1,188 +1,136 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+
+function escapeHtml(value) {
+  return String(value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// Small, safe Markdown renderer for the generated-content preview.
+function markdownToHtml(markdown) {
+  const lines = String(markdown || '').replace(/\r\n/g, '\n').split('\n');
+  const output = [];
+  let inList = false;
+  let paragraph = [];
+
+  const inline = (value) => escapeHtml(value)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+
+  const closeList = () => { if (inList) { output.push('</ul>'); inList = false; } };
+  const flushParagraph = () => {
+    if (paragraph.length) {
+      output.push('<p>' + inline(paragraph.join(' ')) + '</p>');
+      paragraph = [];
+    }
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) { flushParagraph(); closeList(); continue; }
+    const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
+    const bullet = trimmed.match(/^[-*]\s+(.+)$/);
+    const numbered = trimmed.match(/^\d+[.)]\s+(.+)$/);
+    if (heading) {
+      flushParagraph(); closeList();
+      const level = heading[1].length;
+      output.push('<h' + level + '>' + inline(heading[2]) + '</h' + level + '>');
+    } else if (bullet || numbered) {
+      flushParagraph();
+      if (!inList) { output.push('<ul>'); inList = true; }
+      output.push('<li>' + inline((bullet || numbered)[1]) + '</li>');
+    } else {
+      closeList();
+      paragraph.push(trimmed);
+    }
+  }
+  flushParagraph(); closeList();
+  return output.join('');
+}
 
 export default function ContentEditor({ content, onSave }) {
   const [editedContent, setEditedContent] = useState('');
   const [title, setTitle] = useState('');
   const [saving, setSaving] = useState(false);
+  const [mode, setMode] = useState('preview');
+  const [copyMessage, setCopyMessage] = useState('');
 
-  // Update state when content prop changes
   useEffect(() => {
-    console.log('📝 ContentEditor received content:', content);
-    if (content) {
-      setEditedContent(content.body || '');
-      setTitle(content.title || '');
-    }
+    if (!content) return;
+    const body = content.body || '';
+    const firstHeading = body.match(/^\s*#\s+(.+)\s*$/m);
+    const cleanBody = firstHeading ? body.replace(firstHeading[0], '').trim() : body;
+    setTitle(content.title || firstHeading?.[1] || 'Untitled content');
+    setEditedContent(cleanBody);
+    setMode('preview');
   }, [content]);
+
+  const previewHtml = useMemo(() => markdownToHtml(editedContent), [editedContent]);
 
   const handleSave = async () => {
     setSaving(true);
-    await onSave({ ...content, title, body: editedContent });
-    setSaving(false);
+    try {
+      await onSave({ ...content, title, body: editedContent });
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(editedContent);
-    alert('Content copied to clipboard!');
+  const handleCopy = async () => {
+    const text = (title ? title + '\n\n' : '') + editedContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyMessage('Copied');
+      window.setTimeout(() => setCopyMessage(''), 1800);
+    } catch {
+      setCopyMessage('Copy unavailable');
+    }
   };
 
-  if (!content) {
-    return (
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(20, 20, 22, 0.6) 0%, rgba(35, 40, 69, 0.4) 100%)',
-        border: '1px solid rgba(255, 217, 69, 0.1)',
-        backdropFilter: 'blur(10px)',
-        padding: '60px 40px',
-        borderRadius: '16px',
-        textAlign: 'center',
-        color: '#bbb',
-        minHeight: '500px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <div style={{
-          width: '80px',
-          height: '80px',
-          borderRadius: '50%',
-          background: 'rgba(255, 217, 69, 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '20px'
-        }}>
-          <span style={{ fontSize: '2rem' }}>✨</span>
-        </div>
-        <h3 style={{ color: '#fff', margin: '0 0 10px 0', fontSize: '1.3rem' }}>
-          No Content Generated Yet
-        </h3>
-        <p style={{ margin: 0, fontSize: '1rem' }}>
-          Select a persona and generate a prompt to see AI-powered content here
-        </p>
-      </div>
-    );
-  }
+  if (!content) return null;
+
+  const buttonStyle = (active) => ({
+    border: '1px solid ' + (active ? '#8b5cf6' : 'rgba(255,255,255,.14)'),
+    background: active ? 'rgba(139,92,246,.18)' : 'transparent',
+    color: active ? '#c4b5fd' : '#cbd5e1',
+    borderRadius: 8, padding: '8px 14px', cursor: 'pointer', fontWeight: 700
+  });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      style={{
-        background: 'linear-gradient(135deg, rgba(20, 20, 22, 0.8) 0%, rgba(35, 40, 69, 0.6) 100%)',
-        border: '1px solid rgba(255, 217, 69, 0.15)',
-        backdropFilter: 'blur(10px)',
-        padding: '30px',
-        borderRadius: '16px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        minHeight: '500px'
-      }}
-    >
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3 style={{
-          margin: 0,
-          fontSize: '1.5rem',
-          fontWeight: 800,
-          color: '#ffd945',
-          letterSpacing: '-0.5px'
-        }}>
-          Generated Content
-        </h3>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <motion.button
-            onClick={handleCopy}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={{
-              background: 'rgba(255, 217, 69, 0.1)',
-              border: '1px solid rgba(255, 217, 69, 0.3)',
-              color: '#ffd945',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              fontWeight: 700,
-              fontSize: '0.9rem',
-              cursor: 'pointer'
-            }}
-          >
-            📋 Copy
-          </motion.button>
-          <motion.button
-            onClick={handleSave}
-            disabled={saving}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={{
-              background: '#ffd945',
-              color: '#191919',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              fontWeight: 700,
-              fontSize: '0.9rem',
-              cursor: 'pointer',
-              opacity: saving ? 0.6 : 1
-            }}
-          >
-            {saving ? 'Saving...' : '💾 Save'}
-          </motion.button>
+    <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+      style={{ background: '#fff', color: '#1f2937', border: '1px solid #e5e7eb', borderRadius: 16, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+        <div>
+          <div style={{ color: '#6b7280', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.08em' }}>Your draft</div>
+          <h2 style={{ margin: '4px 0 0', fontSize: 22, color: '#111827' }}>Review and publish</h2>
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button type="button" onClick={() => setMode('preview')} style={buttonStyle(mode === 'preview')}>Preview</button>
+          <button type="button" onClick={() => setMode('edit')} style={buttonStyle(mode === 'edit')}>Edit</button>
+          <button type="button" onClick={handleCopy} style={{ ...buttonStyle(false), color: '#4f46e5' }}>{copyMessage || 'Copy draft'}</button>
+          <button type="button" onClick={handleSave} disabled={saving} style={{ border: 0, background: '#6d3de0', color: '#fff', borderRadius: 8, padding: '9px 16px', fontWeight: 700, cursor: 'pointer', opacity: saving ? .6 : 1 }}>{saving ? 'Saving…' : 'Save'}</button>
         </div>
       </div>
 
-      {/* Title Input */}
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Content title..."
-        style={{
-          padding: '12px 16px',
-          background: 'rgba(11, 11, 11, 0.5)',
-          border: '1px solid rgba(255, 217, 69, 0.2)',
-          borderRadius: '10px',
-          color: '#fff',
-          fontSize: '1.1rem',
-          fontWeight: 600,
-          fontFamily: 'inherit'
-        }}
-      />
+      <label style={{ display: 'grid', gap: 6, color: '#4b5563', fontSize: 13, fontWeight: 700 }}>
+        CONTENT TITLE
+        <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Add a clear title"
+          style={{ width: '100%', boxSizing: 'border-box', padding: '12px 14px', border: '1px solid #d1d5db', borderRadius: 9, color: '#111827', fontSize: 18, fontWeight: 700 }} />
+      </label>
 
-      {/* Content Textarea */}
-      <textarea
-        value={editedContent}
-        onChange={(e) => setEditedContent(e.target.value)}
-        style={{
-          flex: 1,
-          minHeight: '400px',
-          padding: '20px',
-          background: 'rgba(11, 11, 11, 0.5)',
-          border: '1px solid rgba(255, 217, 69, 0.1)',
-          borderRadius: '12px',
-          color: '#e0e0e0',
-          fontSize: '1rem',
-          lineHeight: 1.7,
-          fontFamily: 'inherit',
-          resize: 'vertical'
-        }}
-        placeholder="Your generated content will appear here..."
-      />
-
-      {/* Footer Info */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '12px 16px',
-        background: 'rgba(11, 11, 11, 0.3)',
-        borderRadius: '8px',
-        fontSize: '0.85rem',
-        color: '#bbb'
-      }}>
-        <span>Type: {content.type || 'General'}</span>
-        <span>{editedContent.split(' ').filter(w => w.length > 0).length} words</span>
+      {mode === 'edit' ? (
+        <textarea value={editedContent} onChange={(e) => setEditedContent(e.target.value)}
+          style={{ width: '100%', minHeight: 520, boxSizing: 'border-box', padding: 18, border: '1px solid #d1d5db', borderRadius: 10, color: '#111827', fontSize: 15, lineHeight: 1.75, fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', resize: 'vertical' }} />
+      ) : (
+        <article className="generated-content-preview" style={{ minHeight: 320, padding: '22px 26px', border: '1px solid #e5e7eb', borderRadius: 10, color: '#273244', fontSize: 16, lineHeight: 1.8, overflowWrap: 'anywhere' }}>
+          <style>{'.generated-content-preview h1,.generated-content-preview h2,.generated-content-preview h3{color:#111827;line-height:1.3;margin:1.5em 0 .55em}.generated-content-preview h1{font-size:2em}.generated-content-preview h2{font-size:1.5em}.generated-content-preview h3{font-size:1.2em}.generated-content-preview p{margin:.7em 0}.generated-content-preview ul{padding-left:1.5em}.generated-content-preview li{margin:.35em 0}.generated-content-preview strong{font-weight:700;color:#111827}.generated-content-preview code{background:#f3f4f6;padding:2px 5px;border-radius:4px}'} </style>
+          <div dangerouslySetInnerHTML={{ __html: previewHtml }} />
+        </article>
+      )}
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, color: '#6b7280', fontSize: 13 }}>
+        <span>{content.type || 'General'} · {mode === 'preview' ? 'Formatted preview' : 'Markdown editor'}</span>
+        <span>{editedContent.trim() ? editedContent.trim().split(/\s+/).length : 0} words</span>
       </div>
-    </motion.div>
+    </motion.section>
   );
 }
