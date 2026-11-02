@@ -9,7 +9,12 @@ const personaSchema = new mongoose.Schema({
   painPoints: { type: [String] },
   avatar: { type: String }, // URL or emoji
   industry: { type: String },
-  websiteUrl: { type: String },\n  role: { type: String },\n  buyingStage: { type: String, enum: ['cold', 'warm', 'hot'] },\n  fitScore: Number, urgencyScore: Number, authorityScore: Number, triggerScore: Number,\n  fitEvidence: String, urgencyEvidence: String, authorityEvidence: String, triggerEvidence: String,\n  buyingTriggers: [String], objections: [String], preferredChannels: [String], messagingAngle: String,
+  websiteUrl: { type: String },
+  role: { type: String },
+  buyingStage: { type: String, enum: ['cold', 'warm', 'hot'] },
+  fitScore: Number, urgencyScore: Number, authorityScore: Number, triggerScore: Number,
+  fitEvidence: String, urgencyEvidence: String, authorityEvidence: String, triggerEvidence: String,
+  buyingTriggers: [String], objections: [String], preferredChannels: [String], messagingAngle: String,
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
