@@ -4348,6 +4348,70 @@ export default function LandingPage() {
           }
         }
       `}</style>
+      <style>{`
+        /* Shared page grid and spacing rhythm across desktop and mobile. */
+        #sainthetic-home {
+          --page-gutter:clamp(18px,4vw,48px);
+          --page-content:1200px;
+          --section-gap:clamp(56px,6vw,82px);
+        }
+        #sainthetic-home .sainthetic-reference-top,
+        #sainthetic-home .reference-features,
+        #sainthetic-home .reference-growth-bar,
+        #sainthetic-home .reference-pricing,
+        #sainthetic-home .reference-how-it-works,
+        #sainthetic-home .reference-founder-banner,
+        #sainthetic-home #product-walkthrough,
+        #sainthetic-home #product-demo,
+        #sainthetic-home #case-study,
+        #sainthetic-home #faq,
+        #sainthetic-home .final-cta-section {
+          box-sizing:border-box !important;
+          width:calc(100% - (2 * var(--page-gutter))) !important;
+          max-width:var(--page-content) !important;
+          margin-left:auto !important;
+          margin-right:auto !important;
+        }
+        #sainthetic-home .reference-features,
+        #sainthetic-home .reference-pricing,
+        #sainthetic-home .reference-how-it-works,
+        #sainthetic-home .reference-founder-banner,
+        #sainthetic-home #product-walkthrough,
+        #sainthetic-home #product-demo,
+        #sainthetic-home #case-study,
+        #sainthetic-home #faq,
+        #sainthetic-home .final-cta-section {
+          margin-top:var(--section-gap) !important;
+        }
+        #sainthetic-home .sainthetic-reference-top { padding-left:0 !important; padding-right:0 !important; }
+        #sainthetic-home header#hero.reference-hero {
+          width:100% !important; max-width:var(--page-content) !important;
+          margin:0 auto !important; padding-left:0 !important; padding-right:0 !important;
+        }
+        #sainthetic-home .reference-features,
+        #sainthetic-home .reference-pricing,
+        #sainthetic-home .reference-how-it-works,
+        #sainthetic-home #product-walkthrough,
+        #sainthetic-home #product-demo,
+        #sainthetic-home #case-study,
+        #sainthetic-home #faq,
+        #sainthetic-home .final-cta-section { padding-left:0 !important; padding-right:0 !important; }
+        #sainthetic-home .reference-growth-bar {
+          padding-left:clamp(16px,2.4vw,28px) !important;
+          padding-right:clamp(16px,2.4vw,28px) !important;
+        }
+        #sainthetic-home #product-demo > .persona-demo { width:100% !important; max-width:100% !important; }
+        #sainthetic-home .reference-features + .reference-growth-bar { margin-top:clamp(28px,3vw,40px) !important; }
+        @media (max-width:760px) {
+          #sainthetic-home { --page-gutter:18px; --section-gap:50px; }
+          #sainthetic-home header#hero.reference-hero { padding-top:26px !important; padding-bottom:18px !important; }
+          #sainthetic-home .reference-growth-bar { padding:16px !important; }
+          #sainthetic-home #product-demo > .persona-demo { margin:0 !important; }
+        }
+        @media (max-width:380px) {
+          #sainthetic-home { --page-gutter:15px; --section-gap:42px; }
+        }
+      `}</style>
 
       </div>
     </div>
