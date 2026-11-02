@@ -987,14 +987,16 @@ app.post('/api/content/generate', authenticateToken, async (req, res) => {
     const languageInstruction = language === 'it'
       ? 'Write the complete deliverable in natural Italian.'
       : 'Write the complete deliverable in natural English.';
+    const category = String(prompt.category || type || 'General').trim().toLowerCase();
     const formatByCategory = {
-      SEO: 'Create an SEO deliverable appropriate to the prompt: search intent analysis, keyword-led page outline, metadata, FAQ content or on-page recommendations as relevant.',
-      Social: 'Create a ready-to-publish social media asset. Include platform-appropriate copy, a strong opening hook and a clear call to action. Add suggested visual direction when useful.',
-      Blog: 'Create a useful, well-structured blog article with a compelling title, introduction, descriptive headings, practical detail and a relevant conclusion.',
-      Website: 'Create website copy for the most relevant page or section, with a clear value proposition, benefit-led structure, proof points where supported and a suitable call to action.',
-      Email: 'Create a complete email with subject line, preview text and body copy, tailored to the recipient and the intended action.'
+      seo: 'SEO PAGE BRIEF: provide (1) recommended page purpose and search intent, (2) SEO title under 60 characters, (3) meta description around 150-160 characters, (4) suggested URL slug, (5) one H1, (6) a logical H2/H3 outline, (7) useful draft copy under each heading where appropriate, (8) internal-link suggestions, (9) 4-6 genuinely useful FAQs with concise answers, and (10) one relevant CTA. Do not label the entire deliverable as a blog post unless the brief asks for one.',
+      social: 'SOCIAL PUBLISHING ASSET: state the recommended platform and objective; write a strong opening hook; provide the finished platform-native post with line breaks; include a clear but natural CTA; add a small set of relevant hashtags only where appropriate; then give a separate visual/creative direction. Do not include article metadata or blog headings.',
+      blog: 'BLOG ARTICLE: start with the article title, then a short standfirst, engaging introduction, descriptive H2 sections and H3 sub-sections where useful, practical examples or steps, a concise conclusion and a contextual CTA. Include SEO title, meta description and URL slug in a clearly separated publishing metadata section after the article. Avoid generic filler and do not use headings that merely say Introduction or Conclusion.',
+      website: 'WEBSITE COPY: identify the page type; provide a hero headline, supporting subheading and primary CTA; then write clearly labelled page sections in the order a visitor should encounter them, benefit-led copy, proof points only when supported by supplied evidence, objection handling/FAQ where relevant, and a final CTA. Keep copy scannable and ready to paste into a page builder.',
+      email: 'EMAIL: provide a subject line, preview text, greeting, concise body with a clear message and natural paragraph breaks, one primary CTA, and sign-off. If useful, add one alternate subject line separately. Do not add blog-style headings.',
+      general: 'Choose the format best suited to the brief and give a complete, usable deliverable with a clear title, logical sections, concrete detail and an appropriate CTA.'
     };
-    const formatInstruction = formatByCategory[prompt.category] || 'Choose the most suitable content format for the supplied prompt and deliver it ready to use.';
+    const formatInstruction = formatByCategory[category] || formatByCategory.general;
     const websiteContext = persona.websiteUrl
       ? `Business website for context: ${persona.websiteUrl}. Use this as brand and business context; do not invent claims, prices, guarantees or product features that are not supplied.`
       : 'No business website was supplied. Do not invent company-specific claims or product details.';
@@ -1034,11 +1036,14 @@ INSTRUCTIONS
 6. Return only the finished content, with a suitable title and readable structure.`;
 
     console.log('Generating prompt-led content:', prompt.title, 'category:', prompt.category, 'persona:', persona.name);
-    const body = await callPerplexity(systemPrompt, userPrompt, 'sonar');
+    const rawBody = await callPerplexity(systemPrompt, userPrompt, 'sonar');
+    const body = String(rawBody || '').trim().replace(/^```(?:markdown|md|text)?\\s*/i, '').replace(/\\s*```$/, '');
+    const generatedTitle = body.match(/^#\\s+(.+)$/m)?.[1]?.trim() || prompt.title;
+    const cleanBody = body.replace(/^#\\s+.+(?:\\r?\\n)+/m, '').trim();
     const content = new Content({
-      title: prompt.title,
-      body,
-      type: prompt.category || type || 'general',
+      title: generatedTitle,
+      body: cleanBody || body,
+      type: category,
       promptId: prompt._id,
       personaId: persona._id,
       userId: req.userId,
