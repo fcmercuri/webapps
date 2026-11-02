@@ -99,7 +99,15 @@ export default function Dashboard() {
         personaId: persona._id,
         language, // prompts language
       });
-      setPrompts(res.data);
+      setPrompts(Array.isArray(res.data) ? res.data : []);
+      // The selected persona's next-step workspace is below the dashboard overview.
+      // Bring it into view so the row's "Explore insights" action has an obvious destination.
+      window.setTimeout(() => {
+        document.getElementById('selected-persona-workspace')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 120);
     } catch (err) {
       setError('Failed to generate prompts');
     } finally {
@@ -264,10 +272,31 @@ export default function Dashboard() {
           )}
 
           {selectedPersona && (
-            <div className="dashboard-prompts-layout" style={{ marginTop: 40 }}>
-              <div><h2 className="dashboard-subsection-title">Content ideas for {selectedPersona.name}</h2><div style={{ display: "flex", flexDirection: "column", gap: 15 }}>{prompts.map(prompt => <PromptCard key={prompt._id} prompt={prompt} onGenerate={handleGenerateContent} loading={loading} />)}</div></div>
-              <div id="content-editor"><ContentEditor content={generatedContent} onSave={handleSaveContent} /></div>
-            </div>
+            <section id="selected-persona-workspace" className="dashboard-section-block" style={{ marginTop: 40, scrollMarginTop: 28 }}>
+              <div className="dashboard-section-heading">
+                <div>
+                  <div className="workspace-eyebrow">SELECTED BUYER PERSONA</div>
+                  <h2>Explore insights for {selectedPersona.name}</h2>
+                  <p>Customer questions and content angles generated from this buyer profile.</p>
+                </div>
+              </div>
+              {prompts.length > 0 ? (
+                <div className="dashboard-prompts-layout">
+                  <div>
+                    <h3 className="dashboard-subsection-title">Customer questions & content ideas</h3>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+                      {prompts.map(prompt => <PromptCard key={prompt._id} prompt={prompt} onGenerate={handleGenerateContent} loading={loading} />)}
+                    </div>
+                  </div>
+                  <div id="content-editor"><ContentEditor content={generatedContent} onSave={handleSaveContent} /></div>
+                </div>
+              ) : (
+                <div className="dashboard-empty-state">
+                  <div className="empty-state-icon">✦</div>
+                  <div><strong>No customer questions available yet</strong><p>Try generating this persona's insights again, or choose another buyer persona.</p></div>
+                </div>
+              )}
+            </section>
           )}
         </div>
       </main>
