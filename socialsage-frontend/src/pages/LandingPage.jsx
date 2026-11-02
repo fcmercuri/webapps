@@ -1294,11 +1294,21 @@ export default function LandingPage() {
         #sainthetic-home .reference-tags span { padding:5px 9px; border-radius:999px; background:#f0f2f6; color:#253149; font-size:.66rem; }
         #sainthetic-home .reference-question-title { margin:17px 0 9px; font-size:.9rem; font-weight:800; letter-spacing:-.03em; }
         #sainthetic-home .reference-question { display:flex; align-items:center; gap:9px; padding:7px 0; color:#172033; font-size:.73rem; white-space:nowrap; }
-        #sainthetic-home .reference-question span { display:grid; place-items:center; width:24px; height:24px; flex:0 0 24px; border-radius:50%; background:#f1f3f7; color:#34415c; font-size:1.1rem; }
+        #sainthetic-home .reference-question .reference-question-icon {
+          display:grid !important; place-items:center !important; width:24px !important; height:24px !important;
+          flex:0 0 24px !important; border-radius:50% !important; background:#f1f3f7 !important;
+          color:#34415c !important; font-size:1.1rem !important;
+        }
+        #sainthetic-home .reference-question .reference-question-copy {
+          display:block !important; flex:1 1 auto !important; min-width:0 !important;
+          width:auto !important; height:auto !important; padding:0 !important;
+          border:0 !important; border-radius:0 !important; background:transparent !important;
+          color:inherit !important; font-size:inherit !important; line-height:1.35 !important;
+          white-space:normal !important;
+        }
         #sainthetic-home .reference-question .reference-typing-brand {
-          display:inline-flex !important; align-items:baseline !important; flex:0 0 auto !important;
-          width:auto !important; height:auto !important; min-width:5.2em !important;
-          padding:0 !important; border:0 !important; border-radius:0 !important;
+          display:inline !important; width:auto !important; height:auto !important;
+          min-width:0 !important; padding:0 !important; border:0 !important; border-radius:0 !important;
           background:transparent !important; color:#9a7410 !important;
           font-size:inherit !important; font-weight:850 !important; white-space:nowrap !important;
         }
@@ -3133,7 +3143,7 @@ export default function LandingPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.48, delay: 1.05 + index * 0.24, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <span>⌕</span>{question}
+                      <span className="reference-question-icon">⌕</span><span className="reference-question-copy">{question}</span>
                     </motion.div>
                   ))}
                 </div>
