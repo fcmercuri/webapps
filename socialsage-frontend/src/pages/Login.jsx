@@ -109,10 +109,10 @@ export default function Login() {
   const inputStyle = {
     width: "100%",
     padding: "12px 16px",
-    background: "#0B0B0B",
+    background: "#ffffff",
     border: "1.5px solid #232323",
     borderRadius: "10px",
-    color: "#fff",
+    color: "#211a35",
     boxSizing: "border-box",
   };
 
@@ -188,7 +188,7 @@ export default function Login() {
           >
             Welcome
           </h1>
-          <p style={{ color: "#bbb", margin: 0 }}>
+          <p style={{ color: "#716b80", margin: 0 }}>
             Sign in to your sAInthetic account
           </p>
         </div>
@@ -198,7 +198,7 @@ export default function Login() {
           style={{
             background: "rgba(167, 139, 250, 0.10)",
             border: "1px solid rgba(167, 139, 250, 0.28)",
-            color: "#d8c5ff",
+            color: "#59418b",
             padding: "11px 13px",
             borderRadius: "8px",
             fontSize: "0.86rem",
@@ -222,7 +222,7 @@ export default function Login() {
         >
           <div>
             <label
-              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
+              style={{ color: "#7041db", marginBottom: 8, display: "block" }}
             >
               Email Address
             </label>
@@ -237,7 +237,7 @@ export default function Login() {
 
           <div>
             <label
-              style={{ color: "#ffd945", marginBottom: 8, display: "block" }}
+              style={{ color: "#7041db", marginBottom: 8, display: "block" }}
             >
               Password
             </label>
@@ -261,7 +261,7 @@ export default function Login() {
             <span
               style={{
                 fontSize: "0.85rem",
-                color: "#ffd945",
+                color: "#7041db",
                 cursor: "pointer",
               }}
               onClick={() => navigate("/forgot-password")}
@@ -275,7 +275,7 @@ export default function Login() {
               style={{
                 background: "rgba(239,68,68,0.1)",
                 border: "1px solid rgba(239,68,68,0.3)",
-                color: "#ff6b6b",
+                color: "#be123c",
                 padding: "12px 14px",
                 borderRadius: "8px",
                 fontSize: "0.9rem",
@@ -291,7 +291,7 @@ export default function Login() {
             style={{
               width: "100%",
               background: "#ffd945",
-              color: "#191919",
+              color: "#211a35",
               border: "none",
               padding: "15px 20px",
               borderRadius: "12px",
@@ -316,7 +316,7 @@ export default function Login() {
           <div
             style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
           />
-          <span style={{ color: "#777" }}>or</span>
+          <span style={{ color: "#8a8496" }}>or</span>
           <div
             style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
           />
@@ -334,8 +334,8 @@ export default function Login() {
           disabled={googleLoading}
           style={{
             width: "100%",
-            background: "#0B0B0B",
-            color: "#fff",
+            background: "#ffffff",
+            color: "#211a35",
             border: "1.5px solid #232323",
             borderRadius: "10px",
             padding: "12px 16px",
@@ -356,7 +356,7 @@ export default function Login() {
         <p
           style={{
             textAlign: "center",
-            color: "#bbb",
+            color: "#716b80",
             fontSize: "0.9rem",
             marginTop: 25,
           }}
@@ -365,7 +365,7 @@ export default function Login() {
           <Link
             to="/register"
             style={{
-              color: "#ffd945",
+              color: "#7041db",
               textDecoration: "none",
               fontWeight: 600,
             }}
