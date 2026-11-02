@@ -60,7 +60,7 @@ export default function Dashboard() {
     }
   }
 
-  async function handleIndustrySelect(industry) {
+  async function handleIndustrySelect(industry, websiteUrl = '') {
     try {
       setLoading(true);
       setError('');
@@ -71,10 +71,11 @@ export default function Dashboard() {
       }
 
       // optionally store language with industry
-      await api.put('/api/user/industry', { industry, language });
+      await api.put('/api/user/industry', { industry, language, websiteUrl });
 
       const res = await api.post('/api/personas/generate', {
         industry,
+        websiteUrl,
         language, // generate personas in selected language
       });
       setPersonas(res.data);
