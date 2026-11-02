@@ -17,7 +17,7 @@ const categoryEmojis = {
   Email: '📧'
 };
 
-export default function PromptCard({ prompt, onGenerate, loading }) {
+export default function PromptCard({ prompt, onGenerate, loading, isGenerating }) {
   const color = categoryColors[prompt.category] || '#ffd945';
   const emoji = categoryEmojis[prompt.category] || '💡';
 
@@ -80,7 +80,7 @@ export default function PromptCard({ prompt, onGenerate, loading }) {
       {/* Generate Button */}
       <motion.button
         onClick={() => onGenerate(prompt._id)}
-        disabled={loading}
+        disabled={loading || isGenerating}
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         style={{
@@ -92,11 +92,11 @@ export default function PromptCard({ prompt, onGenerate, loading }) {
           fontWeight: 700,
           fontSize: '0.9rem',
           cursor: 'pointer',
-          opacity: loading ? 0.6 : 1,
+          opacity: loading || isGenerating ? 0.6 : 1,
           marginTop: '8px'
         }}
       >
-        {loading ? 'Generating...' : 'Generate Content →'}
+        {isGenerating ? 'Creating content...' : 'Generate this content →'}
       </motion.button>
     </motion.div>
   );
