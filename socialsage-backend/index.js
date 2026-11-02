@@ -919,93 +919,88 @@ return res.status(500).json({ error: 'Failed to extract focus keywords' });
 
 // --- CONTENT GENERATION (WITH PERPLEXITY, LANGUAGE-AWARE) ---
 app.post('/api/content/generate', authenticateToken, async (req, res) => {
-try {
-const { promptId, type, language = 'en' } = req.body;
+  try {
+    const { promptId, type, language = 'en' } = req.body;
+    if (!promptId) return res.status(400).json({ error: 'Prompt ID is required' });
 
-if (!promptId) {
-return res.status(400).json({ error: 'Prompt ID is required' });
-}
+    // Only generate from a prompt owned by the authenticated user.
+    const prompt = await Prompt.findOne({ _id: promptId, userId: req.userId });
+    if (!prompt) return res.status(404).json({ error: 'Prompt not found in your account' });
 
-const prompt = await Prompt.findById(promptId).populate('personaId');
-if (!prompt) {
-return res.status(404).json({ error: 'Prompt not found' });
-}
+    const persona = await Persona.findOne({ _id: prompt.personaId, userId: req.userId });
+    if (!persona) return res.status(404).json({ error: 'The buyer persona linked to this prompt could not be found' });
 
-const user = await User.findById(req.userId);
-const contentCount = await Content.countDocuments({ userId: req.userId });
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    const contentCount = await Content.countDocuments({ userId: req.userId });
+    if ((!user.plan || user.plan === 'free') && contentCount >= 5) {
+      return res.status(403).json({ error: 'Free plan allows up to 5 content items. Upgrade to Starter or Pro for more.' });
+    }
+    if (user.plan === 'starter' && contentCount >= 50) {
+      return res.status(403).json({ error: 'Starter plan allows up to 50 content items. Upgrade to Pro for unlimited content.' });
+    }
 
-if ((user.plan === 'free' || !user.plan) && contentCount >= 5) {
-return res.status(403).json({
-error:
-'Free plan allows up to 5 content items. Upgrade to Starter or Pro for more.',
-});
-}
+    const languageInstruction = language === 'it'
+      ? 'Write the complete deliverable in natural Italian.'
+      : 'Write the complete deliverable in natural English.';
+    const formatByCategory = {
+      SEO: 'Create an SEO deliverable appropriate to the prompt: search intent analysis, keyword-led page outline, metadata, FAQ content or on-page recommendations as relevant.',
+      Social: 'Create a ready-to-publish social media asset. Include platform-appropriate copy, a strong opening hook and a clear call to action. Add suggested visual direction when useful.',
+      Blog: 'Create a useful, well-structured blog article with a compelling title, introduction, descriptive headings, practical detail and a relevant conclusion.',
+      Website: 'Create website copy for the most relevant page or section, with a clear value proposition, benefit-led structure, proof points where supported and a suitable call to action.',
+      Email: 'Create a complete email with subject line, preview text and body copy, tailored to the recipient and the intended action.'
+    };
+    const formatInstruction = formatByCategory[prompt.category] || 'Choose the most suitable content format for the supplied prompt and deliver it ready to use.';
+    const websiteContext = persona.websiteUrl
+      ? `Business website for context: ${persona.websiteUrl}. Use this as brand and business context; do not invent claims, prices, guarantees or product features that are not supplied.`
+      : 'No business website was supplied. Do not invent company-specific claims or product details.';
 
-if (user.plan === 'starter' && contentCount >= 50) {
-return res.status(403).json({
-error:
-'Starter plan allows up to 50 content items. Upgrade to Pro for unlimited content.',
-});
-}
+    const systemPrompt = 'You are a senior content strategist and professional copywriter. ' +
+      languageInstruction + ' Follow the supplied content brief closely. Produce a polished, practical, publish-ready deliverable. ' +
+      'Do not return JSON, commentary about your process, or generic advice instead of the requested content.';
+    const userPrompt = `Create the content requested by this exact customer-question prompt.
 
-const persona = prompt.personaId;
+PROMPT TITLE: ${prompt.title}
+PROMPT / CONTENT BRIEF:
+${prompt.description}
+CONTENT CATEGORY: ${prompt.category || 'General'}
+REQUESTED FORMAT: ${type || 'Choose the best format for this prompt'}
 
-const langInstruction =
-language === 'it'
-? 'Write the full copy in Italian.'
-: 'Write the full copy in natural English.';
+BUYER PERSONA
+Name: ${persona.name || 'Not specified'}
+Profile: ${persona.bio || 'Not specified'}
+Goals: ${(persona.goals || []).join('; ') || 'Not specified'}
+Pain points: ${(persona.painPoints || []).join('; ') || 'Not specified'}
+Industry: ${persona.industry || 'Not specified'}
+${websiteContext}
 
-const systemPrompt =
-'You are a professional copywriter. ' +
-langInstruction +
-' Write compelling, conversion-focused content.';
+INSTRUCTIONS
+1. Treat the prompt title and description as the primary brief. Answer the question or execute the task they specify; do not replace it with a generic article.
+2. Make the output clearly relevant to this persona's motivations, objections, vocabulary and needs.
+3. Follow the content format for the category: ${formatInstruction}
+4. Include concrete, useful detail and a natural next step. Avoid filler and unsupported statistics.
+5. Make the length appropriate to the requested format rather than forcing every deliverable into a long article.
+6. Return only the finished content, with a suitable title and readable structure.`;
 
-const userPrompt = `Write ${type || 'website'} content for:
-
-Prompt: ${prompt.title}
-Description: ${prompt.description}
-Category: ${prompt.category}
-
-Target Persona:
-- Bio: ${persona.bio}
-- Goals: ${Array.isArray(persona.goals) ? persona.goals.join(', ') : persona.goals}
-- Pain Points: ${
-Array.isArray(persona.painPoints)
-? persona.painPoints.join(', ')
-: persona.painPoints
-}
-
-Act as the best content writer and write 1300-1500 words of compelling copy that:
-1. Addresses their pain points
-2. Helps achieve their goals
-3. Is conversion-focused and engaging
-4. Uses clear, benefit-driven language
-
-Return ONLY the content text (no JSON, no markdown formatting).`;
-
-console.log('🔄 Generating content for prompt:', prompt.title, 'lang:', language);
-
-const body = await callPerplexity(systemPrompt, userPrompt);
-
-const content = new Content({
-title: prompt.title,
-body,
-type: type || 'website',
-promptId,
-personaId: persona._id,
-userId: req.userId,
-});
-await content.save();
-
-console.log('✅ Content generated for:', prompt.title);
-res.json(content);
-} catch (err) {
-console.error('❌ Content generation error:', err);
-res.status(500).json({
-error: 'Failed to generate content',
-details: err.message,
-});
-}
+    console.log('Generating prompt-led content:', prompt.title, 'category:', prompt.category, 'persona:', persona.name);
+    const body = await callPerplexity(systemPrompt, userPrompt, 'sonar');
+    const content = new Content({
+      title: prompt.title,
+      body,
+      type: prompt.category || type || 'general',
+      promptId: prompt._id,
+      personaId: persona._id,
+      userId: req.userId,
+    });
+    await content.save();
+    return res.json(content);
+  } catch (err) {
+    console.error('Content generation error:', err.response?.data || err.message || err);
+    return res.status(500).json({
+      error: 'Failed to generate content',
+      details: err.response?.data?.error?.message || err.response?.data?.message || err.message || 'Unknown error',
+    });
+  }
 });
 
 // GET billing summary – REAL
