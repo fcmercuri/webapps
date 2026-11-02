@@ -22,10 +22,10 @@ export default function Register() {
   const inputStyle = {
     width: "100%",
     padding: "12px 16px",
-    background: "#0B0B0B",
+    background: "#ffffff",
     border: "1.5px solid #232323",
     borderRadius: "10px",
-    color: "white",
+    color: "#211a35",
     fontSize: "1rem",
     fontFamily: "inherit",
     margin: 0,
@@ -202,7 +202,7 @@ export default function Register() {
             style={{
               fontSize: "2rem",
               fontWeight: 900,
-              color: "white",
+              color: "#211a35",
               margin: "0 0 10px 0",
               background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
               WebkitBackgroundClip: "text",
@@ -212,7 +212,7 @@ export default function Register() {
           >
             sAInthetic
           </h1>
-          <p style={{ color: "#bbb", fontSize: "1rem", margin: 0 }}>
+          <p style={{ color: "#716b80", fontSize: "1rem", margin: 0 }}>
             Create your free account
           </p>
         </div>
@@ -222,7 +222,7 @@ export default function Register() {
           style={{
             background: "rgba(167, 139, 250, 0.10)",
             border: "1px solid rgba(167, 139, 250, 0.28)",
-            color: "#d8c5ff",
+            color: "#59418b",
             padding: "11px 13px",
             borderRadius: "8px",
             fontSize: "0.86rem",
@@ -285,7 +285,7 @@ export default function Register() {
             <label
               style={{
                 display: "block",
-                color: "#ffd945",
+                color: "#7041db",
                 fontSize: "0.88rem",
                 fontWeight: 650,
                 marginBottom: "8px",
@@ -308,7 +308,7 @@ export default function Register() {
             <label
               style={{
                 display: "block",
-                color: "#ffd945",
+                color: "#7041db",
                 fontSize: "0.9rem",
                 fontWeight: 600,
                 marginBottom: "8px",
@@ -334,7 +334,7 @@ export default function Register() {
               style={{
                 background: "rgba(34, 197, 94, 0.1)",
                 border: "1px solid rgba(34, 197, 94, 0.3)",
-                color: "#10b981",
+                color: "#047857",
                 padding: "12px 14px",
                 borderRadius: "8px",
                 fontSize: "0.9rem",
@@ -350,7 +350,7 @@ export default function Register() {
               style={{
                 background: "rgba(239, 68, 68, 0.1)",
                 border: "1px solid rgba(239, 68, 68, 0.3)",
-                color: "#ff6b6b",
+                color: "#be123c",
                 padding: "12px 14px",
                 borderRadius: "8px",
                 fontSize: "0.9rem",
@@ -366,7 +366,7 @@ export default function Register() {
             style={{
               width: "100%",
               background: successMsg ? "#6b7280" : "#ffd945", // Gray when success
-              color: "#191919",
+              color: "#211a35",
               border: "none",
               padding: "15px 20px",
               borderRadius: "12px",
@@ -398,7 +398,7 @@ export default function Register() {
               background: "rgba(255,255,255,0.08)",
             }}
           />
-          <span style={{ color: "#777", fontSize: "0.85rem" }}>or</span>
+          <span style={{ color: "#8a8496", fontSize: "0.85rem" }}>or</span>
           <div
             style={{
               flex: 1,
@@ -413,7 +413,7 @@ export default function Register() {
         <p
           style={{
             textAlign: "center",
-            color: "#bbb",
+            color: "#716b80",
             fontSize: "0.9rem",
             marginTop: "25px",
           }}
@@ -422,7 +422,7 @@ export default function Register() {
           <Link
             to="/login"
             style={{
-              color: "#ffd945",
+              color: "#7041db",
               textDecoration: "none",
               fontWeight: 600,
             }}
