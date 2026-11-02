@@ -326,56 +326,23 @@ return res.status(401).json({ error: 'Unauthorized' });
 }
 }
 
-// --- SIMPLE LEAD SCORING HELPER ---
-function calculateConversionScore(persona, industry) {
-let score = 0;
-
-const hotIndustries = [
-'saas',
-'software',
-'tech',
-'marketing',
-'ecommerce',
-'fitness',
-'finance',
-'healthcare',
-];
-const hotRolesHigh = ['founder', 'owner', 'ceo', 'cmo', 'cto'];
-const hotRolesMid = ['director', 'vp', 'head', 'manager', 'lead'];
-
-const role = (persona.role || '').toLowerCase();
-const ind = (industry || persona.industry || '').toLowerCase();
-
-if (hotIndustries.some((i) => ind.includes(i))) score += 20;
-if (hotRolesHigh.some((r) => role.includes(r))) score += 25;
-else if (hotRolesMid.some((r) => role.includes(r))) score += 15;
-else if (role) score += 5;
-
-const goalsCount = (persona.goals || []).length;
-const painsCount = (persona.painPoints || []).length;
-
-if (goalsCount >= 4) score += 18;
-else if (goalsCount >= 2) score += 10;
-else if (goalsCount >= 1) score += 4;
-
-if (painsCount >= 4) score += 18;
-else if (painsCount >= 2) score += 10;
-else if (painsCount >= 1) score += 4;
-
-if (typeof persona.age === 'number') {
-if (persona.age >= 28 && persona.age <= 50) score += 6;
-else if (persona.age >= 22 && persona.age < 28) score += 3;
-}
-
-const jitter = Math.floor(Math.random() * 7) - 3;
-score += jitter;
-
-if ((persona.goals && goalsCount) || (persona.painPoints && painsCount)) {
-score += 5;
-}
-
-const finalScore = Math.max(0, Math.min(score, 100));
-return Number.isFinite(finalScore) ? finalScore : 0;
+// Evidence-led persona opportunity scoring. These are audience archetypes, not real individual leads.
+function calculateConversionScore(persona) {
+  const clamp = (value) => Math.max(0, Math.min(100, Number(value) || 0));
+  const fit = clamp(persona.fitScore);
+  const urgency = clamp(persona.urgencyScore);
+  const authority = clamp(persona.authorityScore);
+  const trigger = clamp(persona.triggerScore);
+  const evidence = [persona.fitEvidence, persona.urgencyEvidence, persona.authorityEvidence, persona.triggerEvidence]
+    .filter(value => typeof value === 'string' && value.trim().length >= 12).length;
+  const raw = Math.round(fit * 0.35 + urgency * 0.30 + authority * 0.15 + trigger * 0.20);
+  // Missing evidence prevents an invented profile from being labelled hot.
+  const evidenceAdjusted = evidence < 2 ? Math.min(raw, 59) : evidence < 3 ? Math.min(raw, 74) : raw;
+  const stage = String(persona.buyingStage || '').toLowerCase();
+  if (stage === 'cold') return Math.min(39, Math.max(20, evidenceAdjusted));
+  if (stage === 'warm') return Math.min(69, Math.max(40, evidenceAdjusted));
+  if (stage === 'hot') return Math.min(89, Math.max(70, evidenceAdjusted));
+  return Math.min(69, Math.max(20, evidenceAdjusted));
 }
 
 // --- DATABASE CONNECTION ---
@@ -648,19 +615,51 @@ WEBSITE CONTENT EXTRACT:
 ${websiteContext}
 ` : 'No website was supplied. Base the personas on the industry, and do not invent a specific company or product.'}
 
-Use the website to understand the actual business: products or services, target audience, positioning, pricing cues, differentiators, language and customer problems. Prioritise evidence repeated or clarified across the homepage, product/service pages, about page and pricing pages. Connect those findings to the selected industry. Do not create generic industry personas if website evidence is available. Make clear, realistic personas who would plausibly buy from this specific business. Do not claim facts that the website does not support.
+FIRST, understand the actual business from the supplied website: what it sells, who it serves, its positioning, price cues, differentiators and customer problems. Use specific evidence from the pages. Connect this to the selected industry. Do not invent unsupported company facts.
 
-Return ONLY a JSON array with this structure:
+PERSONA MIX — IMPORTANT:
+Create a balanced portfolio of four distinct audience segments, not four equally purchase-ready buyers:
+- 1 COLD audience: relevant potential fit, but low immediate urgency, early awareness, no clear purchase trigger or not yet actively evaluating.
+- 2 WARM audiences: credible business fit and identifiable needs; researching options, comparing approaches or likely to act when a trigger occurs.
+- 1 HOT audience: strongest fit with a specific, credible near-term trigger, active solution search and plausible ability to influence or make the purchase.
+Do not label someone hot merely because they have pain points, a senior-sounding job title or demographic characteristics. Buying stage must be justified by explicit behavioural or situational evidence. If website evidence is thin, be conservative.
+
+For each persona, return:
+- buyingStage: exactly "cold", "warm" or "hot" according to the mix above
+- fitScore, urgencyScore, authorityScore, triggerScore: integer 0-100, grounded in the profile. Fit = match to the business offer; urgency = time sensitivity; authority = ability to influence purchase; trigger = concrete event prompting action.
+- fitEvidence, urgencyEvidence, authorityEvidence, triggerEvidence: one concise sentence each explaining the score. Do not invent first-party customer data; these are reasoned audience hypotheses.
+- role: realistic job / buyer role where relevant
+- name, age, bio, goals (3), painPoints (3)
+- buyingTriggers: 2 specific triggers
+- objections: 2 realistic objections
+- preferredChannels: 2 likely research / engagement channels
+- messagingAngle: one specific positioning angle for this audience
+
+Return ONLY a JSON array. Keep profiles materially different in motivations, buying situations and objections. Avoid stereotypes and arbitrary age-based assumptions.
+
 [
   {
     "name": "Full Name",
     "age": 35,
-    "bio": "2-3 sentence description of this buyer and why this business is relevant to them",
+    "role": "Relevant role",
+    "bio": "2-3 sentence description tied to this business",
     "goals": ["specific goal 1", "specific goal 2", "specific goal 3"],
-    "painPoints": ["specific pain 1", "specific pain 2", "specific pain 3"]
+    "painPoints": ["specific pain 1", "specific pain 2", "specific pain 3"],
+    "buyingStage": "cold",
+    "fitScore": 65,
+    "urgencyScore": 25,
+    "authorityScore": 45,
+    "triggerScore": 20,
+    "fitEvidence": "Why this offer fits this audience.",
+    "urgencyEvidence": "Why urgency is low or high.",
+    "authorityEvidence": "Why they can influence a purchase.",
+    "triggerEvidence": "The specific trigger, or lack of one.",
+    "buyingTriggers": ["trigger 1", "trigger 2"],
+    "objections": ["objection 1", "objection 2"],
+    "preferredChannels": ["channel 1", "channel 2"],
+    "messagingAngle": "Specific message angle"
   }
-]
-Make the four personas meaningfully different in needs, buying triggers and objections.`;
+]`;;
 
     console.log('Generating business-specific personas:', industry, normalizedWebsiteUrl || '(no website)');
     const content = await callPerplexity(systemPrompt, userPrompt, 'sonar');
@@ -682,10 +681,10 @@ Make the four personas meaningfully different in needs, buying triggers and obje
     const savedPersonas = [];
     for (let i = 0; i < Math.min(personas.length, 4); i++) {
       const data = personas[i];
-      const conversionScore = calculateConversionScore(data, industry);
+      const conversionScore = calculateConversionScore(data);
       savedPersonas.push(await Persona.create({
         name: data.name, age: data.age, bio: data.bio, goals: data.goals,
-        painPoints: data.painPoints, industry, websiteUrl: normalizedWebsiteUrl,
+        painPoints: data.painPoints, industry, websiteUrl: normalizedWebsiteUrl,\n        role: data.role, buyingStage: data.buyingStage, fitScore: data.fitScore, urgencyScore: data.urgencyScore, authorityScore: data.authorityScore, triggerScore: data.triggerScore, fitEvidence: data.fitEvidence, urgencyEvidence: data.urgencyEvidence, authorityEvidence: data.authorityEvidence, triggerEvidence: data.triggerEvidence, buyingTriggers: data.buyingTriggers, objections: data.objections, preferredChannels: data.preferredChannels, messagingAngle: data.messagingAngle,
         userId: req.userId, isPremium: i > 0, avatar: '👤', conversionScore,
       }));
     }
