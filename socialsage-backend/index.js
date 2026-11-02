@@ -1245,6 +1245,24 @@ res.status(500).json({ error: 'Failed to reset password' });
 }
 });
 
+app.put('/api/content/:id', authenticateToken, async (req, res) => {
+  try {
+    const { title, body } = req.body;
+    if (typeof body !== 'string' || !body.trim()) {
+      return res.status(400).json({ error: 'Content body cannot be empty' });
+    }
+    const content = await Content.findOne({ _id: req.params.id, userId: req.userId });
+    if (!content) return res.status(404).json({ error: 'Content not found' });
+    content.title = String(title || content.title || 'Untitled content').trim();
+    content.body = body;
+    await content.save();
+    return res.json(content);
+  } catch (err) {
+    console.error('Content update error:', err);
+    return res.status(500).json({ error: 'Failed to save content' });
+  }
+});
+
 app.get('/api/content', authenticateToken, async (req, res) => {
 try {
 const content = await Content.find({ userId: req.userId })
