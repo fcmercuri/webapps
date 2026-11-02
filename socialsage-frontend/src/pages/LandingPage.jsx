@@ -212,13 +212,18 @@ export default function LandingPage() {
           font-weight:500 !important; line-height:1 !important; margin-left:auto !important;
         }
         #sainthetic-home .reference-actions a.reference-secondary {
-          box-sizing:border-box !important; display:inline-flex !important; flex:0 0 180px !important;
-          align-items:center !important; justify-content:center !important; gap:12px !important;
-          width:180px !important; min-width:0 !important; min-height:64px !important;
-          padding:0 14px !important; border:2px solid #1b263f !important; border-radius:999px !important;
+          box-sizing:border-box !important; display:inline-flex !important; flex:1 1 0 !important;
+          align-items:center !important; justify-content:space-between !important; gap:14px !important;
+          width:auto !important; min-width:0 !important; min-height:64px !important;
+          padding:0 22px !important; border:2px solid #1b263f !important; border-radius:999px !important;
           background:#fff !important; color:#111a30 !important; box-shadow:none !important;
-          font-size:clamp(14px,1.55vw,19px) !important; font-weight:750 !important;
-          line-height:1 !important; letter-spacing:-.02em !important; text-decoration:none !important;
+          font-size:clamp(14px,1.4vw,18px) !important; font-weight:750 !important;
+          line-height:1.12 !important; letter-spacing:-.02em !important; text-decoration:none !important;
+          white-space:nowrap !important;
+        }
+        #sainthetic-home .reference-actions a.reference-secondary .preview-arrow {
+          flex:0 0 auto !important; margin-left:8px !important; font-size:28px !important;
+          line-height:1 !important; font-weight:500 !important;
         }
         #sainthetic-home .reference-actions a.reference-secondary .play-icon {
           position:relative !important; display:inline-block !important; flex:0 0 18px !important;
