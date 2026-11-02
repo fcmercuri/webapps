@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const personas = {
   SaaS: {
     avatarIndex: 1,
-    name: "Sarah Johnson", role: "Growth Marketing Manager",
+    name: "Sarah Johnson", role: "Head of Operations · 50-person SaaS company", age: 38, conversionScore: 82, bio: "Her team has outgrown spreadsheets. Project updates are scattered, deadlines are slipping and leadership wants clearer visibility. She is actively comparing platforms and needs confidence that migration will not disrupt delivery.",
     goals: ["Increase SQLs", "Reduce CAC", "Improve retention"],
     painPoints: ["Low lead quality", "Generic AI content", "Weak positioning"],
     questions: ["Which project management platforms are best for a 50-person SaaS team scaling beyond spreadsheets?", "What should we compare when choosing a platform: implementation time, integrations, adoption or total cost?", "How can a SaaS company improve trial-to-paid conversion without increasing acquisition spend?", "What evidence should I look for before trusting a vendor's security, reliability and customer results?", "Which tools integrate with our CRM and product analytics stack, and how difficult is migration?"],
@@ -12,7 +12,7 @@ const personas = {
   },
   Finance: {
     avatarIndex: 2,
-    name: "David Carter", role: "Digital Banking Lead",
+    name: "David Carter", role: "Finance Director · Growing UK business", age: 45, conversionScore: 74, bio: "He manages cash reserves for a growing business and wants competitive returns without losing access to working capital. He is comparing providers, checking protection and eligibility, and needs transparent terms before applying.",
     goals: ["Acquire deposits", "Increase trust", "Grow applications"],
     painPoints: ["Compliance", "Long approval cycles", "Low engagement"],
     questions: ["Which business savings accounts offer competitive rates while keeping deposits accessible?", "What should I compare between providers: FSCS protection, fees, access, service and digital tools?", "How long does business account opening take, and what documents will a company need?", "How can a business improve cash returns without compromising liquidity or risk controls?", "What are the key risks and eligibility criteria when switching a business banking provider?"],
@@ -20,7 +20,7 @@ const personas = {
   },
   Ecommerce: {
     avatarIndex: 1,
-    name: "Emily Brown", role: "E-commerce Director",
+    name: "Emily Brown", role: "Skincare shopper · Sensitive skin", age: 32, conversionScore: 68, bio: "She is looking for a skincare routine that suits sensitive skin. She compares ingredients, independent reviews and value, but hesitates when product claims are vague or returns information is hard to find.",
     goals: ["Increase AOV", "Boost repeat purchases", "Reduce cart abandonment"],
     painPoints: ["Creative fatigue", "High CAC", "Low loyalty"],
     questions: ["Which skincare products are best for sensitive skin, and what ingredients should I avoid?", "How do these products compare on ingredients, independent reviews, price and delivery?", "Is the premium option worth the extra cost compared with a lower-priced alternative?", "Which size or product is right for my needs, and what is the returns policy if it is not suitable?", "Can I trust the product claims, and what evidence supports the stated benefits?"],
@@ -28,7 +28,7 @@ const personas = {
   },
   Healthcare: {
     avatarIndex: 3,
-    name: "Dr. Lisa Nguyen", role: "Patient Acquisition Manager",
+    name: "Lisa Nguyen", role: "Prospective patient · Considering specialist care", age: 41, conversionScore: 71, bio: "She is researching providers for a health concern and wants to understand credentials, treatment options and what an initial appointment involves. Trust, clarity and clinical suitability matter more than promotional claims.",
     goals: ["Increase appointment bookings", "Build patient trust", "Expand service line awareness"],
     painPoints: ["Strict compliance rules", "Low online visibility", "High patient acquisition cost"],
     questions: ["Which local clinics specialise in this condition, and what qualifications should I look for?", "What should I expect at the first consultation, including preparation, costs and follow-up?", "How do the available treatment options compare in benefits, risks and recovery time?", "Is this provider regulated, and where can I verify its clinical credentials?", "When should I seek urgent medical advice rather than booking a routine appointment?"],
@@ -36,7 +36,7 @@ const personas = {
   },
   RealEstate: {
     avatarIndex: 0,
-    name: "Marcus Reid", role: "Head of Growth, Residential Property Group",
+    name: "Marcus Reid", role: "First-time homebuyer · Looking to move", age: 34, conversionScore: 79, bio: "He is shortlisting homes around his budget, commute and family needs. He wants credible local comparisons and a realistic view of total ownership costs before arranging a viewing or making an offer.",
     goals: ["Increase valuation and viewing enquiries", "Convert more portal traffic into qualified leads", "Improve viewing-to-offer conversion"],
     painPoints: ["High portal lead costs and low intent", "Buyers struggle to compare total ownership costs", "Slow follow-up causes qualified enquiries to go cold"],
     questions: ["Which neighbourhoods match my budget, commute and school requirements, and what evidence supports the comparison?", "How does this property compare with recent sold prices for similar homes nearby, adjusted for condition and size?", "What will the full monthly and upfront cost be after mortgage payments, council tax, energy, maintenance and legal fees?", "What should I look for during a viewing, and which survey findings could materially change the asking price?", "How competitive is the local market right now, how long are comparable homes taking to sell, and what would be a credible offer strategy?"],
@@ -46,7 +46,7 @@ const personas = {
   },
   Education: {
     avatarIndex: 3,
-    name: "Priya Shah", role: "Enrollment Marketing Director",
+    name: "Priya Shah", role: "Prospective postgraduate student · Data analytics", age: 27, conversionScore: 76, bio: "She wants to move into a data analytics career and is comparing postgraduate programmes. Graduate outcomes, course content, entry requirements and funding will determine where she applies.",
     goals: ["Increase enrollment applications", "Improve program awareness", "Boost student engagement"],
     painPoints: ["Long decision cycles", "Low content differentiation", "Difficulty reaching Gen Z"],
     questions: ["Which universities offer the strongest programmes for a career in data analytics?", "How do the courses compare on curriculum, industry placements, graduate outcomes and total cost?", "What entry requirements and practical experience will strengthen my application?", "Which scholarships, bursaries or financing options are available to students like me?", "What career paths do graduates typically enter, and which employers recruit from the programme?"],
@@ -54,7 +54,7 @@ const personas = {
   },
   Travel: {
     avatarIndex: 2,
-    name: "Jonas Weber", role: "Head of Digital Marketing, Travel Brand",
+    name: "Jonas Weber", role: "Family traveller · Planning a September holiday", age: 39, conversionScore: 73, bio: "He is planning a family trip and comparing destinations, hotels and booking options. Total trip cost, family facilities and flexible cancellation terms will influence whether he books directly.",
     goals: ["Increase direct bookings", "Reduce OTA dependency", "Improve repeat travel rate"],
     painPoints: ["High seasonality", "Price-driven comparison shopping", "Low brand loyalty"],
     questions: ["Which destinations offer the best value for a family holiday in September?", "How do direct flights, baggage, transfers and cancellation terms change the true trip cost?", "Which hotels are best for families, based on location, recent reviews and facilities?", "When is the best time to book, and how flexible are the fares if plans change?", "What is included in the direct booking rate that may not be included through an online travel agency?"],
@@ -219,6 +219,15 @@ export default function PersonaTryDemo() {
         .persona-result-commercial-action { display:inline-block; margin-top:2px; color:#72590c; font-size:.8rem; font-weight:800; }
         .persona-result-commercial-close { margin:14px 0 0; color:#315d49; font-size:.9rem; font-weight:700; line-height:1.5; }
         .persona-demo-evidence { margin-top:10px; color:#788294; font-size:.76rem; line-height:1.45; }
+        .persona-result-profile-head { align-items:center; }
+        .persona-result-age { margin-top:5px; color:#8992a2; font-size:.76rem; }
+        .persona-result-score { display:flex; flex-direction:column; align-items:flex-end; gap:6px; text-align:right; }
+        .persona-result-score span { padding:7px 11px; border:1px solid #e8edf3; border-radius:999px; background:#fff; color:#43516a; font-size:.8rem; font-weight:700; white-space:nowrap; }
+        .persona-result-score strong { color:#a17b0c; }
+        .persona-result-score b { color:#23845a; font-size:.68rem; letter-spacing:.08em; }
+        .persona-result-bio { margin-top:17px; padding:15px 17px; border:1px solid #e8edf3; border-radius:14px; background:#fff; color:#43516a; }
+        .persona-result-bio strong { color:#7b8494; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; }
+        .persona-result-bio p { margin:7px 0 0; font-size:.92rem; line-height:1.55; }
         .persona-result-name { margin:0; color:#171b2b; font-size:clamp(1.35rem,3vw,1.8rem); line-height:1.15; letter-spacing:-.04em; }
         .persona-result-role { margin-top:5px; color:#667085; font-size:.95rem; line-height:1.4; }
         .persona-result-badge { flex:0 0 auto; border:1px solid #f0df9d; border-radius:999px; padding:7px 11px; background:#fff9e5; color:#80620b; font-size:.76rem; font-weight:750; }
@@ -301,16 +310,21 @@ export default function PersonaTryDemo() {
 
       {persona && (
         <div className="persona-result" aria-live="polite">
-          <div className="persona-result-head">
+          <div className="persona-result-head persona-result-profile-head">
             <div className="persona-result-identity">
               <div className="persona-result-avatar-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.7"/><path d="M4.8 20c.55-3.55 3.45-5.7 7.2-5.7s6.65 2.15 7.2 5.7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg></div>
               <div>
                 <h3 className="persona-result-name">{persona.name}</h3>
                 <div className="persona-result-role">{persona.role}</div>
+                <div className="persona-result-age">Age {persona.age} · Illustrative customer profile</div>
               </div>
             </div>
-            <span className="persona-result-badge">Illustrative sample</span>
+            <div className="persona-result-score">
+              <span>Score: <strong>{persona.conversionScore}</strong>/100</span>
+              <b>{persona.conversionScore >= 70 ? "HOT BUYING POTENTIAL" : persona.conversionScore >= 40 ? "WARM BUYING POTENTIAL" : "EARLY-STAGE INTEREST"}</b>
+            </div>
           </div>
+          <div className="persona-result-bio"><strong>Buyer context</strong><p>{persona.bio}</p></div>
 
           <div className="persona-result-grid">
             <div className="persona-result-panel">
