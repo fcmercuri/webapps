@@ -15,6 +15,7 @@ export default function Dashboard() {
   const [prompts, setPrompts] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState(null);
   const [generatedContent, setGeneratedContent] = useState(null);
+  const [generatingPromptId, setGeneratingPromptId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -115,7 +116,7 @@ export default function Dashboard() {
 
   async function handleGenerateContent(promptId) {
     try {
-      setLoading(true);
+      setGeneratingPromptId(promptId);
       setError('');
       setGeneratedContent(null);
       const res = await api.post('/api/content/generate', {
@@ -131,7 +132,7 @@ export default function Dashboard() {
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate content');
     } finally {
-      setLoading(false);
+      setGeneratingPromptId(null);
     }
   }
 
@@ -289,7 +290,7 @@ export default function Dashboard() {
                   <div>
                     <h3 className="dashboard-subsection-title">Customer questions & content ideas</h3>
                     <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-                      {prompts.map(prompt => <PromptCard key={prompt._id} prompt={prompt} onGenerate={handleGenerateContent} loading={loading} />)}
+                      {prompts.map(prompt => <PromptCard key={prompt._id} prompt={prompt} onGenerate={handleGenerateContent} isGenerating={generatingPromptId === prompt._id} loading={!!generatingPromptId && generatingPromptId !== prompt._id} />)}
                     </div>
                   </div>
                   <div id="content-editor"><ContentEditor content={generatedContent} onSave={handleSaveContent} /></div>
