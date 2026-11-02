@@ -90,14 +90,14 @@ async function crawlBusinessWebsite(startUrl) {
     return url;
   };
   const cleanText = (html) => html
-    .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, ' ')
-    .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, ' ')
-    .replace(/<(nav|footer|header)\\b[^>]*>[\\s\\S]*?<\\/\\1>/gi, ' ')
-    .replace(/<(br|\\/p|\\/h[1-6]|\\/li|\\/section|\\/article)>/gi, '\\n')
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<(nav|footer|header)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<(br|\/p|\/h[1-6]|\/li|\/section|\/article)>/gi, '\n')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&quot;/gi, '"')
     .replace(/&#39;|&apos;/gi, "'").replace(/&lt;/gi, '<').replace(/&gt;/gi, '>')
-    .replace(/\\s+/g, ' ').trim();
+    .replace(/\s+/g, ' ').trim();
   const origin = new URL(startUrl).origin;
   const queue = [startUrl];
   const seen = new Set();
@@ -118,17 +118,17 @@ async function crawlBusinessWebsite(startUrl) {
         validateStatus: status => status >= 200 && status < 300,
       });
       const html = typeof response.data === 'string' ? response.data : '';
-      if (!/text\\/html|application\\/xhtml/i.test(response.headers['content-type'] || 'text/html')) continue;
-      const title = (html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i) || [,''])[1];
+      if (!/text\/html|application\/xhtml/i.test(response.headers['content-type'] || 'text/html')) continue;
+      const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [,''])[1];
       const description = (html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i) ||
         html.match(/<meta[^>]+content=["']([^"']*)["'][^>]+name=["']description["']/i) || [,''])[1];
       const text = cleanText(html).slice(0, 5500);
       if (text) pages.push({ url: url.href, title: cleanText(title), description, text });
       if (pages.length < 6) {
-        const links = [...html.matchAll(/<a\\b[^>]+href=["']([^"'#]+)["'][^>]*>/gi)]
+        const links = [...html.matchAll(/<a\b[^>]+href=["']([^"'#]+)["'][^>]*>/gi)]
           .map(match => match[1])
           .map(href => { try { return new URL(href, url.href); } catch { return null; } })
-          .filter(link => link && link.origin === origin && !/\\.(pdf|jpg|jpeg|png|gif|svg|webp|zip|css|js)(?:$|\\?)/i.test(link.pathname))
+          .filter(link => link && link.origin === origin && !/\.(pdf|jpg|jpeg|png|gif|svg|webp|zip|css|js)(?:$|\?)/i.test(link.pathname))
           .filter(link => !seen.has(link.href.split('#')[0]));
         links.sort((a,b) => Number(preferred.test(b.pathname)) - Number(preferred.test(a.pathname)));
         for (const link of links) {
@@ -622,7 +622,7 @@ app.post('/api/personas/generate', authenticateToken, async (req, res) => {
     let websitePages = [];
     if (websiteUrl && websiteUrl.trim()) {
       try {
-        const entered = websiteUrl.trim().match(/^https?:\\/\\//i) ? websiteUrl.trim() : 'https://' + websiteUrl.trim();
+        const entered = websiteUrl.trim().match(/^https?:\/\//i) ? websiteUrl.trim() : 'https://' + websiteUrl.trim();
         const parsed = new URL(entered);
         normalizedWebsiteUrl = parsed.href;
         websitePages = await crawlBusinessWebsite(normalizedWebsiteUrl);
@@ -631,7 +631,7 @@ app.post('/api/personas/generate', authenticateToken, async (req, res) => {
 URL: ${page.url}
 META DESCRIPTION: ${page.description || 'Not provided'}
 CONTENT: ${page.text}`
-        ).join('\\n\\n').slice(0, 26000);
+        ).join('\n\n').slice(0, 26000);
       } catch (siteErr) {
         console.warn('Website analysis unavailable:', normalizedWebsiteUrl || websiteUrl, siteErr.message);
         return res.status(422).json({ error: 'We could not analyse that website. Check that it is public and try again, or continue without a website.', details: siteErr.message });
