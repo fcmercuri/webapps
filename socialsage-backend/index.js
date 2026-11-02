@@ -1016,11 +1016,18 @@ Profile: ${persona.bio || 'Not specified'}
 Goals: ${(persona.goals || []).join('; ') || 'Not specified'}
 Pain points: ${(persona.painPoints || []).join('; ') || 'Not specified'}
 Industry: ${persona.industry || 'Not specified'}
+Role: ${persona.role || 'Not specified'}
+Buying stage: ${persona.buyingStage || 'Not specified'}
+Buying triggers: ${(persona.buyingTriggers || []).join('; ') || 'Not specified'}
+Objections: ${(persona.objections || []).join('; ') || 'Not specified'}
+Preferred channels: ${(persona.preferredChannels || []).join('; ') || 'Not specified'}
+Business-specific messaging angle: ${persona.messagingAngle || 'Not specified'}
+Evidence behind audience fit: ${persona.fitEvidence || 'Hypothesis; validate with real customer research.'}
 ${websiteContext}
 
 INSTRUCTIONS
 1. Treat the prompt title and description as the primary brief. Answer the question or execute the task they specify; do not replace it with a generic article.
-2. Make the output clearly relevant to this persona's motivations, objections, vocabulary and needs.
+2. Make the output clearly relevant to this persona's motivations, objections, vocabulary and needs. Use the buying stage to calibrate the CTA: educate a cold audience, build confidence for a warm audience, and offer a clear next step to a hot audience.\n3. Use the supplied business context and messaging angle to make the result specific to this company, not interchangeable with a competitor. Where the website does not substantiate a claim, omit it or mark it as something the business should verify.
 3. Follow the content format for the category: ${formatInstruction}
 4. Include concrete, useful detail and a natural next step. Avoid filler and unsupported statistics.
 5. Make the length appropriate to the requested format rather than forcing every deliverable into a long article.
