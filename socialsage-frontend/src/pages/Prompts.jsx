@@ -172,9 +172,18 @@ export default function Prompts() {
     }
   }
 
-  async function handleSaveGeneratedContent() {
-    // Content is already saved by the generation endpoint.
-    setError("");
+  async function handleSaveGeneratedContent(updatedContent) {
+    try {
+      const res = await api.put(`/api/content/${updatedContent._id}`, {
+        title: updatedContent.title,
+        body: updatedContent.body,
+      });
+      setGeneratedContent(res.data);
+      setError("");
+    } catch (err) {
+      setError(err.response?.data?.error || "Failed to save your edits. Please try again.");
+      throw err;
+    }
   }
 
   async function handleUpgradeStarter() {
