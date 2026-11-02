@@ -12,6 +12,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [backendConnecting, setBackendConnecting] = useState(false);
   const googleClickStarted = useRef(null);
 
   const BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -35,6 +36,7 @@ export default function Login() {
       console.info("[sAInthetic auth] Google OAuth completed", { oauthMs });
       const backendStarted = performance.now();
       setGoogleLoading(true);
+      setBackendConnecting(true);
       try {
         setError("");
 
@@ -53,6 +55,7 @@ export default function Login() {
       } catch (err) {
         setError(err.message || "Google login failed");
       } finally {
+        setBackendConnecting(false);
         setGoogleLoading(false);
       }
     },
@@ -250,6 +253,23 @@ export default function Login() {
               Forgot password?
             </span>
           </div>
+
+          {(loading || backendConnecting) && (
+            <div
+              role="status"
+              style={{
+                background: "rgba(167, 139, 250, 0.10)",
+                border: "1px solid rgba(167, 139, 250, 0.28)",
+                color: "#d8c5ff",
+                padding: "11px 13px",
+                borderRadius: "8px",
+                fontSize: "0.88rem",
+                lineHeight: 1.45,
+              }}
+            >
+              Waking up sAInthetic — this can take up to a minute after inactivity.
+            </div>
+          )}
 
           {error && (
             <div
