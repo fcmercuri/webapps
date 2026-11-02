@@ -68,7 +68,7 @@ export default function Register() {
       setError("Google sign up failed. Please try again.");
     },
     onNonOAuthError: () => {
-      setBackendConnecting(false);
+
       setGoogleLoading(false);
       setError("Google sign up was interrupted. Please try again.");
     },
@@ -240,7 +240,7 @@ export default function Register() {
           onClick={() => {
             setError("");
             googleClickStarted.current = performance.now();
-            setBackendConnecting(true);
+
             setGoogleLoading(true);
             loginWithGoogle();
           }}
