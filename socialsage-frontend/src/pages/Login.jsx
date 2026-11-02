@@ -197,6 +197,24 @@ export default function Login() {
           </p>
         </div>
 
+        <div
+          role="note"
+          style={{
+            background: "rgba(167, 139, 250, 0.10)",
+            border: "1px solid rgba(167, 139, 250, 0.28)",
+            color: "#d8c5ff",
+            padding: "11px 13px",
+            borderRadius: "8px",
+            fontSize: "0.86rem",
+            lineHeight: 1.45,
+            margin: "0 0 18px",
+            textAlign: "left",
+          }}
+        >
+          <strong style={{ display: "block", marginBottom: 3 }}>First visit may take a little longer</strong>
+          sAInthetic is on a free hosting plan. If the app has been inactive, the first connection can take up to a minute while the service wakes up.
+        </div>
+
         <form
           onSubmit={handleSubmit}
           style={{
