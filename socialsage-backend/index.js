@@ -750,27 +750,47 @@ app.post('/api/prompts/generate', authenticateToken, async (req, res) => {
 
     const systemPrompt = 'You are an expert content strategist. ' + langInstruction +
       ' Return ONLY a valid JSON array, without markdown or commentary.';
-    const userPrompt = `Create exactly 5 practical prompts that a marketer can use to understand and reach this specific buyer persona.
+    const userPrompt = `Act as a senior customer-insight researcher and conversion-focused content strategist. Create exactly 5 genuinely useful, specific content briefs for this buyer persona and the business described by their profile.
 
-PERSONA
-Name: ${persona.name || 'Not specified'}
+BUSINESS / INDUSTRY CONTEXT
 Industry: ${persona.industry || 'Not specified'}
-Age: ${persona.age || 'Not specified'}
-Bio: ${persona.bio || 'Not specified'}
+Website: ${persona.websiteUrl || 'Not supplied'}
+Persona: ${persona.name || 'Not specified'} — ${persona.role || 'role not specified'}
+Profile: ${persona.bio || 'Not specified'}
 Goals: ${goals.join('; ') || 'Not specified'}
 Pain points: ${painPoints.join('; ') || 'Not specified'}
+Buying stage: ${persona.buyingStage || 'Not specified'}
+Buying triggers: ${(persona.buyingTriggers || []).join('; ') || 'Not specified'}
+Objections: ${(persona.objections || []).join('; ') || 'Not specified'}
+Preferred channels: ${(persona.preferredChannels || []).join('; ') || 'Not specified'}
+Business-specific message angle: ${persona.messagingAngle || 'Not specified'}
 
-Make each prompt specific to this person's context, motivations, goals and pain points. Cover different useful angles such as research, objections, messaging, content and conversion. Avoid generic prompts that could apply to any audience.
+Create a balanced set of five distinct briefs across the buyer journey:
+1. One discovery / problem-awareness brief that answers a real question this buyer would ask.
+2. One evaluation brief that helps compare approaches or assess solutions.
+3. One objection-handling brief that addresses a genuine concern.
+4. One solution / conversion brief that connects the business's actual offer to the buyer's need without unsupported claims.
+5. One channel-native brief suited to a preferred channel (SEO, Social, Blog, Website or Email).
 
-Return ONLY this JSON structure:
+QUALITY BAR:
+- Every brief must be specific enough that a competent marketer could execute it without guessing the topic.
+- Use the persona's actual context, motivations, objections and buying stage. Do not just insert their name into a generic template.
+- Reflect the supplied business offer and positioning when known. Never invent product features, prices, proof, guarantees or customer results.
+- Prioritise useful search intent, customer language, decision criteria and commercial relevance over generic top-of-funnel topics.
+- Avoid duplicate angles. Make each brief produce a different practical asset or insight.
+- Titles should communicate the outcome, not generic labels such as "SEO content" or "Social post".
+- Descriptions must be complete, actionable instructions with audience, angle, key points and intended outcome.
+- Use natural ${language === 'it' ? 'Italian' : 'English'}.
+
+Return ONLY a valid JSON array with exactly 5 objects:
 [
   {
-    "title": "Short actionable title",
-    "description": "A complete, copy-ready prompt tailored to this persona",
+    "title": "Specific, outcome-led title",
+    "description": "A detailed, ready-to-execute brief describing the exact audience, question or problem, angle, points to cover, and desired action.",
     "category": "SEO"
   }
 ]
-Use only these categories: SEO, Social, Blog, Website, Email.`;
+Use only these categories: SEO, Social, Blog, Website, Email.`;;
 
     console.log('Generating persona-specific prompts:', persona.name, 'user:', req.userId);
     const content = await callPerplexity(systemPrompt, userPrompt, 'sonar');
