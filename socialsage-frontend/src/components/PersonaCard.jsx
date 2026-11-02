@@ -13,12 +13,11 @@ export default function PersonaCard({ persona, onClick, isLocked, onUnlock }) {
           padding: '30px',
           position: 'relative',
           overflow: 'hidden',
-          cursor: 'pointer',
+          cursor: 'default',
           backdropFilter: 'blur(10px)',
           filter: 'blur(3px)',
           opacity: 0.6
         }}
-        onClick={onUnlock}
       >
         {/* locked content unchanged */}
         <div style={{
@@ -31,17 +30,26 @@ export default function PersonaCard({ persona, onClick, isLocked, onUnlock }) {
           filter: 'none'
         }}>
           <div style={{ fontSize: '3rem', marginBottom: '10px' }}>🔒</div>
-          <div style={{
-            background: '#ffd945',
-            color: '#191919',
-            padding: '10px 20px',
-            borderRadius: '8px',
-            fontWeight: 700,
-            fontSize: '0.95rem',
-            filter: 'none'
-          }}>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              onUnlock?.();
+            }}
+            style={{
+              background: '#ffd945',
+              color: '#191919',
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '8px',
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              cursor: 'pointer',
+              filter: 'none'
+            }}
+          >
             Unlock Premium
-          </div>
+          </button>
         </div>
 
         <div style={{ fontSize: '3rem', marginBottom: '15px' }}>👤</div>
