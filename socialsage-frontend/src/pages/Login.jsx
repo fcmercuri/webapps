@@ -110,7 +110,7 @@ export default function Login() {
     width: "100%",
     padding: "12px 16px",
     background: "#ffffff",
-    border: "1.5px solid #232323",
+    border: "1.5px solid #e5e0ed",
     borderRadius: "10px",
     color: "#211a35",
     boxSizing: "border-box",
@@ -120,7 +120,7 @@ export default function Login() {
     <div
       style={{
         minHeight: "100vh",
-        background: "radial-gradient(ellipse at 50% 0%, #21183d 0%, #101015 48%, #0b0b0d 100%)",
+        background: "linear-gradient(180deg, #f7f5fc 0%, #f2effa 100%)",
         padding: "28px 16px",
         boxSizing: "border-box",
         display: "flex",
@@ -151,10 +151,11 @@ export default function Login() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         style={{
-          background: "rgba(20, 20, 22, 0.75)",
-          backdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
+          background: "#ffffff",
+          backdropFilter: "none",
+          WebkitBackdropFilter: "none",
           WebkitBackdropFilter: isSafari ? "blur(4px)" : "blur(12px)",
-          border: "1px solid rgba(255, 255, 255, 0.10)",
+          border: "1px solid #e8e2f3",
           borderRadius: "22px",
           padding: "38px 32px 30px",
           maxWidth: 440,
@@ -162,7 +163,7 @@ export default function Login() {
           boxSizing: "border-box",
           position: "relative",
           zIndex: 10,
-          boxShadow: "0 24px 80px rgba(0,0,0,0.48)",
+          boxShadow: "0 20px 60px rgba(48, 34, 83, 0.10)",
         }}
       >
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
@@ -180,7 +181,7 @@ export default function Login() {
             style={{
               fontSize: "2rem",
               fontWeight: 900,
-              background: "linear-gradient(96deg, #fff 60%, #ffd945 100%)",
+              background: "linear-gradient(96deg, #211a35 35%, #7041db 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               margin: 0,
@@ -196,8 +197,8 @@ export default function Login() {
         <div
           role="note"
           style={{
-            background: "rgba(167, 139, 250, 0.10)",
-            border: "1px solid rgba(167, 139, 250, 0.28)",
+            background: "#f5f0ff",
+            border: "1px solid #e5d9ff",
             color: "#59418b",
             padding: "11px 13px",
             borderRadius: "8px",
@@ -273,8 +274,8 @@ export default function Login() {
           {error && (
             <div
               style={{
-                background: "rgba(239,68,68,0.1)",
-                border: "1px solid rgba(239,68,68,0.3)",
+                background: "#fff1f2",
+                border: "1px solid #fecdd3",
                 color: "#be123c",
                 padding: "12px 14px",
                 borderRadius: "8px",
@@ -314,11 +315,11 @@ export default function Login() {
           }}
         >
           <div
-            style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
+            style={{ flex: 1, height: 1, background: "#e9e4f0" }}
           />
           <span style={{ color: "#8a8496" }}>or</span>
           <div
-            style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.08)" }}
+            style={{ flex: 1, height: 1, background: "#e9e4f0" }}
           />
         </div>
 
@@ -336,7 +337,7 @@ export default function Login() {
             width: "100%",
             background: "#ffffff",
             color: "#211a35",
-            border: "1.5px solid #232323",
+            border: "1.5px solid #e5e0ed",
             borderRadius: "10px",
             padding: "12px 16px",
             fontWeight: 600,
