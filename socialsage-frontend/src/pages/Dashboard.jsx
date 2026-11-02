@@ -87,10 +87,6 @@ export default function Dashboard() {
   }
 
   async function handlePersonaClick(persona) {
-    if (persona.isPremium && user?.plan !== 'pro') {
-      await handleUpgrade('price_1SdH2yPwyyuQCEbacY3y1487');
-      return;
-    }
     setSelectedPersona(persona);
     setGeneratedContent(null);
     try {
@@ -272,7 +268,7 @@ export default function Dashboard() {
             <section className="dashboard-section-block generated-personas-section">
               <div className="dashboard-section-heading"><div><h2>Your buyer personas</h2><p>Detailed profiles generated for your selected market.</p></div></div>
               <div className="personas-grid">
-                {personas.map(persona => <PersonaCard key={persona._id} persona={persona} onClick={() => handlePersonaClick(persona)} isLocked={persona.isPremium && user?.plan !== "pro"} onUnlock={() => handleUpgrade("price_PRO_REAL_ID")} />)}
+                {personas.map(persona => <PersonaCard key={persona._id} persona={persona} onClick={() => handlePersonaClick(persona)} isLocked={persona.isPremium && user?.plan !== "pro"} onUnlock={() => handleUpgrade("price_1SdH2yPwyyuQCEbacY3y1487")} />)}
               </div>
             </section>
           )}
